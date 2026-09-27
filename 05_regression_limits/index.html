@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="slide_files/libs/clipboard/clipboard.min.js"></script>
+<script src="slide_files/libs/quarto-html/tabby.min.js"></script>
+<script src="slide_files/libs/quarto-html/popper.min.js"></script>
+<script src="slide_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="slide_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="slide_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <title>第5回 線形回帰の限界</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-7ee8d28668e13494feddb3b516184cbd.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <link href="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">第5回 線形回帰の限界</h1>
+  <p class="subtitle">よく作れたはずのモデルが現場で外れる——なぜ？</p>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="場面検証では完璧だったのに" class="slide level2 section-title">
+<h2>場面：「検証では完璧だったのに」</h2>
+<p>交差検証で良い成績を出したモデルを現場に出しました。ところが大きく外れます。</p>
+<div id="6d087afd" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1068" height="264"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>直線が悪いのではありません。</strong> 見たことのない範囲へ延ばしたのが問題です。</p>
+</section>
+<section id="今回の問い" class="slide level2 section-title">
+<h2>今回の問い</h2>
+<p>クロスバリデーションで良いモデルを選んだのに、<strong>現場に出すと外れる</strong>。</p>
+<ul>
+<li><strong>外挿</strong>：訓練データの範囲外への予測</li>
+<li><strong>分布のずれ</strong>：訓練とテストが別の集団</li>
+<li><strong>多重共線性</strong>：説明変数どうしの強い相関</li>
+</ul>
+<p>線形回帰が失敗するのはどんなときか——今回はその「限界」を体系的に学ぶ。</p>
+</section>
+<section id="データの四角形似た列と外の行" class="slide level2 section-title">
+<h2>データの四角形：似た列と、外の行</h2>
+<div id="d7d8851e" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="453" height="281"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>今回の主役は2つ。<strong>ほぼ同じ2列</strong>（多重共線性）と、<strong>四角形の範囲の外にある行</strong>（外挿・分布のずれ）。</p>
+</section>
+<section id="動機なぜcvは現場の失敗を防げないか" class="slide level2 section-title">
+<h2>動機：なぜCVは現場の失敗を防げないか</h2>
+<ul>
+<li>訓練：<strong>夏のデータ</strong> → 運用：<strong>冬のデータ</strong>（分布が違う）</li>
+<li>訓練：<strong>20〜35℃</strong> の範囲 → 予測：<strong>−5〜10℃</strong>（範囲外）</li>
+</ul>
+<blockquote>
+<p>モデルは「知らないこと」について黙ることができない。 範囲外でも、自信満々に何らかの数値を返してしまう。</p>
+</blockquote>
+</section>
+<section id="具体化①外挿で予測が崩れる" class="slide level2 section-title">
+<h2>具体化①：外挿で予測が崩れる</h2>
+<p>訓練データの<strong>範囲外では、予測をまったく信頼できない</strong>。</p>
+<div id="bbb54bba" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" width="1065" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="外挿の数字を確かめる" class="slide level2">
+<h2>外挿の数字を確かめる</h2>
+<p>訓練範囲内と範囲外で、誤差は桁違いに変わる。</p>
+<div id="573a52ae" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-stdout">
+<pre><code>訓練範囲内（夏）の RMSE = 4.9
+範囲外（冬）の   RMSE = 136.1
+
+範囲外の誤差は範囲内の約 28 倍</code></pre>
+</div>
+</div>
+<div id="8ee5f7b9" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="896" height="183"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>モデルが悪いのではなく、<strong>範囲外を尋ねること自体が誤り</strong>。</p>
+</section>
+<section id="具体化②分布のずれ共変量シフト" class="slide level2 section-title">
+<h2>具体化②：分布のずれ（共変量シフト）</h2>
+<p>説明変数の<strong>分布が訓練と運用でずれる</strong>と、たとえ式が同じでも精度が落ちる。</p>
+<div id="6f0dd4f0" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png" width="944" height="285"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="共変量シフトと外挿の違い" class="slide level2">
+<h2>共変量シフトと外挿の違い</h2>
+<p>真の関係は両方で同じ——なのに運用RMSEが大きく悪化する。</p>
+<div id="dd15a25e" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-stdout">
+<pre><code>訓練 RMSE = 1.17
+運用 RMSE = 6.12   （約 5.2 倍）</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>外挿</strong>：予測点が訓練データの「外側」にある</li>
+<li><strong>共変量シフト</strong>：説明変数の<strong>分布の中心</strong>が訓練と運用でずれる</li>
+</ul>
+<p>訓練が密な領域で直線の当てはめがズレると、その誤差が薄い領域で拡大する。 実務例：モデルを作った時期と使う時期で、ユーザー属性が変わった。</p>
+</section>
+<section id="素朴な限界①cvスコアは良くても安心できない" class="slide level2 section-title">
+<h2>素朴な限界①：CVスコアは良くても安心できない</h2>
+<div id="a8fd5fbe" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="183"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>CV が測るのは<strong>同じ分布のなかでの</strong>汎化。範囲外と分布のずれは見ていない。</p>
+</section>
+<section id="素朴な限界②係数の解釈が壊れる" class="slide level2 section-title">
+<h2>素朴な限界②：係数の解釈が壊れる</h2>
+<p>「どの変数が効くか」を係数で語りたい——だが共線性があると係数は暴れる。</p>
+<ul>
+<li>予測精度は意外と落ちないことがある</li>
+<li>しかし<strong>係数の符号・大きさが不安定</strong>になり、解釈ができない</li>
+<li>「テレビ広告の効果は係数2.9」と言っても、データが少し変われば変わる</li>
+</ul>
+<p>予測が当たることと、係数が信頼できることは<strong>別問題</strong>。</p>
+</section>
+<section id="位置づけ第4回からの流れ" class="slide level2 section-title">
+<h2>位置づけ：第4回からの流れ</h2>
+<ul>
+<li><strong>第4回</strong>：CVで公正にモデルを選び、残差で当てはまりを診断した</li>
+<li><strong>第5回（今回）</strong>：その線形回帰が<strong>通用しなくなる条件</strong>を体系化する</li>
+<li><strong>第6回（次回）</strong>：限界の一部（共線性・過学習）に<strong>正則化</strong>で対処する</li>
+</ul>
+<p>今回は「敵を知る」回。診断の指標（VIF）と直感（外挿・シフト）を手に入れる。</p>
+</section>
+<section id="行列で見る列がほぼ平行だと壊れる" class="slide level2 section-title">
+<h2>行列で見る：列がほぼ平行だと壊れる</h2>
+<div id="ad8e3380" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="486" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>列 <span class="math inline">\mathbf{x}_{(1)}\approx\mathbf{x}_{(2)}</span> のとき <span class="math inline">\mathbf{X}^\top\mathbf{X}</span> の逆行列が不安定 → <strong>係数が暴れる</strong>。このあとの VIF はその度合いの指標。</p>
+</section>
+<section id="定義①多重共線性とは" class="slide level2 section-title">
+<h2>定義①：多重共線性とは</h2>
+<p><strong>多重共線性</strong>：説明変数どうしに強い線形相関がある状態。</p>
+<p><span class="math display">x_2 \approx a\,x_1 + b \quad\text{のような関係が成り立つ}</span></p>
+<ul>
+<li>「収入」と「資産」のように似た情報の変数を入れると起きる</li>
+<li>完全な共線性なら <span class="math inline">X^\top X</span> が<strong>逆行列を持たない</strong></li>
+<li>「ほぼ共線」でも解は不安定になる</li>
+</ul>
+</section>
+<section id="定義②vif分散拡大係数" class="slide level2 section-title">
+<h2>定義②：VIF（分散拡大係数）</h2>
+<p>共線性の強さを変数ごとに測る指標が <strong>VIF</strong>。</p>
+<p><span class="math display">\text{VIF}_j = \frac{1}{1 - R^2_j}</span></p>
+<div id="402513ac" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="170"></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="font-size:0.62em">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th><span class="math inline">R^2_j</span></th>
+<th>0</th>
+<th>0.5</th>
+<th>0.9</th>
+<th>0.95</th>
+<th>0.99</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VIF</td>
+<td>1</td>
+<td>2</td>
+<td>10</td>
+<td>20</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="定義③vifは係数の分散の倍率" class="slide level2 section-title">
+<h2>定義③：VIFは「係数の分散の倍率」</h2>
+<p><span class="math display">\operatorname{Var}(\hat\beta_j) = \frac{\sigma^2}{(n-1)\,s_j^2}\cdot\frac{1}{1-R^2_j} = (\text{共線性なしの分散})\times \text{VIF}_j</span></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>なぜ VIF &gt; 10 が目安か</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\text{VIF}=10</span> は <span class="math inline">R^2_j=0.9</span>、すなわち「ある変数が他の変数で90%説明できる」状態。 標準誤差は <span class="math inline">\sqrt{10}\approx 3.2</span> 倍になる。VIF<span class="math inline">=20</span>（<span class="math inline">R^2_j=0.95</span>）ならさらに膨らむ。 「10」は慣習的な目安で、厳しめに VIF<span class="math inline">&gt;5</span> を警戒する流儀もある。</p>
+</div>
+</div>
+</div>
+</section>
+<section id="導出①共線性で分散が膨らむ仕組み" class="slide level2 section-title">
+<h2>導出①：共線性で分散が膨らむ仕組み</h2>
+<div id="27b92e12" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="891" height="218"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>予測（合計）は安定でも、<strong>内訳が定まらない</strong>。</p>
+</section>
+<section id="導出②幾何で見る共線性" class="slide level2 section-title">
+<h2>導出②：幾何で見る共線性</h2>
+<p>ほぼ平行な2ベクトルへの分解は、わずかな揺れで係数が大きく変わる。</p>
+<div id="68d5c8e4" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" width="849" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>左は <span class="math inline">x_1,x_2</span> が直交して分解が一意。右はほぼ重なり、分解が一意に決まりにくい。</p>
+</section>
+<section id="手順vifの計算アルゴリズム" class="slide level2 section-title">
+<h2>手順：VIFの計算アルゴリズム</h2>
+<div id="db2a60c1" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="171"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>statsmodels</code> の <code>variance_inflation_factor</code> が1関数で実行する。</p>
+</section>
+<section id="pythonデモ①共線データを作る" class="slide level2 section-title">
+<h2>Pythonデモ①：共線データを作る</h2>
+<p><span class="math inline">x_2 \approx x_1</span>（相関 ≈ 0.99）の状況を人工的に作る。</p>
+<div id="932d5a2e" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>np.random.seed(<span class="dv">2</span>)</span>
+<span id="cb3-2"><a href=""></a>n <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb3-3"><a href=""></a>x1 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb3-4"><a href=""></a>x2 <span class="op">=</span> x1 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.1</span>, n)   <span class="co"># x2 ≈ x1</span></span>
+<span id="cb3-5"><a href=""></a>x3 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)          <span class="co"># 無関係な変数</span></span>
+<span id="cb3-6"><a href=""></a>y_mc <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> x1 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> x2 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb3-7"><a href=""></a></span>
+<span id="cb3-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"x1 と x2 の相関 = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x1, x2)[<span class="dv">0</span>,<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x1 と x2 の相関 = 0.994</code></pre>
+</div>
+</div>
+<p>真の関係は <span class="math inline">y = 3x_1 + 2x_2 + \text{誤差}</span>。x3 は <span class="math inline">y</span> に効かない。</p>
+</section>
+<section id="pythonデモ②vifを算出する" class="slide level2 section-title">
+<h2>Pythonデモ②：VIFを算出する</h2>
+<div id="06cd0ee3" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>X_mc <span class="op">=</span> pd.DataFrame({<span class="st">'x1'</span>: x1, <span class="st">'x2'</span>: x2, <span class="st">'x3'</span>: x3})</span>
+<span id="cb5-2"><a href=""></a>X_const <span class="op">=</span> sm.add_constant(X_mc)</span>
+<span id="cb5-3"><a href=""></a>vif <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb5-4"><a href=""></a>    <span class="st">'変数'</span>: X_mc.columns,</span>
+<span id="cb5-5"><a href=""></a>    <span class="st">'VIF'</span>: [variance_inflation_factor(X_const.values, i <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb5-6"><a href=""></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)],</span>
+<span id="cb5-7"><a href=""></a>})</span>
+<span id="cb5-8"><a href=""></a><span class="bu">print</span>(vif.to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>変数       VIF
+x1 89.719549
+x2 89.547588
+x3  1.019451</code></pre>
+</div>
+</div>
+<p>x1・x2 は桁違い。x3 は約1.0——<strong>共線性の場所が特定できる</strong>。</p>
+</section>
+<section id="pythonデモ③変数を足すと係数が暴れる" class="slide level2 section-title">
+<h2>Pythonデモ③：変数を足すと係数が暴れる</h2>
+<!-- 下の print は、上の ::: {.note-only} の中のチャンクで作った lr_a と lr_b を
+     使っている。ノートのチャンクも実行される（note.lua が落とすのは出力ではなく
+     Div）ので、この形で動く。ただし2つのチャンクの順序を入れ替えたり、上の
+     チャンクを消したりすると、revealjs / pptx / docx / ipynb のすべてで
+     NameError になりレンダリングが止まる。ナレーションが β2 の値
+     （約1.9）を読み上げるため、print だけは画面に残してある。 -->
+<div id="fd729b5d" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"x1 のみ        : β1 = </span><span class="sc">{</span>lr_a<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb7-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"x1 + x2 を投入 : β1 = </span><span class="sc">{</span>lr_b<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">,  β2 = </span><span class="sc">{</span>lr_b<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>x1 のみ        : β1 = 4.83
+x1 + x2 を投入 : β1 = 2.94,  β2 = 1.89</code></pre>
+</div>
+</div>
+<div id="c0937f38" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="889" height="147"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>同じデータ・同じ x1 なのに、隣の変数で係数が大きく変わる。</strong></p>
+</section>
+<section id="pythonデモ④ブートストラップで係数分布" class="slide level2 section-title">
+<h2>Pythonデモ④：ブートストラップで係数分布</h2>
+<p>データを少し変える（再標本化）と、係数がどれだけブレるか。</p>
+<div id="d07d0f8d" class="cell" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" width="1170" height="298"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="b848b4bc" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-stdout">
+<pre><code>β1 の標準偏差 = 0.88  （範囲 0.8〜5.7）
+β2 の標準偏差 = 0.87</code></pre>
+</div>
+</div>
+</section>
+<section id="解釈①共線なしと比べる" class="slide level2 section-title">
+<h2>解釈①：共線なしと比べる</h2>
+<p>無相関な2変数で同じことをすると、係数のブレは桁違いに小さい。</p>
+<div id="6c12bffa" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-stdout">
+<pre><code>共線あり  β1 の標準偏差 = 0.88
+共線なし  β1 の標準偏差 = 0.11
+
+ブレの比 = 約 8 倍</code></pre>
+</div>
+</div>
+<p>共線性があると、係数の標準偏差が約8倍に膨らむ——VIFが警告していた通り。</p>
+</section>
+<section id="解釈②実データでvifを見るカリフォルニア住宅" class="slide level2 section-title">
+<h2>解釈②：実データでVIFを見る（カリフォルニア住宅）</h2>
+<div id="17b8edb8" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-stdout">
+<pre><code>        変数      VIF
+  Latitude 9.297624
+ Longitude 8.962263
+  AveRooms 8.342786
+ AveBedrms 6.994995
+    MedInc 2.501295
+  HouseAge 1.241254
+Population 1.138125
+  AveOccup 1.008324</code></pre>
+</div>
+</div>
+<p>緯度と経度は地理的に連動し（相関 −0.92）、情報が重なっています。</p>
+</section>
+<section id="解釈③vifの読み方" class="slide level2 section-title">
+<h2>解釈③：VIFの読み方</h2>
+<p>VIF表は「どの変数の係数を信じてよいか」の地図になる。</p>
+<div id="1f4b71f4" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="147"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>収入（VIF≈2.5）や占有率の係数は比較的信頼できます。</p>
+</section>
+<section id="落とし穴①外挿と非線形の見落とし" class="slide level2 section-title">
+<h2>落とし穴①：外挿と非線形の見落とし</h2>
+<div id="6f47eb32" class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="195"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>「数字が返ってきた」ことを、当たっている証拠と勘違いしない。</p>
+</section>
+<section id="落とし穴②欠落変数バイアス" class="slide level2 section-title">
+<h2>落とし穴②：欠落変数バイアス</h2>
+<p>重要な変数を入れ忘れると、<strong>残った係数が真値からずれる</strong>。</p>
+<div id="3d25b237" class="cell" data-execution_count="28">
+<div class="cell-output cell-output-stdout">
+<pre><code>z を入れた完全モデル : x の係数 = 2.06  （真値=2）
+z を落としたモデル   : x の係数 = 4.31  ← 過大評価</code></pre>
+</div>
+</div>
+<div id="3c07c550" class="cell" data-execution_count="29">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png" class="quarto-figure quarto-figure-center" width="893" height="178"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">x</span> が <span class="math inline">z</span> の効果まで肩代わりします。共線性とは逆に、<strong>入れ忘れ</strong>が危ない。</p>
+</section>
+<section id="落とし穴③係数解釈の過信" class="slide level2 section-title">
+<h2>落とし穴③：係数解釈の過信</h2>
+<ul>
+<li><strong>他の変数を固定したとき</strong>の効果（実際には固定できないことが多い）</li>
+<li>スケールが違えば係数の大小は比較できない（標準化が必要）</li>
+<li>共線性があれば係数は不安定（VIFで確認）</li>
+<li>相関は因果ではない——係数が大きくても「効く」とは限らない</li>
+</ul>
+<p>「係数が大きいから重要」は、<strong>最も危険な早合点</strong>。</p>
+</section>
+<section id="発展①正則化で共線性に対処第6回" class="slide level2 section-title">
+<h2>発展①：正則化で共線性に対処（第6回）</h2>
+<p><span class="math display">\hat\beta_{\text{Ridge}} = \arg\min_\beta \|y - X\beta\|^2 + \lambda\|\beta\|^2</span></p>
+<ul>
+<li>解は <span class="math inline">(X^\top X + \lambda I)^{-1}X^\top y</span>——<span class="math inline">\lambda I</span> が<strong>逆行列を安定化</strong>する</li>
+<li>共線性で <span class="math inline">X^\top X</span> がほぼ特異でも、<span class="math inline">\lambda I</span> を足せば解ける</li>
+</ul>
+<p>詳しくは次回。今回の「係数が暴れる」問題への直接の処方箋になる。</p>
+</section>
+<section id="発展②非線形モデルへの動機" class="slide level2 section-title">
+<h2>発展②：非線形モデルへの動機</h2>
+<ul>
+<li><strong>多項式回帰</strong>：曲がりを項として明示（第4回で体験済み）</li>
+<li><strong>決定木・勾配ブースティング</strong>：区分的に複雑な関係を表現</li>
+<li>ただし非線形にしても<strong>外挿の危険は消えない</strong>——範囲外は依然として未知</li>
+</ul>
+<p>「線形の限界」を知ることが、次の手法を選ぶ判断力になる。</p>
+</section>
+<section id="できることできないこと" class="slide level2 section-title">
+<h2>できること・できないこと</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>問題</th>
+<th>検出方法</th>
+<th>対処法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>外挿</td>
+<td>説明変数の範囲確認</td>
+<td>範囲内でのみ使う</td>
+</tr>
+<tr class="even">
+<td>共変量シフト</td>
+<td>分布の比較</td>
+<td>再学習</td>
+</tr>
+<tr class="odd">
+<td>多重共線性</td>
+<td>VIF</td>
+<td>変数削除・正則化</td>
+</tr>
+<tr class="even">
+<td>欠落変数</td>
+<td>ドメイン知識・残差</td>
+<td>変数を追加する</td>
+</tr>
+</tbody>
+</table>
+<p><strong>線形回帰が「使える条件」を知ることが、正しい使い方の第一歩。</strong></p>
+</section>
+<section id="まとめ3点" class="slide level2 section-title">
+<h2>まとめ（3点）</h2>
+<ol type="1">
+<li><strong>外挿・共変量シフトはCVでは検出できない</strong>——適用範囲を事前に確認する</li>
+<li><strong>多重共線性は予測でなく解釈を壊す</strong>——VIF（<span class="math inline">1/(1-R^2_j)</span>）で診断する</li>
+<li><strong>係数を「効果」と読むのは慎重に</strong>——欠落変数・スケール・因果に注意</li>
+</ol>
+<p>CVのスコアが良くても、現場で外れる理由がこれで説明できる。</p>
+</section>
+<section class="slide level2">
+
+<p><strong>次回：多重共線性と過学習への対処——正則化（Ridge・Lasso）</strong></p>
+<p>今回の「係数が暴れる」問題に、ペナルティ項で正面から対処する。</p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="slide_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="slide_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
