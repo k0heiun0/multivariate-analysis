@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="slide_files/libs/clipboard/clipboard.min.js"></script>
+<script src="slide_files/libs/quarto-html/tabby.min.js"></script>
+<script src="slide_files/libs/quarto-html/popper.min.js"></script>
+<script src="slide_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="slide_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="slide_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <title>第8回 決定理論——しきい値を原理から決める</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-7ee8d28668e13494feddb3b516184cbd.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <link href="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">第8回 決定理論——しきい値を原理から決める</h1>
+  <p class="subtitle">0.5 はどこから来たのか——誤りのコストを決めれば最適なしきい値は式で出る</p>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="場面0.5のままでいいのか" class="slide level2 section-title">
+<h2>場面：0.5のままでいいのか</h2>
+<p>不正検知の仕組みを作った。モデルは各取引に「不正である確率」を返してくる。</p>
+<p>担当者に聞かれた。</p>
+<blockquote>
+<p>「しきい値、<strong>0.5のまま</strong>でいいんですか？」</p>
+</blockquote>
+<p>あなたは何と答えるか。0.5 という数はどこから来たのか。</p>
+</section>
+<section id="今回の問い" class="slide level2 section-title">
+<h2>今回の問い</h2>
+<p>第7回では「閾値はトレードオフのつまみだ」と学んだ。つまみがあることは分かった。</p>
+<ul>
+<li>では <strong>どこに合わせる</strong>のが正しいのか</li>
+<li>0.5 は誰が決めた既定値なのか</li>
+<li>「精度が高いモデル」が現場で役に立たないのはなぜか</li>
+</ul>
+<p>今回は、しきい値を<strong>原理から決める</strong>。決めるには新しい材料が1つ要る。</p>
+</section>
+<section id="データの四角形行の色が偏っている" class="slide level2">
+<h2>データの四角形：行の色が偏っている</h2>
+<div id="8985de2e" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="434" height="281"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>不均衡＝<strong>行の色の偏り</strong>。6000件のうち不正は約300件しかない。</p>
+</section>
+<section id="位置づけつまみの目盛りを決める" class="slide level2 section-title">
+<h2>位置づけ：つまみの目盛りを決める</h2>
+<ul>
+<li><strong>第7回</strong>：ロジスティック回帰が確率を出す。閾値はトレードオフのつまみだと見た</li>
+<li><strong>第7回</strong>：0.5 に固定する罠、不均衡で精度が壊れる罠を「落とし穴」として並べた</li>
+<li><strong>今回</strong>：つまみの<strong>目盛りを決める原理</strong>を作る。落とし穴には理由があった</li>
+</ul>
+<p>新しい材料は「<strong>誤りのコスト</strong>」。これを決めれば、しきい値は式で出る。</p>
+</section>
+<section id="定義①誤りには2種類ある" class="slide level2 section-title">
+<h2>定義①：誤りには2種類ある</h2>
+<div id="eb994e87" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1066" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>この2つは<strong>まったく違う損害</strong>を生む。それなのに精度は、両方を等しく「1件の誤り」と数える。</p>
+</section>
+<section id="定義②損失行列" class="slide level2 section-title">
+<h2>定義②：損失行列</h2>
+<div id="b3c0e524" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1057" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>この2つの数を決めることが、しきい値を決めることに等しい。</strong></p>
+</section>
+<section id="定義③期待損失" class="slide level2 section-title">
+<h2>定義③：期待損失</h2>
+<p>しきい値 <span class="math inline">t</span> を決めれば予測が決まり、損失の合計が決まる。1件あたりの平均が期待損失。</p>
+<p><span class="math display">R(t)=c_{\mathrm{FN}}\,P(\hat y=0,\,y=1)\;+\;c_{\mathrm{FP}}\,P(\hat y=1,\,y=0)</span></p>
+<blockquote>
+<p><strong>読み方</strong>：「見逃しのコスト × 見逃す確率」＋「誤警報のコスト × 誤警報の確率」。それだけ。</p>
+</blockquote>
+<p><span class="math inline">t</span> を上げれば陽性判定が減り、誤警報は減って見逃しが増える。<strong><span class="math inline">R(t)</span> を最小にする <span class="math inline">t</span> を探す。</strong></p>
+</section>
+<section id="デモrt-を描く" class="slide level2">
+<h2>デモ：R(t) を描く</h2>
+<div id="81e792ee" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>ts <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="fl">0.99</span>, <span class="dv">99</span>)</span>
+<span id="cb1-2"><a href=""></a>R_even <span class="op">=</span> [expected_loss(t, c_fp<span class="op">=</span><span class="dv">1</span>, c_fn<span class="op">=</span><span class="dv">1</span>) <span class="cf">for</span> t <span class="kw">in</span> ts]    <span class="co"># 誤りの重さが同じ</span></span>
+<span id="cb1-3"><a href=""></a>R_fn10 <span class="op">=</span> [expected_loss(t, c_fp<span class="op">=</span><span class="dv">1</span>, c_fn<span class="op">=</span><span class="dv">10</span>) <span class="cf">for</span> t <span class="kw">in</span> ts]   <span class="co"># 見逃しが10倍重い</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="9cc46e82" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" width="946" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じデータ・同じモデルなのに、<strong>コストを変えると最小点が動く。</strong></p>
+</section>
+<section id="最小点はどこにあるか" class="slide level2 section-title">
+<h2>最小点はどこにあるか</h2>
+<div id="79702b47" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"c_FN = c_FP  のとき最小の t : </span><span class="sc">{</span>ts[<span class="bu">int</span>(np.argmin(R_even))]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb2-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"c_FN = 10c_FP のとき最小の t: </span><span class="sc">{</span>ts[<span class="bu">int</span>(np.argmin(R_fn10))]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>c_FN = c_FP  のとき最小の t : 0.66
+c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
+</div>
+</div>
+<ul>
+<li>誤りの重さが同じなら、最小点は <strong>0.66</strong>——おおむね 0.5 の近く</li>
+<li>見逃しが10倍重いなら、最小点は <strong>ぐっと左</strong>へ動く</li>
+<li>見逃したくないのだから、<strong>迷ったら陽性と判定する</strong>——直感どおり</li>
+</ul>
+<p>では、この最小点は式で書けるのか。次の部で導く。</p>
+</section>
+<section id="再訪精度は特別な場合" class="slide level2 section-title">
+<h2>［再訪］精度は特別な場合</h2>
+<p>第7回で「全部正常と答えれば精度95%」という話をした。いま言い直せる。</p>
+<ul>
+<li>精度は「誤りの件数」を数えている。つまり <span class="math inline">c_{\mathrm{FP}}=c_{\mathrm{FN}}=1</span> と置いた期待損失</li>
+<li><strong>精度を使うとは、2種類の誤りが同じ重さだと宣言すること</strong></li>
+</ul>
+<p>精度が壊れるのではない。<strong>壊れた仮定を精度に押しつけていた</strong>のである。</p>
+</section>
+<section id="導出①天秤で考える" class="slide level2 section-title">
+<h2>導出①：天秤で考える</h2>
+<div id="3229d9a6" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="219"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>軽いほうの皿を選ぶ。</strong></p>
+<p><span class="math display">c_{\mathrm{FN}}\,p \;&gt;\; c_{\mathrm{FP}}\,(1-p)</span></p>
+</section>
+<section id="導出②最適しきい値" class="slide level2 section-title">
+<h2>導出②：最適しきい値</h2>
+<p>さきほどの不等式を <span class="math inline">p</span> について解く。移項して両辺を <span class="math inline">(c_{\mathrm{FP}}+c_{\mathrm{FN}})</span> で割るだけ。</p>
+<p><span class="math display">p \;&gt;\; \frac{c_{\mathrm{FP}}}{c_{\mathrm{FP}}+c_{\mathrm{FN}}} \;=\; t^{\star}</span></p>
+<blockquote>
+<p><strong>読み方</strong>：「誤警報のコストを、二つのコストの合計で割る」。それだけ。</p>
+</blockquote>
+<p>この式に<strong>データは出てこない。モデルも出てこない。</strong> 出てくるのはコストの比だけである。</p>
+</section>
+<section id="なぜ-0.5-が既定値なのか" class="slide level2 section-title">
+<h2>なぜ 0.5 が既定値なのか</h2>
+<div id="dab1174f" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="945" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">c_{\mathrm{FP}}=c_{\mathrm{FN}}</span> を代入すると <span class="math inline">t^{\star}=1/2</span>。</p>
+<p><strong>0.5 は「2種類の誤りが同じ重さ」という仮定の表明だった。</strong> 中立な既定値ではない。</p>
+</section>
+<section id="デモ理論値と実測を比べる" class="slide level2">
+<h2>デモ：理論値と実測を比べる</h2>
+<div id="980f3d44" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="bu">print</span>(<span class="st">" 比  実測の最小t  理論値t*"</span>)</span>
+<span id="cb4-2"><a href=""></a><span class="cf">for</span> r <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">50</span>]:</span>
+<span id="cb4-3"><a href=""></a>    R <span class="op">=</span> [expected_loss(t, c_fp<span class="op">=</span><span class="dv">1</span>, c_fn<span class="op">=</span>r) <span class="cf">for</span> t <span class="kw">in</span> ts]</span>
+<span id="cb4-4"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>r<span class="sc">:3d}</span><span class="ss">    </span><span class="sc">{</span>ts[<span class="bu">int</span>(np.argmin(R))]<span class="sc">:.2f}</span><span class="ss">       </span><span class="sc">{</span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>r)<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 比  実測の最小t  理論値t*
+  1    0.66       0.50
+  5    0.19       0.17
+ 10    0.14       0.09
+ 50    0.02       0.02</code></pre>
+</div>
+</div>
+<p><strong>ぴったりは一致しない。</strong> コスト比を上げると両方とも下がるという<strong>傾向は合う</strong>が、値はずれる。</p>
+<p>なぜか。<span class="math inline">t^{\star}</span> は「<strong>モデルが出す確率が正しい</strong>」という前提の上に立っているからである。</p>
+</section>
+<section id="落とし穴確率は正しいのか" class="slide level2 section-title">
+<h2>落とし穴：確率は正しいのか</h2>
+<div id="ad27415d" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="885" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>「確率0.3」と言った取引のうち本当に3割が不正でなければ、<span class="math inline">t^{\star}</span> もずれる。</strong></p>
+</section>
+<section id="再訪class_weight-は損失の重み" class="slide level2 section-title">
+<h2>［再訪］class_weight は損失の重み</h2>
+<p><span class="math display">w \;=\; \frac{c_{\mathrm{FN}}}{c_{\mathrm{FP}}}</span></p>
+<blockquote>
+<p><strong>読み方</strong>：「重みとは、見逃しが誤警報の何倍重いかという宣言」。</p>
+</blockquote>
+<p>つまり <strong><code>class_weight</code> としきい値は、同じことを別の場所でやっている</strong>。</p>
+</section>
+<section id="デモ重みとしきい値の等価性" class="slide level2">
+<h2>デモ：重みとしきい値の等価性</h2>
+<div id="b7d7b18a" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" width="730" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>別の設定なのに、<strong>ほぼ同じ混同行列</strong>になる。どちらも同じコスト比を表現しているからである。</p>
+</section>
+<section id="事前確率が損失に入る仕組み" class="slide level2 section-title">
+<h2>事前確率が損失に入る仕組み</h2>
+<div id="3707de10" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="195"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">P(\hat y=0,\,y=1)=\pi\;\cdot\;P(\hat y=0\mid y=1)</span></p>
+<blockquote>
+<p><strong>読み方</strong>：「陽性の割合 <span class="math inline">\pi</span> × 陽性のうち見逃す率」。<strong>割合 <span class="math inline">\pi</span> が式の中に入ってくる。</strong></p>
+</blockquote>
+</section>
+<section id="roc-が事前確率に不変な理由" class="slide level2 section-title">
+<h2>ROC が事前確率に不変な理由</h2>
+<div id="d8f84c9d" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="1068" height="264"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>TPR も FPR も<strong>クラスの中だけ</strong>を見ている。だから箱の大きさ（クラス比率）が変わっても動かない。</p>
+<p><strong>ROC は不均衡の影響を受けない。それは長所であり、同時に弱点でもある。</strong></p>
+</section>
+<section id="pr-が事前確率に依存する理由" class="slide level2 section-title">
+<h2>PR が事前確率に依存する理由</h2>
+<div id="0b449437" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" class="quarto-figure quarto-figure-center" width="1068" height="264"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>分母に <strong>FP（陰性由来）</strong> が混ざる。陰性が増えれば適合率は下がる。</p>
+<p><strong>適合率だけがクラス比率を見ている。</strong> だから PR 曲線は不均衡に反応する。</p>
+</section>
+<section id="デモ不均衡度を変えて比べる" class="slide level2">
+<h2>デモ：不均衡度を変えて比べる</h2>
+<div id="b8f27766" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>idx_pos <span class="op">=</span> np.where(y_test <span class="op">==</span> <span class="dv">1</span>)[<span class="dv">0</span>]</span>
+<span id="cb6-2"><a href=""></a>idx_neg <span class="op">=</span> np.where(y_test <span class="op">==</span> <span class="dv">0</span>)[<span class="dv">0</span>]</span>
+<span id="cb6-3"><a href=""></a>keep <span class="op">=</span> np.r_[idx_pos, idx_neg[:<span class="bu">len</span>(idx_pos) <span class="op">*</span> <span class="dv">4</span>]]   <span class="co"># 陽性20%にする</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="f7f27878" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" width="1195" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じモデル・同じ確率なのに、<strong>ROC は重なり PR はずれる。</strong> 理論のとおりである。</p>
+</section>
+<section id="再訪不均衡では-pr-を見る" class="slide level2 section-title">
+<h2>［再訪］不均衡では PR を見る</h2>
+<ul>
+<li>ROC は不均衡に<strong>反応しない</strong>。95:5 でも 50:50 でも同じ曲線になる</li>
+<li>現場で知りたいのは「陽性と言った中で本当に陽性は何割か」——これは適合率</li>
+<li><strong>その割合はクラス比率で変わる。だから PR を見る必要がある</strong></li>
+</ul>
+<p>経験則ではなく、<strong>どちらの量が事前確率を含むかという区別</strong>だった。</p>
+</section>
+<section id="auc-の意味を言い直す" class="slide level2 section-title">
+<h2>AUC の意味を言い直す</h2>
+<div id="8e8b5b56" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="219"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>AUC は「<strong>赤がどれだけ左に寄っているか</strong>」を測る量。しきい値を決めずに順位だけを見ている。</p>
+<p>決定理論の立場では、<strong>しきい値を決めた後の期待損失こそが本番</strong>である。</p>
+</section>
+<section id="帰結①精度のパラドックスの正体" class="slide level2 section-title">
+<h2>帰結①：精度のパラドックスの正体</h2>
+<div id="d50fd55c" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" class="quarto-figure quarto-figure-center" width="1005" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>精度が壊れるのではない。<strong>壊れた仮定を精度に押しつけていた</strong>のである。</p>
+</section>
+<section id="帰結②f1-は何を仮定しているか" class="slide level2 section-title">
+<h2>帰結②：F1 は何を仮定しているか</h2>
+<p><span class="math display">F_1=\frac{2\,\text{適合率}\cdot\text{再現率}}{\text{適合率}+\text{再現率}}</span></p>
+<blockquote>
+<p><strong>読み方</strong>：「適合率と再現率を、対等に扱って平均する」。</p>
+</blockquote>
+<p>適合率と再現率を<strong>対称に</strong>扱う。入れ替えても値が変わらない。 つまり F1 も暗黙に <span class="math inline">c_{\mathrm{FP}}\approx c_{\mathrm{FN}}</span> を置いている。</p>
+<p>コストが非対称な現場では、期待損失は最小にならない。</p>
+</section>
+<section id="デモf1-が最適でない例" class="slide level2">
+<h2>デモ：F1 が最適でない例</h2>
+<div id="77a6c71e" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>pred <span class="op">=</span> <span class="kw">lambda</span> t: (p_test <span class="op">&gt;=</span> t).astype(<span class="bu">int</span>)</span>
+<span id="cb7-2"><a href=""></a>f1s <span class="op">=</span> [f1_score(y_test, pred(t), zero_division<span class="op">=</span><span class="dv">0</span>) <span class="cf">for</span> t <span class="kw">in</span> ts]</span>
+<span id="cb7-3"><a href=""></a>losses <span class="op">=</span> [expected_loss(t, c_fp<span class="op">=</span><span class="dv">1</span>, c_fn<span class="op">=</span><span class="dv">10</span>) <span class="cf">for</span> t <span class="kw">in</span> ts]</span>
+<span id="cb7-4"><a href=""></a>t_f1, t_cost <span class="op">=</span> ts[<span class="bu">int</span>(np.argmax(f1s))], ts[<span class="bu">int</span>(np.argmin(losses))]</span>
+<span id="cb7-5"><a href=""></a><span class="bu">print</span>(<span class="ss">f"F1 最大の t=</span><span class="sc">{</span>t_f1<span class="sc">:.2f}</span><span class="ss">   "</span></span>
+<span id="cb7-6"><a href=""></a>      <span class="ss">f"期待損失最小の t=</span><span class="sc">{</span>t_cost<span class="sc">:.2f}</span><span class="ss">（理論 </span><span class="sc">{</span><span class="dv">1</span><span class="op">/</span><span class="dv">11</span><span class="sc">:.2f}</span><span class="ss">）"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>F1 最大の t=0.19   期待損失最小の t=0.14（理論 0.09）</code></pre>
+</div>
+</div>
+<div id="5cf7a54d" class="cell" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" width="1012" height="183"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>2本の最適点がずれています。</strong></p>
+</section>
+<section id="再訪層化分割が要る理由" class="slide level2 section-title">
+<h2>［再訪］層化分割が要る理由</h2>
+<div id="e7bb7a47" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png" class="quarto-figure quarto-figure-center" width="1129" height="253"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>無作為に切ると、区画ごとに<strong>陽性の割合 <span class="math inline">\pi</span> が揺れる</strong>。<span class="math inline">\pi</span> は期待損失に直接入る量だった。</p>
+<p><strong>比率が崩れると、評価そのものが別の問題を測ってしまう。</strong></p>
+</section>
+<section id="再訪リサンプリングの副作用" class="slide level2 section-title">
+<h2>［再訪］リサンプリングの副作用</h2>
+<div id="08e331f4" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="243"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>オーバーサンプリングは<strong>事前確率を書き換える操作</strong>である。</p>
+<p>だからモデルが出す確率の意味が変わり、<span class="math inline">t^{\star}</span> も変わる。<strong>やってはいけないのではなく、変わることを知って使う。</strong></p>
+</section>
+<section id="落とし穴コストは推定できるのか" class="slide level2 section-title">
+<h2>落とし穴：コストは推定できるのか</h2>
+<ul>
+<li><strong>この2つはデータからは決まらない。</strong> どれだけサンプルを集めても出てこない</li>
+<li>誤警報1件の手間、見逃し1件の損害——これは<strong>業務の問題</strong>である</li>
+<li>統計の仕事は「コストを決めればしきい値が決まる」と示すところまで</li>
+</ul>
+<p><strong>決めるのは現場である。</strong></p>
+</section>
+<section id="次回への布石" class="slide level2 section-title">
+<h2>次回への布石</h2>
+<p>今回はラベル <span class="math inline">y</span> があり、誤りに値段をつけられた。だから損失を定義できた。</p>
+<ul>
+<li>では<strong>ラベルが無いとき</strong>はどうなるのか</li>
+<li>何を誤りと呼べばよいのか。そもそも損失を定義できるのか</li>
+</ul>
+<p>次回（第9回）は教師あり学習と教師なし学習の違いを、<strong>損失関数の有無</strong>から整理する。</p>
+</section>
+<section id="再訪評価指標は何を仮定しているか" class="slide level2 smaller">
+<h2>［再訪］評価指標は何を仮定しているか</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>指標</th>
+<th>見ているもの</th>
+<th>暗黙の仮定</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>精度</td>
+<td>誤りの件数</td>
+<td><span class="math inline">c_{\mathrm{FP}}=c_{\mathrm{FN}}</span></td>
+</tr>
+<tr class="even">
+<td>F1</td>
+<td>適合率と再現率の調和平均</td>
+<td>2つの誤りをほぼ対等に扱う</td>
+</tr>
+<tr class="odd">
+<td>ROC・AUC</td>
+<td>クラス内の割合</td>
+<td>事前確率を見ない</td>
+</tr>
+<tr class="even">
+<td>PR・AP</td>
+<td>陽性と言った中の正解率</td>
+<td>事前確率に依存する</td>
+</tr>
+<tr class="odd">
+<td><strong>期待損失</strong></td>
+<td><strong>コストの合計</strong></td>
+<td><strong>仮定を自分で書く</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>どの指標も暗黙のコストを持っている</strong>と見る。</p>
+</section>
+<section id="まとめ決定理論が教えた3つ" class="slide level2">
+<h2>まとめ：決定理論が教えた3つ</h2>
+<div id="381f0227" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" class="quarto-figure quarto-figure-center" width="1129" height="253"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>出発点は統計ではなく<strong>業務</strong>である。コストを決めた時点で、後は式が答えを出す。</p>
+</section>
+<section id="まとめ3点" class="slide level2">
+<h2>まとめ（3点）</h2>
+<ol type="1">
+<li><strong>しきい値はコスト比で決まる</strong>—— <span class="math inline">t^{\star}=c_{\mathrm{FP}}/(c_{\mathrm{FP}}+c_{\mathrm{FN}})</span>。データにもモデルにも依存しない</li>
+<li><strong>0.5 は中立ではない</strong>——「2種類の誤りが同じ重さ」という仮定の表明だった</li>
+<li><strong>どの指標も暗黙のコストを持つ</strong>——精度も F1 も ROC も。仮定を自分で書けば、選ぶ必要がなくなる</li>
+</ol>
+<p>第7回で「つまみ」と呼んだものに、<strong>目盛りが付いた。</strong></p>
+</section>
+<section id="次回予告" class="slide level2">
+<h2>次回予告</h2>
+<p>次回（第9回）は、<strong>教師あり学習と教師なし学習</strong>の違いを整理する。</p>
+<ul>
+<li>今回は誤りに値段をつけられた。ラベル <span class="math inline">y</span> があったからである</li>
+<li>ラベルが無いとき、何を最小化すればよいのか</li>
+<li>同じ顧客データに両方のアプローチを当て、結果がどう違うかを見る</li>
+</ul>
+<p>損失関数があるかないか——<strong>その一点が2つの世界を分けている。</strong></p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="slide_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="slide_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

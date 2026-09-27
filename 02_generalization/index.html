@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="slide_files/libs/clipboard/clipboard.min.js"></script>
+<script src="slide_files/libs/quarto-html/tabby.min.js"></script>
+<script src="slide_files/libs/quarto-html/popper.min.js"></script>
+<script src="slide_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="slide_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="slide_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <title>第2回 データ分割と汎化性能</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-7ee8d28668e13494feddb3b516184cbd.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <link href="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">第2回 データ分割と汎化性能</h1>
+  <p class="subtitle">作ったモデルは本当に使えるのか？</p>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="場面テストでは90点だったのに" class="slide level2 section-title">
+<h2>場面：「テストでは90点だったのに」</h2>
+<p>試験前、過去問を完璧に暗記した学生がいます。過去問は満点。本番はどうでしょうか。</p>
+<div id="86519e39" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1066" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>同じ曲線です。</strong> 覚えた問題に合わせすぎると、本番で使えなくなります。</p>
+</section>
+<section id="今回の問い" class="slide level2 section-title">
+<h2>今回の問い</h2>
+<p>前回、カリフォルニア住宅価格のモデルを作り、訓練データで <span class="math inline">R^2 \approx 0.6</span> を得た。</p>
+<p><strong>しかし……</strong></p>
+<ul>
+<li>このモデルは、<strong>新しい住宅データ</strong>でも同じ精度が出るのか？</li>
+<li>訓練データへの当てはまりが良ければ、それで<strong>十分</strong>なのか？</li>
+</ul>
+<p>今回のキーワードは「<strong>汎化性能</strong>」。手元のデータではなく、<strong>未知のデータでの実力</strong>を測る。</p>
+</section>
+<section id="具体化手元のデータに合わせすぎると" class="slide level2">
+<h2>具体化：手元のデータに合わせすぎると</h2>
+<div id="8e8cfa3a" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" width="944" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>緑が真の関係、赤がデータの点を追いかけすぎたモデル。<strong>点には合うが、真の関係からはむしろ遠い。</strong></p>
+</section>
+<section id="データの四角形行を分けて汎化を測る" class="slide level2">
+<h2>データの四角形：行を分けて汎化を測る</h2>
+<div id="120487d6" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="434" height="281"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>汎化性能＝<strong>見ていない行</strong>での成績。「行を隠す」という操作が今回の主役。列は切らない。</p>
+</section>
+<section id="多項式の次数を上げるとどうなるか" class="slide level2">
+<h2>多項式の次数を上げるとどうなるか</h2>
+<div id="860cc00b" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png" width="1664" height="298"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>次数1は単純すぎ（<strong>未学習</strong>）、次数15は曲がりくねって<strong>過学習</strong>。テスト誤差は次数15で跳ね上がる。</p>
+</section>
+<section id="素朴な限界訓練誤差だけ見ると" class="slide level2">
+<h2>素朴な限界：訓練誤差だけ見ると</h2>
+<p>「訓練誤差が小さいモデルが良いモデル」と思うと、必ず一番複雑なモデルを選んでしまう。</p>
+<div id="8478999e" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" width="944" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>訓練誤差</strong>は単調に下がる。だが<strong>テスト誤差</strong>はU字。最小になる次数3こそが、本当に良いモデル。</p>
+</section>
+<section id="位置づけ今回の地図" class="slide level2">
+<h2>位置づけ：今回の地図</h2>
+<p>前回は<strong>モデルを作る</strong>段階。今回は<strong>正しく評価する</strong>段階。</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>第1回</th>
+<th>第2回（今回）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>目的</td>
+<td>モデルを当てはめる</td>
+<td>汎化性能を測る</td>
+</tr>
+<tr class="even">
+<td>見る数字</td>
+<td>訓練の <span class="math inline">R^2</span></td>
+<td>テストの <span class="math inline">R^2</span>・誤差</td>
+</tr>
+<tr class="odd">
+<td>問い</td>
+<td>どう予測するか</td>
+<td>信用できるか</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>評価を学ばないと、過学習を「良いモデル」と誤認する。</p>
+</blockquote>
+</section>
+<section id="行列で見る訓練とテストは行の分割" class="slide level2">
+<h2>行列で見る：訓練とテストは行の分割</h2>
+<div id="211fe410" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="462" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>分割とは <strong>行の集合を2つに分ける</strong> 操作。</p>
+</section>
+<section id="定義①汎化誤差" class="slide level2">
+<h2>定義①：汎化誤差</h2>
+<p><span class="math display">
+E_{\text{gen}} = \mathbb{E}_{(x,y)\sim P}\left[(y - \hat{f}(x))^2\right]
+</span></p>
+<ul>
+<li><span class="math inline">P</span>：母集団の分布（<strong>未知</strong>）</li>
+<li><span class="math inline">\hat{f}</span>：手元のデータで学習したモデル</li>
+</ul>
+<p>「手元の当てはまり」ではなく「未知データでの期待誤差」が真の目標。</p>
+</section>
+<section id="定義②訓練誤差は楽観的すぎる" class="slide level2">
+<h2>定義②：訓練誤差は楽観的すぎる</h2>
+<p><span class="math display">
+E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
+</span></p>
+<ul>
+<li><span class="math inline">\hat{f}</span> は <span class="math inline">x_i, y_i</span> に<strong>合うように作られた</strong></li>
+<li>だから汎化誤差より<strong>小さく出る</strong></li>
+</ul>
+<p>訓練誤差を信じると過学習を見逃す。<strong>別のデータで測る。</strong></p>
+</section>
+<section id="定義③ホールドアウト法traintest-分割" class="slide level2">
+<h2>定義③：ホールドアウト法（Train/Test 分割）</h2>
+<div id="b6fe9b63" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png" width="1071" height="207"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>テストデータは「未知データの代役」。だから学習に混ぜたら意味がなくなる。</p>
+</section>
+<section id="定義④train-valid-test-の3分割" class="slide level2">
+<h2>定義④：Train / Valid / Test の3分割</h2>
+<p>モデルを選ぶ作業でテストを使うと、テストが「未知」でなくなる。だから3つに分ける。</p>
+<div id="751782ef" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="195"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>検証は何度比べてもよい。だが<strong>テストは本番の試験</strong>。何度も見てはいけない。</p>
+</section>
+<section id="導出①バイアスバリアンス分解狙い" class="slide level2">
+<h2>導出①：バイアス・バリアンス分解（狙い）</h2>
+<p><span class="math display">
+\mathbb{E}\bigl[(y - \hat{f}(x))^2\bigr]
+</span></p>
+<blockquote>
+<p><strong>読み方</strong>：この一つの量を、意味の違う三つの部分に分けたい。</p>
+</blockquote>
+<p><span class="math inline">y = f(x) + \varepsilon</span>、ノイズは平均0・分散 <span class="math inline">\sigma^2</span> とする。 <strong>バイアス・バリアンス・ノイズ</strong>に分けていく。</p>
+</section>
+<section id="導出②項を足して引く" class="slide level2">
+<h2>導出②：項を足して引く</h2>
+<p>予測の平均 <span class="math inline">\bar{f} = \mathbb{E}[\hat{f}]</span> を引いて足す。</p>
+<p><span class="math display">
+\mathbb{E}\bigl[(y-\hat f)^2\bigr]
+= \mathbb{E}[(y-\bar f)^2] + \mathbb{E}[(\bar f-\hat f)^2]
+</span></p>
+<blockquote>
+<p><strong>読み方</strong>：誤差は「ノイズと真とのズレ」に「予測のばらつき」を足したもの。</p>
+</blockquote>
+<p>交差項は <span class="math inline">\bar f</span> が定数で <span class="math inline">\hat f</span> の平均が <span class="math inline">\bar f</span> なので <strong>0</strong>。 <strong>平均まわりに分けるのがコツ。</strong></p>
+</section>
+<section id="導出③分解の完成" class="slide level2">
+<h2>導出③：分解の完成</h2>
+<p><span class="math display">
+\mathbb{E}\bigl[(y-\hat f(x))^2\bigr]
+= (f-\bar f)^2 + \mathbb{E}[(\bar f-\hat f)^2] + \sigma^2
+</span></p>
+<blockquote>
+<p><strong>読み方</strong>：誤差は、バイアスの二乗とバリアンスとノイズの三つに分かれる。</p>
+</blockquote>
+<ul>
+<li><span class="math inline">\text{Bias}^2</span>：系統的なズレ（単純すぎると大）</li>
+<li><span class="math inline">\text{Variance}</span>：予測の暴れ（複雑すぎると大）</li>
+<li><span class="math inline">\sigma^2</span>：<strong>どんなモデルでも消せない下限</strong></li>
+</ul>
+</section>
+<section id="導出④トレードオフを図で見る" class="slide level2">
+<h2>導出④：トレードオフを図で見る</h2>
+<p>複雑さを上げると Bias は下がるが Variance は上がる。和が最小の点が最適。</p>
+<div id="8c27c2c0" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" width="944" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>未学習は Bias 過多、過学習は Variance 過多。<strong>ちょうど良い複雑さ</strong>を選ぶのが目標。</p>
+</section>
+<section id="手順①train_test_split-の使い方" class="slide level2">
+<h2>手順①：train_test_split の使い方</h2>
+<p><code>scikit-learn</code> なら分割は1行。現実データで訓練・テストの <span class="math inline">R^2</span> を比べてみる。</p>
+<div id="81b2b11a" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb1-2"><a href=""></a>    X_all, y_all, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb1-3"><a href=""></a>)</span>
+<span id="cb1-4"><a href=""></a><span class="bu">print</span>(<span class="ss">f"訓練: </span><span class="sc">{</span><span class="bu">len</span>(X_train)<span class="sc">}</span><span class="ss">件   テスト: </span><span class="sc">{</span><span class="bu">len</span>(X_test)<span class="sc">}</span><span class="ss">件"</span>)</span>
+<span id="cb1-5"><a href=""></a></span>
+<span id="cb1-6"><a href=""></a>model <span class="op">=</span> LinearRegression().fit(X_train, y_train)</span>
+<span id="cb1-7"><a href=""></a><span class="bu">print</span>(<span class="ss">f"訓練  R² = </span><span class="sc">{</span>model<span class="sc">.</span>score(X_train, y_train)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb1-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"テスト R² = </span><span class="sc">{</span>model<span class="sc">.</span>score(X_test, y_test)<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>訓練: 16512件   テスト: 4128件
+訓練  R² = 0.613
+テスト R² = 0.576</code></pre>
+</div>
+</div>
+</section>
+<section id="手順②評価の流れ擬似コード" class="slide level2">
+<h2>手順②：評価の流れ（擬似コード）</h2>
+<p>正しい評価は、いつも同じ順序で進む。</p>
+<div id="a3197965" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1191" height="219"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote>
+<p>鉄則：テストデータは「最後の一回」。学習にも選択にも使わない。</p>
+</blockquote>
+</section>
+<section id="デモ①次数-誤差の表" class="slide level2">
+<h2>デモ①：次数 × 誤差の表</h2>
+<div id="1b8fb268" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="bu">print</span>(tbl.to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 次数  訓練MSE  テストMSE 最小
+  1  22.39   18.99   
+  2   4.68   10.09   
+  3   2.86    5.08  ★
+  4   2.84    5.20   
+  5   2.37    7.12   
+  6   2.37    7.26   
+  7   2.36    7.49   
+  8   1.98   15.23   
+  9   1.96   11.25   
+ 10   1.92   25.48   </code></pre>
+</div>
+</div>
+<p>訓練MSEは下がり続け、テストMSEは<strong>次数3で最小</strong>になる。</p>
+</section>
+<section id="デモ②訓練とテストのギャップ" class="slide level2">
+<h2>デモ②：訓練とテストのギャップ</h2>
+<p>訓練誤差とテスト誤差の<strong>差</strong>そのものを見ると、過学習の進み具合が分かる。</p>
+<div id="aea199cb" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" width="944" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>低次数ではギャップは小さく、高次数になるほど<strong>全体として開いていく</strong>。<strong>ギャップの拡大こそ過学習の指標。</strong></p>
+</section>
+<section id="デモ③学習曲線データ量-誤差" class="slide level2">
+<h2>デモ③：学習曲線（データ量 × 誤差）</h2>
+<div id="f765eda7" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png" width="1424" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>過学習モデルもデータが増えると<strong>ギャップが縮む</strong>。データ量は薬になる。</p>
+</section>
+<section id="デモ④分割の乱数を変えてみる" class="slide level2">
+<h2>デモ④：分割の乱数を変えてみる</h2>
+<div id="f71c4f81" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" class="quarto-figure quarto-figure-center" width="1008" height="219"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じデータ・同じモデルでも <span class="math inline">R^2</span> は揺れる。<strong>1回の分割を過信しない。</strong></p>
+</section>
+<section id="解釈①u字曲線の読み方" class="slide level2">
+<h2>解釈①：U字曲線の読み方</h2>
+<p>テスト誤差のU字には、左右で意味がある。</p>
+<ul>
+<li><strong>左側（単純すぎ）</strong>：訓練もテストも誤差が大きい → <strong>未学習（high bias）</strong></li>
+<li><strong>右側（複雑すぎ）</strong>：訓練誤差は小、テスト誤差は大 → <strong>過学習（high variance）</strong></li>
+<li><strong>底</strong>：両者のバランスが取れた、最も汎化する複雑さ</li>
+</ul>
+<p>訓練誤差とテスト誤差を<strong>並べて</strong>見れば、今どちら側にいるかが判断できる。</p>
+</section>
+<section id="解釈②ギャップと学習曲線の読み方" class="slide level2">
+<h2>解釈②：ギャップと学習曲線の読み方</h2>
+<ul>
+<li><strong>ギャップが大</strong> → Variance 過多。データを増やすか単純化</li>
+<li><strong>両方高くギャップ小</strong> → Bias 過多。モデルを複雑に</li>
+<li>曲線が<strong>まだ収束していない</strong> → データを増やす価値あり</li>
+<li>曲線が<strong>早々に平ら</strong> → モデルを変える</li>
+</ul>
+<p>数字1個ではなく<strong>曲線の形</strong>で診断する。</p>
+</section>
+<section id="解釈③σ²-という越えられない壁" class="slide level2">
+<h2>解釈③：σ² という越えられない壁</h2>
+<p>学習曲線で両方の誤差が近づく先には、<strong>ノイズの下限 <span class="math inline">\sigma^2</span></strong> がある。</p>
+<div id="326f6392" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="231"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>誤差ゼロは目標ではない。</strong> <span class="math inline">\sigma^2</span> に届くまで Bias と Variance を削るのが目標。</p>
+</section>
+<section id="落とし穴①テストセットを何度も見る" class="slide level2">
+<h2>落とし穴①：テストセットを何度も見る</h2>
+<div id="db50789c" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="1021" height="219"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>見るほど数字は良くなる。<strong>だが実力は上がっていない。</strong> 選択は検証データで行う。</p>
+</section>
+<section id="落とし穴②データリーク" class="slide level2">
+<h2>落とし穴②：データリーク</h2>
+<p>テストの情報が訓練に<strong>漏れ込む</strong>と、評価は壊れる。気づきにくいのが厄介。</p>
+<div id="7f26929c" class="cell" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="207"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>前処理は訓練だけで <code>fit</code></strong>、テストには <code>transform</code> だけ（第3回）。</p>
+</section>
+<section id="落とし穴③分割の乱数依存" class="slide level2">
+<h2>落とし穴③：分割の乱数依存</h2>
+<p>デモ④で見たとおり、1回の分割の数字は揺れる。</p>
+<ul>
+<li>データが少ないほど、テストセットの「当たり外れ」が大きい</li>
+<li>たまたま簡単なテストを引けば <span class="math inline">R^2</span> は高く、難しいと低く出る</li>
+<li>1回の分割だけで「このモデルは良い／悪い」と断定するのは危険</li>
+</ul>
+<p>対策は「分割を変えて<strong>何度も</strong>評価し、平均する」こと。これが次回の伏線になる。</p>
+</section>
+<section id="発展①クロスバリデーションへの橋渡し" class="slide level2">
+<h2>発展①：クロスバリデーションへの橋渡し</h2>
+<p>「分割を何度も変えて平均」を体系化したのが<strong>クロスバリデーション（CV）</strong>。</p>
+<div id="1eaa8993" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png" width="1068" height="258"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>第4回で詳しく学ぶ。</strong></p>
+</section>
+<section id="発展②データ量と汎化の関係" class="slide level2">
+<h2>発展②：データ量と汎化の関係</h2>
+<p>学習曲線が教えてくれた、実務で効く原則。</p>
+<ul>
+<li><strong>データを増やす</strong>のは Variance を直接下げる確実な方法</li>
+<li>ただし Bias は減らない。単純すぎれば頭打ち</li>
+<li>どちらが必要かは<strong>学習曲線の傾き</strong>で判断する</li>
+</ul>
+<blockquote>
+<p>「とりあえず複雑なモデル」より「まずデータと評価設計」。</p>
+</blockquote>
+</section>
+<section id="まとめ" class="slide level2">
+<h2>まとめ</h2>
+<p><strong>Key Takeaways:</strong></p>
+<ol type="1">
+<li><p><strong>訓練誤差 ≠ 汎化誤差</strong> 訓練誤差は楽観的。未知データでの誤差を、テストデータで近似する</p></li>
+<li><p><strong>誤差は Bias² + Variance + σ² に分かれる</strong> 単純すぎれば Bias、複雑すぎれば Variance。和を最小にする複雑さを選ぶ</p></li>
+<li><p><strong>テストは最後の一度だけ・リーク厳禁・1回の分割を過信しない</strong> 評価の設計が、モデルそのものと同じくらい大切</p></li>
+</ol>
+</section>
+<section id="次回予告" class="slide level2">
+<h2>次回予告</h2>
+<p>汎化性能を測る土台ができた。だが今日の評価には弱点も残った。</p>
+<ul>
+<li>前処理を間違えると<strong>データリーク</strong>で評価が壊れる</li>
+<li>単位の違う変数をそのまま使うと、距離やスケールが歪む</li>
+</ul>
+<p><strong>第3回：データの前処理</strong>——標準化・スケーリングとリークの正しい扱いへ。</p>
+<p>そして「1回の分割を過信しない」は、<strong>第4回のクロスバリデーション</strong>で本格的に解決する。</p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="slide_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="slide_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

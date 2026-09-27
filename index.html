@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多変量解析</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a2e; --muted: #5a6472;
+    --line: #e2e6ea; --accent: #0066cc; --card: #f7f9fb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12151a; --fg: #e8ecf1; --muted: #9aa5b1;
+      --line: #262c35; --accent: #5aa9ff; --card: #1a1f27;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12151a; --fg: #e8ecf1; --muted: #9aa5b1;
+    --line: #262c35; --accent: #5aa9ff; --card: #1a1f27;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: "Noto Sans JP", system-ui, sans-serif;
+    line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 56px 16px 80px; }
+  header { border-bottom: 2px solid var(--fg); padding-bottom: 20px; margin-bottom: 32px; }
+  h1 { font-size: 2rem; margin: 0 0 6px; letter-spacing: .02em; }
+  .lead { color: var(--muted); margin: 0; font-size: .95rem; }
+  ol { list-style: none; margin: 0; padding: 0; counter-reset: n; }
+  li { margin-bottom: 10px; }
+  li a {
+    display: block; padding: 14px 18px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 8px;
+    text-decoration: none; color: inherit; transition: border-color .15s, transform .15s;
+  }
+  li a:hover, li a:focus-visible { border-color: var(--accent); transform: translateX(2px); }
+  .t { display: block; font-weight: 700; color: var(--accent); }
+  .s { display: block; color: var(--muted); font-size: .88rem; margin-top: 2px; }
+  footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
+            color: var(--muted); font-size: .85rem; }
+  .hint { background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+           padding: 12px 16px; margin-bottom: 28px; font-size: .88rem; color: var(--muted); }
+  kbd { background: var(--bg); border: 1px solid var(--line); border-bottom-width: 2px;
+         border-radius: 4px; padding: 1px 6px; font-size: .85em; font-family: inherit; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>多変量解析</h1>
+    <p class="lead">全15回の講義スライド</p>
+  </header>
+
+  <p class="hint">
+    各回をクリックすると、ブラウザでスライドが開きます。
+    <kbd>→</kbd> <kbd>←</kbd> でページ送り、<kbd>F</kbd> で全画面、<kbd>Esc</kbd> で一覧表示、
+    <kbd>S</kbd> で発表者ノートです。
+  </p>
+
+  <ol>
+    <li>
+      <a href="01_intro/">
+        <span class="t">第1回 多変量解析とは</span>
+        <span class="s">分析の目的から手法を選ぶ</span>
+      </a>
+    </li>
+    <li>
+      <a href="02_generalization/">
+        <span class="t">第2回 データ分割と汎化性能</span>
+        <span class="s">作ったモデルは本当に使えるのか？</span>
+      </a>
+    </li>
+    <li>
+      <a href="03_preprocessing/">
+        <span class="t">第3回 データの前処理</span>
+        <span class="s">生データをそのまま使うとどうなるか？</span>
+      </a>
+    </li>
+    <li>
+      <a href="04_regression_flow/">
+        <span class="t">第4回 射影行列——当てはめの幾何</span>
+        <span class="s">当てはめ値は y の影である——1つの行列から R²・自由度・てこ比・LOO が出てくる</span>
+      </a>
+    </li>
+    <li>
+      <a href="05_regression_limits/">
+        <span class="t">第5回 線形回帰の限界</span>
+        <span class="s">よく作れたはずのモデルが現場で外れる——なぜ？</span>
+      </a>
+    </li>
+    <li>
+      <a href="06_regularization/">
+        <span class="t">第6回 正則化</span>
+        <span class="s">高次元データで係数を安定させ、重要変数を絞る</span>
+      </a>
+    </li>
+    <li>
+      <a href="07_classification/">
+        <span class="t">第7回 分類モデル</span>
+        <span class="s">確率を出力してカテゴリを判断する——ロジスティック回帰・LDA・AUC</span>
+      </a>
+    </li>
+    <li>
+      <a href="08_classification_flow/">
+        <span class="t">第8回 決定理論——しきい値を原理から決める</span>
+        <span class="s">0.5 はどこから来たのか——誤りのコストを決めれば最適なしきい値は式で出る</span>
+      </a>
+    </li>
+    <li>
+      <a href="09_supervised_unsupervised/">
+        <span class="t">第9回 教師あり学習と教師なし学習</span>
+        <span class="s">正解ラベルがないとき何ができるか——同じ顧客データで2つのアプローチを比較する</span>
+      </a>
+    </li>
+    <li>
+      <a href="10_pca/">
+        <span class="t">第10回 主成分分析（PCA）</span>
+        <span class="s">数百の変数を人間が解釈できる形にできるか——64次元の手書き数字を2次元に圧縮する</span>
+      </a>
+    </li>
+    <li>
+      <a href="11_dim_reduction_flow/">
+        <span class="t">第11回 SVD と低ランク近似</span>
+        <span class="s">64次元を2次元にするとき、何を失っているのか——近似誤差を最小にする問題として解く</span>
+      </a>
+    </li>
+    <li>
+      <a href="12_clustering/">
+        <span class="t">第12回 クラスタリング</span>
+        <span class="s">似たものをどうグループ化するか——k-means・階層クラスタリング・距離尺度</span>
+      </a>
+    </li>
+    <li>
+      <a href="13_clustering_flow/">
+        <span class="t">第13回 モデル選択</span>
+        <span class="s">k は目的関数では決まらない——当てはめの外に基準を置く</span>
+      </a>
+    </li>
+    <li>
+      <a href="14_correspondence/">
+        <span class="t">第14回 コレスポンデンス分析</span>
+        <span class="s">カテゴリカルデータの関係をどう可視化するか——年齢層×好みのジャンルで読み解く</span>
+      </a>
+    </li>
+    <li>
+      <a href="15_contingency_flow/">
+        <span class="t">第15回 残差</span>
+        <span class="s">ズレを比べられるようにする（最終回）</span>
+      </a>
+    </li>
+  </ol>
+
+  <footer>
+    <p>このページは講義スライドの配布用です。</p>
+  </footer>
+</div>
+</body>
+</html>
