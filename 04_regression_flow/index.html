@@ -220,7 +220,7 @@
 </section>
 <section id="場面この1点抜いたら変わる" class="slide level2 section-title">
 <h2>場面：「この1点、抜いたら変わる？」</h2>
-<div id="2a3d3ca0" class="cell" data-execution_count="2">
+<div id="d1719725" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -243,7 +243,7 @@
 </section>
 <section id="データの四角形計画行列" class="slide level2">
 <h2>データの四角形：計画行列</h2>
-<div id="a15a0950" class="cell" data-execution_count="3">
+<div id="9cb59aa9" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -262,7 +262,7 @@
 <li><strong>第1回</strong>：それが「残差が <span class="math inline">\mathbf{X}</span> の列空間と直交する」ことだと<strong>図で見た</strong></li>
 <li><strong>今回</strong>：その射影を<strong>行列として取り出す</strong>。取り出すと何が分かるかを調べる</li>
 </ul>
-<div id="6a574910" class="cell" data-execution_count="4">
+<div id="2841f473" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -285,7 +285,7 @@
 <h2>定義②：H は何をする行列か</h2>
 <p><span class="math inline">\mathbf{H}</span> は <span class="math inline">\mathbf{y}</span> を<strong>列空間へ落とす写像</strong>。光を当てて影を作る操作。</p>
 <p>大事なのは、<strong><span class="math inline">\mathbf{H}</span> が <span class="math inline">\mathbf{X}</span> だけで決まる</strong>こと。<span class="math inline">\mathbf{y}</span> は使っていない。</p>
-<div id="2842ffcf" class="cell" data-execution_count="5">
+<div id="34296bc6" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -294,6 +294,21 @@
 </div>
 </div>
 </div>
+</section>
+<section id="定義③この回で使う道具" class="slide level2 section-title">
+<h2>定義③：この回で使う道具</h2>
+<p><span class="math display">
+\mathbf{u}^\top\mathbf{v}=0 \;\Longrightarrow\; \lVert\mathbf{u}+\mathbf{v}\rVert^2=\lVert\mathbf{u}\rVert^2+\lVert\mathbf{v}\rVert^2
+</span></p>
+<p><span class="math display">
+\operatorname{tr}\mathbf{A}=\sum_i a_{ii},
+\qquad
+\operatorname{tr}(\mathbf{A}\mathbf{B})=\operatorname{tr}(\mathbf{B}\mathbf{A})
+</span></p>
+<ul>
+<li><strong>直交・三平方の定理</strong>：第1回の定義④ → 導出①</li>
+<li><strong>トレースの巡回性</strong>：第1回の定義⑦ → 導出②</li>
+</ul>
 </section>
 <section id="性質①対称かつ冪等" class="slide level2 section-title">
 <h2>性質①：対称かつ冪等</h2>
@@ -306,18 +321,18 @@
 <section id="性質②残差は当てはめ値と直交" class="slide level2 section-title">
 <h2>性質②：残差は当てはめ値と直交</h2>
 <p>残差も行列で書ける。<span class="math inline">\mathbf{I}-\mathbf{H}</span> が残差を作る写像である。</p>
-<p><span class="math display">\mathbf{e}=\mathbf{y}-\hat{\mathbf{y}}=(\mathbf{I}-\mathbf{H})\mathbf{y}, \qquad \mathbf{H}(\mathbf{I}-\mathbf{H})=\mathbf{H}-\mathbf{H}^2=\mathbf{O}</span></p>
+<p><span class="math display">\mathbf{e}=(\mathbf{I}-\mathbf{H})\mathbf{y}, \qquad \mathbf{H}(\mathbf{I}-\mathbf{H})=\mathbf{H}-\mathbf{H}^2=\mathbf{O}</span></p>
 <blockquote>
 <p><strong>読み方</strong>：残差は <span class="math inline">\mathbf{I}-\mathbf{H}</span> を掛けたもの。当てはめ値と直角に交わる。</p>
 </blockquote>
 <ul>
 <li>積がゼロ行列。つまり <strong><span class="math inline">\hat{\mathbf{y}}</span> と <span class="math inline">\mathbf{e}</span> は直交する</strong></li>
-<li>第1回で図として見た「残差は列空間と直交」が、ここで代数になった</li>
+<li>第1回で図として見た「残差は列空間と直交」（定義③）が代数になった</li>
 </ul>
 </section>
 <section id="デモh-を作って確かめる" class="slide level2">
 <h2>デモ：H を作って確かめる</h2>
-<div id="1ad10920" class="cell" data-execution_count="6">
+<div id="132ae7a9" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"H の形: </span><span class="sc">{</span>H<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">   対称: </span><span class="sc">{</span>np<span class="sc">.</span>allclose(H, H.T)<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb1-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"冪等 H@H == H     : </span><span class="sc">{</span>np<span class="sc">.</span>allclose(H <span class="op">@</span> H, H)<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb1-3"><a href=""></a><span class="bu">print</span>(<span class="ss">f"残差と当てはめ値の内積: </span><span class="sc">{</span>e <span class="op">@</span> yhat<span class="sc">:.3e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -328,7 +343,7 @@
 </div>
 </div>
 <p><strong>性質は主張ではなく、数字で確かめられる事実である。</strong></p>
-<div id="4b5a484a" class="cell" data-execution_count="7">
+<div id="87d6699a" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -340,7 +355,7 @@
 </section>
 <section id="図で見る影としての当てはめ" class="slide level2">
 <h2>図で見る：影としての当てはめ</h2>
-<div id="de2ba8b5" class="cell" data-execution_count="8">
+<div id="17c57ee2" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -354,8 +369,8 @@
 <section id="導出①ピタゴラスの分解" class="slide level2 section-title">
 <h2>導出①：ピタゴラスの分解</h2>
 <p><span class="math display">\lVert\mathbf{y}-\bar{y}\mathbf{1}\rVert^2=\lVert\hat{\mathbf{y}}-\bar{y}\mathbf{1}\rVert^2+\lVert\mathbf{y}-\hat{\mathbf{y}}\rVert^2</span></p>
-<p>教科書の「変動の分解」は、<strong>直角三角形の話</strong>だった。</p>
-<div id="7aed0ba1" class="cell" data-execution_count="9">
+<p>教科書の「変動の分解」は、<strong>直角三角形の話</strong>（定義③の三平方の定理）だった。</p>
+<div id="edf0b3b8" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -371,7 +386,7 @@
 <blockquote>
 <p><strong>読み方</strong>：<span class="math inline">R^2</span> は、全体の長さに対する説明できた長さの二乗比。</p>
 </blockquote>
-<div id="ba9730fc" class="cell" data-execution_count="10">
+<div id="8fe32893" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>ybar <span class="op">=</span> yv.mean()</span>
 <span id="cb3-2"><a href=""></a>r2_geo <span class="op">=</span> np.<span class="bu">sum</span>((yhat <span class="op">-</span> ybar) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> np.<span class="bu">sum</span>((yv <span class="op">-</span> ybar) <span class="op">**</span> <span class="dv">2</span>)</span>
 <span id="cb3-3"><a href=""></a><span class="bu">print</span>(<span class="ss">f"幾何: </span><span class="sc">{</span>r2_geo<span class="sc">:.6f}</span><span class="ss">  sklearn: </span><span class="sc">{</span>r2_score(yv, yhat)<span class="sc">:.6f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -387,8 +402,8 @@
 \operatorname{tr}\mathbf{H}&amp;=\operatorname{tr}\bigl(\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\bigr)\\
 &amp;=\operatorname{tr}\bigl((\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\mathbf{X}\bigr)=\operatorname{tr}\mathbf{I}_p=p
 \end{aligned}</span></p>
-<p>答えは列の数そのもの。<strong><span class="math inline">\mathbf{H}</span> は使った自由度を記憶している。</strong></p>
-<div id="6c0f8f0a" class="cell" data-execution_count="11">
+<p>巡回性（定義③）で <span class="math inline">\mathbf{X}</span> を後ろへ回すだけ。<strong><span class="math inline">\mathbf{H}</span> は使った自由度を記憶している。</strong></p>
+<div id="950a4a8e" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -409,7 +424,7 @@
 </section>
 <section id="デモtrace-を数える" class="slide level2">
 <h2>デモ：trace を数える</h2>
-<div id="ad9ee33c" class="cell" data-execution_count="12">
+<div id="33da24ca" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"trace H = </span><span class="sc">{</span>np<span class="sc">.</span>trace(H)<span class="sc">:.6f}</span><span class="ss">   p = </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb5-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"対角成分の和 = </span><span class="sc">{</span>h<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:.6f}</span><span class="ss">   平均 h_ii = </span><span class="sc">{</span>h<span class="sc">.</span>mean()<span class="sc">:.6f}</span><span class="ss">  (= p/n)"</span>)</span>
 <span id="cb5-3"><a href=""></a><span class="bu">print</span>(<span class="ss">f"残差の自由度 n - p = </span><span class="sc">{</span>n <span class="op">-</span> p<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -420,7 +435,7 @@
 </div>
 </div>
 <p><strong><span class="math inline">200\times200</span> の行列なのに、中身の「大きさ」は <span class="math inline">p=4</span> しかない。</strong></p>
-<div id="17a4e5f3" class="cell" data-execution_count="13">
+<div id="e03190f9" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -441,7 +456,7 @@
 </section>
 <section id="デモてこ比の大きい点を見る" class="slide level2">
 <h2>デモ：てこ比の大きい点を見る</h2>
-<div id="baf5e1da" class="cell" data-execution_count="14">
+<div id="de9fe0c0" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -454,7 +469,7 @@
 </section>
 <section id="再訪第2回の交差検証を思い出す" class="slide level2">
 <h2>［再訪］第2回の交差検証を思い出す</h2>
-<div id="68dd9186" class="cell" data-execution_count="15">
+<div id="33e8a9c8" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -469,7 +484,7 @@
 <section id="問いloo-は-n-回必要か" class="slide level2 section-title">
 <h2>問い：LOO は n 回必要か</h2>
 <p>1回ごとに逆行列を解き直す。第2回で「重い」と述べたのはこのため。 <strong>本当に200回やらないと出ないのだろうか。</strong></p>
-<div id="3403071c" class="cell" data-execution_count="16">
+<div id="aa31ccb8" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -506,7 +521,7 @@
      revealjs / pptx / docx / ipynb のすべてで NameError になりレンダリングが
      止まる。ナレーションがこの print の数字を読み上げるため、
      print だけは画面に残してある。 -->
-<div id="75cb0e3f" class="cell" data-execution_count="18">
+<div id="32f73e10" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"閉形式 PRESS    : </span><span class="sc">{</span>press_closed<span class="sc">:.8f}</span><span class="ss">"</span>)</span>
 <span id="cb7-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"200回ループ PRESS: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(np.array(loo_naive) <span class="op">**</span> <span class="dv">2</span>)<span class="sc">:.8f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -515,7 +530,7 @@
 </div>
 </div>
 <p><strong>証明を追わなくても、主張が正しいことは確かめられる。</strong></p>
-<div id="53d280af" class="cell" data-execution_count="19">
+<div id="f0447e74" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -528,7 +543,7 @@
 <section id="再訪計算コストの意味が変わる" class="slide level2">
 <h2>［再訪］計算コストの意味が変わる</h2>
 <p><strong>線形回帰に限れば、LOO のほうが安い。</strong></p>
-<div id="01f33280" class="cell" data-execution_count="21">
+<div id="5ef2619c" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -537,6 +552,7 @@
 </div>
 </div>
 </div>
+<p><strong><span class="math inline">\mathbf{H}</span> は影を作る射影で、LOO は1回で測れる——ただ、この読みには落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="帰結①残差が小さく見える" class="slide level2 section-title">
 <h2>帰結①：残差が小さく見える</h2>
@@ -551,7 +567,7 @@
 <h2>帰結②：訓練誤差は楽観的</h2>
 <p>第2回の「訓練誤差は楽観的」を、<span class="math inline">\mathbf{H}</span> から説明できる。</p>
 <p><span class="math inline">\sum_i h_{ii}=p</span> ぶんの「自分に近づける力」が働いている。列を増やすほど増える。 <span class="math inline">R^2</span> が単調に増えるのも、同じことの言い換えである。</p>
-<div id="dbabd34a" class="cell" data-execution_count="22">
+<div id="633a5320" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -591,7 +607,7 @@
 </section>
 <section id="再訪標準化残差で読む" class="slide level2">
 <h2>［再訪］標準化残差で読む</h2>
-<div id="4761848b" class="cell" data-execution_count="23">
+<div id="c20115f7" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -654,7 +670,7 @@
 <section id="まとめh-が教えた4つのこと" class="slide level2">
 <h2>まとめ：H が教えた4つのこと</h2>
 <p><strong>バラバラに覚えていた4つが、1つの行列から出てきた。</strong></p>
-<div id="cf151682" class="cell" data-execution_count="24">
+<div id="4f02cfe2" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>

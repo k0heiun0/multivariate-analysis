@@ -220,7 +220,7 @@
 </section>
 <section id="場面身長と年収どっちが効く" class="slide level2 section-title">
 <h2>場面：「身長と年収、どっちが効く？」</h2>
-<div id="90ea6faa" class="cell" data-execution_count="2">
+<div id="24a05af8" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -242,7 +242,7 @@
 </section>
 <section id="扱うデータwine-データセット" class="slide level2">
 <h2>扱うデータ：Wine データセット</h2>
-<div id="e95614c7" class="cell" data-execution_count="3">
+<div id="dfd5c0bc" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-stdout">
 <pre><code>標本数 = 178 本,  説明変数 = 13 個,  クラス = 産地3種
                      min     max   mean    std
@@ -259,7 +259,7 @@ total_phenols       0.98    3.88   2.30   0.63
 </section>
 <section id="データの四角形列ごとに揃える" class="slide level2">
 <h2>データの四角形：列ごとに揃える</h2>
-<div id="0e66a55c" class="cell" data-execution_count="4">
+<div id="1b2e2693" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -272,7 +272,7 @@ total_phenols       0.98    3.88   2.30   0.63
 </section>
 <section id="散らばりを見るスケールの違い" class="slide level2">
 <h2>散らばりを見る：スケールの違い</h2>
-<div id="cbe30de6" class="cell" data-execution_count="5">
+<div id="6ec9da09" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -284,7 +284,7 @@ total_phenols       0.98    3.88   2.30   0.63
 </section>
 <section id="外れ値も混じっている" class="slide level2">
 <h2>外れ値も混じっている</h2>
-<div id="2b3fa8a0" class="cell" data-execution_count="6">
+<div id="479914c0" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -297,7 +297,7 @@ total_phenols       0.98    3.88   2.30   0.63
 </section>
 <section id="素朴な方法生データのまま-knn-で分類" class="slide level2">
 <h2>素朴な方法：生データのまま KNN で分類</h2>
-<div id="297de8c6" class="cell" data-execution_count="7">
+<div id="36e8ff0a" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>knn_raw <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">5</span>).fit(X_train, y_train)</span>
 <span id="cb2-2"><a href=""></a>acc_raw <span class="op">=</span> accuracy_score(y_test, knn_raw.predict(X_test))</span>
 <span id="cb2-3"><a href=""></a><span class="bu">print</span>(<span class="ss">f"生データ KNN の正解率 = </span><span class="sc">{</span>acc_raw<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -305,7 +305,7 @@ total_phenols       0.98    3.88   2.30   0.63
 <pre><code>生データ KNN の正解率 = 0.722</code></pre>
 </div>
 </div>
-<div id="e16f7ac7" class="cell" data-execution_count="8">
+<div id="e820f7f3" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -325,7 +325,7 @@ d(\mathbf{a},\mathbf{b}) = \sqrt{\sum_{j=1}^{p} (a_j - b_j)^2}
 </section>
 <section id="位置づけ前処理は解析フローの土台" class="slide level2">
 <h2>位置づけ：前処理は解析フローの「土台」</h2>
-<div id="16d6553b" class="cell" data-execution_count="9">
+<div id="355113df" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -338,7 +338,7 @@ d(\mathbf{a},\mathbf{b}) = \sqrt{\sum_{j=1}^{p} (a_j - b_j)^2}
 </section>
 <section id="行列で見る標準化は列の一括変換" class="slide level2">
 <h2>行列で見る：標準化は列の一括変換</h2>
-<div id="a3c97a83" class="cell" data-execution_count="10">
+<div id="9a92ba2a" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -391,7 +391,7 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 </section>
 <section id="手法を1変数で比較" class="slide level2">
 <h2>3手法を1変数で比較</h2>
-<div id="5fb1c03f" class="cell" data-execution_count="11">
+<div id="d53f8b77" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -404,13 +404,13 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 </section>
 <section id="外れ値があるとどう違うか" class="slide level2">
 <h2>外れ値があるとどう違うか</h2>
-<div id="287cd503" class="cell" data-execution_count="12">
+<div id="6ccbe9c2" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>data_out <span class="op">=</span> np.append(np.random.RandomState(<span class="dv">0</span>).normal(<span class="dv">50</span>, <span class="dv">5</span>, <span class="dv">100</span>), <span class="fl">500.0</span>)</span>
 <span id="cb4-2"><a href=""></a>z <span class="op">=</span> (data_out <span class="op">-</span> data_out.mean()) <span class="op">/</span> data_out.std()</span>
 <span id="cb4-3"><a href=""></a>med <span class="op">=</span> np.median(data_out)<span class="op">;</span> iqr <span class="op">=</span> np.subtract(<span class="op">*</span>np.percentile(data_out, [<span class="dv">75</span>, <span class="dv">25</span>]))</span>
 <span id="cb4-4"><a href=""></a>r <span class="op">=</span> (data_out <span class="op">-</span> med) <span class="op">/</span> iqr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="311245bd" class="cell" data-execution_count="13">
+<div id="f6118fa3" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -423,7 +423,7 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 </section>
 <section id="距離ベース手法はなぜスケールに敏感か図解" class="slide level2">
 <h2>距離ベース手法はなぜスケールに敏感か（図解）</h2>
-<div id="9865490a" class="cell" data-execution_count="14">
+<div id="adab6ea4" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -436,14 +436,14 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 </section>
 <section id="手順①fit-と-transform-を分ける" class="slide level2">
 <h2>手順①：fit と transform を分ける</h2>
-<div id="c19ba3f3" class="cell" data-execution_count="15">
+<div id="38439d67" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>sc <span class="op">=</span> StandardScaler().fit(X_train)     <span class="co"># 訓練データから平均・標準偏差を学習</span></span>
 <span id="cb5-2"><a href=""></a><span class="bu">print</span>(<span class="st">"平均:"</span>, sc.mean_[:<span class="dv">3</span>].<span class="bu">round</span>(<span class="dv">2</span>), <span class="st">" 標準偏差:"</span>, sc.scale_[:<span class="dv">3</span>].<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>平均: [12.96  2.29  2.36]  標準偏差: [0.81 1.06 0.27]</code></pre>
 </div>
 </div>
-<div id="71b34282" class="cell" data-execution_count="16">
+<div id="6f61d73c" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -461,7 +461,7 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 <li><strong>訓練だけ</strong>で <code>fit</code></li>
 <li>同じ統計量で両方を <code>transform</code></li>
 </ol>
-<div id="52d8608e" class="cell" data-execution_count="17">
+<div id="9f700cf8" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>sc <span class="op">=</span> StandardScaler().fit(X_train)        <span class="co"># ← fit は訓練のみ</span></span>
 <span id="cb7-2"><a href=""></a>X_train_s <span class="op">=</span> sc.transform(X_train)</span>
 <span id="cb7-3"><a href=""></a>X_test_s <span class="op">=</span> sc.transform(X_test)           <span class="co"># ← テストは transform だけ</span></span>
@@ -474,7 +474,7 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 </section>
 <section id="python-デモ①スケーリングで-knn-は伸びるか" class="slide level2">
 <h2>Python デモ①：スケーリングで KNN は伸びるか</h2>
-<div id="90c011dd" class="cell" data-execution_count="19">
+<div id="bb4b969b" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -487,7 +487,7 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 </section>
 <section id="python-デモ②3手法を横並びで比較" class="slide level2">
 <h2>Python デモ②：3手法を横並びで比較</h2>
-<div id="39a364eb" class="cell" data-execution_count="20">
+<div id="d66dd2cf" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -500,7 +500,7 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 </section>
 <section id="python-デモ③カテゴリ変数の符号化" class="slide level2">
 <h2>Python デモ③：カテゴリ変数の符号化</h2>
-<div id="8497313b" class="cell" data-execution_count="21">
+<div id="321ad981" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>city <span class="op">=</span> pd.DataFrame({<span class="st">'都市'</span>: [<span class="st">'東京'</span>, <span class="st">'大阪'</span>, <span class="st">'札幌'</span>, <span class="st">'東京'</span>, <span class="st">'大阪'</span>]})</span>
 <span id="cb9-2"><a href=""></a>enc <span class="op">=</span> OneHotEncoder(sparse_output<span class="op">=</span><span class="va">False</span>).fit(city[[<span class="st">'都市'</span>]])</span>
 <span id="cb9-3"><a href=""></a>out <span class="op">=</span> pd.DataFrame(enc.transform(city[[<span class="st">'都市'</span>]]).astype(<span class="bu">int</span>), columns<span class="op">=</span>enc.categories_[<span class="dv">0</span>])</span>
@@ -518,7 +518,7 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 </section>
 <section id="python-デモ④スケーリングはクラスタリングにも効く" class="slide level2">
 <h2>Python デモ④：スケーリングはクラスタリングにも効く</h2>
-<div id="5f8e6679" class="cell" data-execution_count="23">
+<div id="67b96a95" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -531,7 +531,7 @@ x''_j = \frac{x_j - \mathrm{median}_j}{\mathrm{IQR}_j}, \quad
 </section>
 <section id="結果の解釈①なぜ改善したか" class="slide level2">
 <h2>結果の解釈①：なぜ改善したか</h2>
-<div id="658f2a08" class="cell" data-execution_count="24">
+<div id="c524c251" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-stdout">
 <pre><code>生データの距離 ≒ proline だけで決まっていた：
 proline              314.9
@@ -575,7 +575,7 @@ color_intensity        2.3</code></pre>
 </tr>
 </tbody>
 </table>
-<div id="56de184b" class="cell" data-execution_count="25">
+<div id="2274274f" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -592,17 +592,18 @@ color_intensity        2.3</code></pre>
 <li><strong>決定木・ランダムフォレスト・勾配ブースティング</strong>は、各変数を独立に閾値分割するのでスケール不変</li>
 <li>一方、<strong>距離ベース（KNN・k-means）・正則化つき回帰（Ridge/Lasso）・PCA</strong>は敏感</li>
 </ul>
-<div id="6bcc540a" class="cell" data-execution_count="26">
+<div id="3e79de92" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-stdout">
 <pre><code>スケール敏感   : KNN, k-means, SVM, Ridge/Lasso, PCA, ニューラルネット
 スケール不変   : 決定木, ランダムフォレスト, 勾配ブースティング</code></pre>
 </div>
 </div>
-<p><strong>「とりあえず標準化」は安全だが、木系では効果がないと知っておく。</strong></p>
+<p><strong>「とりあえず標準化」は安全。ただし木系には効果なし。</strong></p>
+<p><strong>正解率は上がった——ただ、この読みには落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴①データリーク最重要" class="slide level2">
 <h2>落とし穴①：データリーク（最重要）</h2>
-<div id="ce772654" class="cell" data-execution_count="27">
+<div id="592569d3" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -615,7 +616,7 @@ color_intensity        2.3</code></pre>
 </section>
 <section id="落とし穴②リークは性能を水増しする" class="slide level2">
 <h2>落とし穴②：リークは性能を「水増し」する</h2>
-<div id="ca7023a9" class="cell" data-execution_count="29">
+<div id="17e91d3f" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -638,7 +639,7 @@ color_intensity        2.3</code></pre>
 <section id="発展①pipeline-で前処理をまとめる" class="slide level2">
 <h2>発展①：Pipeline で前処理をまとめる</h2>
 <p><code>Pipeline</code> は前処理とモデルを1つのオブジェクトに束ねる。</p>
-<div id="3cccdc16" class="cell" data-execution_count="30">
+<div id="dd500cdf" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>pipe <span class="op">=</span> Pipeline([</span>
 <span id="cb13-2"><a href=""></a>    (<span class="st">'scaler'</span>, StandardScaler()),</span>
 <span id="cb13-3"><a href=""></a>    (<span class="st">'knn'</span>, KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">5</span>)),</span>
@@ -655,7 +656,7 @@ color_intensity        2.3</code></pre>
 <section id="発展②前処理と交差検証の入れ子" class="slide level2">
 <h2>発展②：前処理と交差検証の入れ子</h2>
 <p>交差検証では、前処理を<strong>各 fold の中</strong>でやり直さねばならない。</p>
-<div id="10ad35fe" class="cell" data-execution_count="31">
+<div id="36132b35" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a>pipe <span class="op">=</span> Pipeline([(<span class="st">'sc'</span>, StandardScaler()),</span>
 <span id="cb15-2"><a href=""></a>                 (<span class="st">'knn'</span>, KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">5</span>))])</span>
 <span id="cb15-3"><a href=""></a>scores <span class="op">=</span> cross_val_score(pipe, X_all, y_all, cv<span class="op">=</span><span class="dv">5</span>)   <span class="co"># fold ごとに scaler を fit</span></span>

@@ -221,7 +221,7 @@
 <section id="場面優良顧客を見つけて" class="slide level2 section-title">
 <h2>場面：「優良顧客を見つけて」</h2>
 <p>上司にこう言われました。「優良顧客を見つけて施策を打ちたい」。さて、どうしますか。</p>
-<div id="662faa8f" class="cell" data-execution_count="3">
+<div id="f0ecf7ac" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -253,7 +253,7 @@
 </section>
 <section id="具体化②データを用意する" class="slide level2 section-title">
 <h2>具体化②：データを用意する</h2>
-<div id="07ede775" class="cell" data-execution_count="4">
+<div id="f7c1f571" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># 実データ(UCI Online Retail等)が取れない環境なので合成RFMを使用</span></span>
 <span id="cb1-2"><a href=""></a><span class="co"># 3つの潜在セグメントから生成（生成時のラベルは普段は観測できない想定）</span></span>
 <span id="cb1-3"><a href=""></a><span class="bu">print</span>(df_rfm.describe().<span class="bu">round</span>(<span class="dv">1</span>))</span>
@@ -276,7 +276,7 @@ max      148.7       22.6     342.9
 </section>
 <section id="データの四角形y-列があるかないか" class="slide level2 section-title">
 <h2>データの四角形：y 列があるか、ないか</h2>
-<div id="1fbe0691" class="cell" data-execution_count="5">
+<div id="d90f69dd" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -289,7 +289,7 @@ max      148.7       22.6     342.9
 </section>
 <section id="具体化③分布を眺める" class="slide level2 section-title">
 <h2>具体化③：分布を眺める</h2>
-<div id="c358a490" class="cell" data-execution_count="6">
+<div id="29dfe273" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -302,7 +302,7 @@ max      148.7       22.6     342.9
 </section>
 <section id="素朴な見方相関を確認する" class="slide level2 section-title">
 <h2>素朴な見方：相関を確認する</h2>
-<div id="433d4e2b" class="cell" data-execution_count="7">
+<div id="e9a14d5b" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="bu">print</span>(df_rfm.corr().<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           Recency  Frequency  Monetary
@@ -319,7 +319,7 @@ Monetary     -0.50       0.39      1.00</code></pre>
 <li>回帰・分類で習った道具は、すべて <strong>目的変数 <span class="math inline">y</span> が前提</strong> だった</li>
 <li>では——ラベルがないとき、本当に何もできないのか？</li>
 </ul>
-<div id="36773b1a" class="cell" data-execution_count="8">
+<div id="7c15c2cf" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -352,7 +352,7 @@ Monetary     -0.50       0.39      1.00</code></pre>
 </tr>
 </tbody>
 </table>
-<div id="a461cc30" class="cell" data-execution_count="9">
+<div id="ffc9753d" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -365,7 +365,7 @@ Monetary     -0.50       0.39      1.00</code></pre>
 </section>
 <section id="直感同じデータ違う出力" class="slide level2 section-title">
 <h2>直感：同じデータ、違う出力</h2>
-<div id="d5a647ec" class="cell" data-execution_count="10">
+<div id="b0b13671" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -379,7 +379,7 @@ Monetary     -0.50       0.39      1.00</code></pre>
 <section id="位置づけ4象限地図の中で" class="slide level2 section-title">
 <h2>位置づけ：4象限地図の中で</h2>
 <p>本講義 15 回は、機械学習の主要タスクを4象限で覆う。</p>
-<div id="d79593c9" class="cell" data-execution_count="11">
+<div id="d2bf2faf" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -391,7 +391,7 @@ Monetary     -0.50       0.39      1.00</code></pre>
 </section>
 <section id="行列で見る目的関数の引数が違う" class="slide level2 section-title">
 <h2>行列で見る：目的関数の引数が違う</h2>
-<div id="6329db14" class="cell" data-execution_count="12">
+<div id="89f39652" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -454,7 +454,7 @@ Monetary     -0.50       0.39      1.00</code></pre>
 </tr>
 </tbody>
 </table>
-<div id="53669b55" class="cell" data-execution_count="13">
+<div id="2ad67cd9" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -484,7 +484,7 @@ Monetary     -0.50       0.39      1.00</code></pre>
 </section>
 <section id="手順①教師ありの流れ" class="slide level2 section-title">
 <h2>手順①：教師ありの流れ</h2>
-<div id="609f1056" class="cell" data-execution_count="14">
+<div id="d6a34c8a" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -497,7 +497,7 @@ Monetary     -0.50       0.39      1.00</code></pre>
 </section>
 <section id="手順②教師なしの流れ" class="slide level2 section-title">
 <h2>手順②：教師なしの流れ</h2>
-<div id="b407b72d" class="cell" data-execution_count="15">
+<div id="e44300e7" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -510,7 +510,7 @@ Monetary     -0.50       0.39      1.00</code></pre>
 </section>
 <section id="pythonデモ①擬似ラベルを作る" class="slide level2 section-title">
 <h2>Pythonデモ①：擬似ラベルを作る</h2>
-<div id="e4c0a409" class="cell" data-execution_count="16">
+<div id="fe594653" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># 教師あり: 「優良顧客」を擬似ラベルとして定義</span></span>
 <span id="cb5-2"><a href=""></a><span class="co"># (Recency小・Frequency高・Monetary高 をまとめて優良とみなす合成セグメント0)</span></span>
 <span id="cb5-3"><a href=""></a>df_rfm[<span class="st">'is_loyal'</span>] <span class="op">=</span> (true_segment <span class="op">==</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
@@ -536,7 +536,7 @@ Name: count, dtype: int64
      上のチャンクを消したりすると、revealjs / pptx / docx / ipynb のすべてで
      NameError になりレンダリングが止まる。ナレーションがテスト精度（〇点九二八）を
      読み上げるため、print は画面に残してある。 -->
-<div id="b77a610e" class="cell" data-execution_count="18">
+<div id="e0ec1561" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>lr <span class="op">=</span> LogisticRegression(random_state<span class="op">=</span><span class="dv">42</span>, max_iter<span class="op">=</span><span class="dv">1000</span>)</span>
 <span id="cb7-2"><a href=""></a>lr.fit(X_tr_s, y_tr)</span>
 <span id="cb7-3"><a href=""></a>pred <span class="op">=</span> lr.predict(X_te_s)</span>
@@ -547,7 +547,7 @@ Name: count, dtype: int64
 <pre><code>テスト精度: 0.928  優良の再現率: 0.865  適合率: 0.889</code></pre>
 </div>
 </div>
-<div id="1fe2c2a7" class="cell" data-execution_count="19">
+<div id="63b64aeb" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -560,7 +560,7 @@ Name: count, dtype: int64
 </section>
 <section id="pythonデモ③教師なしセグメント発見" class="slide level2 section-title smaller">
 <h2>Pythonデモ③：教師なし——セグメント発見</h2>
-<div id="b279c2e7" class="cell" data-execution_count="20">
+<div id="7b547e8a" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># 教師なし: ラベルを一切使わずKMeansでセグメント発見</span></span>
 <span id="cb9-2"><a href=""></a>Xz <span class="op">=</span> StandardScaler().fit_transform(</span>
 <span id="cb9-3"><a href=""></a>    df_rfm[[<span class="st">'Recency'</span>, <span class="st">'Frequency'</span>, <span class="st">'Monetary'</span>]].values)</span>
@@ -583,7 +583,7 @@ cluster
 </section>
 <section id="pythonデモ③図発見されたセグメント" class="slide level2 section-title">
 <h2>Pythonデモ③図：発見されたセグメント</h2>
-<div id="8ba62a7f" class="cell" data-execution_count="21">
+<div id="dc812488" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -596,7 +596,7 @@ cluster
 </section>
 <section id="pythonデモ④結果を突き合わせる" class="slide level2 section-title smaller">
 <h2>Pythonデモ④：結果を突き合わせる</h2>
-<div id="dabf9bcd" class="cell" data-execution_count="22">
+<div id="0433733b" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># 教師ありラベル(is_loyal)とクラスタの交差集計</span></span>
 <span id="cb11-2"><a href=""></a>ct <span class="op">=</span> pd.crosstab(df_rfm[<span class="st">'cluster'</span>], df_rfm[<span class="st">'is_loyal'</span>],</span>
 <span id="cb11-3"><a href=""></a>                 rownames<span class="op">=</span>[<span class="st">'cluster'</span>], colnames<span class="op">=</span>[<span class="st">'優良ラベル'</span>])</span>
@@ -607,7 +607,7 @@ cluster
 <pre><code>ARI(クラスタ vs 真のセグメント): 0.474  シルエット係数: 0.298</code></pre>
 </div>
 </div>
-<div id="217dea25" class="cell" data-execution_count="23">
+<div id="7c4d27ff" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -620,7 +620,7 @@ cluster
 </section>
 <section id="解釈①評価のものさしが違う" class="slide level2 section-title">
 <h2>解釈①：評価のものさしが違う</h2>
-<div id="a7be6c1e" class="cell" data-execution_count="24">
+<div id="ae381cdc" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -633,7 +633,7 @@ cluster
 </section>
 <section id="解釈②精度0.928とari0.474は比べられない" class="slide level2 section-title">
 <h2>解釈②：精度0.928とARI0.474は比べられない</h2>
-<div id="5804d250" class="cell" data-execution_count="25">
+<div id="38b87ada" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -644,7 +644,7 @@ cluster
 </div>
 <p><strong>数字の大小だけで「教師ありの方が良い」とは言えません。</strong></p>
 </section>
-<section id="解釈③両者は補い合う" class="slide level2 section-title">
+<section id="解釈③両者は補い合う" class="slide level2 section-title smaller">
 <h2>解釈③：両者は補い合う</h2>
 <p>教師あり・教師なしは<strong>対立ではなく協力</strong>できる。</p>
 <ul>
@@ -653,6 +653,7 @@ cluster
 <li>高次元データを次元縮小（教師なし）してから分類（教師あり）</li>
 </ul>
 <p>「ラベルがないから無理」ではなく「ラベルがなければ別の道を使う」。</p>
+<p><strong>精度0.928の予測と3つの顧客像——ただ、これらの解釈には落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴①教師なしに正解はない" class="slide level2 section-title smaller">
 <h2>落とし穴①：教師なしに「正解」はない</h2>
@@ -660,7 +661,7 @@ cluster
      順序を入れ替えたり上のチャンクを消したりすると全出力形式で NameError になる。
      ナレーションがシルエットの値（〇点三六八・〇点二九八）を読み上げるため、
      print は画面に残してある。 -->
-<div id="1e364b8e" class="cell" data-execution_count="27">
+<div id="8d021a92" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">6</span>):</span>
 <span id="cb13-2"><a href=""></a>    lab <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>k, random_state<span class="op">=</span><span class="dv">42</span>, n_init<span class="op">=</span><span class="dv">10</span>).fit_predict(Xz2)</span>
 <span id="cb13-3"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"k=</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: シルエット=</span><span class="sc">{</span>silhouette_score(Xz2, lab)<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -671,7 +672,7 @@ k=4: シルエット=0.296
 k=5: シルエット=0.269</code></pre>
 </div>
 </div>
-<div id="190f397b" class="cell" data-execution_count="28">
+<div id="a1361271" class="cell" data-execution_count="28">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -708,7 +709,7 @@ k=5: シルエット=0.269</code></pre>
 <li><strong>半教師あり学習</strong>：少量のラベルで方向づけ、大量の無ラベルで形を補強</li>
 <li>ラベル付けは高コスト（人手・時間）なので、現実的な落とし所</li>
 </ul>
-<div id="23a504c1" class="cell" data-execution_count="29">
+<div id="44735fe5" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>

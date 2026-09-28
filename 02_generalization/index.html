@@ -221,7 +221,7 @@
 <section id="場面テストでは90点だったのに" class="slide level2 section-title">
 <h2>場面：「テストでは90点だったのに」</h2>
 <p>試験前、過去問を完璧に暗記した学生がいます。過去問は満点。本番はどうでしょうか。</p>
-<div id="86519e39" class="cell" data-execution_count="2">
+<div id="654e0512" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -244,7 +244,7 @@
 </section>
 <section id="具体化手元のデータに合わせすぎると" class="slide level2">
 <h2>具体化：手元のデータに合わせすぎると</h2>
-<div id="8e8cfa3a" class="cell" data-execution_count="3">
+<div id="0e5bb0cd" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -257,7 +257,7 @@
 </section>
 <section id="データの四角形行を分けて汎化を測る" class="slide level2">
 <h2>データの四角形：行を分けて汎化を測る</h2>
-<div id="120487d6" class="cell" data-execution_count="4">
+<div id="adfe57ab" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -270,7 +270,7 @@
 </section>
 <section id="多項式の次数を上げるとどうなるか" class="slide level2">
 <h2>多項式の次数を上げるとどうなるか</h2>
-<div id="860cc00b" class="cell" data-execution_count="5">
+<div id="3e222c1c" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -284,7 +284,7 @@
 <section id="素朴な限界訓練誤差だけ見ると" class="slide level2">
 <h2>素朴な限界：訓練誤差だけ見ると</h2>
 <p>「訓練誤差が小さいモデルが良いモデル」と思うと、必ず一番複雑なモデルを選んでしまう。</p>
-<div id="8478999e" class="cell" data-execution_count="6">
+<div id="4aacfa9e" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -330,7 +330,7 @@
 </section>
 <section id="行列で見る訓練とテストは行の分割" class="slide level2">
 <h2>行列で見る：訓練とテストは行の分割</h2>
-<div id="211fe410" class="cell" data-execution_count="7">
+<div id="fbfd8049" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -365,7 +365,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 </section>
 <section id="定義③ホールドアウト法traintest-分割" class="slide level2">
 <h2>定義③：ホールドアウト法（Train/Test 分割）</h2>
-<div id="b6fe9b63" class="cell" data-execution_count="8">
+<div id="7d1003b5" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -379,7 +379,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 <section id="定義④train-valid-test-の3分割" class="slide level2">
 <h2>定義④：Train / Valid / Test の3分割</h2>
 <p>モデルを選ぶ作業でテストを使うと、テストが「未知」でなくなる。だから3つに分ける。</p>
-<div id="751782ef" class="cell" data-execution_count="9">
+<div id="445471d8" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -390,6 +390,20 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 </div>
 <p>検証は何度比べてもよい。だが<strong>テストは本番の試験</strong>。何度も見てはいけない。</p>
 </section>
+<section id="定義⑤期待値分散独立" class="slide level2">
+<h2>定義⑤：期待値・分散・独立</h2>
+<p><span class="math display">
+\mathbb{E}[aX+bY+c]=a\,\mathbb{E}[X]+b\,\mathbb{E}[Y]+c
+</span></p>
+<p><span class="math display">
+X,\,Y\text{ が独立}\;\Longrightarrow\;\mathbb{E}[XY]=\mathbb{E}[X]\,\mathbb{E}[Y]
+</span></p>
+<ul>
+<li><strong>期待値</strong>：無限回の平均。和と定数倍を通す（<strong>線形</strong>）</li>
+<li><strong>分散</strong>：<span class="math inline">\operatorname{Var}(X)=\mathbb{E}\bigl[(X-\mathbb{E}[X])^2\bigr]</span></li>
+<li><strong>要点</strong>：<span class="math inline">\mathbb{E}\bigl[(X-\mathbb{E}[X])\,c\bigr]=0</span>（平均まわりのずれは消える）</li>
+</ul>
+</section>
 <section id="導出①バイアスバリアンス分解狙い" class="slide level2">
 <h2>導出①：バイアス・バリアンス分解（狙い）</h2>
 <p><span class="math display">
@@ -398,7 +412,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 <blockquote>
 <p><strong>読み方</strong>：この一つの量を、意味の違う三つの部分に分けたい。</p>
 </blockquote>
-<p><span class="math inline">y = f(x) + \varepsilon</span>、ノイズは平均0・分散 <span class="math inline">\sigma^2</span> とする。 <strong>バイアス・バリアンス・ノイズ</strong>に分けていく。</p>
+<p><span class="math inline">y = f(x) + \varepsilon</span>、ノイズは平均0・分散 <span class="math inline">\sigma^2</span>（定義⑤）とする。 <strong>バイアス・バリアンス・ノイズ</strong>に分けていく。</p>
 </section>
 <section id="導出②項を足して引く" class="slide level2">
 <h2>導出②：項を足して引く</h2>
@@ -410,7 +424,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 <blockquote>
 <p><strong>読み方</strong>：誤差は「ノイズと真とのズレ」に「予測のばらつき」を足したもの。</p>
 </blockquote>
-<p>交差項は <span class="math inline">\bar f</span> が定数で <span class="math inline">\hat f</span> の平均が <span class="math inline">\bar f</span> なので <strong>0</strong>。 <strong>平均まわりに分けるのがコツ。</strong></p>
+<p>交差項は定義⑤の要点どおり <strong>0</strong>（<span class="math inline">\hat f</span> の平均が <span class="math inline">\bar f</span>、<span class="math inline">y</span> は <span class="math inline">\hat f</span> と独立）。 <strong>平均まわりに分けるのがコツ。</strong></p>
 </section>
 <section id="導出③分解の完成" class="slide level2">
 <h2>導出③：分解の完成</h2>
@@ -430,7 +444,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 <section id="導出④トレードオフを図で見る" class="slide level2">
 <h2>導出④：トレードオフを図で見る</h2>
 <p>複雑さを上げると Bias は下がるが Variance は上がる。和が最小の点が最適。</p>
-<div id="8c27c2c0" class="cell" data-execution_count="10">
+<div id="10c997c8" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -444,7 +458,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 <section id="手順①train_test_split-の使い方" class="slide level2">
 <h2>手順①：train_test_split の使い方</h2>
 <p><code>scikit-learn</code> なら分割は1行。現実データで訓練・テストの <span class="math inline">R^2</span> を比べてみる。</p>
-<div id="81b2b11a" class="cell" data-execution_count="11">
+<div id="8e8b4129" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
 <span id="cb1-2"><a href=""></a>    X_all, y_all, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
 <span id="cb1-3"><a href=""></a>)</span>
@@ -463,7 +477,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 <section id="手順②評価の流れ擬似コード" class="slide level2">
 <h2>手順②：評価の流れ（擬似コード）</h2>
 <p>正しい評価は、いつも同じ順序で進む。</p>
-<div id="a3197965" class="cell" data-execution_count="12">
+<div id="665c63fe" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -478,7 +492,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 </section>
 <section id="デモ①次数-誤差の表" class="slide level2">
 <h2>デモ①：次数 × 誤差の表</h2>
-<div id="1b8fb268" class="cell" data-execution_count="14">
+<div id="0f09530f" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="bu">print</span>(tbl.to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 次数  訓練MSE  テストMSE 最小
@@ -499,7 +513,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 <section id="デモ②訓練とテストのギャップ" class="slide level2">
 <h2>デモ②：訓練とテストのギャップ</h2>
 <p>訓練誤差とテスト誤差の<strong>差</strong>そのものを見ると、過学習の進み具合が分かる。</p>
-<div id="aea199cb" class="cell" data-execution_count="15">
+<div id="54af4532" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -512,7 +526,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 </section>
 <section id="デモ③学習曲線データ量-誤差" class="slide level2">
 <h2>デモ③：学習曲線（データ量 × 誤差）</h2>
-<div id="f765eda7" class="cell" data-execution_count="16">
+<div id="a0c27f73" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -525,7 +539,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 </section>
 <section id="デモ④分割の乱数を変えてみる" class="slide level2">
 <h2>デモ④：分割の乱数を変えてみる</h2>
-<div id="f71c4f81" class="cell" data-execution_count="18">
+<div id="85ba10ac" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -534,7 +548,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 </div>
 </div>
 </div>
-<p>同じデータ・同じモデルでも <span class="math inline">R^2</span> は揺れる。<strong>1回の分割を過信しない。</strong></p>
+<p>同じデータ・同じモデルでも、分割しだいで <span class="math inline">R^2</span> は <strong>0.57〜0.62</strong> の幅で動く。20回の平均は <strong>約0.60</strong>。</p>
 </section>
 <section id="解釈①u字曲線の読み方" class="slide level2">
 <h2>解釈①：U字曲線の読み方</h2>
@@ -558,21 +572,22 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 </section>
 <section id="解釈③σ²-という越えられない壁" class="slide level2">
 <h2>解釈③：σ² という越えられない壁</h2>
-<p>学習曲線で両方の誤差が近づく先には、<strong>ノイズの下限 <span class="math inline">\sigma^2</span></strong> がある。</p>
-<div id="326f6392" class="cell" data-execution_count="19">
+<p>両方の誤差が近づく先には、<strong>ノイズの下限 <span class="math inline">\sigma^2</span></strong> がある。</p>
+<div id="a7ec8236" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="231"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="195"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>誤差ゼロは目標ではない。</strong> <span class="math inline">\sigma^2</span> に届くまで Bias と Variance を削るのが目標。</p>
+<p><strong>誤差ゼロは目標ではない。</strong> <span class="math inline">\sigma^2</span> に届くまで Bias と Variance を削る。</p>
+<p><strong>次数3が最もよく汎化すると読めた——ただ、これらの評価には落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴①テストセットを何度も見る" class="slide level2">
 <h2>落とし穴①：テストセットを何度も見る</h2>
-<div id="db50789c" class="cell" data-execution_count="20">
+<div id="2a391a98" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -586,7 +601,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 <section id="落とし穴②データリーク" class="slide level2">
 <h2>落とし穴②：データリーク</h2>
 <p>テストの情報が訓練に<strong>漏れ込む</strong>と、評価は壊れる。気づきにくいのが厄介。</p>
-<div id="7f26929c" class="cell" data-execution_count="21">
+<div id="e19993cf" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -610,7 +625,7 @@ E_{\text{train}} = \frac{1}{n}\sum_{i=1}^{n}\bigl(y_i - \hat{f}(x_i)\bigr)^2
 <section id="発展①クロスバリデーションへの橋渡し" class="slide level2">
 <h2>発展①：クロスバリデーションへの橋渡し</h2>
 <p>「分割を何度も変えて平均」を体系化したのが<strong>クロスバリデーション（CV）</strong>。</p>
-<div id="1eaa8993" class="cell" data-execution_count="22">
+<div id="4349ef85" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div>
 <figure>

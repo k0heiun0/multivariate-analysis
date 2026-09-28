@@ -220,7 +220,7 @@
 </section>
 <section id="場面関係はあるでどう関係する" class="slide level2 section-title">
 <h2>場面：「関係はある。で、どう関係する？」</h2>
-<div id="68db033e" class="cell" data-execution_count="2">
+<div id="e5e5094e" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -243,7 +243,7 @@
 <section id="具体化①分析する分割表" class="slide level2 section-title">
 <h2>具体化①：分析する分割表</h2>
 <p>行＝年齢層（4水準）、列＝好みのジャンル（4水準）の <strong>4×4 分割表</strong>（合成データ）。</p>
-<div id="13ec1645" class="cell" data-execution_count="3">
+<div id="5b3313ea" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="bu">print</span>(<span class="st">"クロス集計表（観測度数）:"</span>)</span>
 <span id="cb1-2"><a href=""></a><span class="bu">print</span>(ct)</span>
 <span id="cb1-3"><a href=""></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">総度数 N = </span><span class="sc">{</span>ct<span class="sc">.</span>values<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -262,7 +262,7 @@
 </section>
 <section id="データの四角形集計でできた小さな四角形" class="slide level2 section-title">
 <h2>データの四角形：集計でできた小さな四角形</h2>
-<div id="c104ce32" class="cell" data-execution_count="4">
+<div id="d59e2b33" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -276,7 +276,7 @@
 <section id="具体化②素朴に棒グラフで見る" class="slide level2 section-title">
 <h2>具体化②：素朴に棒グラフで見る</h2>
 <p>まず年代ごとに、ジャンルの <strong>人数</strong> を積み上げ棒グラフで眺めてみる。</p>
-<div id="dcd372b0" class="cell" data-execution_count="5">
+<div id="46f253c4" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -289,7 +289,7 @@
 </section>
 <section id="具体化③行プロファイルにすると見えてくる" class="slide level2 section-title smaller">
 <h2>具体化③：行プロファイルにすると見えてくる</h2>
-<div id="312889db" class="cell" data-execution_count="6">
+<div id="bda63557" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>row_profiles <span class="op">=</span> ct.div(ct.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>), axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb3-2"><a href=""></a><span class="bu">print</span>(<span class="st">"行プロファイル（各年代の好み比率）:"</span>)</span>
 <span id="cb3-3"><a href=""></a><span class="bu">print</span>(row_profiles.<span class="bu">round</span>(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -302,7 +302,7 @@
 70代以上   0.050  0.150     0.200  0.600</code></pre>
 </div>
 </div>
-<div id="6415f0a0" class="cell" data-execution_count="7">
+<div id="33b989bf" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -315,14 +315,14 @@
 </section>
 <section id="素朴な方法①χ²検定で関係の有無を見る" class="slide level2 section-title">
 <h2>素朴な方法①：χ²検定で「関係の有無」を見る</h2>
-<div id="b239c823" class="cell" data-execution_count="8">
+<div id="9df97931" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>chi2, p, dof, expected <span class="op">=</span> chi2_contingency(ct)</span>
 <span id="cb5-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"χ² = </span><span class="sc">{</span>chi2<span class="sc">:.2f}</span><span class="ss">   p = </span><span class="sc">{</span>p<span class="sc">:.2e}</span><span class="ss">   自由度 = </span><span class="sc">{</span>dof<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>χ² = 147.67   p = 2.68e-27   自由度 = 9</code></pre>
 </div>
 </div>
-<div id="279d8800" class="cell" data-execution_count="9">
+<div id="41701089" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -341,7 +341,7 @@
 <li>✗ どの年代がどれを好むかという <strong>パターン</strong></li>
 <li>✗ カテゴリ間の <strong>位置関係</strong></li>
 </ul>
-<div id="6b24c102" class="cell" data-execution_count="10">
+<div id="bba32ce3" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -358,7 +358,7 @@
 <li><strong>第12回</strong>：クラスタリング——距離に基づき個体をグループ化した</li>
 <li><strong>第14回（今回）</strong>：<strong>カテゴリカル変数</strong>の分割表を、低次元の図に圧縮する</li>
 </ul>
-<div id="07c57951" class="cell" data-execution_count="11">
+<div id="79d7d7f7" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -391,7 +391,7 @@
 <blockquote>
 <p><strong>読み方</strong>：総慣性は、カイ二乗値を全体の度数で割ったもの。ズレの総量を表す。</p>
 </blockquote>
-<div id="f349896f" class="cell" data-execution_count="12">
+<div id="2e480025" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>total_inertia <span class="op">=</span> chi2 <span class="op">/</span> ct.values.<span class="bu">sum</span>()</span>
 <span id="cb7-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"χ² = </span><span class="sc">{</span>chi2<span class="sc">:.2f}</span><span class="ss">   N = </span><span class="sc">{</span>ct<span class="sc">.</span>values<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">   総慣性 = χ²/N = </span><span class="sc">{</span>total_inertia<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -402,7 +402,7 @@
 </section>
 <section id="行列で見るca-も四角形の分解" class="slide level2 section-title">
 <h2>行列で見る：CA も四角形の分解</h2>
-<div id="3eb5d73e" class="cell" data-execution_count="13">
+<div id="ab220c00" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -415,12 +415,25 @@
 </section>
 <section id="定義④標準化残差行列とsvd" class="slide level2 section-title">
 <h2>定義④：標準化残差行列とSVD</h2>
-<p>計算の核は<strong>標準化残差行列</strong>への特異値分解。</p>
+<p>計算の核は<strong>標準化残差行列</strong>への特異値分解（第10回の定義⑤）。</p>
 <p><span class="math display">Z_{ij} = \frac{O_{ij} - E_{ij}}{\sqrt{E_{ij}}}, \qquad Z = U \Sigma V^\top</span></p>
 <blockquote>
 <p><strong>読み方</strong>：観測と期待の差を、期待の平方根で割る。各セルのズレを揃えた行列。</p>
 </blockquote>
 <p><span class="math inline">Z</span> の二乗和が <span class="math inline">\chi^2</span>。特異値の二乗が各軸の慣性になる。 PCA が共分散行列を分解したように、CA は残差行列を分解する。</p>
+</section>
+<section id="定義⑤重みと2種類の座標" class="slide level2 section-title">
+<h2>定義⑤：重みと2種類の座標</h2>
+<p><span class="math display">
+D_r=\operatorname{diag}\!\Bigl(\frac{r_1}{N},\dots,\frac{r_I}{N}\Bigr),
+\qquad
+D_c=\operatorname{diag}\!\Bigl(\frac{c_1}{N},\dots,\frac{c_J}{N}\Bigr)
+</span></p>
+<ul>
+<li><strong>行マス・列マス</strong>を対角に並べた行列。<span class="math inline">D_r^{-1/2}</span> は各行を <span class="math inline">\sqrt{r_i/N}</span> で割る</li>
+<li><strong>主座標</strong>：特異値 <span class="math inline">\Sigma</span> を掛けた座標。点どうしの距離＝χ² 距離</li>
+<li><strong>標準座標</strong>：<span class="math inline">\Sigma</span> を掛けない座標。軸ごとの広がりが 1</li>
+</ul>
 </section>
 <section id="導出①なぜχ²距離なのか" class="slide level2 section-title smaller">
 <h2>導出①：なぜχ²距離なのか</h2>
@@ -442,7 +455,7 @@
 </section>
 <section id="導出③行座標列座標を作る" class="slide level2 section-title">
 <h2>導出③：行座標・列座標を作る</h2>
-<p>SVD から行と列の<strong>2次元座標</strong>を取り出す。</p>
+<p>SVD から行と列の<strong>2次元座標</strong>（定義⑤の主座標）を取り出す。</p>
 <p><span class="math display">\text{行座標} \;\approx\; D_r^{-1/2}\,U\,\Sigma, \qquad \text{列座標} \;\approx\; D_c^{-1/2}\,V\,\Sigma</span></p>
 <blockquote>
 <p><strong>読み方</strong>：行と列の座標は、特異ベクトルに重みと特異値を掛けて作る。</p>
@@ -458,7 +471,7 @@
 <li>固有値 <span class="math inline">\lambda_k=\sigma_k^2/N</span> と <strong>寄与率</strong> を求める</li>
 <li>上位2軸で行座標・列座標を計算し、<strong>バイプロット</strong>を描く</li>
 </ol>
-<div id="46057bf4" class="cell" data-execution_count="14">
+<div id="a4b18952" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -472,7 +485,7 @@
 <section id="手順princeでχ²検定からcaへ" class="slide level2 section-title">
 <h2>手順：princeでχ²検定からCAへ</h2>
 <p><code>prince</code> ライブラリの <code>CA</code> を使う。まず固有値（各軸の慣性）を確認する。</p>
-<div id="e534694e" class="cell" data-execution_count="15">
+<div id="e69b0118" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>ca <span class="op">=</span> prince.CA(n_components<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb9-2"><a href=""></a>ca.fit(ct)</span>
 <span id="cb9-3"><a href=""></a><span class="bu">print</span>(ca.eigenvalues_summary)</span>
@@ -492,7 +505,7 @@ component
 <section id="pythonデモ①寄与率を読む" class="slide level2 section-title">
 <h2>Pythonデモ①：寄与率を読む</h2>
 <p>各軸が総慣性の何%を説明するか（寄与率）を取り出す。</p>
-<div id="7d9acb76" class="cell" data-execution_count="16">
+<div id="bfba383a" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>pov <span class="op">=</span> ca.percentage_of_variance_</span>
 <span id="cb11-2"><a href=""></a>cum <span class="op">=</span> ca.cumulative_percentage_of_variance_</span>
 <span id="cb11-3"><a href=""></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(pov)):</span>
@@ -507,7 +520,7 @@ component
 </section>
 <section id="pythonデモ②寄与率のスクリープロット" class="slide level2 section-title">
 <h2>Pythonデモ②：寄与率のスクリープロット</h2>
-<div id="7c6ebc1b" class="cell" data-execution_count="17">
+<div id="52e288c0" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -520,7 +533,7 @@ component
 </section>
 <section id="pythonデモ③行座標列座標" class="slide level2 section-title smaller">
 <h2>Pythonデモ③：行座標・列座標</h2>
-<div id="922546dc" class="cell" data-execution_count="18">
+<div id="d395d54f" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>row_c <span class="op">=</span> ca.row_coordinates(ct)</span>
 <span id="cb13-2"><a href=""></a>col_c <span class="op">=</span> ca.column_coordinates(ct)</span>
 <span id="cb13-3"><a href=""></a><span class="bu">print</span>(<span class="st">"行座標（年代）:"</span>)</span>
@@ -548,7 +561,7 @@ component
 <section id="pythonデモ④caバイプロット" class="slide level2 section-title">
 <h2>Pythonデモ④：CAバイプロット</h2>
 <p>行と列を <strong>同じ平面</strong> に重ねて描く。これがCAのバイプロット。</p>
-<div id="4da7cbaa" class="cell" data-execution_count="19">
+<div id="d550e05f" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -562,7 +575,7 @@ component
 <section id="解釈①第1軸が表す意味" class="slide level2 section-title">
 <h2>解釈①：第1軸が表す意味</h2>
 <p>右端に10-20代とアクション、左端に70代以上とニュースが並ぶ。</p>
-<div id="c6cfafe4" class="cell" data-execution_count="20">
+<div id="e4618cdd" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -575,7 +588,7 @@ component
 </section>
 <section id="解釈②行同士列同士の近さ" class="slide level2 section-title smaller">
 <h2>解釈②：行同士・列同士の近さ</h2>
-<div id="d2fd8b58" class="cell" data-execution_count="21">
+<div id="e72da1eb" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -585,7 +598,7 @@ component
 </div>
 </div>
 <p><strong>折れ線の形が似ている年代ほど、図の上でも近くに来ます。</strong> 列どうしの近さも同じ読み方になる。</p>
-<div id="b0055a14" class="cell" data-execution_count="22">
+<div id="199ecc21" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a><span class="co"># 行プロファイル間のχ²距離（近いほど好みが似る）</span></span>
 <span id="cb15-2"><a href=""></a><span class="bu">print</span>(<span class="st">"10-20代 vs 30-40代 の第1軸座標:"</span>,</span>
 <span id="cb15-3"><a href=""></a>      <span class="bu">round</span>(row_c.iloc[<span class="dv">0</span>, <span class="dv">0</span>], <span class="dv">3</span>), <span class="bu">round</span>(row_c.iloc[<span class="dv">1</span>, <span class="dv">0</span>], <span class="dv">3</span>))</span>
@@ -597,10 +610,10 @@ component
 </div>
 </div>
 </section>
-<section id="解釈③行と列の近さは過剰選択" class="slide level2 section-title smaller">
-<h2>解釈③：行と列の近さは「過剰選択」</h2>
-<p><strong>最重要</strong>：行点と列点の距離は、そのまま距離として読めない。 行と列が<strong>近い</strong>＝その年代がそのジャンルを<strong>期待より多く選んでいる</strong>という意味。</p>
-<div id="e53c951c" class="cell" data-execution_count="23">
+<section id="解釈③近さは過剰選択" class="slide level2 section-title smaller">
+<h2>解釈③：近さは「過剰選択」</h2>
+<p>行と列が<strong>同じ側に並ぶ</strong>＝その年代がそのジャンルを<strong>期待より多く選んでいる</strong>（過剰選択）。</p>
+<div id="f10d7947" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href=""></a>ratio <span class="op">=</span> pd.DataFrame(ct.values <span class="op">/</span> expected, index<span class="op">=</span>ct.index, columns<span class="op">=</span>ct.columns)</span>
 <span id="cb17-2"><a href=""></a><span class="bu">print</span>(ratio.<span class="bu">round</span>(<span class="dv">2</span>))   <span class="co"># 1より大きい = 期待より多く選んでいる</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -611,7 +624,7 @@ component
 70代以上    0.23  0.54      0.88  2.15</code></pre>
 </div>
 </div>
-<div id="f9202a3c" class="cell" data-execution_count="24">
+<div id="63d7149a" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -624,7 +637,7 @@ component
 </section>
 <section id="解釈④標準化残差で裏づける" class="slide level2 section-title smaller">
 <h2>解釈④：標準化残差で裏づける</h2>
-<div id="68699d58" class="cell" data-execution_count="25">
+<div id="cade6229" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href=""></a>Z <span class="op">=</span> (ct.values <span class="op">-</span> expected) <span class="op">/</span> np.sqrt(expected)</span>
 <span id="cb19-2"><a href=""></a><span class="bu">print</span>(<span class="st">"標準化残差（+大 = 強い正の関連）:"</span>)</span>
 <span id="cb19-3"><a href=""></a><span class="bu">print</span>(pd.DataFrame(Z, index<span class="op">=</span>ct.index, columns<span class="op">=</span>ct.columns).<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -637,7 +650,7 @@ component
 70代以上   -3.56 -2.43     -0.58  6.09</code></pre>
 </div>
 </div>
-<div id="04668ab6" class="cell" data-execution_count="26">
+<div id="eff183c7" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -646,7 +659,8 @@ component
 </div>
 </div>
 </div>
-<p><strong>バイプロットで近い行-列が、最大の正残差セルと一致します。</strong></p>
+<p>バイプロットで近い行-列が、最大の正残差セルと一致する。</p>
+<p><strong>若年×娯楽 ⇔ 高齢×報道の構造が残差でも裏づけられた——ただ、これらの解釈には落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴①近さの解釈を混同しない" class="slide level2 section-title smaller">
 <h2>落とし穴①：近さの解釈を混同しない</h2>
@@ -677,7 +691,7 @@ component
 <section id="落とし穴②寄与の小さい次元" class="slide level2 section-title">
 <h2>落とし穴②：寄与の小さい次元</h2>
 <p>低寄与率の軸を過剰に解釈してはいけない。</p>
-<div id="a8f56f95" class="cell" data-execution_count="27">
+<div id="469c2c64" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -686,7 +700,7 @@ component
 </div>
 </div>
 </div>
-<div id="043ecbc9" class="cell" data-execution_count="28">
+<div id="f6599e37" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"2次元の累積寄与率 = </span><span class="sc">{</span>cum[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">%   第3軸の寄与率 = </span><span class="sc">{</span>pov[<span class="dv">2</span>]<span class="sc">:.2f}</span><span class="ss">%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2次元の累積寄与率 = 97.91%   第3軸の寄与率 = 2.09%</code></pre>
@@ -696,7 +710,7 @@ component
 </section>
 <section id="落とし穴③まれなカテゴリの過大な影響" class="slide level2 section-title">
 <h2>落とし穴③：まれなカテゴリの過大な影響</h2>
-<div id="c39c06bc" class="cell" data-execution_count="29">
+<div id="6ed345d5" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -714,7 +728,7 @@ component
 <li><strong>多重対応分析（MCA）</strong>：各カテゴリを0/1のダミーに展開し、その指示行列にCAを適用</li>
 <li>多数の質問項目を持つアンケートを、一枚の布置図にまとめられる</li>
 </ul>
-<div id="c31bd308" class="cell" data-execution_count="30">
+<div id="0b62ef49" class="cell" data-execution_count="30">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>

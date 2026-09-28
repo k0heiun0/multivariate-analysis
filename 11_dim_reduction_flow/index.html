@@ -221,7 +221,7 @@
 <section id="場面64列全部いりますか" class="slide level2 section-title">
 <h2>場面：「64列、全部いりますか？」</h2>
 <p>手書き数字は64列あります。全部が必要でしょうか。減らしたら何が失われるでしょうか。</p>
-<div id="d0e37d80" class="cell" data-execution_count="2">
+<div id="03b4acbd" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -244,7 +244,7 @@
 </section>
 <section id="データの四角形列を-64k-に圧縮する" class="slide level2">
 <h2>データの四角形：列を 64→k に圧縮する</h2>
-<div id="a75c6eba" class="cell" data-execution_count="3">
+<div id="89d11c29" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -257,7 +257,7 @@
 </section>
 <section id="eda64次元をそのまま見られるか" class="slide level2">
 <h2>EDA：64次元をそのまま見られるか</h2>
-<div id="d0c8b6a1" class="cell" data-execution_count="4">
+<div id="afd12b01" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -274,7 +274,7 @@
 <section id="定義①低ランク近似とは何か" class="slide level2 section-title">
 <h2>定義①：低ランク近似とは何か</h2>
 <p><span class="math inline">\mathbf{X}\in\mathbb{R}^{n\times p}</span> を、<strong>もっと単純な行列</strong> <span class="math inline">\mathbf{A}</span> で置き換えたい。</p>
-<div id="e29c4a08" class="cell" data-execution_count="5">
+<div id="a7ddf6ef" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -286,7 +286,7 @@
 </section>
 <section id="定義②何を最小にするか" class="slide level2 section-title">
 <h2>定義②：何を最小にするか</h2>
-<p>「近い」を成分ごとの二乗和で測る。<strong>フロベニウスノルム</strong>という。</p>
+<p>「近い」を成分ごとの二乗和で測る。<strong>フロベニウスノルム</strong>（第1回の定義⑦）という。</p>
 <p><span class="math display">\lVert \mathbf{X}-\mathbf{A} \rVert_F^2 = \sum_{i=1}^{n}\sum_{j=1}^{p}\bigl(x_{ij}-a_{ij}\bigr)^2</span></p>
 <blockquote>
 <p><strong>読み方</strong>：もとの行列と近似行列の差を、成分ごとに二乗して全部足す。</p>
@@ -303,12 +303,12 @@
 </section>
 <section id="デモk-を変えて誤差を見る" class="slide level2">
 <h2>デモ：k を変えて誤差を見る</h2>
-<div id="e928f258" class="cell" data-execution_count="6">
+<div id="11e60c09" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>U, S, Vt <span class="op">=</span> np.linalg.svd(X_std, full_matrices<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb1-2"><a href=""></a>ks <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">16</span>, <span class="dv">32</span>, <span class="dv">64</span>]</span>
 <span id="cb1-3"><a href=""></a>err <span class="op">=</span> [np.<span class="bu">sum</span>(S[k:] <span class="op">**</span> <span class="dv">2</span>) <span class="cf">for</span> k <span class="kw">in</span> ks]     <span class="co"># 打ち切った特異値の二乗和</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="4977d5e6" class="cell" data-execution_count="7">
+<div id="9ecedc15" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -321,7 +321,7 @@
 </section>
 <section id="解釈誤差の落ち方が寄与率" class="slide level2">
 <h2>解釈：誤差の落ち方が寄与率</h2>
-<div id="794fb620" class="cell" data-execution_count="8">
+<div id="3a28299e" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -337,7 +337,7 @@
 </section>
 <section id="再訪標準化は答えを変える" class="slide level2">
 <h2>［再訪］標準化は答えを変える</h2>
-<div id="aa87d8a5" class="cell" data-execution_count="9">
+<div id="1c48edf6" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>v <span class="op">=</span> X.var(axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb2-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"標準化前の分散の範囲: </span><span class="sc">{</span>v<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.2f}</span><span class="ss"> 〜 </span><span class="sc">{</span>v<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb2-3"><a href=""></a><span class="bu">print</span>(<span class="ss">f"分散ゼロのピクセル数: </span><span class="sc">{</span>(v <span class="op">==</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> 個"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -346,7 +346,7 @@
 分散ゼロのピクセル数: 3 個</code></pre>
 </div>
 </div>
-<div id="9e2ec0de" class="cell" data-execution_count="10">
+<div id="438dfd09" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -356,9 +356,24 @@
 </div>
 </div>
 </section>
+<section id="定義④直交行列は長さを変えない" class="slide level2 section-title">
+<h2>定義④：直交行列は長さを変えない</h2>
+<p>列が互いに直交し長さ 1 の行列 <span class="math inline">\mathbf{Q}</span>（<span class="math inline">\mathbf{Q}^\top\mathbf{Q}=\mathbf{I}</span>）を掛けても、フロベニウスノルムは変わらない：</p>
+<p><span class="math display">
+\lVert \mathbf{Q}\mathbf{A} \rVert_F^2
+= \operatorname{tr}\bigl(\mathbf{A}^\top\mathbf{Q}^\top\mathbf{Q}\mathbf{A}\bigr)
+= \operatorname{tr}\bigl(\mathbf{A}^\top\mathbf{A}\bigr)
+= \lVert \mathbf{A} \rVert_F^2
+</span></p>
+<ul>
+<li>右から <span class="math inline">\mathbf{V}^\top</span>（<span class="math inline">\mathbf{V}^\top\mathbf{V}=\mathbf{I}</span>）を掛けても同じ。トレースの巡回性で <span class="math inline">\mathbf{V}^\top\mathbf{V}</span> が隣り合う</li>
+<li>だから <span class="math inline">\lVert\mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^\top\rVert_F^2=\lVert\boldsymbol{\Sigma}\rVert_F^2=\sum_j\sigma_j^2</span></li>
+</ul>
+<p><strong>物差しを回しても長さは変わらない</strong>（第1回の定義⑦）</p>
+</section>
 <section id="導出①特異値分解を思い出す" class="slide level2 section-title">
 <h2>導出①：特異値分解を思い出す</h2>
-<p>第10回の特異値分解を今回の主役にする。</p>
+<p>第10回の定義⑤の特異値分解を今回の主役にする。</p>
 <p><span class="math display">\mathbf{X} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^\top = \sum_{j=1}^{r}\sigma_j\,\mathbf{u}_j\mathbf{v}_j^\top</span></p>
 <blockquote>
 <p><strong>読み方</strong>：どんな行列も、三つの行列の積に分けられる。真ん中が特異値。</p>
@@ -377,7 +392,7 @@
 <section id="導出③なぜ上位k項が最適なのか" class="slide level2 section-title">
 <h2>導出③：なぜ上位k項が最適なのか</h2>
 <ol type="1">
-<li><span class="math inline">\mathbf{U}</span> と <span class="math inline">\mathbf{V}</span> は直交行列。<strong>直交変換はフロベニウスノルムを変えない</strong></li>
+<li><span class="math inline">\mathbf{U}</span> と <span class="math inline">\mathbf{V}</span> は直交行列。<strong>直交変換はフロベニウスノルムを変えない</strong>（定義④）</li>
 <li>だから誤差は特異値の二乗和に分解できる</li>
 </ol>
 <p><span class="math display">\lVert\mathbf{X}\rVert_F^2=\sum_{j=1}^{r}\sigma_j^2=\sum_{j\le k}\sigma_j^2+\sum_{j&gt;k}\sigma_j^2</span></p>
@@ -387,7 +402,7 @@
 </section>
 <section id="図で見る捨てた特異値が誤差そのもの" class="slide level2">
 <h2>図で見る：捨てた特異値が誤差そのもの</h2>
-<div id="ba2cf137" class="cell" data-execution_count="11">
+<div id="d63840d3" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -406,12 +421,12 @@
 </section>
 <section id="デモ上位k項で数字を再構成する" class="slide level2">
 <h2>デモ：上位k項で数字を再構成する</h2>
-<div id="041138c4" class="cell" data-execution_count="12">
+<div id="e1fdc90f" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>mean <span class="op">=</span> X.mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb4-2"><a href=""></a>U0, S0, V0t <span class="op">=</span> np.linalg.svd(X <span class="op">-</span> mean, full_matrices<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb4-3"><a href=""></a>recon <span class="op">=</span> <span class="kw">lambda</span> k: (U0[:, :k] <span class="op">*</span> S0[:k]) <span class="op">@</span> V0t[:k] <span class="op">+</span> mean   <span class="co"># 上位k項だけの近似</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="1e7967ee" class="cell" data-execution_count="13">
+<div id="f0774e88" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -424,7 +439,7 @@
 </section>
 <section id="行列で見る線形も非線形も同じ形" class="slide level2">
 <h2>行列で見る：線形も非線形も同じ形</h2>
-<div id="b068eea8" class="cell" data-execution_count="14">
+<div id="7b7d8989" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -438,7 +453,7 @@
 <section id="別の問いの立て方近さの確率を保つ" class="slide level2 section-title">
 <h2>別の問いの立て方：近さの確率を保つ</h2>
 <p>誤差を測るのではなく、<strong>分布を合わせる</strong>。目的関数が変われば、出てくる図も変わる。</p>
-<div id="2c4978f2" class="cell" data-execution_count="15">
+<div id="5c809e50" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -507,7 +522,7 @@
 </tr>
 </tbody>
 </table>
-<div id="753114bb" class="cell" data-execution_count="16">
+<div id="a78848a8" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -519,21 +534,21 @@
 </section>
 <section id="デモpca-と-t-sne-を並べる" class="slide level2">
 <h2>デモ：PCA と t-SNE を並べる</h2>
-<div id="a9c6be80" class="cell" data-execution_count="17">
+<div id="2fad05fb" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>Z_pca_sub <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">42</span>).fit_transform(X_sub)</span>
 <span id="cb5-2"><a href=""></a>Z_tsne <span class="op">=</span> TSNE(n_components<span class="op">=</span><span class="dv">2</span>, perplexity<span class="op">=</span><span class="dv">30</span>, random_state<span class="op">=</span><span class="dv">42</span>,</span>
 <span id="cb5-3"><a href=""></a>              init<span class="op">=</span><span class="st">'pca'</span>).fit_transform(X_sub)   <span class="co"># 1000点に絞って実行</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="53b47718" class="cell" data-execution_count="18">
+<div id="2f4f79ff" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" width="1303" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" width="1306" height="274"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>同じデータ・同じ2次元でも、目的関数が違うだけでこれだけ違う絵になる。</p>
+<p>目的関数が違うだけで、これだけ違う絵になる。<strong>t-SNE では数字ごとにかたまりが分かれた——ただ、この見え方には落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="帰結①距離を保存しないのはなぜか" class="slide level2 section-title">
 <h2>帰結①：距離を保存しないのはなぜか</h2>
@@ -555,7 +570,7 @@
 </section>
 <section id="帰結③再現性がないのはなぜか" class="slide level2">
 <h2>帰結③：再現性がないのはなぜか</h2>
-<div id="ac7d5a9d" class="cell" data-execution_count="19">
+<div id="189e3175" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -568,7 +583,7 @@
 </section>
 <section id="落とし穴perplexity-で見え方が変わる" class="slide level2">
 <h2>落とし穴：perplexity で見え方が変わる</h2>
-<div id="b90f6257" class="cell" data-execution_count="20">
+<div id="7f6699ed" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -581,7 +596,7 @@
 </section>
 <section id="帰結④可視化座標を予測に使えない理由" class="slide level2">
 <h2>帰結④：可視化座標を予測に使えない理由</h2>
-<div id="9aa10d02" class="cell" data-execution_count="21">
+<div id="d025dc9c" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>knn_bad <span class="op">=</span> KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb6-2"><a href=""></a>acc_tsne <span class="op">=</span> cross_val_score(knn_bad, Z_tsne, y_sub, cv<span class="op">=</span><span class="dv">5</span>).mean()</span>
 <span id="cb6-3"><a href=""></a>X_pca30 <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">30</span>, random_state<span class="op">=</span><span class="dv">42</span>).fit_transform(X_sub)</span>
@@ -597,7 +612,7 @@ PCA 30次元を特徴量にしたKNN精度  : 0.965</code></pre>
 </section>
 <section id="再訪計算コストの出どころ" class="slide level2">
 <h2>［再訪］計算コストの出どころ</h2>
-<div id="25523cec" class="cell" data-execution_count="22">
+<div id="6ff8a8b7" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>t0 <span class="op">=</span> time.time()<span class="op">;</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>).fit_transform(X_sub)</span>
 <span id="cb8-2"><a href=""></a>t_pca <span class="op">=</span> time.time() <span class="op">-</span> t0</span>
 <span id="cb8-3"><a href=""></a>t0 <span class="op">=</span> time.time()<span class="op">;</span> TSNE(n_components<span class="op">=</span><span class="dv">2</span>, perplexity<span class="op">=</span><span class="dv">30</span>,</span>
@@ -605,10 +620,10 @@ PCA 30次元を特徴量にしたKNN精度  : 0.965</code></pre>
 <span id="cb8-5"><a href=""></a>t_tsne <span class="op">=</span> time.time() <span class="op">-</span> t0</span>
 <span id="cb8-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"PCA </span><span class="sc">{</span>t_pca<span class="sc">:.4f}</span><span class="ss">秒 / t-SNE </span><span class="sc">{</span>t_tsne<span class="sc">:.2f}</span><span class="ss">秒 = </span><span class="sc">{</span>t_tsne<span class="op">/</span>t_pca<span class="sc">:.0f}</span><span class="ss">倍"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>PCA 0.0023秒 / t-SNE 1.55秒 = 680倍</code></pre>
+<pre><code>PCA 0.0022秒 / t-SNE 1.38秒 = 617倍</code></pre>
 </div>
 </div>
-<div id="1cfb7c86" class="cell" data-execution_count="23">
+<div id="4e535591" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -620,7 +635,7 @@ PCA 30次元を特徴量にしたKNN精度  : 0.965</code></pre>
 </section>
 <section id="再訪k-を削ると下流はどうなるか" class="slide level2">
 <h2>［再訪］k を削ると下流はどうなるか</h2>
-<div id="8920a38c" class="cell" data-execution_count="24">
+<div id="bf03e5bb" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -738,7 +753,7 @@ PCA 30次元を特徴量にしたKNN精度  : 0.965</code></pre>
 </tbody>
 </table>
 <p><strong>この1枚が今回の全部。</strong></p>
-<div id="494b7018" class="cell" data-execution_count="25">
+<div id="73184044" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>

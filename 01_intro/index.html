@@ -224,7 +224,7 @@
 <section id="場面この家いくら" class="slide level2 section-title">
 <h2>場面：「この家、いくら？」</h2>
 <p>不動産の査定を任されたとしましょう。まず収入の高い地区ほど高い、と考えます。</p>
-<div id="1c3b106d" class="cell" data-execution_count="2">
+<div id="eb6bb84d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -246,7 +246,7 @@
 </section>
 <section id="データカリフォルニア住宅価格" class="slide level2 smaller">
 <h2>データ：カリフォルニア住宅価格</h2>
-<div id="68eb2f32" class="cell" data-execution_count="3">
+<div id="0b113bc9" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <style scoped="">
@@ -322,7 +322,7 @@
 </section>
 <section id="データの四角形講義の主役" class="slide level2">
 <h2>データの四角形：講義の主役</h2>
-<div id="64df6bfd" class="cell" data-execution_count="4">
+<div id="afd03983" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -338,7 +338,7 @@
 </section>
 <section id="目的変数の分布を見る" class="slide level2">
 <h2>目的変数の分布を見る</h2>
-<div id="973f85c3" class="cell" data-execution_count="5">
+<div id="6047a4e4" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -351,7 +351,7 @@
 </section>
 <section id="変数どうしの関係ペアプロット" class="slide level2">
 <h2>変数どうしの関係：ペアプロット</h2>
-<div id="11a43a93" class="cell" data-execution_count="6">
+<div id="003dbfad" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -364,7 +364,7 @@
 </section>
 <section id="なぜ難しいか1変数ずつ見た図" class="slide level2">
 <h2>なぜ難しいか：1変数ずつ見た図</h2>
-<div id="57c4d944" class="cell" data-execution_count="7">
+<div id="b6fd5a41" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -377,14 +377,14 @@
 </section>
 <section id="素朴な方法単回帰を1変数ずつ" class="slide level2">
 <h2>素朴な方法：単回帰を1変数ずつ</h2>
-<div id="8894bd2d" class="cell" data-execution_count="8">
+<div id="81d1f38a" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>single_r2 <span class="op">=</span> {}</span>
 <span id="cb1-2"><a href=""></a><span class="cf">for</span> col <span class="kw">in</span> feature_cols:</span>
 <span id="cb1-3"><a href=""></a>    m <span class="op">=</span> LinearRegression().fit(df[[col]], df[<span class="st">'MedHouseVal'</span>])</span>
 <span id="cb1-4"><a href=""></a>    single_r2[col] <span class="op">=</span> r2_score(df[<span class="st">'MedHouseVal'</span>], m.predict(df[[col]]))</span>
 <span id="cb1-5"><a href=""></a>single_r2 <span class="op">=</span> pd.Series(single_r2).sort_values()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="4aab0e44" class="cell" data-execution_count="9">
+<div id="58fd75a7" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -397,7 +397,7 @@
 </section>
 <section id="単回帰の限界r²-を並べて比較" class="slide level2">
 <h2>単回帰の限界：R² を並べて比較</h2>
-<div id="ca505ad8" class="cell" data-execution_count="10">
+<div id="35340fd0" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -410,7 +410,7 @@
 </section>
 <section id="位置づけ多変量解析の地図" class="slide level2">
 <h2>位置づけ：多変量解析の地図</h2>
-<div id="0df6488d" class="cell" data-execution_count="11">
+<div id="0effb202" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -462,7 +462,7 @@
 </section>
 <section id="直感複数の変数を同時に使う" class="slide level2">
 <h2>直感：複数の変数を「同時に」使う</h2>
-<div id="e521f3f4" class="cell" data-execution_count="12">
+<div id="73db2471" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -475,7 +475,7 @@
 </section>
 <section id="行列で見る重回帰は四角形細長い箱" class="slide level2">
 <h2>行列で見る：重回帰は四角形×細長い箱</h2>
-<div id="5318a98a" class="cell" data-execution_count="13">
+<div id="c51ff923" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -542,7 +542,7 @@
 </section>
 <section id="定義⑤偏微分と勾配" class="slide level2">
 <h2>定義⑤：偏微分と勾配</h2>
-<div id="efc314b2" class="cell" data-execution_count="14">
+<div id="7546f25f" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -602,7 +602,7 @@ f = u^2 + uv + 2v^2:\quad
 </section>
 <section id="導出①rss-の谷底で勾配が-0" class="slide level2">
 <h2>導出①：RSS の谷底で勾配が 0</h2>
-<div id="f1e57399" class="cell" data-execution_count="15">
+<div id="a11fd350" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -680,7 +680,7 @@ f = u^2 + uv + 2v^2:\quad
 </section>
 <section id="導出⑥幾何的な直感射影" class="slide level2">
 <h2>導出⑥：幾何的な直感（射影）</h2>
-<div id="3c8aee8f" class="cell" data-execution_count="16">
+<div id="954e211a" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -699,7 +699,7 @@ f = u^2 + uv + 2v^2:\quad
 <section id="導出⑦目的変数が複数でも同じ" class="slide level2 smaller">
 <h2>導出⑦：目的変数が複数でも同じ</h2>
 <p>目的変数が <span class="math inline">q</span> 個なら <span class="math inline">\mathbf{y}</span> も <span class="math inline">\boldsymbol{\beta}</span> も行列になり、当てはまりを定義⑦で測る：</p>
-<div id="adfc7503" class="cell" data-execution_count="17">
+<div id="c20a7b72" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -731,7 +731,7 @@ f = u^2 + uv + 2v^2:\quad
 <li>実装上は逆行列を直接作らず<strong>QR分解や特異値分解</strong>で安定に解く</li>
 <li>得た <span class="math inline">\hat{\boldsymbol{\beta}}</span> で予測 <span class="math inline">\hat{\mathbf{y}}=\mathbf{X}\hat{\boldsymbol{\beta}}</span> を計算</li>
 </ol>
-<div id="ee503aec" class="cell" data-execution_count="18">
+<div id="41b49e7d" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="bu">print</span>(<span class="st">"scikit-learn の LinearRegression は内部で最小二乗（lstsq, SVD系）を解く"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>scikit-learn の LinearRegression は内部で最小二乗（lstsq, SVD系）を解く</code></pre>
@@ -740,7 +740,7 @@ f = u^2 + uv + 2v^2:\quad
 </section>
 <section id="デモ①線形回帰を当てはめる" class="slide level2">
 <h2>デモ①：線形回帰を当てはめる</h2>
-<div id="2aa7d5a3" class="cell" data-execution_count="19">
+<div id="3ec60751" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>X <span class="op">=</span> df[feature_cols]</span>
 <span id="cb4-2"><a href=""></a>y <span class="op">=</span> df[<span class="st">'MedHouseVal'</span>]</span>
 <span id="cb4-3"><a href=""></a></span>
@@ -760,7 +760,7 @@ R² = 0.606  （価格の変動の 60.6% を説明）</code></pre>
 </section>
 <section id="デモ②係数を棒グラフで読む" class="slide level2">
 <h2>デモ②：係数を棒グラフで読む</h2>
-<div id="620ab3c1" class="cell" data-execution_count="20">
+<div id="5ce1c926" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -769,11 +769,11 @@ R² = 0.606  （価格の変動の 60.6% を説明）</code></pre>
 </div>
 </div>
 </div>
-<p>青は価格を上げる効果、赤は下げる効果。だが<strong>変数ごとに単位が違う</strong>ので大小はまだ比べられない。</p>
+<p>青は価格を上げる効果、赤は下げる効果。<strong>大小の比較は、単位をそろえるデモ④で行う。</strong></p>
 </section>
 <section id="デモ③予測-vs-実測" class="slide level2">
 <h2>デモ③：予測 vs 実測</h2>
-<div id="2e56ae2c" class="cell" data-execution_count="21">
+<div id="704b6b5d" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -787,12 +787,12 @@ R² = 0.606  （価格の変動の 60.6% を説明）</code></pre>
 <section id="デモ④標準化して寄与を比べる" class="slide level2">
 <h2>デモ④：標準化して寄与を比べる</h2>
 <p>標準化すると係数を<strong>同じ土俵</strong>で比べられる。</p>
-<div id="033ef274" class="cell" data-execution_count="22">
+<div id="88087855" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>Xs <span class="op">=</span> StandardScaler().fit_transform(X)          <span class="co"># 平均0・分散1にそろえる</span></span>
 <span id="cb6-2"><a href=""></a>model_s <span class="op">=</span> LinearRegression().fit(Xs, y)</span>
 <span id="cb6-3"><a href=""></a>std_coef <span class="op">=</span> pd.Series(model_s.coef_, index<span class="op">=</span>X.columns).sort_values()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="1edeb151" class="cell" data-execution_count="23">
+<div id="ba892661" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -808,7 +808,7 @@ R² = 0.606  （価格の変動の 60.6% を説明）</code></pre>
 <p><span class="math display">
 R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 </span></p>
-<div id="a0472a1e" class="cell" data-execution_count="24">
+<div id="5daa1096" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -817,18 +817,18 @@ R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 </div>
 </div>
 </div>
-<p>1に近いほど良い。ただし<strong>訓練データでは楽観的</strong>になる。</p>
+<p>1に近いほど、平均で予測するより<strong>誤差を大きく減らせている</strong>。</p>
 </section>
 <section id="結果の解釈②係数バーの読み方" class="slide level2">
 <h2>結果の解釈②：係数バーの読み方</h2>
 <ul>
 <li>棒の<strong>長さ</strong>＝寄与の大きさ、<strong>色（符号）</strong>＝効果の向き</li>
 <li>標準化後の係数で初めて変数間の大小が比較できる</li>
-<li>「収入が効く」は妥当。だが<strong>緯度・経度に大きな係数</strong>が付くのは要注意</li>
-<li>立地は本来もっと複雑（非線形）なのに、直線で無理に説明している可能性</li>
+<li><strong>収入</strong>：標準偏差1つぶん高い地区は、価格が約 0.83（約8万ドル）高い</li>
+<li><strong>緯度・経度</strong>：南西（海沿い）ほど高い、という地理を直線で捉えている</li>
 </ul>
 <blockquote>
-<p>図は「答え」ではなく「次の問いの出発点」。</p>
+<p>価格を動かしているのは<strong>収入と立地</strong>である。</p>
 </blockquote>
 </section>
 <section id="解釈③予測-vs-実測図の読み方" class="slide level2">
@@ -838,7 +838,7 @@ R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 <li>系統的なズレ（特定領域で上 or 下に偏る）は<strong>モデルの欠陥のサイン</strong></li>
 <li>ランダムに散らばるだけならノイズ、偏るなら<strong>改善の余地あり</strong></li>
 </ul>
-<p>残差の「形」を見るのが、線形回帰を使いこなす第一歩。</p>
+<p><strong>収入と立地が価格をよく説明する——ただ、これらの解釈には落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴①相関因果" class="slide level2">
 <h2>落とし穴①：相関≠因果</h2>
@@ -851,7 +851,7 @@ R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 </section>
 <section id="落とし穴②外挿の危険" class="slide level2">
 <h2>落とし穴②：外挿の危険</h2>
-<div id="1f5ffe1c" class="cell" data-execution_count="25">
+<div id="a81e9723" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -864,7 +864,7 @@ R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 </section>
 <section id="落とし穴③係数の符号解釈の罠" class="slide level2">
 <h2>落とし穴③：係数の符号解釈の罠</h2>
-<div id="b1b296ce" class="cell" data-execution_count="26">
+<div id="a2603c18" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -879,12 +879,21 @@ R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 </ul>
 <p>符号だけで因果や重要度を断定しない（第5回）。</p>
 </section>
+<section id="落とし穴④手元の-r²-は楽観的" class="slide level2">
+<h2>落とし穴④：手元の R² は楽観的</h2>
+<ul>
+<li><span class="math inline">R^2\approx0.6</span> は、係数を決めたのと<strong>同じ20,640地区</strong>の上で測った値</li>
+<li>説明変数を増やすと、手元の <span class="math inline">R^2</span> は<strong>下がることがない</strong></li>
+<li>未知の地区での当てはまりは、<strong>別のデータで測るまで分からない</strong>（第2回）</li>
+</ul>
+<p><strong>「0.6 だから良い」は、まだ言えない。</strong> 測り方は次回。</p>
+</section>
 <section id="発展①直線では足りないとき" class="slide level2">
 <h2>発展①：直線では足りないとき</h2>
 <ul>
 <li>線形回帰は「重み付き和」しか表せない → <strong>曲がった関係</strong>は苦手</li>
 </ul>
-<div id="c21e7df3" class="cell" data-execution_count="27">
+<div id="e494ef17" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
