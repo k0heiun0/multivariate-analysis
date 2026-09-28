@@ -221,7 +221,7 @@
 <section id="場面検証では完璧だったのに" class="slide level2 section-title">
 <h2>場面：「検証では完璧だったのに」</h2>
 <p>交差検証で良い成績を出したモデルを現場に出しました。ところが大きく外れます。</p>
-<div id="6d087afd" class="cell" data-execution_count="2">
+<div id="101814ba" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -244,7 +244,7 @@
 </section>
 <section id="データの四角形似た列と外の行" class="slide level2 section-title">
 <h2>データの四角形：似た列と、外の行</h2>
-<div id="d7d8851e" class="cell" data-execution_count="3">
+<div id="0bf2cf25" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -268,7 +268,7 @@
 <section id="具体化①外挿で予測が崩れる" class="slide level2 section-title">
 <h2>具体化①：外挿で予測が崩れる</h2>
 <p>訓練データの<strong>範囲外では、予測をまったく信頼できない</strong>。</p>
-<div id="bbb54bba" class="cell" data-execution_count="4">
+<div id="6308bfc4" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -281,7 +281,7 @@
 <section id="外挿の数字を確かめる" class="slide level2">
 <h2>外挿の数字を確かめる</h2>
 <p>訓練範囲内と範囲外で、誤差は桁違いに変わる。</p>
-<div id="573a52ae" class="cell" data-execution_count="5">
+<div id="71136a42" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>訓練範囲内（夏）の RMSE = 4.9
 範囲外（冬）の   RMSE = 136.1
@@ -289,7 +289,7 @@
 範囲外の誤差は範囲内の約 28 倍</code></pre>
 </div>
 </div>
-<div id="8ee5f7b9" class="cell" data-execution_count="6">
+<div id="ee371243" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -303,7 +303,7 @@
 <section id="具体化②分布のずれ共変量シフト" class="slide level2 section-title">
 <h2>具体化②：分布のずれ（共変量シフト）</h2>
 <p>説明変数の<strong>分布が訓練と運用でずれる</strong>と、たとえ式が同じでも精度が落ちる。</p>
-<div id="6f0dd4f0" class="cell" data-execution_count="7">
+<div id="eb81c0c9" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -316,7 +316,7 @@
 <section id="共変量シフトと外挿の違い" class="slide level2">
 <h2>共変量シフトと外挿の違い</h2>
 <p>真の関係は両方で同じ——なのに運用RMSEが大きく悪化する。</p>
-<div id="dd15a25e" class="cell" data-execution_count="8">
+<div id="65195919" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
 <pre><code>訓練 RMSE = 1.17
 運用 RMSE = 6.12   （約 5.2 倍）</code></pre>
@@ -330,7 +330,7 @@
 </section>
 <section id="素朴な限界①cvスコアは良くても安心できない" class="slide level2 section-title">
 <h2>素朴な限界①：CVスコアは良くても安心できない</h2>
-<div id="a8fd5fbe" class="cell" data-execution_count="9">
+<div id="536fb9d6" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -362,7 +362,7 @@
 </section>
 <section id="行列で見る列がほぼ平行だと壊れる" class="slide level2 section-title">
 <h2>行列で見る：列がほぼ平行だと壊れる</h2>
-<div id="ad8e3380" class="cell" data-execution_count="10">
+<div id="a79b9ce9" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -387,7 +387,7 @@
 <h2>定義②：VIF（分散拡大係数）</h2>
 <p>共線性の強さを変数ごとに測る指標が <strong>VIF</strong>。</p>
 <p><span class="math display">\text{VIF}_j = \frac{1}{1 - R^2_j}</span></p>
-<div id="402513ac" class="cell" data-execution_count="11">
+<div id="f3ab8073" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -440,7 +440,7 @@
 </section>
 <section id="導出①共線性で分散が膨らむ仕組み" class="slide level2 section-title">
 <h2>導出①：共線性で分散が膨らむ仕組み</h2>
-<div id="27b92e12" class="cell" data-execution_count="12">
+<div id="8814a2c0" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -454,7 +454,7 @@
 <section id="導出②幾何で見る共線性" class="slide level2 section-title">
 <h2>導出②：幾何で見る共線性</h2>
 <p>ほぼ平行な2ベクトルへの分解は、わずかな揺れで係数が大きく変わる。</p>
-<div id="68d5c8e4" class="cell" data-execution_count="13">
+<div id="074ffafc" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -467,7 +467,7 @@
 </section>
 <section id="手順vifの計算アルゴリズム" class="slide level2 section-title">
 <h2>手順：VIFの計算アルゴリズム</h2>
-<div id="db2a60c1" class="cell" data-execution_count="14">
+<div id="b39db991" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -481,7 +481,7 @@
 <section id="pythonデモ①共線データを作る" class="slide level2 section-title">
 <h2>Pythonデモ①：共線データを作る</h2>
 <p><span class="math inline">x_2 \approx x_1</span>（相関 ≈ 0.99）の状況を人工的に作る。</p>
-<div id="932d5a2e" class="cell" data-execution_count="15">
+<div id="0e787f1f" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>np.random.seed(<span class="dv">2</span>)</span>
 <span id="cb3-2"><a href=""></a>n <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb3-3"><a href=""></a>x1 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
@@ -498,7 +498,7 @@
 </section>
 <section id="pythonデモ②vifを算出する" class="slide level2 section-title">
 <h2>Pythonデモ②：VIFを算出する</h2>
-<div id="06cd0ee3" class="cell" data-execution_count="16">
+<div id="e85784bf" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>X_mc <span class="op">=</span> pd.DataFrame({<span class="st">'x1'</span>: x1, <span class="st">'x2'</span>: x2, <span class="st">'x3'</span>: x3})</span>
 <span id="cb5-2"><a href=""></a>X_const <span class="op">=</span> sm.add_constant(X_mc)</span>
 <span id="cb5-3"><a href=""></a>vif <span class="op">=</span> pd.DataFrame({</span>
@@ -524,7 +524,7 @@ x3  1.019451</code></pre>
      チャンクを消したりすると、revealjs / pptx / docx / ipynb のすべてで
      NameError になりレンダリングが止まる。ナレーションが β2 の値
      （約1.9）を読み上げるため、print だけは画面に残してある。 -->
-<div id="fd729b5d" class="cell" data-execution_count="19">
+<div id="200fc86c" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"x1 のみ        : β1 = </span><span class="sc">{</span>lr_a<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb7-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"x1 + x2 を投入 : β1 = </span><span class="sc">{</span>lr_b<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">,  β2 = </span><span class="sc">{</span>lr_b<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -532,7 +532,7 @@ x3  1.019451</code></pre>
 x1 + x2 を投入 : β1 = 2.94,  β2 = 1.89</code></pre>
 </div>
 </div>
-<div id="c0937f38" class="cell" data-execution_count="20">
+<div id="f8c3f024" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -546,7 +546,7 @@ x1 + x2 を投入 : β1 = 2.94,  β2 = 1.89</code></pre>
 <section id="pythonデモ④ブートストラップで係数分布" class="slide level2 section-title">
 <h2>Pythonデモ④：ブートストラップで係数分布</h2>
 <p>データを少し変える（再標本化）と、係数がどれだけブレるか。</p>
-<div id="d07d0f8d" class="cell" data-execution_count="21">
+<div id="181ac3ce" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -555,7 +555,7 @@ x1 + x2 を投入 : β1 = 2.94,  β2 = 1.89</code></pre>
 </div>
 </div>
 </div>
-<div id="b848b4bc" class="cell" data-execution_count="22">
+<div id="4eaba1e8" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-stdout">
 <pre><code>β1 の標準偏差 = 0.88  （範囲 0.8〜5.7）
 β2 の標準偏差 = 0.87</code></pre>
@@ -565,7 +565,7 @@ x1 + x2 を投入 : β1 = 2.94,  β2 = 1.89</code></pre>
 <section id="解釈①共線なしと比べる" class="slide level2 section-title">
 <h2>解釈①：共線なしと比べる</h2>
 <p>無相関な2変数で同じことをすると、係数のブレは桁違いに小さい。</p>
-<div id="6c12bffa" class="cell" data-execution_count="23">
+<div id="0250ca63" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-stdout">
 <pre><code>共線あり  β1 の標準偏差 = 0.88
 共線なし  β1 の標準偏差 = 0.11
@@ -577,7 +577,7 @@ x1 + x2 を投入 : β1 = 2.94,  β2 = 1.89</code></pre>
 </section>
 <section id="解釈②実データでvifを見るカリフォルニア住宅" class="slide level2 section-title">
 <h2>解釈②：実データでVIFを見る（カリフォルニア住宅）</h2>
-<div id="17b8edb8" class="cell" data-execution_count="24">
+<div id="3a242153" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-stdout">
 <pre><code>        変数      VIF
   Latitude 9.297624
@@ -595,7 +595,7 @@ Population 1.138125
 <section id="解釈③vifの読み方" class="slide level2 section-title">
 <h2>解釈③：VIFの読み方</h2>
 <p>VIF表は「どの変数の係数を信じてよいか」の地図になる。</p>
-<div id="1f4b71f4" class="cell" data-execution_count="26">
+<div id="c80305ec" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -605,10 +605,11 @@ Population 1.138125
 </div>
 </div>
 <p>収入（VIF≈2.5）や占有率の係数は比較的信頼できます。</p>
+<p><strong>VIF で係数表の読める場所が分かった——ただ、これらの解釈には落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴①外挿と非線形の見落とし" class="slide level2 section-title">
 <h2>落とし穴①：外挿と非線形の見落とし</h2>
-<div id="6f47eb32" class="cell" data-execution_count="27">
+<div id="53a4d44f" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -622,13 +623,13 @@ Population 1.138125
 <section id="落とし穴②欠落変数バイアス" class="slide level2 section-title">
 <h2>落とし穴②：欠落変数バイアス</h2>
 <p>重要な変数を入れ忘れると、<strong>残った係数が真値からずれる</strong>。</p>
-<div id="3d25b237" class="cell" data-execution_count="28">
+<div id="dc8c489c" class="cell" data-execution_count="28">
 <div class="cell-output cell-output-stdout">
 <pre><code>z を入れた完全モデル : x の係数 = 2.06  （真値=2）
 z を落としたモデル   : x の係数 = 4.31  ← 過大評価</code></pre>
 </div>
 </div>
-<div id="3c07c550" class="cell" data-execution_count="29">
+<div id="3cc24ecb" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>

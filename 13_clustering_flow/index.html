@@ -220,7 +220,7 @@
 </section>
 <section id="場面3でいいんですか" class="slide level2 section-title">
 <h2>場面：「3でいいんですか？」</h2>
-<div id="ceb016f5" class="cell" data-execution_count="2">
+<div id="0c7f64dd" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -243,7 +243,7 @@
 </section>
 <section id="データの四角形グループの数を選ぶ" class="slide level2 section-title">
 <h2>データの四角形：グループの数を選ぶ</h2>
-<div id="096a0a6c" class="cell" data-execution_count="3">
+<div id="b1b14382" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -296,11 +296,11 @@
 </section>
 <section id="デモk-を動かして-wcss-を描く" class="slide level2">
 <h2>デモ：k を動かして WCSS を描く</h2>
-<div id="30bda74a" class="cell" data-execution_count="4">
+<div id="7a07fe21" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>WCSS <span class="op">=</span> [KMeans(n_clusters<span class="op">=</span>k, n_init<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">0</span>).fit(Z).inertia_</span>
 <span id="cb1-2"><a href=""></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="05e80877" class="cell" data-execution_count="5">
+<div id="19e7a0b5" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -313,7 +313,7 @@
 </section>
 <section id="素朴な限界kn-で-0-になる" class="slide level2">
 <h2>素朴な限界：k=n で 0 になる</h2>
-<div id="d29d198a" class="cell" data-execution_count="6">
+<div id="b2424975" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -373,7 +373,7 @@
 </section>
 <section id="帰結外に基準が要る" class="slide level2 section-title">
 <h2>帰結：外に基準が要る</h2>
-<div id="3ee03ad3" class="cell" data-execution_count="7">
+<div id="b5ba1367" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -387,7 +387,7 @@
 <section id="定義①エルボー法" class="slide level2 section-title">
 <h2>定義①：エルボー法</h2>
 <p>最も素朴な基準。<strong>減り方が変わる点</strong>を目印にする。</p>
-<div id="956189ec" class="cell" data-execution_count="8">
+<div id="2cab229b" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -401,14 +401,14 @@
 <section id="デモ折れ目を数値で見る" class="slide level2">
 <h2>デモ：折れ目を数値で見る</h2>
 <p>減り幅の差（二階差分）が最大の k を拾ってみる。</p>
-<div id="014a7987" class="cell" data-execution_count="9">
+<div id="dd80c5db" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>D2 <span class="op">=</span> <span class="op">-</span>np.diff(<span class="op">-</span>np.diff(WCSS))     <span class="co"># 減り幅の変化＝折れの強さ</span></span>
 <span id="cb2-2"><a href=""></a><span class="bu">print</span>(<span class="st">'最大の k ='</span>, <span class="bu">int</span>(np.argmax(D2)) <span class="op">+</span> <span class="dv">2</span>, <span class="st">'／ 折れ:'</span>, D2[:<span class="dv">2</span>].<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>最大の k = 2 ／ 折れ: [586.8 118.4]</code></pre>
 </div>
 </div>
-<div id="c5780fa2" class="cell" data-execution_count="10">
+<div id="d5f68b3e" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -421,7 +421,7 @@
 </section>
 <section id="定義②gap統計" class="slide level2 section-title">
 <h2>定義②：Gap統計</h2>
-<div id="cc9fa9ed" class="cell" data-execution_count="11">
+<div id="289a7ff6" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -443,7 +443,7 @@
 </section>
 <section id="デモgap-は頭打ちになる" class="slide level2">
 <h2>デモ：Gap は頭打ちになる</h2>
-<div id="b052600c" class="cell" data-execution_count="12">
+<div id="2a7908a0" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="bu">print</span>(<span class="st">'Gap:'</span>, GAP.<span class="bu">round</span>(<span class="dv">2</span>))</span>
 <span id="cb4-2"><a href=""></a><span class="bu">print</span>(<span class="st">'argmax ='</span>, KS[np.argmax(GAP)], <span class="st">'／ 規則 ='</span>, gap_rule(GAP, SK, KS))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -451,7 +451,7 @@
 argmax = 9 ／ 規則 = 3</code></pre>
 </div>
 </div>
-<div id="b2231bd7" class="cell" data-execution_count="13">
+<div id="b4d8cffb" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -475,7 +475,7 @@ argmax = 9 ／ 規則 = 3</code></pre>
 </section>
 <section id="定義③シルエット係数" class="slide level2 section-title">
 <h2>定義③：シルエット係数</h2>
-<div id="1890d07a" class="cell" data-execution_count="14">
+<div id="a110b7ca" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -491,14 +491,14 @@ argmax = 9 ／ 規則 = 3</code></pre>
 </section>
 <section id="デモシルエットは同点になる" class="slide level2">
 <h2>デモ：シルエットは同点になる</h2>
-<div id="8aef9be0" class="cell" data-execution_count="15">
+<div id="acf1c426" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="bu">print</span>(<span class="st">'k=2:'</span>, <span class="bu">round</span>(SIL[<span class="dv">0</span>], <span class="dv">3</span>), <span class="st">' k=3:'</span>, <span class="bu">round</span>(SIL[<span class="dv">1</span>], <span class="dv">3</span>),</span>
 <span id="cb6-2"><a href=""></a>      <span class="st">' 差:'</span>, <span class="bu">round</span>(SIL[<span class="dv">0</span>] <span class="op">-</span> SIL[<span class="dv">1</span>], <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>k=2: 0.709  k=3: 0.707  差: 0.0023</code></pre>
 </div>
 </div>
-<div id="258cd1c9" class="cell" data-execution_count="16">
+<div id="1d747952" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -512,7 +512,7 @@ argmax = 9 ／ 規則 = 3</code></pre>
 <section id="定義④安定性" class="slide level2 section-title">
 <h2>定義④：安定性</h2>
 <p>四つめ。<strong>同じ答えが再現するか</strong>を基準にする。</p>
-<div id="22366d6c" class="cell" data-execution_count="17">
+<div id="b9a82ec7" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -525,7 +525,7 @@ argmax = 9 ／ 規則 = 3</code></pre>
 </section>
 <section id="デモ4つの基準を同じデータに" class="slide level2 smaller">
 <h2>デモ：4つの基準を同じデータに</h2>
-<div id="80501430" class="cell" data-execution_count="18">
+<div id="e7be4339" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -615,7 +615,7 @@ argmax = 9 ／ 規則 = 3</code></pre>
 </section>
 <section id="再訪第10回の肘と同じ問題" class="slide level2 section-title">
 <h2>［再訪］第10回の肘と同じ問題</h2>
-<div id="70dc1cdf" class="cell" data-execution_count="20">
+<div id="db7fbed1" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -628,7 +628,7 @@ argmax = 9 ／ 規則 = 3</code></pre>
 </section>
 <section id="再訪第2回の交差検証と同じ構造" class="slide level2 section-title">
 <h2>［再訪］第2回の交差検証と同じ構造</h2>
-<div id="2232638c" class="cell" data-execution_count="21">
+<div id="82cb805d" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -660,7 +660,7 @@ argmax = 9 ／ 規則 = 3</code></pre>
 </section>
 <section id="再訪第6回の正則化も同じ形" class="slide level2 section-title">
 <h2>［再訪］第6回の正則化も同じ形</h2>
-<div id="44fe3c8d" class="cell" data-execution_count="22">
+<div id="2d4780a0" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -684,13 +684,13 @@ argmax = 9 ／ 規則 = 3</code></pre>
 <section id="デモ安定性を測る" class="slide level2 smaller">
 <h2>デモ：安定性を測る</h2>
 <p>k ごとに再標本を30回とり、一致度（ARI）を見る。</p>
-<div id="f99afd46" class="cell" data-execution_count="23">
+<div id="44d2d515" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="bu">print</span>({k: <span class="bu">round</span>(<span class="bu">float</span>(STAB[k].mean()), <span class="dv">3</span>) <span class="cf">for</span> k <span class="kw">in</span> STAB})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{2: 1.0, 3: 1.0, 4: 0.906, 5: 0.869, 6: 0.814}</code></pre>
 </div>
 </div>
-<div id="610ee41d" class="cell" data-execution_count="24">
+<div id="79a9a5a8" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -703,7 +703,7 @@ argmax = 9 ／ 規則 = 3</code></pre>
 </section>
 <section id="再訪名前をつけて初めて使える" class="slide level2 section-title">
 <h2>［再訪］名前をつけて初めて使える</h2>
-<div id="57a121ac" class="cell" data-execution_count="25">
+<div id="10386670" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -713,6 +713,7 @@ argmax = 9 ／ 規則 = 3</code></pre>
 </div>
 </div>
 <p>指標が選んだ k は<strong>番号の集合</strong>にすぎない。<strong>名前がついて初めて意思決定に使える。</strong></p>
+<p><strong>3つの顧客層に名前がついた——ただ、この結論には落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴唯一の正解はない" class="slide level2 section-title">
 <h2>落とし穴：唯一の正解はない</h2>
@@ -779,7 +780,7 @@ argmax = 9 ／ 規則 = 3</code></pre>
 </section>
 <section id="モデル選択が教えた3つ" class="slide level2 section-title">
 <h2>モデル選択が教えた3つ</h2>
-<div id="4128d10c" class="cell" data-execution_count="26">
+<div id="ea32ecc2" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>

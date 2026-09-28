@@ -221,7 +221,7 @@
 <section id="場面悪性ですか良性ですか" class="slide level2 section-title">
 <h2>場面：「悪性ですか、良性ですか」</h2>
 <p>検査値から腫瘍が悪性か良性かを判定します。回帰のように数値を返せばよいでしょうか。</p>
-<div id="9f9fd2b9" class="cell" data-execution_count="2">
+<div id="0771e776" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -245,7 +245,7 @@
 <section id="具体化①分類はどこにでもある" class="slide level2 section-title">
 <h2>具体化①：分類はどこにでもある</h2>
 <p>「YesかNoか」を当てる問題は身の回りに溢れている。</p>
-<div id="ba7aa02b" class="cell" data-execution_count="3">
+<div id="998e8ce7" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -259,7 +259,7 @@
 <section id="具体化②データを見る" class="slide level2 section-title">
 <h2>具体化②：データを見る</h2>
 <p><code>sklearn</code> 同梱の乳がんデータ。30変数・569件、良性357・悪性212。</p>
-<div id="e89f56c4" class="cell" data-execution_count="4">
+<div id="32d8c6d8" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>data <span class="op">=</span> load_breast_cancer(as_frame<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb1-2"><a href=""></a>X <span class="op">=</span> data.frame.drop(columns<span class="op">=</span><span class="st">'target'</span>)</span>
 <span id="cb1-3"><a href=""></a>y <span class="op">=</span> data.frame[<span class="st">'target'</span>]          <span class="co"># 0=悪性, 1=良性</span></span>
@@ -274,7 +274,7 @@
 </section>
 <section id="データの四角形y-が-01-になった" class="slide level2 section-title">
 <h2>データの四角形：y が 0/1 になった</h2>
-<div id="7d6f4964" class="cell" data-execution_count="5">
+<div id="50ec088a" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -288,7 +288,7 @@
 <section id="具体化③2次元で分布を見る" class="slide level2 section-title">
 <h2>具体化③：2次元で分布を見る</h2>
 <p>30次元は描けないので、PCAで2次元に圧縮してクラスの広がりを見る。</p>
-<div id="929546e5" class="cell" data-execution_count="6">
+<div id="b30069d5" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -302,7 +302,7 @@
 <section id="素朴な方法①回帰で01を予測する" class="slide level2 section-title">
 <h2>素朴な方法①：回帰で0/1を予測する</h2>
 <p>0/1 の目的変数に線形回帰を当てると、予測値が<strong>0〜1に収まらない</strong>。</p>
-<div id="b4274e2e" class="cell" data-execution_count="7">
+<div id="b756f7a5" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -315,7 +315,7 @@
 </section>
 <section id="素朴な限界②回帰では確率にならない" class="slide level2 section-title">
 <h2>素朴な限界②：回帰では確率にならない</h2>
-<div id="3167ca18" class="cell" data-execution_count="8">
+<div id="9e3c3bd9" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -337,7 +337,7 @@
 </section>
 <section id="行列で見るスコアは同じ掛け算" class="slide level2 section-title">
 <h2>行列で見る：スコアは同じ掛け算</h2>
-<div id="e720a206" class="cell" data-execution_count="9">
+<div id="2f05392b" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -356,7 +356,7 @@
 <blockquote>
 <p><strong>読み方</strong>：線形スコア <span class="math inline">z</span> をシグモイドに通すと、必ず0から1のあいだに収まる。</p>
 </blockquote>
-<div id="497656c2" class="cell" data-execution_count="10">
+<div id="f9d0fb8c" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -382,7 +382,7 @@
 <h2>定義③：LDA（線形判別分析）</h2>
 <ul>
 <li>各クラスが<strong>正規分布</strong>に従い、<strong>共分散行列は両クラス共通</strong>と仮定</li>
-<li>各クラスの平均・共分散を推定し、ベイズの定理で事後確率に変換</li>
+<li>各クラスの平均・共分散を推定し、ベイズの定理（定義⑤）で事後確率に変換</li>
 </ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -398,9 +398,41 @@
 </div>
 </div>
 </section>
+<section id="定義④尤度と最尤推定" class="slide level2 section-title">
+<h2>定義④：尤度と最尤推定</h2>
+<div id="ba20dd2b" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1183" height="219"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\begin{aligned}
+L(\theta)&amp;=\textstyle\prod_{i} P(\text{観測}_i \mid \theta)\\
+\hat{\theta}&amp;=\arg\max L(\theta)=\arg\max\,\log L(\theta)
+\end{aligned}
+</span></p>
+<p><strong>観測をいちばんよく再現するパラメータを選ぶ</strong></p>
+</section>
+<section id="定義⑤ベイズの定理と正規分布" class="slide level2 section-title">
+<h2>定義⑤：ベイズの定理と正規分布</h2>
+<p><span class="math display">
+P(y=k\mid\mathbf{x})=\frac{\pi_k\, f_k(\mathbf{x})}{\sum_j \pi_j\, f_j(\mathbf{x})}
+</span></p>
+<p><span class="math display">
+f_k(\mathbf{x})\;\propto\;\exp\Bigl(-\tfrac12(\mathbf{x}-\boldsymbol{\mu}_k)^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu}_k)\Bigr)
+</span></p>
+<ul>
+<li><span class="math inline">\pi_k</span>：<strong>事前確率</strong>（そのクラスがもともと多いか）</li>
+<li><span class="math inline">f_k</span>：クラス <span class="math inline">k</span> の<strong>分布</strong>（中心 <span class="math inline">\boldsymbol{\mu}_k</span>・共分散 <span class="math inline">\Sigma</span>）</li>
+</ul>
+</section>
 <section id="導出①最尤推定で係数を決める" class="slide level2 section-title">
 <h2>導出①：最尤推定で係数を決める</h2>
-<p>各標本の確率を <span class="math inline">p_i = \sigma(z_i)</span> とすると、全体の尤度は</p>
+<p>各標本の確率を <span class="math inline">p_i = \sigma(z_i)</span> とすると、全体の尤度（定義④）は</p>
 <p><span class="math display">L(\boldsymbol{\beta}) = \prod_{i=1}^n p_i^{\,y_i}(1-p_i)^{1-y_i}</span></p>
 <ul>
 <li><span class="math inline">y_i=1</span> なら <span class="math inline">p_i</span>、<span class="math inline">y_i=0</span> なら <span class="math inline">1-p_i</span> を掛ける——観測を再現する確率</li>
@@ -418,11 +450,11 @@
 <section id="導出③決定境界が線形になる理由" class="slide level2 section-title">
 <h2>導出③：決定境界が線形になる理由</h2>
 <p>「良性と悪性が五分五分」の点をつなぐと、それが決定境界。</p>
-<div id="17c3a270" class="cell" data-execution_count="11">
+<div id="31b5c050" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="219"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="219"></p>
 </figure>
 </div>
 </div>
@@ -431,7 +463,7 @@
 </section>
 <section id="導出④ldaの判別関数" class="slide level2 section-title">
 <h2>導出④：LDAの判別関数</h2>
-<p>ベイズの定理から各クラスの<strong>判別スコア</strong>を作る。</p>
+<p>ベイズの定理と正規分布（定義⑤）から各クラスの<strong>判別スコア</strong>を作る。</p>
 <p><span class="math display">\delta_k(\mathbf{x}) = \mathbf{x}^\top \Sigma^{-1}\boldsymbol{\mu}_k
   - \tfrac{1}{2}\boldsymbol{\mu}_k^\top \Sigma^{-1}\boldsymbol{\mu}_k + \log \pi_k</span></p>
 <blockquote>
@@ -441,11 +473,11 @@
 </section>
 <section id="アルゴリズム分類の手順" class="slide level2 section-title">
 <h2>アルゴリズム：分類の手順</h2>
-<div id="95508e5c" class="cell" data-execution_count="12">
+<div id="fb9c1e4e" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="171"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="171"></p>
 </figure>
 </div>
 </div>
@@ -461,7 +493,7 @@
      すべてで NameError になりレンダリングが止まる。ナレーションが AUC と精度の値
      （0.9924 / 0.9561 / 0.9954 / 0.9825）を読み上げるため、当てはめと print は
      画面に残してある。 -->
-<div id="4692bb88" class="cell" data-execution_count="14">
+<div id="38ea118d" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="cf">for</span> name, model <span class="kw">in</span> models.items():</span>
 <span id="cb3-2"><a href=""></a>    model.fit(X_train, y_train)</span>
 <span id="cb3-3"><a href=""></a>    auc <span class="op">=</span> roc_auc_score(y_test, model.predict_proba(X_test)[:, <span class="dv">1</span>])</span>
@@ -477,11 +509,11 @@
 <section id="pythonデモ②決定境界を描く" class="slide level2 section-title">
 <h2>Pythonデモ②：決定境界を描く</h2>
 <p>2次元（PCA）に絞ってロジスティック回帰の決定境界を可視化する。</p>
-<div id="87ab1923" class="cell" data-execution_count="15">
+<div id="f3638002" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" width="797" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png" width="797" height="284"></p>
 </figure>
 </div>
 </div>
@@ -491,7 +523,7 @@
 <section id="pythonデモ③係数とオッズ比" class="slide level2 section-title smaller">
 <h2>Pythonデモ③：係数とオッズ比</h2>
 <p>標準化済み係数を <span class="math inline">\exp</span> するとオッズ比。寄与の大きい変数を見る。</p>
-<div id="22d51e79" class="cell" data-execution_count="16">
+<div id="5aad3c73" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>sc <span class="op">=</span> StandardScaler().fit(X_train)</span>
 <span id="cb5-2"><a href=""></a>lr_full <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>).fit(sc.transform(X_train), y_train)</span>
 <span id="cb5-3"><a href=""></a>coef <span class="op">=</span> pd.Series(lr_full.coef_[<span class="dv">0</span>], index<span class="op">=</span>X.columns)</span>
@@ -511,11 +543,11 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
 <section id="pythonデモ④roc曲線とauc" class="slide level2 section-title">
 <h2>Pythonデモ④：ROC曲線とAUC</h2>
 <p>閾値を動かしたときの真陽性率・偽陽性率の軌跡がROC曲線。</p>
-<div id="1d3aadd2" class="cell" data-execution_count="17">
+<div id="4612f182" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" width="715" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" width="715" height="284"></p>
 </figure>
 </div>
 </div>
@@ -525,11 +557,11 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
 <section id="解釈①混同行列を読む" class="slide level2 section-title">
 <h2>解釈①：混同行列を読む</h2>
 <p>予測と正解のクロス表。誤りの<strong>内訳</strong>が一目で分かる。</p>
-<div id="3f6ac854" class="cell" data-execution_count="18">
+<div id="fa8d3e99" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" width="326" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" width="326" height="284"></p>
 </figure>
 </div>
 </div>
@@ -539,7 +571,7 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
 <section id="解釈②適合率と再現率" class="slide level2 section-title smaller">
 <h2>解釈②：適合率と再現率</h2>
 <p>混同行列から目的に応じた指標を計算する。</p>
-<div id="8d6d5a73" class="cell" data-execution_count="19">
+<div id="54b6bf0f" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>pred <span class="op">=</span> best.predict(X_test)       <span class="co"># 悪性(0)を「拾いたい陽性」とみなす</span></span>
 <span id="cb7-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"再現率=</span><span class="sc">{</span>recall_score(y_test, pred, pos_label<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ss">"</span></span>
 <span id="cb7-3"><a href=""></a>      <span class="ss">f"  適合率=</span><span class="sc">{</span>precision_score(y_test, pred, pos_label<span class="op">=</span><span class="dv">0</span>)<span class="sc">:.3f}</span><span class="ss">"</span></span>
@@ -548,11 +580,11 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
 <pre><code>再現率=0.976  適合率=0.976  精度=0.982</code></pre>
 </div>
 </div>
-<div id="f90e01ee" class="cell" data-execution_count="20">
+<div id="3ce3da6d" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="169"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="169"></p>
 </figure>
 </div>
 </div>
@@ -561,16 +593,17 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
 </section>
 <section id="解釈③閾値はトレードオフのつまみ" class="slide level2 section-title">
 <h2>解釈③：閾値はトレードオフのつまみ</h2>
-<div id="3a791b8c" class="cell" data-execution_count="21">
+<div id="a7a652d2" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="207"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="207"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><strong>片方を上げれば片方が下がります。</strong> 正解は誤りのコストで決まります（第8回）。</p>
+<p><strong>AUC 0.99超・見逃し1件の分類器が得られた——ただ、これらの解釈には落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴①クラス不均衡と精度の罠" class="slide level2 section-title smaller">
 <h2>落とし穴①：クラス不均衡と精度の罠</h2>
@@ -580,7 +613,7 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
      上のチャンクを消したりすると、revealjs / pptx / docx / ipynb のすべてで
      NameError になりレンダリングが止まる。ナレーションが精度の値（0.915 / 0.942）を
      読み上げるため、print は画面に残してある。 -->
-<div id="cf51f98a" class="cell" data-execution_count="23">
+<div id="58e73f94" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"全部「陰性」と答えるだけ: 精度=</span><span class="sc">{</span>accuracy_score(yi_te, dummy.predict(Xi_te))<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
 <span id="cb9-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"ロジスティック回帰    : 精度=</span><span class="sc">{</span>accuracy_score(yi_te, clf.predict(Xi_te))<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -588,11 +621,11 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
 ロジスティック回帰    : 精度=0.942</code></pre>
 </div>
 </div>
-<div id="0ec1d6fd" class="cell" data-execution_count="24">
+<div id="f0ed5085" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" class="quarto-figure quarto-figure-center" width="896" height="147"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="896" height="147"></p>
 </figure>
 </div>
 </div>
@@ -601,16 +634,16 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
 </section>
 <section id="落とし穴②しきい値0.5固定の罠" class="slide level2 section-title">
 <h2>落とし穴②：しきい値0.5固定の罠</h2>
-<div id="c4d541f0" class="cell" data-execution_count="25">
+<div id="b678a536" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="135"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="135"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="90306ffd" class="cell" data-execution_count="26">
+<div id="81e2b9db" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>prob <span class="op">=</span> clf.predict_proba(Xi_te)[:, <span class="dv">1</span>]</span>
 <span id="cb11-2"><a href=""></a><span class="cf">for</span> thr <span class="kw">in</span> [<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>]:</span>
 <span id="cb11-3"><a href=""></a>    pr <span class="op">=</span> (prob <span class="op">&gt;=</span> thr).astype(<span class="bu">int</span>)</span>
@@ -627,7 +660,7 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
 </section>
 <section id="落とし穴③aucだけを見る危うさ" class="slide level2 section-title">
 <h2>落とし穴③：AUCだけを見る危うさ</h2>
-<div id="ef9896af" class="cell" data-execution_count="27">
+<div id="e134f377" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>auc_imb <span class="op">=</span> roc_auc_score(yi_te, prob)</span>
 <span id="cb13-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"不均衡データのAUC = </span><span class="sc">{</span>auc_imb<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -639,6 +672,15 @@ worst radius: 係数=-0.948, オッズ比=0.388</code></pre>
 <li>AUCは「順位づけの良さ」を測るが、<strong>運用の閾値での性能は別</strong></li>
 </ul>
 <p>「AUCが高い＝そのまま使える」ではない——指標の意味を取り違えない。</p>
+</section>
+<section id="落とし穴④係数の順位重要度ではない" class="slide level2 section-title">
+<h2>落とし穴④：係数の順位＝重要度ではない</h2>
+<ul>
+<li>デモ③の係数は「<strong>この30変数を全部入れたときの取り分</strong>」</li>
+<li>相関の強い変数どうしは係数を<strong>分け合う</strong>（<code>worst texture</code> と <code>mean texture</code> の相関0.912）</li>
+<li>値の大きさは既定の <strong><span class="math inline">L_2</span> 罰則</strong>で縮められたあとのもの</li>
+</ul>
+<p><strong>係数の順位は、そのまま重要度の順位とは読めない</strong>（第5回の多重共線性）。</p>
 </section>
 <section id="落とし穴まとめ評価指標の早見表" class="slide level2 section-title">
 <h2>落とし穴まとめ：評価指標の早見表</h2>

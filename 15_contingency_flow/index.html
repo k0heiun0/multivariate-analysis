@@ -221,7 +221,7 @@
 <section id="場面この-5.5-は大きいのか" class="slide level2 section-title">
 <h2>場面：「この +5.5 は大きいのか」</h2>
 <p>前回、若年層×革新のセルに残差 +5.5 が出ました。会議でこう聞かれます。</p>
-<div id="de9478a8" class="cell" data-execution_count="2">
+<div id="86102f49" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -244,7 +244,7 @@
 </section>
 <section id="データの四角形カテゴリの四角形" class="slide level2 section-title">
 <h2>データの四角形：カテゴリの四角形</h2>
-<div id="5d6decd4" class="cell" data-execution_count="3">
+<div id="6392bd5d" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -257,7 +257,7 @@
 </section>
 <section id="位置づけ地図からセルへ" class="slide level2 section-title">
 <h2>位置づけ：地図からセルへ</h2>
-<div id="bfc0b4f1" class="cell" data-execution_count="4">
+<div id="4c3a38b5" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -274,7 +274,7 @@
 <blockquote>
 <p><strong>読み方</strong>：期待度数は、行の合計と列の合計を掛けて、全体の合計で割ったもの。</p>
 </blockquote>
-<div id="4a225724" class="cell" data-execution_count="5">
+<div id="1810344b" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -286,7 +286,7 @@
 </section>
 <section id="素朴な限界大きいセルほど差が大きい" class="slide level2 section-title">
 <h2>素朴な限界：大きいセルほど差が大きい</h2>
-<div id="7254c630" class="cell" data-execution_count="6">
+<div id="cd5a2460" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -311,7 +311,7 @@
 </section>
 <section id="デモそれでも分散は-0.44" class="slide level2 section-title">
 <h2>デモ：それでも分散は 0.44</h2>
-<div id="f66255b9" class="cell" data-execution_count="7">
+<div id="c677006d" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"標準化残差の分散 = </span><span class="sc">{</span>SIM_STD<span class="sc">.</span>var()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
 <span id="cb1-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"|値|&gt;2 の割合   = </span><span class="sc">{</span>(np.<span class="bu">abs</span>(SIM_STD) <span class="op">&gt;</span> <span class="dv">2</span>)<span class="sc">.</span>mean() <span class="op">*</span> <span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -319,7 +319,7 @@
 |値|&gt;2 の割合   = 0.3%</code></pre>
 </div>
 </div>
-<div id="bdae4dd3" class="cell" data-execution_count="8">
+<div id="66ed4e9f" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -333,7 +333,7 @@
 <section id="なぜ足りないのか" class="slide level2 section-title">
 <h2>なぜ足りないのか</h2>
 <p>分散を<strong>セルごと</strong>に測ると、さらに問題が見えます。</p>
-<div id="c47a6e24" class="cell" data-execution_count="9">
+<div id="41751fe6" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -394,7 +394,7 @@
 <blockquote>
 <p><strong>読み方</strong>：残差を、その点固有のばらつきで割る。<span class="math inline">h_{ii}</span> が大きい点ほど大きく割り戻す。</p>
 </blockquote>
-<div id="c4987bcf" class="cell" data-execution_count="10">
+<div id="2dccefa1" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -407,7 +407,7 @@
 </section>
 <section id="デモ割ると揃う" class="slide level2 section-title">
 <h2>デモ：割ると揃う</h2>
-<div id="f0a35c80" class="cell" data-execution_count="11">
+<div id="9609eb3f" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>lo, hi <span class="op">=</span> HII <span class="op">&lt;</span> np.quantile(HII, <span class="fl">.2</span>), HII <span class="op">&gt;</span> np.quantile(HII, <span class="fl">.8</span>)</span>
 <span id="cb3-2"><a href=""></a>E_lo, E_hi <span class="op">=</span> REG_E[:, lo].var(), REG_E[:, hi].var()</span>
 <span id="cb3-3"><a href=""></a>R_lo, R_hi <span class="op">=</span> REG_R[:, lo].var(), REG_R[:, hi].var()</span>
@@ -418,7 +418,7 @@
 標準化残差 てこ比小 1.01  大 0.99</code></pre>
 </div>
 </div>
-<div id="ed119216" class="cell" data-execution_count="12">
+<div id="42208ab5" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -431,7 +431,7 @@
 </section>
 <section id="共通の型ズレ-固有のばらつき" class="slide level2 section-title">
 <h2>共通の型：ズレ ÷ 固有のばらつき</h2>
-<div id="4fcf8a48" class="cell" data-execution_count="13">
+<div id="33a8f87e" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -445,7 +445,7 @@
 <section id="効き方の大きさは違う" class="slide level2 section-title">
 <h2>効き方の大きさは違う</h2>
 <p>同じ型でも、<strong>補正の効き方は場面によってまるで違います。</strong></p>
-<div id="85d24acf" class="cell" data-execution_count="14">
+<div id="40cc2db7" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -458,7 +458,7 @@
 </section>
 <section id="デモ調整済み残差なら-1-になる" class="slide level2 section-title">
 <h2>デモ：調整済み残差なら 1 になる</h2>
-<div id="e03577b4" class="cell" data-execution_count="15">
+<div id="83cb3cf1" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"調整済み残差の分散 = </span><span class="sc">{</span>SIM_ADJ<span class="sc">.</span>var()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
 <span id="cb5-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"|値|&gt;2 の割合     = </span><span class="sc">{</span>(np.<span class="bu">abs</span>(SIM_ADJ) <span class="op">&gt;</span> <span class="dv">2</span>)<span class="sc">.</span>mean() <span class="op">*</span> <span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -466,7 +466,7 @@
 |値|&gt;2 の割合     = 4.5%</code></pre>
 </div>
 </div>
-<div id="d777a69c" class="cell" data-execution_count="16">
+<div id="62aef468" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -479,7 +479,7 @@
 </section>
 <section id="解釈2-の意味" class="slide level2 section-title">
 <h2>解釈：±2 の意味</h2>
-<div id="13a4903c" class="cell" data-execution_count="17">
+<div id="9fa4ab5a" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -488,11 +488,12 @@
 </div>
 </div>
 </div>
-<p>関連が無ければ標準正規に従うので、<strong>±2 を超えるのは約5%しか起きない</strong>。 太字のセルが「偶然では説明しにくい」ところです。</p>
+<p>関連が無ければ <strong>±2 を超えるのは約5%</strong>。太字のセルが「偶然では説明しにくい」ところです。</p>
+<p><strong>若年層×革新の +8.3 は明確に大きい——ただ、この解釈には落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴9セルを一度に見ている" class="slide level2 section-title">
 <h2>落とし穴：9セルを一度に見ている</h2>
-<p>ここで注意が要ります。<strong>±2 の 5% は「1セルあたり」の話</strong>です。</p>
+<p><strong>±2 の 5% は「1セルあたり」の話</strong>です。</p>
 <ul>
 <li>9セルすべてを一斉に眺めれば、どれかが ±2 を超える確率はずっと高い</li>
 <li>「有意なセルを探す」行為そのものが、<strong>何度も検定している</strong>のと同じ</li>
@@ -503,7 +504,7 @@
 <section id="デモセルが増えると偽陽性が増える" class="slide level2 section-title">
 <h2>デモ：セルが増えると偽陽性が増える</h2>
 <p>関連のないデータで「±2 を超えるセルが1つでもある」確率を測ります。</p>
-<div id="0a9b7a07" class="cell" data-execution_count="18">
+<div id="8e7e14ad" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -540,7 +541,7 @@
 <blockquote>
 <p><strong>読み方</strong>：カイ二乗値は、標準化残差を二乗して全セルで足したもの。</p>
 </blockquote>
-<div id="fd48f9ea" class="cell" data-execution_count="19">
+<div id="c3670152" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>Z2 <span class="op">=</span> (STD <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>()</span>
 <span id="cb7-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"標準化残差の二乗和 = </span><span class="sc">{</span>Z2<span class="sc">:.2f}</span><span class="ss">   chi2_contingency = </span><span class="sc">{</span>CHI2<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -563,7 +564,7 @@
 <section id="デモ標本を増やすと何が起きるか" class="slide level2 section-title">
 <h2>デモ：標本を増やすと何が起きるか</h2>
 <p><strong>同じ構造</strong>のデータで標本数だけ変え、<span class="math inline">p</span> 値と <span class="math inline">V</span> を比べます。</p>
-<div id="cf90a3d3" class="cell" data-execution_count="20">
+<div id="da7158ce" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -586,7 +587,7 @@
 </section>
 <section id="再訪第14回の慣性につながる" class="slide level2 section-title">
 <h2>［再訪］第14回の慣性につながる</h2>
-<div id="5bea79d7" class="cell" data-execution_count="21">
+<div id="165d4aa2" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -600,7 +601,7 @@
 <section id="変数へ指示行列" class="slide level2 section-title">
 <h2>3変数へ：指示行列</h2>
 <p>ここまでは2変数でした。<strong>3変数以上</strong>を同時に扱うにはどうするか。</p>
-<div id="23bff52e" class="cell" data-execution_count="22">
+<div id="085de96f" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -624,7 +625,7 @@
 </section>
 <section id="デモ3変数の布置" class="slide level2 section-title">
 <h2>デモ：3変数の布置</h2>
-<div id="e68ddaaa" class="cell" data-execution_count="23">
+<div id="72cf6dde" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -633,15 +634,35 @@
 </div>
 </div>
 </div>
-<p><strong>同じ側に来たカテゴリは共起しやすい。</strong> 若年・革新・低収入が一方に集まります。</p>
+<p>同じ側に来たカテゴリは共起しやすい。</p>
+<p><strong>若年・革新・低収入 ⇔ 高齢・保守・高収入——ただ、この読みには落とし穴があるかもしれない。</strong></p>
+</section>
+<section id="落とし穴同じ側直接の関連" class="slide level2 section-title smaller">
+<h2>落とし穴：同じ側≠直接の関連</h2>
+<p>低収入は革新の近くにある。では、政治志向と収入を<strong>直接</strong>クロス集計するとどうか。</p>
+<div id="8b3c4871" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="cf">for</span> a, b <span class="kw">in</span> [(<span class="st">'年齢層'</span>, <span class="st">'政治志向'</span>), (<span class="st">'年齢層'</span>, <span class="st">'収入'</span>), (<span class="st">'政治志向'</span>, <span class="st">'収入'</span>)]:</span>
+<span id="cb9-2"><a href=""></a>    c2, p, dof, _ <span class="op">=</span> chi2_contingency(pd.crosstab(df[a], df[b]))</span>
+<span id="cb9-3"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">×</span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">: χ²=</span><span class="sc">{</span>c2<span class="sc">:6.2f}</span><span class="ss">  p=</span><span class="sc">{</span>p<span class="sc">:.2g}</span><span class="ss">  V=</span><span class="sc">{</span>np<span class="sc">.</span>sqrt(c2 <span class="op">/</span> (<span class="bu">len</span>(df) <span class="op">*</span> <span class="dv">2</span>))<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>年齢層×政治志向: χ²=107.99  p=2e-22  V=0.300
+年齢層×収入: χ²= 43.80  p=7e-09  V=0.191
+政治志向×収入: χ²=  5.03  p=0.28  V=0.065</code></pre>
+</div>
+</div>
+<ul>
+<li>政治志向×収入には<strong>関連が検出できない</strong>。近いのは、どちらも<strong>年齢層と関連している</strong>から</li>
+<li>強い2つの関連が、3つめの<strong>見かけの近さ</strong>を作る</li>
+<li>そもそも関連は<strong>因果ではない</strong>。「若いから革新的になる」とは言えない</li>
+</ul>
 </section>
 <section id="落とし穴mca-の寄与率は低く出る" class="slide level2 section-title">
 <h2>落とし穴：MCA の寄与率は低く出る</h2>
-<div id="d38376e1" class="cell" data-execution_count="24">
+<div id="ce088ad5" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" class="quarto-figure quarto-figure-center" width="952" height="183"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="952" height="183"></p>
 </figure>
 </div>
 </div>
@@ -650,11 +671,11 @@
 </section>
 <section id="全15回の総まとめ" class="slide level2 section-title">
 <h2>全15回の総まとめ</h2>
-<div id="23ae47d6" class="cell" data-execution_count="25">
+<div id="19d4d309" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="1311" height="183"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1311" height="183"></p>
 </figure>
 </div>
 </div>
@@ -713,11 +734,11 @@
 </section>
 <section id="縦の糸ズレの測り方も一貫していた" class="slide level2 section-title">
 <h2>［縦の糸］ズレの測り方も一貫していた</h2>
-<div id="34427027" class="cell" data-execution_count="26">
+<div id="4425a850" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="219"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="219"></p>
 </figure>
 </div>
 </div>

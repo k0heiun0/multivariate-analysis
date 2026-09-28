@@ -239,7 +239,7 @@
 </section>
 <section id="データの四角形行の色が偏っている" class="slide level2">
 <h2>データの四角形：行の色が偏っている</h2>
-<div id="8985de2e" class="cell" data-execution_count="2">
+<div id="5fa2e60b" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -261,7 +261,7 @@
 </section>
 <section id="定義①誤りには2種類ある" class="slide level2 section-title">
 <h2>定義①：誤りには2種類ある</h2>
-<div id="eb994e87" class="cell" data-execution_count="3">
+<div id="7bb46caf" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -274,7 +274,7 @@
 </section>
 <section id="定義②損失行列" class="slide level2 section-title">
 <h2>定義②：損失行列</h2>
-<div id="b3c0e524" class="cell" data-execution_count="4">
+<div id="6ce005d0" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -296,12 +296,12 @@
 </section>
 <section id="デモrt-を描く" class="slide level2">
 <h2>デモ：R(t) を描く</h2>
-<div id="81e792ee" class="cell" data-execution_count="5">
+<div id="a910e3a0" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>ts <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="fl">0.99</span>, <span class="dv">99</span>)</span>
 <span id="cb1-2"><a href=""></a>R_even <span class="op">=</span> [expected_loss(t, c_fp<span class="op">=</span><span class="dv">1</span>, c_fn<span class="op">=</span><span class="dv">1</span>) <span class="cf">for</span> t <span class="kw">in</span> ts]    <span class="co"># 誤りの重さが同じ</span></span>
 <span id="cb1-3"><a href=""></a>R_fn10 <span class="op">=</span> [expected_loss(t, c_fp<span class="op">=</span><span class="dv">1</span>, c_fn<span class="op">=</span><span class="dv">10</span>) <span class="cf">for</span> t <span class="kw">in</span> ts]   <span class="co"># 見逃しが10倍重い</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="9cc46e82" class="cell" data-execution_count="6">
+<div id="72752055" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -314,7 +314,7 @@
 </section>
 <section id="最小点はどこにあるか" class="slide level2 section-title">
 <h2>最小点はどこにあるか</h2>
-<div id="79702b47" class="cell" data-execution_count="7">
+<div id="38b84ac6" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"c_FN = c_FP  のとき最小の t : </span><span class="sc">{</span>ts[<span class="bu">int</span>(np.argmin(R_even))]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb2-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"c_FN = 10c_FP のとき最小の t: </span><span class="sc">{</span>ts[<span class="bu">int</span>(np.argmin(R_fn10))]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -340,7 +340,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="導出①天秤で考える" class="slide level2 section-title">
 <h2>導出①：天秤で考える</h2>
-<div id="3229d9a6" class="cell" data-execution_count="8">
+<div id="b4905d34" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -363,7 +363,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="なぜ-0.5-が既定値なのか" class="slide level2 section-title">
 <h2>なぜ 0.5 が既定値なのか</h2>
-<div id="dab1174f" class="cell" data-execution_count="9">
+<div id="477b1389" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -377,7 +377,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="デモ理論値と実測を比べる" class="slide level2">
 <h2>デモ：理論値と実測を比べる</h2>
-<div id="980f3d44" class="cell" data-execution_count="10">
+<div id="65de955c" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="bu">print</span>(<span class="st">" 比  実測の最小t  理論値t*"</span>)</span>
 <span id="cb4-2"><a href=""></a><span class="cf">for</span> r <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">50</span>]:</span>
 <span id="cb4-3"><a href=""></a>    R <span class="op">=</span> [expected_loss(t, c_fp<span class="op">=</span><span class="dv">1</span>, c_fn<span class="op">=</span>r) <span class="cf">for</span> t <span class="kw">in</span> ts]</span>
@@ -395,7 +395,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="落とし穴確率は正しいのか" class="slide level2 section-title">
 <h2>落とし穴：確率は正しいのか</h2>
-<div id="ad27415d" class="cell" data-execution_count="11">
+<div id="f41f114c" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -416,7 +416,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="デモ重みとしきい値の等価性" class="slide level2">
 <h2>デモ：重みとしきい値の等価性</h2>
-<div id="b7d7b18a" class="cell" data-execution_count="12">
+<div id="fdb6d9dd" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -429,7 +429,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="事前確率が損失に入る仕組み" class="slide level2 section-title">
 <h2>事前確率が損失に入る仕組み</h2>
-<div id="3707de10" class="cell" data-execution_count="13">
+<div id="bb502f38" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -445,7 +445,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="roc-が事前確率に不変な理由" class="slide level2 section-title">
 <h2>ROC が事前確率に不変な理由</h2>
-<div id="d8f84c9d" class="cell" data-execution_count="14">
+<div id="88e69b7a" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -459,7 +459,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="pr-が事前確率に依存する理由" class="slide level2 section-title">
 <h2>PR が事前確率に依存する理由</h2>
-<div id="0b449437" class="cell" data-execution_count="15">
+<div id="804413aa" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -473,12 +473,12 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="デモ不均衡度を変えて比べる" class="slide level2">
 <h2>デモ：不均衡度を変えて比べる</h2>
-<div id="b8f27766" class="cell" data-execution_count="16">
+<div id="6f24c8e6" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>idx_pos <span class="op">=</span> np.where(y_test <span class="op">==</span> <span class="dv">1</span>)[<span class="dv">0</span>]</span>
 <span id="cb6-2"><a href=""></a>idx_neg <span class="op">=</span> np.where(y_test <span class="op">==</span> <span class="dv">0</span>)[<span class="dv">0</span>]</span>
 <span id="cb6-3"><a href=""></a>keep <span class="op">=</span> np.r_[idx_pos, idx_neg[:<span class="bu">len</span>(idx_pos) <span class="op">*</span> <span class="dv">4</span>]]   <span class="co"># 陽性20%にする</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="f7f27878" class="cell" data-execution_count="17">
+<div id="577deb2a" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -500,7 +500,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="auc-の意味を言い直す" class="slide level2 section-title">
 <h2>AUC の意味を言い直す</h2>
-<div id="8e8b5b56" class="cell" data-execution_count="18">
+<div id="8a5c32ed" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -514,7 +514,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="帰結①精度のパラドックスの正体" class="slide level2 section-title">
 <h2>帰結①：精度のパラドックスの正体</h2>
-<div id="d50fd55c" class="cell" data-execution_count="19">
+<div id="45316a2f" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -536,7 +536,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="デモf1-が最適でない例" class="slide level2">
 <h2>デモ：F1 が最適でない例</h2>
-<div id="77a6c71e" class="cell" data-execution_count="20">
+<div id="00d5e3de" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>pred <span class="op">=</span> <span class="kw">lambda</span> t: (p_test <span class="op">&gt;=</span> t).astype(<span class="bu">int</span>)</span>
 <span id="cb7-2"><a href=""></a>f1s <span class="op">=</span> [f1_score(y_test, pred(t), zero_division<span class="op">=</span><span class="dv">0</span>) <span class="cf">for</span> t <span class="kw">in</span> ts]</span>
 <span id="cb7-3"><a href=""></a>losses <span class="op">=</span> [expected_loss(t, c_fp<span class="op">=</span><span class="dv">1</span>, c_fn<span class="op">=</span><span class="dv">10</span>) <span class="cf">for</span> t <span class="kw">in</span> ts]</span>
@@ -547,7 +547,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 <pre><code>F1 最大の t=0.19   期待損失最小の t=0.14（理論 0.09）</code></pre>
 </div>
 </div>
-<div id="5cf7a54d" class="cell" data-execution_count="21">
+<div id="7c8da28d" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -560,7 +560,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="再訪層化分割が要る理由" class="slide level2 section-title">
 <h2>［再訪］層化分割が要る理由</h2>
-<div id="e7bb7a47" class="cell" data-execution_count="22">
+<div id="6dc6744a" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -574,7 +574,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="再訪リサンプリングの副作用" class="slide level2 section-title">
 <h2>［再訪］リサンプリングの副作用</h2>
-<div id="08e331f4" class="cell" data-execution_count="23">
+<div id="60ebe48d" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -583,8 +583,8 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </div>
 </div>
 </div>
-<p>オーバーサンプリングは<strong>事前確率を書き換える操作</strong>である。</p>
-<p>だからモデルが出す確率の意味が変わり、<span class="math inline">t^{\star}</span> も変わる。<strong>やってはいけないのではなく、変わることを知って使う。</strong></p>
+<p>オーバーサンプリングは<strong>事前確率を書き換える</strong>。確率も <span class="math inline">t^{\star}</span> も変わるので、<strong>変わることを知って使う。</strong></p>
+<p><strong>コストさえ決まればしきい値は決まる——ただ、そのコストに落とし穴があるかもしれない。</strong></p>
 </section>
 <section id="落とし穴コストは推定できるのか" class="slide level2 section-title">
 <h2>落とし穴：コストは推定できるのか</h2>
@@ -646,7 +646,7 @@ c_FN = 10c_FP のとき最小の t: 0.14</code></pre>
 </section>
 <section id="まとめ決定理論が教えた3つ" class="slide level2">
 <h2>まとめ：決定理論が教えた3つ</h2>
-<div id="381f0227" class="cell" data-execution_count="24">
+<div id="5fec9cfc" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
