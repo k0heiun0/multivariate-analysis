@@ -224,7 +224,7 @@
 <section id="場面この家いくら" class="slide level2 section-title">
 <h2>場面：「この家、いくら？」</h2>
 <p>不動産の査定を任されたとしましょう。まず収入の高い地区ほど高い、と考えます。</p>
-<div id="093e771f" class="cell" data-execution_count="2">
+<div id="1c3b106d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -246,7 +246,7 @@
 </section>
 <section id="データカリフォルニア住宅価格" class="slide level2 smaller">
 <h2>データ：カリフォルニア住宅価格</h2>
-<div id="4994a282" class="cell" data-execution_count="3">
+<div id="68eb2f32" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <style scoped="">
@@ -322,7 +322,7 @@
 </section>
 <section id="データの四角形講義の主役" class="slide level2">
 <h2>データの四角形：講義の主役</h2>
-<div id="17b06f9f" class="cell" data-execution_count="4">
+<div id="64df6bfd" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -338,7 +338,7 @@
 </section>
 <section id="目的変数の分布を見る" class="slide level2">
 <h2>目的変数の分布を見る</h2>
-<div id="8a860acc" class="cell" data-execution_count="5">
+<div id="973f85c3" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -351,7 +351,7 @@
 </section>
 <section id="変数どうしの関係ペアプロット" class="slide level2">
 <h2>変数どうしの関係：ペアプロット</h2>
-<div id="f93f27cf" class="cell" data-execution_count="6">
+<div id="11a43a93" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -364,7 +364,7 @@
 </section>
 <section id="なぜ難しいか1変数ずつ見た図" class="slide level2">
 <h2>なぜ難しいか：1変数ずつ見た図</h2>
-<div id="b8153e10" class="cell" data-execution_count="7">
+<div id="57c4d944" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -377,14 +377,14 @@
 </section>
 <section id="素朴な方法単回帰を1変数ずつ" class="slide level2">
 <h2>素朴な方法：単回帰を1変数ずつ</h2>
-<div id="aee947c7" class="cell" data-execution_count="8">
+<div id="8894bd2d" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>single_r2 <span class="op">=</span> {}</span>
 <span id="cb1-2"><a href=""></a><span class="cf">for</span> col <span class="kw">in</span> feature_cols:</span>
 <span id="cb1-3"><a href=""></a>    m <span class="op">=</span> LinearRegression().fit(df[[col]], df[<span class="st">'MedHouseVal'</span>])</span>
 <span id="cb1-4"><a href=""></a>    single_r2[col] <span class="op">=</span> r2_score(df[<span class="st">'MedHouseVal'</span>], m.predict(df[[col]]))</span>
 <span id="cb1-5"><a href=""></a>single_r2 <span class="op">=</span> pd.Series(single_r2).sort_values()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="286a6a33" class="cell" data-execution_count="9">
+<div id="4aab0e44" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -397,7 +397,7 @@
 </section>
 <section id="単回帰の限界r²-を並べて比較" class="slide level2">
 <h2>単回帰の限界：R² を並べて比較</h2>
-<div id="61c00f6b" class="cell" data-execution_count="10">
+<div id="ca505ad8" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -410,7 +410,7 @@
 </section>
 <section id="位置づけ多変量解析の地図" class="slide level2">
 <h2>位置づけ：多変量解析の地図</h2>
-<div id="f512582c" class="cell" data-execution_count="11">
+<div id="0df6488d" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -462,7 +462,7 @@
 </section>
 <section id="直感複数の変数を同時に使う" class="slide level2">
 <h2>直感：複数の変数を「同時に」使う</h2>
-<div id="965e094a" class="cell" data-execution_count="12">
+<div id="e521f3f4" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -475,7 +475,7 @@
 </section>
 <section id="行列で見る重回帰は四角形細長い箱" class="slide level2">
 <h2>行列で見る：重回帰は四角形×細長い箱</h2>
-<div id="6e48d16a" class="cell" data-execution_count="13">
+<div id="5318a98a" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -527,13 +527,86 @@
 </blockquote>
 <p>正負が打ち消さないよう<strong>二乗</strong>する。微分できるので解析解が出る。 これが<strong>最小二乗法</strong>。</p>
 </section>
-<section id="導出①谷底で勾配が-0" class="slide level2">
-<h2>導出①：谷底で勾配が 0</h2>
-<div id="88b63f8d" class="cell" data-execution_count="14">
+<section id="定義④ベクトルの長さと内積" class="slide level2">
+<h2>定義④：ベクトルの長さと内積</h2>
+<p><span class="math display">
+\|\mathbf{v}\|^2 = \sum_{i=1}^{n} v_i^2 = \mathbf{v}^\top\mathbf{v},
+\qquad
+\mathbf{u}^\top\mathbf{v} = \sum_{i=1}^{n} u_i v_i
+</span></p>
+<ul>
+<li><strong>長さ（ノルム）</strong> <span class="math inline">\|\mathbf{v}\|</span>：成分の二乗和の平方根。<span class="math inline">\mathrm{RSS}</span> は残差ベクトルの長さの二乗</li>
+<li><strong>内積</strong> <span class="math inline">\mathbf{u}^\top\mathbf{v}</span>：成分どうしを掛けて足す</li>
+<li><strong>直交</strong>：<span class="math inline">\mathbf{u}^\top\mathbf{v}=0</span> のとき、2つのベクトルは直角に交わる</li>
+</ul>
+</section>
+<section id="定義⑤偏微分と勾配" class="slide level2">
+<h2>定義⑤：偏微分と勾配</h2>
+<div id="efc314b2" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="1184" height="283"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="1299" height="243"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+f = u^2 + uv + 2v^2:\quad
+\nabla f = \begin{pmatrix} \partial f/\partial u \\ \partial f/\partial v \end{pmatrix}
+= \begin{pmatrix} 2u+v \\ u+4v \end{pmatrix}
+</span></p>
+<p><strong>偏微分＝ほかを止めた切り口の傾き。最小点で <span class="math inline">\nabla f=\mathbf{0}</span></strong></p>
+</section>
+<section id="定義⑥ベクトルで微分する" class="slide level2 smaller">
+<h2>定義⑥：ベクトルで微分する</h2>
+<p>変数をまとめたベクトル <span class="math inline">\boldsymbol{\beta}</span> での微分＝<strong>偏微分を縦に並べた勾配</strong>：</p>
+<p><span class="math display">
+\frac{\partial f}{\partial \boldsymbol{\beta}}
+= \begin{pmatrix} \partial f/\partial \beta_1 \\ \vdots \\ \partial f/\partial \beta_p \end{pmatrix}
+= \nabla f
+</span></p>
+<p>公式は2つだけ（<span class="math inline">\mathbf{a}</span> は定数ベクトル、<span class="math inline">\mathbf{A}</span> は対称行列）：</p>
+<p><span class="math display">
+\frac{\partial}{\partial \boldsymbol{\beta}}\bigl(\mathbf{a}^\top\boldsymbol{\beta}\bigr) = \mathbf{a},
+\qquad
+\frac{\partial}{\partial \boldsymbol{\beta}}\bigl(\boldsymbol{\beta}^\top\mathbf{A}\boldsymbol{\beta}\bigr) = 2\mathbf{A}\boldsymbol{\beta}
+</span></p>
+<p><strong>1変数の <span class="math inline">\frac{d}{db}(ab)=a</span>、<span class="math inline">\frac{d}{db}(Ab^2)=2Ab</span> と同じ形。</strong></p>
+</section>
+<section id="定義⑦トレースと行列の長さ" class="slide level2 smaller">
+<h2>定義⑦：トレースと行列の長さ</h2>
+<p><span class="math display">
+\operatorname{tr}(\mathbf{A}) = \sum_{i} a_{ii},
+\qquad
+\|\mathbf{A}\|_F^2 = \sum_{i,j} a_{ij}^2 = \operatorname{tr}\bigl(\mathbf{A}^\top\mathbf{A}\bigr)
+</span></p>
+<ul>
+<li><strong>トレース</strong>：正方行列の対角成分の和。<span class="math inline">\operatorname{tr}(\mathbf{A}^\top)=\operatorname{tr}(\mathbf{A})</span>、<span class="math inline">\operatorname{tr}(\mathbf{AB})=\operatorname{tr}(\mathbf{BA})</span></li>
+<li><strong>フロベニウスノルム</strong>：行列の全マスの二乗和の平方根＝<strong>行列の「長さ」</strong></li>
+<li>列が1本の行列（ベクトル）なら <span class="math inline">\|\mathbf{v}\|_F=\|\mathbf{v}\|</span>。定義④をそのまま行列へ広げたもの</li>
+</ul>
+</section>
+<section id="定義⑧行列で微分する" class="slide level2">
+<h2>定義⑧：行列で微分する</h2>
+<p>行列 <span class="math inline">\mathbf{B}</span> での微分＝<strong>各成分で偏微分し、<span class="math inline">\mathbf{B}</span> と同じ形に並べたもの</strong>：</p>
+<p><span class="math display">
+\frac{\partial f}{\partial \mathbf{B}} = \Bigl(\frac{\partial f}{\partial b_{jk}}\Bigr)_{j,k}
+</span></p>
+<p><span class="math display">
+\frac{\partial}{\partial \mathbf{B}}\operatorname{tr}\bigl(\mathbf{C}^\top\mathbf{B}\bigr) = \mathbf{C},
+\qquad
+\frac{\partial}{\partial \mathbf{B}}\operatorname{tr}\bigl(\mathbf{B}^\top\mathbf{A}\mathbf{B}\bigr) = 2\mathbf{A}\mathbf{B}
+</span></p>
+<p><strong>定義⑥の公式を行列へ広げただけ。</strong></p>
+</section>
+<section id="導出①rss-の谷底で勾配が-0" class="slide level2">
+<h2>導出①：RSS の谷底で勾配が 0</h2>
+<div id="f1e57399" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" class="quarto-figure quarto-figure-center" width="1184" height="283"></p>
 </figure>
 </div>
 </div>
@@ -543,38 +616,21 @@
 = \bigl(\,\partial \mathrm{RSS}/\partial \beta_0,\ \partial \mathrm{RSS}/\partial \beta_1\,\bigr)^\top
 = \mathbf{0}
 </span></p>
-<p><strong>最適解＝どちらへ動いても下れない点＝勾配が 0 の点。</strong></p>
+<p><strong>最小二乗の解＝<span class="math inline">\nabla\mathrm{RSS}=\mathbf{0}</span> の点</strong>（定義⑤）</p>
 </section>
-<section id="導出②偏微分は1つだけ動かす" class="slide level2">
-<h2>導出②：偏微分は「1つだけ動かす」</h2>
-<div id="fa818627" class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" class="quarto-figure quarto-figure-center" width="1304" height="273"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math display">
-\partial \mathrm{RSS}/\partial \beta_0 = -2\textstyle\sum_i e_i,\qquad
-\partial \mathrm{RSS}/\partial \beta_1 = -2\textstyle\sum_i x_i\,e_i
-</span></p>
-<p><strong>偏微分＝ほかを止めた切り口の傾き</strong>（<span class="math inline">e_i</span> は残差）</p>
-</section>
-<section id="導出③1変数での最小二乗" class="slide level2 smaller">
-<h2>導出③：1変数での最小二乗</h2>
+<section id="導出②1変数での最小二乗" class="slide level2 smaller">
+<h2>導出②：1変数での最小二乗</h2>
 <p><strong>目的関数</strong>（直線 <span class="math inline">\hat{y}=\beta_0+\beta_1x</span> の当てはまりの悪さ）：</p>
 <p><span class="math display">
 \mathrm{RSS}(\beta_0,\beta_1) = \sum_{i=1}^{n} \bigl(y_i - \beta_0 - \beta_1 x_i\bigr)^2
 </span></p>
-<p><strong>① <span class="math inline">\beta_0</span> で偏微分して 0</strong>：</p>
+<p><strong>① <span class="math inline">\partial\mathrm{RSS}/\partial\beta_0 = 0</span></strong>（定義⑤）：</p>
 <p><span class="math display">
 \sum_i \bigl(y_i-\beta_0-\beta_1x_i\bigr)=0
 \;\;\Longrightarrow\;\;
 \hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}
 </span></p>
-<p><strong>② <span class="math inline">\beta_1</span> で偏微分して 0</strong>（①を代入）：</p>
+<p><strong>② <span class="math inline">\partial\mathrm{RSS}/\partial\beta_1 = 0</span></strong>（①を代入）：</p>
 <p><span class="math display">
 \sum_i x_i\bigl(y_i-\bar{y}-\beta_1(x_i-\bar{x})\bigr)=0
 \;\;\Longrightarrow\;\;
@@ -582,8 +638,8 @@
 </span></p>
 <p><strong>①から：回帰直線は必ず平均点 <span class="math inline">(\bar{x},\bar{y})</span> を通る。</strong></p>
 </section>
-<section id="導出④行列で多変数へまとめる" class="slide level2">
-<h2>導出④：行列で多変数へまとめる</h2>
+<section id="導出③行列で多変数へまとめる" class="slide level2">
+<h2>導出③：行列で多変数へまとめる</h2>
 <p><span class="math inline">n</span> 個の式をまとめて、行列・ベクトルで書く：</p>
 <p><span class="math display">
 \mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \mathbf{e}
@@ -593,30 +649,27 @@
 <li><span class="math inline">\mathbf{X}</span>：データの四角形に 1 の列を加えた行列（<span class="math inline">n \times (p{+}1)</span>。切片を吸収。以後この約束で <span class="math inline">\mathbf{X}</span> と書く）</li>
 <li><span class="math inline">\boldsymbol{\beta}</span>：係数ベクトル、<span class="math inline">\mathbf{e}</span>：残差</li>
 </ul>
+<p>定義④より <span class="math inline">\mathrm{RSS} = \|\mathbf{e}\|^2 = \|\mathbf{y}-\mathbf{X}\boldsymbol{\beta}\|^2</span>。</p>
 </section>
-<section id="導出⑤ベクトルで微分する" class="slide level2 smaller">
-<h2>導出⑤：ベクトルで微分する</h2>
-<p>勾配＝偏微分を縦に並べたベクトル。よく使う公式は2つだけ（<span class="math inline">\mathbf{A}</span> は対称行列）：</p>
-<p><span class="math display">
-\frac{\partial}{\partial \boldsymbol{\beta}}\bigl(\mathbf{a}^\top\boldsymbol{\beta}\bigr) = \mathbf{a},
-\qquad
-\frac{\partial}{\partial \boldsymbol{\beta}}\bigl(\boldsymbol{\beta}^\top\mathbf{A}\boldsymbol{\beta}\bigr) = 2\mathbf{A}\boldsymbol{\beta}
-</span></p>
-<p>RSS を展開して、項ごとに当てはめる：</p>
+<section id="導出④rss-の勾配を求める" class="slide level2 smaller">
+<h2>導出④：RSS の勾配を求める</h2>
+<p><span class="math inline">\mathrm{RSS}=(\mathbf{y}-\mathbf{X}\boldsymbol{\beta})^\top(\mathbf{y}-\mathbf{X}\boldsymbol{\beta})</span> を展開する：</p>
 <p><span class="math display">
 \mathrm{RSS}(\boldsymbol{\beta})
-= \mathbf{y}^\top\mathbf{y} - 2\,(\mathbf{X}^\top\mathbf{y})^\top\boldsymbol{\beta}
+= \mathbf{y}^\top\mathbf{y}
+- 2\,(\mathbf{X}^\top\mathbf{y})^\top\boldsymbol{\beta}
 + \boldsymbol{\beta}^\top(\mathbf{X}^\top\mathbf{X})\,\boldsymbol{\beta}
 </span></p>
+<p>定義⑥の2つの公式を、<span class="math inline">\mathbf{a}=\mathbf{X}^\top\mathbf{y}</span>、<span class="math inline">\mathbf{A}=\mathbf{X}^\top\mathbf{X}</span> として当てはめる：</p>
 <p><span class="math display">
 \nabla \mathrm{RSS} = -2\,\mathbf{X}^\top\mathbf{y} + 2\,\mathbf{X}^\top\mathbf{X}\,\boldsymbol{\beta}
 = -2\,\mathbf{X}^\top\mathbf{e}
 </span></p>
-<p><strong>1変数の <span class="math inline">\frac{d}{db}(ab)=a</span>、<span class="math inline">\frac{d}{db}(Ab^2)=2Ab</span> がそのままベクトルになっただけ。</strong></p>
+<p><strong>2次の係数 <span class="math inline">\mathbf{X}^\top\mathbf{X}</span> は <span class="math inline">\mathbf{v}^\top\mathbf{X}^\top\mathbf{X}\mathbf{v}=\|\mathbf{X}\mathbf{v}\|^2\ge 0</span>。だから下に凸で、勾配 0 の点が最小。</strong></p>
 </section>
-<section id="導出⑥正規方程式" class="slide level2">
-<h2>導出⑥：正規方程式</h2>
-<p>導出⑤の勾配を <span class="math inline">\mathbf{0}</span> と置くと<strong>正規方程式</strong>が出る：</p>
+<section id="導出⑤正規方程式" class="slide level2">
+<h2>導出⑤：正規方程式</h2>
+<p>導出④の勾配を <span class="math inline">\mathbf{0}</span> と置くと<strong>正規方程式</strong>が出る：</p>
 <p><span class="math display">
 (\mathbf{X}^\top \mathbf{X})\,\boldsymbol{\beta} = \mathbf{X}^\top \mathbf{y}
 </span></p>
@@ -625,9 +678,9 @@
 \hat{\boldsymbol{\beta}} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}
 </span></p>
 </section>
-<section id="導出⑦幾何的な直感射影" class="slide level2">
-<h2>導出⑦：幾何的な直感（射影）</h2>
-<div id="0db431c6" class="cell" data-execution_count="16">
+<section id="導出⑥幾何的な直感射影" class="slide level2">
+<h2>導出⑥：幾何的な直感（射影）</h2>
+<div id="3c8aee8f" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -641,40 +694,27 @@
 \quad\Longleftrightarrow\quad
 \mathbf{x}_j^\top\mathbf{e} = 0\;\;(j = 1, \dots, p)
 </span></p>
-<p><strong>直交＝掛けて 0。</strong> 書き直すと正規方程式になる。</p>
+<p><strong>直交＝内積が 0</strong>（定義④）。これが正規方程式。</p>
 </section>
-<section id="導出⑧フロベニウスノルム" class="slide level2">
-<h2>導出⑧：フロベニウスノルム</h2>
-<p>目的変数が <span class="math inline">q</span> 個あるとき、<span class="math inline">\mathbf{y}</span> も <span class="math inline">\boldsymbol{\beta}</span> も<strong>行列</strong>になる：</p>
-<div id="a20f05ae" class="cell" data-execution_count="17">
+<section id="導出⑦目的変数が複数でも同じ" class="slide level2 smaller">
+<h2>導出⑦：目的変数が複数でも同じ</h2>
+<p>目的変数が <span class="math inline">q</span> 個なら <span class="math inline">\mathbf{y}</span> も <span class="math inline">\boldsymbol{\beta}</span> も行列になり、当てはまりを定義⑦で測る：</p>
+<div id="adfc7503" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="313" height="183"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="243" height="148"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math display">
-\|\mathbf{E}\|_F^2 = \sum_{i,j} e_{ij}^2 = \operatorname{tr}\bigl(\mathbf{E}^\top\mathbf{E}\bigr)
-</span></p>
-<p><strong>行列の「長さ」＝全マスの二乗和。</strong></p>
-</section>
-<section id="導出⑨トレースで微分して正規方程式へ" class="slide level2 smaller">
-<h2>導出⑨：トレースで微分して正規方程式へ</h2>
 <p><span class="math display">
 \|\mathbf{Y}-\mathbf{X}\mathbf{B}\|_F^2
 = \operatorname{tr}(\mathbf{Y}^\top\mathbf{Y})
 - 2\operatorname{tr}\bigl((\mathbf{X}^\top\mathbf{Y})^\top\mathbf{B}\bigr)
 + \operatorname{tr}\bigl(\mathbf{B}^\top\mathbf{X}^\top\mathbf{X}\,\mathbf{B}\bigr)
 </span></p>
-<p>使う公式（<span class="math inline">\mathbf{A}</span> は対称行列）。導出⑤の2つと同じ形：</p>
-<p><span class="math display">
-\frac{\partial}{\partial \mathbf{B}}\operatorname{tr}\bigl(\mathbf{C}^\top\mathbf{B}\bigr) = \mathbf{C},
-\qquad
-\frac{\partial}{\partial \mathbf{B}}\operatorname{tr}\bigl(\mathbf{B}^\top\mathbf{A}\mathbf{B}\bigr) = 2\mathbf{A}\mathbf{B}
-</span></p>
-<p>勾配を 0 と置くと：</p>
+<p>定義⑧の公式で微分して 0 と置く：</p>
 <p><span class="math display">
 -2\,\mathbf{X}^\top\mathbf{Y} + 2\,\mathbf{X}^\top\mathbf{X}\,\mathbf{B} = \mathbf{O}
 \;\;\Longrightarrow\;\;
@@ -691,7 +731,7 @@
 <li>実装上は逆行列を直接作らず<strong>QR分解や特異値分解</strong>で安定に解く</li>
 <li>得た <span class="math inline">\hat{\boldsymbol{\beta}}</span> で予測 <span class="math inline">\hat{\mathbf{y}}=\mathbf{X}\hat{\boldsymbol{\beta}}</span> を計算</li>
 </ol>
-<div id="c3d835df" class="cell" data-execution_count="18">
+<div id="ee503aec" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="bu">print</span>(<span class="st">"scikit-learn の LinearRegression は内部で最小二乗（lstsq, SVD系）を解く"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>scikit-learn の LinearRegression は内部で最小二乗（lstsq, SVD系）を解く</code></pre>
@@ -700,7 +740,7 @@
 </section>
 <section id="デモ①線形回帰を当てはめる" class="slide level2">
 <h2>デモ①：線形回帰を当てはめる</h2>
-<div id="c78351c2" class="cell" data-execution_count="19">
+<div id="2aa7d5a3" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>X <span class="op">=</span> df[feature_cols]</span>
 <span id="cb4-2"><a href=""></a>y <span class="op">=</span> df[<span class="st">'MedHouseVal'</span>]</span>
 <span id="cb4-3"><a href=""></a></span>
@@ -720,7 +760,7 @@ R² = 0.606  （価格の変動の 60.6% を説明）</code></pre>
 </section>
 <section id="デモ②係数を棒グラフで読む" class="slide level2">
 <h2>デモ②：係数を棒グラフで読む</h2>
-<div id="fa62cae6" class="cell" data-execution_count="20">
+<div id="620ab3c1" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -733,7 +773,7 @@ R² = 0.606  （価格の変動の 60.6% を説明）</code></pre>
 </section>
 <section id="デモ③予測-vs-実測" class="slide level2">
 <h2>デモ③：予測 vs 実測</h2>
-<div id="775eab30" class="cell" data-execution_count="21">
+<div id="2e56ae2c" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -747,12 +787,12 @@ R² = 0.606  （価格の変動の 60.6% を説明）</code></pre>
 <section id="デモ④標準化して寄与を比べる" class="slide level2">
 <h2>デモ④：標準化して寄与を比べる</h2>
 <p>標準化すると係数を<strong>同じ土俵</strong>で比べられる。</p>
-<div id="7a431d9c" class="cell" data-execution_count="22">
+<div id="033ef274" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>Xs <span class="op">=</span> StandardScaler().fit_transform(X)          <span class="co"># 平均0・分散1にそろえる</span></span>
 <span id="cb6-2"><a href=""></a>model_s <span class="op">=</span> LinearRegression().fit(Xs, y)</span>
 <span id="cb6-3"><a href=""></a>std_coef <span class="op">=</span> pd.Series(model_s.coef_, index<span class="op">=</span>X.columns).sort_values()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="af4afada" class="cell" data-execution_count="23">
+<div id="1edeb151" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -768,7 +808,7 @@ R² = 0.606  （価格の変動の 60.6% を説明）</code></pre>
 <p><span class="math display">
 R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 </span></p>
-<div id="3a9f3868" class="cell" data-execution_count="24">
+<div id="a0472a1e" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -811,7 +851,7 @@ R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 </section>
 <section id="落とし穴②外挿の危険" class="slide level2">
 <h2>落とし穴②：外挿の危険</h2>
-<div id="d041a703" class="cell" data-execution_count="25">
+<div id="1f5ffe1c" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -824,7 +864,7 @@ R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 </section>
 <section id="落とし穴③係数の符号解釈の罠" class="slide level2">
 <h2>落とし穴③：係数の符号解釈の罠</h2>
-<div id="fb4c9625" class="cell" data-execution_count="26">
+<div id="b1b296ce" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -844,7 +884,7 @@ R^2 = 1 - \frac{\sum_i (y_i-\hat{y}_i)^2}{\sum_i (y_i-\bar{y})^2}
 <ul>
 <li>線形回帰は「重み付き和」しか表せない → <strong>曲がった関係</strong>は苦手</li>
 </ul>
-<div id="d8153a99" class="cell" data-execution_count="27">
+<div id="c21e7df3" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
