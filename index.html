@@ -42,6 +42,11 @@
   li a:hover, li a:focus-visible { border-color: var(--accent); transform: translateX(2px); }
   .t { display: block; font-weight: 700; color: var(--accent); }
   .s { display: block; color: var(--muted); font-size: .88rem; margin-top: 2px; }
+  li a.pdf {
+    display: inline-block; margin: 4px 0 0 18px; padding: 0; background: none;
+    border: none; border-radius: 0; font-size: .85rem; color: var(--accent);
+  }
+  li a.pdf:hover, li a.pdf:focus-visible { transform: none; text-decoration: underline; }
   footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
             color: var(--muted); font-size: .85rem; }
   .hint { background: var(--card); border: 1px solid var(--line); border-radius: 8px;
@@ -58,7 +63,7 @@
   </header>
 
   <p class="hint">
-    各回をクリックすると、ブラウザでスライドが開きます。
+    各回をクリックすると、ブラウザでスライドが開きます。「読み物（PDF）」は、同じ回の内容を文章でまとめたものです。
     <kbd>→</kbd> <kbd>←</kbd> でページ送り、<kbd>F</kbd> で全画面、<kbd>Esc</kbd> で一覧表示、
     <kbd>S</kbd> で発表者ノートです。
   </p>
@@ -69,6 +74,7 @@
         <span class="t">第1回 多変量解析とは</span>
         <span class="s">最小二乗法は推定手法の一つであり、線形回帰のことではない</span>
       </a>
+      <a class="pdf" href="01_intro/reading.pdf" download="多変量解析_第1回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="02_generalization/">
