@@ -9,7 +9,7 @@
 <link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
-  <title>第6回 正則化</title>
+  <title>第6回 分類②：最尤法</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -30,74 +30,8 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-      }
-    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-    div.sourceCode
-      { color: #24292e;  }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #24292e; } /* Normal */
-    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
-    code span.an { color: #6a737d; } /* Annotation */
-    code span.at { color: #d73a49; } /* Attribute */
-    code span.bn { color: #005cc5; } /* BaseN */
-    code span.bu { color: #d73a49; } /* BuiltIn */
-    code span.cf { color: #d73a49; } /* ControlFlow */
-    code span.ch { color: #032f62; } /* Char */
-    code span.cn { color: #005cc5; } /* Constant */
-    code span.co { color: #6a737d; } /* Comment */
-    code span.cv { color: #6a737d; } /* CommentVar */
-    code span.do { color: #6a737d; } /* Documentation */
-    code span.dt { color: #d73a49; } /* DataType */
-    code span.dv { color: #005cc5; } /* DecVal */
-    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
-    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
-    code span.fl { color: #005cc5; } /* Float */
-    code span.fu { color: #6f42c1; } /* Function */
-    code span.im { color: #032f62; } /* Import */
-    code span.in { color: #6a737d; } /* Information */
-    code span.kw { color: #d73a49; } /* Keyword */
-    code span.op { color: #24292e; } /* Operator */
-    code span.ot { color: #6f42c1; } /* Other */
-    code span.pp { color: #d73a49; } /* Preprocessor */
-    code span.re { color: #6a737d; } /* RegionMarker */
-    code span.sc { color: #005cc5; } /* SpecialChar */
-    code span.ss { color: #032f62; } /* SpecialString */
-    code span.st { color: #032f62; } /* String */
-    code span.va { color: #e36209; } /* Variable */
-    code span.vs { color: #032f62; } /* VerbatimString */
-    code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-7ee8d28668e13494feddb3b516184cbd.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-1941e964fa3ab312ad1a6d8bf906c6f5.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -211,643 +145,1375 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">第6回 正則化</h1>
-  <p class="subtitle">高次元データで係数を安定させ、重要変数を絞る</p>
+  <h1 class="title">第6回 分類②：最尤法</h1>
+  <p class="subtitle">データの出方を仮定すると、確率が出る</p>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="場面変数を全部入れたら壊れた" class="slide level2 section-title">
-<h2>場面：「変数を全部入れたら壊れた」</h2>
-<p>使えそうな変数を100個そろえました。標本は80件。全部入れて回帰します。</p>
-<div id="7d553fbf" class="cell" data-execution_count="2">
+<section>
+<section id="第i部-理論" class="title-slide slide level1 part center">
+<h1>第I部　理論</h1>
+
+</section>
+<section id="前回の残り向きは出た" class="slide level2" data-chapter="I-1">
+<h2>前回の残り：向きは出た</h2>
+<ul>
+<li>0/1の目的変数に最小二乗法を当てると、係数の向きはLDAの判別方向になった</li>
+<li>群を分ける向きは正しい</li>
+<li>だが予測値は0と1の外へはみ出し、確率としては読めなかった</li>
+</ul>
+</section>
+<section id="新しいデータ紙幣の真贋" class="slide level2" data-chapter="I-1">
+<h2>新しいデータ：紙幣の真贋</h2>
+<div id="345568ed" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1068" height="253"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="330"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>訓練の誤差はゼロになります。</strong> ですがテストは崩壊します。なぜでしょうか。</p>
+<p>紙幣の画像から測った1つの量（分散）と、偽札（<span class="math inline">y=1</span>、赤）か真札（<span class="math inline">y=0</span>、青）か。縦に少しずらして打った。</p>
 </section>
-<section id="今回の問い" class="slide level2 section-title">
+<section id="に直線を当てる" class="slide level2" data-chapter="I-1">
+<h2>0/1に直線を当てる</h2>
+<div id="67115c25" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>前回のやり方で直線を当てる。<span class="math inline">\hat y</span> は -0.37 から 1.39 まで、0と1の外へ伸びる。</p>
+</section>
+<section id="割合はs字に曲がる" class="slide level2" data-chapter="I-1">
+<h2>割合はS字に曲がる</h2>
+<div id="72bbad3b" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>黒の四角は、分散の区間ごとの偽札の割合。0と1の間でS字に曲がるが、直線は曲がれない。</p>
+</section>
+<section id="今回の問い" class="slide level2" data-chapter="I-1">
 <h2>今回の問い</h2>
-<p>100変数の遺伝子発現データで<strong>病状スコアを予測</strong>したい。</p>
+<p>方向は出るが、確率が出ない。確率を出すには？</p>
+<p>今回覚える言葉</p>
 <ul>
-<li>普通の線形回帰（OLS）を使うと係数が不安定・過学習</li>
-<li>そもそも変数が標本より多いと、OLSは<strong>解が一意に定まらない</strong></li>
-<li>どう安定させ、<strong>どの変数が重要か</strong>を絞れるか？</li>
+<li>尤度と最尤法</li>
+<li>正規分布の密度</li>
+<li>事後確率（ベイズの定理）</li>
+<li>シグモイド関数</li>
+<li>ロジスティック回帰とニュートン法</li>
+<li>交差エントロピー</li>
 </ul>
-<p>今回は、その答えとなる<strong>正則化</strong>を学ぶ。</p>
 </section>
-<section id="具体化①高次元データはどこにでもある" class="slide level2 section-title">
-<h2>具体化①：高次元データはどこにでもある</h2>
+<section id="答えの見通し出方を仮定する" class="slide level2" data-chapter="I-1">
+<h2>答えの見通し：出方を仮定する</h2>
+<p>データの出方（確率分布）を仮定する。</p>
+<p>そのデータが出てくる確率を最大にするパラメータを選ぶ。これが最尤法。</p>
+</section>
+<section id="段で確かめる" class="slide level2" data-chapter="I-1">
+<h2>3段で確かめる</h2>
+<ol type="1">
+<li>最小二乗法は、誤差が正規分布のときの最尤法</li>
+<li>LDAを最尤法で当てはめる（<span class="math inline">\boldsymbol x</span> の出方を仮定）</li>
+<li>ロジスティック回帰（<span class="math inline">y</span> の出方だけを仮定）</li>
+</ol>
+</section>
+<section id="言葉を決める" class="slide level2" data-chapter="I-1">
+<h2>言葉を決める</h2>
 <ul>
-<li><strong>遺伝子発現</strong>：数万遺伝子 × 数百サンプル（<span class="math inline">p \gg n</span>）</li>
-<li><strong>テキスト解析</strong>：単語ごとに1変数 → 語彙数だけ次元が増える</li>
-<li><strong>センサー・画像</strong>：1ピクセル1変数で数千〜数万次元</li>
+<li>最尤法では「手元のデータが出てくる確率」を式で書き、それを最大にする</li>
+<li>要るのは、0か1の量の出方、連続の量の出方、群を見たあとの確率</li>
 </ul>
-<p>変数が多いほど情報が増えそうに見えるが、実際は<strong>過学習と不安定さ</strong>を招く。</p>
+<p>道具を先にそろえる。</p>
 </section>
-<section id="具体化②変数が増えると何が起きるか" class="slide level2 section-title smaller">
-<h2>具体化②：変数が増えると何が起きるか</h2>
-<div id="2d139f88" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>X, y, true_coef <span class="op">=</span> make_regression(n_samples<span class="op">=</span><span class="dv">100</span>, n_features<span class="op">=</span><span class="dv">100</span>, n_informative<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb1-2"><a href=""></a>                                  noise<span class="op">=</span><span class="dv">20</span>, coef<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb1-3"><a href=""></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb1-4"><a href=""></a>scaler <span class="op">=</span> StandardScaler().fit(X_train)</span>
-<span id="cb1-5"><a href=""></a>X_tr, X_te <span class="op">=</span> scaler.transform(X_train), scaler.transform(X_test)</span>
-<span id="cb1-6"><a href=""></a><span class="bu">print</span>(<span class="ss">f"訓練 n=</span><span class="sc">{</span>X_tr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">  変数 p=</span><span class="sc">{</span>X_tr<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">  "</span></span>
-<span id="cb1-7"><a href=""></a>      <span class="ss">f"真に効く変数=</span><span class="sc">{</span>(true_coef <span class="op">!=</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>訓練 n=80  変数 p=100  真に効く変数=10</code></pre>
-</div>
-</div>
-<div id="179176b1" class="cell" data-execution_count="4">
+<section id="尤度①0か1の出方" class="slide level2" data-chapter="I-4">
+<h2>尤度①：0か1の出方</h2>
+<p><span class="math display">
+\Pr(y)=\theta^{y}(1-\theta)^{1-y}\qquad(y\in\{0,1\})
+</span></p>
+<p>コインの表を <span class="math inline">y=1</span>、裏を <span class="math inline">y=0</span>、表の確率を <span class="math inline">\theta</span> とする。<span class="math inline">y=1</span> なら <span class="math inline">\theta</span>、<span class="math inline">y=0</span> なら <span class="math inline">1-\theta</span> になる。これをベルヌーイ分布と呼ぶ。</p>
+</section>
+<section id="尤度②θの関数として見る" class="slide level2 smaller" data-chapter="I-4">
+<h2>尤度②：θの関数として見る</h2>
+<div id="ad1cbd27" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="131"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>訓練標本80に対し変数100——<strong><span class="math inline">p &gt; n</span></strong> の典型的な高次元設定です。</p>
-</section>
-<section id="データの四角形横長になった" class="slide level2 section-title">
-<h2>データの四角形：横長になった</h2>
-<div id="249912f5" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="439" height="284"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>第1回からの縦長と違い、<strong>行より列が多い</strong>（<span class="math inline">p&gt;n</span>）横長の四角形。この形の変化が今回のすべての出発点。</p>
-</section>
-<section id="具体化③真の係数はスパース" class="slide level2 section-title">
-<h2>具体化③：真の係数はスパース</h2>
-<p>100変数のうち、ゼロでない真の係数は10個だけ。残りは完全にゼロ。</p>
-<div id="290389a6" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" width="1064" height="284"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>理想のモデルは「赤い10本だけを拾い、残り90本をゼロにする」もの。</p>
-</section>
-<section id="素朴な方法①olsをそのまま当てる" class="slide level2 section-title">
-<h2>素朴な方法①：OLSをそのまま当てる</h2>
-<!-- 下の print は、上の ::: {.note-only} の中のチャンクで作った lr を使っている。
-     ノートのチャンクも実行される（note.lua が落とすのは出力ではなく Div）ので、
-     この形で動く。ただし2つのチャンクの順序を入れ替えたり、上のチャンクを
-     消したりすると、revealjs / pptx / docx / ipynb のすべてで NameError になり
-     レンダリングが止まる。ナレーションがテストRMSE（約75.7）と係数の最大絶対値
-     （約74.6）を読み上げるため、print だけは画面に残してある。 -->
-<div id="66133ebc" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"OLS 訓練RMSE   : </span><span class="sc">{</span>root_mean_squared_error(y_train, lr.predict(X_tr))<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
-<span id="cb3-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"OLS テストRMSE : </span><span class="sc">{</span>root_mean_squared_error(y_test, lr.predict(X_te))<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
-<span id="cb3-3"><a href=""></a><span class="bu">print</span>(<span class="ss">f"係数の最大絶対値: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">abs</span>(lr.coef_)<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>OLS 訓練RMSE   : 0.0
-OLS テストRMSE : 75.7
-係数の最大絶対値: 74.6</code></pre>
-</div>
-</div>
-<div id="00fa082c" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="158"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="素朴な限界訓練0テスト崩壊" class="slide level2 section-title">
-<h2>素朴な限界：訓練0・テスト崩壊</h2>
-<ul>
-<li>変数が標本より多いと、訓練データを<strong>完全に通る</strong>解が作れる</li>
-<li><span class="math inline">p &gt; n</span> では <span class="math inline">X^\top X</span> が<strong>特異</strong>になる</li>
-</ul>
-<div id="bd57f20b" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="892" height="147"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>「訓練は完璧、テストは壊滅」——この差を埋めるのが正則化です。</p>
-</section>
-<section id="位置づけ第5回からの流れ" class="slide level2 section-title">
-<h2>位置づけ：第5回からの流れ</h2>
-<ul>
-<li><strong>第5回</strong>：共線性で係数が暴れる問題を、VIFで<strong>診断</strong>した</li>
-<li><strong>第6回（今回）</strong>：その暴れを、ペナルティ項で<strong>抑え込む</strong></li>
-<li><strong>第7回（次回）</strong>：予測対象を数値からカテゴリへ——分類モデルへ進む</li>
-</ul>
-<p>第5回で「<span class="math inline">(X^\top X + \lambda I)^{-1}X^\top y</span> が解を安定化する」と予告した。 今回はその <span class="math inline">\lambda</span> こそが正則化の正体だと明かす。</p>
-</section>
-<section id="直感ペナルティで係数を縮める" class="slide level2 section-title">
-<h2>直感：ペナルティで係数を縮める</h2>
-<ul>
-<li><strong>Ridge（L2）</strong>：すべての <span class="math inline">\beta</span> を小さく縮める（ゼロにはしない）</li>
-<li><strong>Lasso（L1）</strong>：不要な <span class="math inline">\beta</span> を<strong>ゼロに落とす</strong>（変数選択）</li>
-<li><strong>ElasticNet</strong>：両者の混合</li>
-</ul>
-<div id="7271aec0" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="129"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>大きな係数ほど損。</strong></p>
-</section>
-<section id="行列で見るαi-を足して支える" class="slide level2 section-title">
-<h2>行列で見る：αI を足して支える</h2>
-<div id="ac2ccebb" class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="608" height="249"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="264"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span class="math display">
-\hat{\boldsymbol{\beta}}_{\text{Ridge}} = (\mathbf{X}^\top\mathbf{X} + \alpha\mathbf{I})^{-1}\mathbf{X}^\top\mathbf{y}
+L(\theta)=\textstyle\prod_{i=1}^{10}\theta^{y_i}(1-\theta)^{1-y_i}=\theta^7(1-\theta)^3
 </span></p>
-<p><strong>対角に <span class="math inline">\alpha</span> を足す一手</strong>で解が決まる（導出①で確認）。</p>
+<p>10回投げて表が7回。独立なら出やすさは掛け算。データを固定し、<span class="math inline">\theta</span> の関数と見たものを尤度と呼ぶ。</p>
 </section>
-<section id="定義①ridge回帰l2正則化" class="slide level2 section-title">
-<h2>定義①：Ridge回帰（L2正則化）</h2>
-<p><span class="math display">\min_{\boldsymbol{\beta}} \;\sum_{i=1}^n (y_i - \hat{y}_i)^2 \;+\; \alpha \sum_{j=1}^p \beta_j^2</span></p>
-<blockquote>
-<p><strong>読み方</strong>：残差の二乗和に、係数の<strong>二乗</strong>の和を <span class="math inline">\alpha</span> 倍して足したものを最小にする。</p>
-</blockquote>
-<ul>
-<li><span class="math inline">\alpha = 0</span> なら OLS と一致。<span class="math inline">\alpha</span> が正則化の<strong>強さ</strong></li>
-<li>全係数がなだらかに縮む。<strong>変数選択はしない</strong></li>
-</ul>
-</section>
-<section id="定義②lasso回帰l1正則化" class="slide level2 section-title">
-<h2>定義②：Lasso回帰（L1正則化）</h2>
-<p><span class="math display">\min_{\boldsymbol{\beta}} \;\sum_{i=1}^n (y_i - \hat{y}_i)^2 \;+\; \alpha \sum_{j=1}^p |\beta_j|</span></p>
-<blockquote>
-<p><strong>読み方</strong>：罰を係数の<strong>絶対値</strong>の和にする。ここがゼロを生む鍵になる。</p>
-</blockquote>
-<ul>
-<li>絶対値が、一部の係数を<strong>ちょうどゼロ</strong>にする力を生む</li>
-<li>ゼロの変数は使われない → <strong>変数選択を兼ねる</strong></li>
-</ul>
-</section>
-<section id="定義③elasticnetl1とl2の混合" class="slide level2 section-title">
-<h2>定義③：ElasticNet（L1とL2の混合）</h2>
-<p><span class="math display">\min_{\boldsymbol{\beta}} \;\sum (y_i - \hat{y}_i)^2 \;+\; \alpha\!\left[\rho \sum |\beta_j| + \frac{1-\rho}{2}\sum \beta_j^2\right]</span></p>
-<ul>
-<li><span class="math inline">\rho = 1</span> なら Lasso、<span class="math inline">\rho = 0</span> なら Ridge</li>
-<li>L1の変数選択と、L2の安定性を<strong>両取り</strong>する</li>
-</ul>
-</section>
-<section id="定義④なぜ標準化が前提か" class="slide level2 section-title">
-<h2>定義④：なぜ標準化が前提か</h2>
-<ul>
-<li>「年収（千円単位）」と「年齢（歳）」では、同じ重要さでも係数の桁が違う</li>
-<li>スケールの大きい変数ほど係数が小さくなり、<strong>不当に罰を免れる</strong></li>
-<li>だから正則化の前に、全変数を<strong>標準化（平均0・分散1）</strong>するのが鉄則</li>
-</ul>
-<p><code>StandardScaler</code> を訓練データだけで <code>fit</code> するのも忘れずに（リーク防止）。</p>
-</section>
-<section id="定義⑤罰と制約をノルムで書く" class="slide level2 section-title">
-<h2>定義⑤：罰と制約をノルムで書く</h2>
+<section id="尤度③最大は観測の割合" class="slide level2 smaller" data-chapter="I-4">
+<h2>尤度③：最大は観測の割合</h2>
+<div id="d5545179" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="264"></p>
+</figure>
+</div>
+</div>
+</div>
 <p><span class="math display">
-\lVert\boldsymbol{\beta}\rVert_2^2=\sum_j\beta_j^2,
-\qquad
-\lVert\boldsymbol{\beta}\rVert_1=\sum_j\lvert\beta_j\rvert
+L(\theta)=\theta^7(1-\theta)^3\quad\text{が最大になるのは}\quad \theta=0.7
 </span></p>
+<p>最大は <span class="math inline">\theta=0.7</span>（赤の破線）、表が出た割合そのもの。尤度を最大にするパラメータを選ぶのが最尤法。</p>
+</section>
+<section id="対数山頂の位置は同じ" class="slide level2 smaller" data-chapter="I-4">
+<h2>対数：山頂の位置は同じ</h2>
+<div id="cc4a9508" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="264"></p>
+</figure>
+</div>
+</div>
+</div>
 <p><span class="math display">
 \begin{aligned}
-\text{罰の形：}&amp;\;\min\;\lVert\mathbf{y}-\mathbf{X}\boldsymbol{\beta}\rVert^2+\alpha\lVert\boldsymbol{\beta}\rVert\\
-\text{制約の形：}&amp;\;\min\;\lVert\mathbf{y}-\mathbf{X}\boldsymbol{\beta}\rVert^2\;\;\text{s.t.}\;\;\lVert\boldsymbol{\beta}\rVert\le c
+\log L(\theta)&amp;=7\log\theta+3\log(1-\theta)\\
+\frac{d\log L}{d\theta}&amp;=\frac7\theta-\frac3{1-\theta}=0\ \Longrightarrow\ \hat\theta=0.7
 \end{aligned}
 </span></p>
-<ul>
-<li>L2 は第1回の定義④の長さ、L1 は絶対値で測る長さ</li>
-<li><strong>2つの形は同じ問題</strong>。<span class="math inline">\alpha</span> が大きいほど <span class="math inline">c</span> は小さい</li>
-</ul>
+<p>積が和になり、微分しやすい。<span class="math inline">\log</span> は増える関数なので、山頂の位置は変わらない。</p>
 </section>
-<section id="定義⑥微分できない点と劣微分" class="slide level2 section-title">
-<h2>定義⑥：微分できない点と劣微分</h2>
-<div id="212afe01" class="cell" data-execution_count="13">
+<section id="正規分布①1変数の密度" class="slide level2" data-chapter="I-4">
+<h2>正規分布①：1変数の密度</h2>
+<div id="a98537de" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="1192" height="231"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="207"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span class="math display">
-\partial\lvert b\rvert=
-\begin{cases}\{\operatorname{sign} b\} &amp; (b\ne 0)\\ [-1,\,1] &amp; (b=0)\end{cases}
+f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\Bigl(-\frac{(x-\mu)^2}{2\sigma^2}\Bigr)
 </span></p>
-<p><strong>最小の条件：<span class="math inline">0\in\partial f</span></strong>（「勾配が 0」の一般化）</p>
+<p>連続の量の出やすさ。<span class="math inline">\mu</span> から離れるほど、距離の二乗で出にくくなる。</p>
 </section>
-<section id="導出①ridgeの閉じた解" class="slide level2 section-title">
-<h2>導出①：Ridgeの閉じた解</h2>
-<p>勾配（第1回の定義⑤⑥）を 0 と置く：</p>
-<p><span class="math display">-2\mathbf{X}^\top(\mathbf{y}-\mathbf{X}\boldsymbol{\beta})+2\alpha\boldsymbol{\beta}=\mathbf{0}</span></p>
-<p><span class="math display">\hat{\boldsymbol{\beta}}_{\text{Ridge}} = (X^\top X + \alpha I)^{-1} X^\top y</span></p>
-<ul>
-<li><span class="math inline">\alpha I</span> が対角に正の値を足すので、<span class="math inline">X^\top X</span> が特異でも<strong>逆行列が存在</strong>する</li>
-</ul>
-</section>
-<section id="導出②閉じた解を数値で確認" class="slide level2 section-title smaller">
-<h2>導出②：閉じた解を数値で確認</h2>
-<p>公式と <code>sklearn</code> の <code>Ridge</code> が一致するか確かめる。</p>
-<div id="315c1f28" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>lam, p <span class="op">=</span> <span class="fl">10.0</span>, X_tr.shape[<span class="dv">1</span>]</span>
-<span id="cb5-2"><a href=""></a>yc <span class="op">=</span> y_train <span class="op">-</span> y_train.mean()                       <span class="co"># 切片を分離するため中心化</span></span>
-<span id="cb5-3"><a href=""></a>beta_cf <span class="op">=</span> np.linalg.solve(X_tr.T <span class="op">@</span> X_tr <span class="op">+</span> lam <span class="op">*</span> np.eye(p), X_tr.T <span class="op">@</span> yc)</span>
-<span id="cb5-4"><a href=""></a>beta_sk <span class="op">=</span> Ridge(alpha<span class="op">=</span>lam).fit(X_tr, y_train).coef_</span>
-<span id="cb5-5"><a href=""></a><span class="bu">print</span>(<span class="ss">f"係数の最大の差: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">abs</span>(beta_cf <span class="op">-</span> beta_sk)<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.1e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>係数の最大の差: 1.0e-13</code></pre>
+<section id="正規分布②多変量の密度" class="slide level2" data-chapter="I-4">
+<h2>正規分布②：多変量の密度</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 65%;">
+<p><span class="math display">
+\begin{aligned}
+f(\boldsymbol x)&amp;=\frac{1}{(2\pi)^{p/2}\lvert\boldsymbol\Sigma\rvert^{1/2}}\exp\Bigl(-\frac12D^2\Bigr)\\
+D^2&amp;=(\boldsymbol x-\boldsymbol\mu)^\top\boldsymbol\Sigma^{-1}(\boldsymbol x-\boldsymbol\mu)
+\end{aligned}
+</span></p>
 </div>
-</div>
-<div id="b81768df" class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="195"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>点が対角線に乗っています。<strong>公式と実装は同じものを計算しています。</strong></p>
-</section>
-<section id="導出③なぜl1だけゼロになるか" class="slide level2 section-title">
-<h2>導出③：なぜL1だけゼロになるか</h2>
-<p>制約付き最小化（定義⑤）として見ると、<strong>制約領域の形</strong>が運命を分ける。</p>
-<div id="efdcc820" class="cell" data-execution_count="16">
+<p>距離の二乗 <span class="math inline">D^2</span> が、共分散行列 <span class="math inline">\boldsymbol\Sigma</span> で測った2次形式になる。等高線は楕円。<span class="math inline">p=1</span> なら <span class="math inline">\boldsymbol\Sigma=\sigma^2</span> で1変数の式に戻る。</p>
+</div><div class="column" style="width:55%;">
+<div id="80d8264a" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png" width="924" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" width="335" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>赤い等高線（誤差）が最初に触れる点が解。菱形は<strong>角＝軸上</strong>で触れやすい。</p>
+</div></div>
 </section>
-<section id="導出④角に当たるとゼロが生まれる" class="slide level2 section-title">
-<h2>導出④：角に当たるとゼロが生まれる</h2>
-<p>幾何で見た「角に当たりやすい」が、スパース解の正体。</p>
+<section id="事後確率①割合出やすさ" class="slide level2 smaller" data-chapter="I-4">
+<h2>事後確率①：割合×出やすさ</h2>
+<div id="a94d4c3e" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="252"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>群 <span class="math inline">q</span> の割合 <span class="math inline">\pi_q</span> と、群の中の密度 <span class="math inline">f_q(x)</span> を掛ける。2つの群で <span class="math inline">\pi_qf_q</span> を描く（赤の群は全体の1/3）。</p>
+</section>
+<section id="事後確率②ベイズの定理" class="slide level2 smaller" data-chapter="I-4">
+<h2>事後確率②：ベイズの定理</h2>
+<div id="6bc6e9bb" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="252"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\Pr(y=1\mid\boldsymbol x)=\frac{\pi_1f_1(\boldsymbol x)}{\pi_0f_0(\boldsymbol x)+\pi_1f_1(\boldsymbol x)}
+</span></p>
+<p><span class="math inline">x</span> を見たあとで群1である確率（事後確率）。<span class="math inline">x=1.5</span> では、赤の高さ ÷（青＋赤）＝ 0.55。</p>
+</section>
+<section id="事後確率③s字になる" class="slide level2 smaller" data-chapter="I-4">
+<h2>事後確率③：S字になる</h2>
+<div id="39a878d7" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="252"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">x</span> を動かしながら同じ比を求めると、事後確率は0と1の間でS字に曲がる。</p>
+</section>
+<section id="シグモイド①0と1の間に収める" class="slide level2 smaller" data-chapter="I-4">
+<h2>シグモイド①：0と1の間に収める</h2>
+<div id="61833ba9" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="243"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\begin{aligned}
+\frac{\pi_1f_1}{\pi_0f_0+\pi_1f_1}&amp;=\frac{1}{1+e^{-a}}=\operatorname{sig}(a)\\
+a&amp;=\log\frac{\pi_1f_1}{\pi_0f_0}=\log\frac{\theta}{1-\theta}
+\end{aligned}
+</span></p>
+<p>分母・分子を <span class="math inline">\pi_1f_1</span> で割る。どんな <span class="math inline">a</span> でも0と1の間。<span class="math inline">a</span> は対数オッズ。</p>
+</section>
+<section id="シグモイド②微分" class="slide level2" data-chapter="I-4">
+<h2>シグモイド②：微分</h2>
+<p><span class="math display">
+\begin{aligned}
+\frac{d\,\operatorname{sig}(a)}{da}&amp;=\operatorname{sig}(a)\bigl(1-\operatorname{sig}(a)\bigr)\\
+\frac{d\log\operatorname{sig}(a)}{da}=1-\operatorname{sig}(a),&amp;\qquad
+\frac{d\log\bigl(1-\operatorname{sig}(a)\bigr)}{da}=-\operatorname{sig}(a)
+\end{aligned}
+</span></p>
+<p>微分がシグモイド自身で書ける。対数をとると、さらに簡単な形になる。</p>
+</section>
+<section id="道具がそろった" class="slide level2" data-chapter="I-1">
+<h2>道具がそろった</h2>
 <ul>
-<li><strong>Ridge（円）</strong>：滑らかなので接点が軸上に来ない</li>
-<li><strong>Lasso（菱形）</strong>：尖った角に接しやすく <span class="math inline">\beta_j = 0</span> が出る</li>
+<li>尤度：データを固定し、パラメータの関数と見た出やすさ。対数をとって最大にする</li>
+<li>正規分布の密度：中心から離れるほど、距離の二乗で出にくい</li>
+<li>事後確率：ベイズの定理で出す。シグモイド関数で0と1の間に収まる</li>
 </ul>
-<p>「角があるか・滑らかか」——この一点が変数選択を決める。</p>
+<p>まず、知っている最小二乗法に当ててみる。</p>
 </section>
-<section id="アルゴリズムαをどう選ぶか" class="slide level2 section-title">
-<h2>アルゴリズム：αをどう選ぶか</h2>
-<div id="39066b49" class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="171"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><code>RidgeCV</code> / <code>LassoCV</code> がこの手順を1行で実行します。</p>
-</section>
-<section id="デモ①正則化パス係数-vs-α" class="slide level2 section-title">
-<h2>デモ①：正則化パス（係数 vs α）</h2>
-<p><span class="math inline">\alpha</span> を動かすと係数がどう変わるかを描く（正則化パス）。</p>
-<div id="226d4ac5" class="cell" data-execution_count="18">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" width="1419" height="298"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Ridgeは全線がゆっくり縮む。Lassoは線が次々と<strong>ゼロに折れ込む</strong>。</p>
-</section>
-<section id="デモ②cvでαを選ぶ" class="slide level2 section-title">
-<h2>デモ②：CVでαを選ぶ</h2>
-<!-- 下の print は、上の ::: {.note-only} の中のチャンクで作った ridge_cv と
-     lasso_cv を使っている。ノートのチャンクも実行される（note.lua が落とすのは
-     出力ではなく Div）ので、この形で動く。ただし2つのチャンクの順序を入れ替えたり、
-     上のチャンクを消したりすると、revealjs / pptx / docx / ipynb のすべてで
-     NameError になりレンダリングが止まる。ナレーションが選ばれた α（約2.364 と
-     約2.656）とテストRMSE（約75.0 と約22.8）を読み上げるため、print だけは
-     画面に残してある。 -->
-<div id="1d27d83f" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"OLS    テストRMSE=</span><span class="sc">{</span>root_mean_squared_error(y_test, lr.predict(X_te))<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
-<span id="cb7-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Ridge  α=</span><span class="sc">{</span>ridge_cv<span class="sc">.</span>alpha_<span class="sc">:.3f}</span><span class="ss">  テストRMSE="</span></span>
-<span id="cb7-3"><a href=""></a>      <span class="ss">f"</span><span class="sc">{</span>root_mean_squared_error(y_test, ridge_cv.predict(X_te))<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
-<span id="cb7-4"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Lasso  α=</span><span class="sc">{</span>lasso_cv<span class="sc">.</span>alpha_<span class="sc">:.3f}</span><span class="ss">  テストRMSE="</span></span>
-<span id="cb7-5"><a href=""></a>      <span class="ss">f"</span><span class="sc">{</span>root_mean_squared_error(y_test, lasso_cv.predict(X_te))<span class="sc">:.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>OLS    テストRMSE=75.7
-Ridge  α=2.364  テストRMSE=75.0
-Lasso  α=2.656  テストRMSE=22.8</code></pre>
-</div>
-</div>
-<div id="9dab9b23" class="cell" data-execution_count="21">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="889" height="159"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>効く変数が少ないときは L1 が強い。</strong></p>
-</section>
-<section id="デモ③lassoの変数選択を見る" class="slide level2 section-title">
-<h2>デモ③：Lassoの変数選択を見る</h2>
-<p>Lassoが選んだ変数と真の重要変数の重なりを見る。</p>
-<div id="4f7de099" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>informative_idx <span class="op">=</span> np.where(true_coef <span class="op">!=</span> <span class="dv">0</span>)[<span class="dv">0</span>]</span>
-<span id="cb9-2"><a href=""></a>overlap <span class="op">=</span> <span class="bu">len</span>(<span class="bu">set</span>(informative_idx) <span class="op">&amp;</span> <span class="bu">set</span>(np.where(lasso_cv.coef_ <span class="op">!=</span> <span class="dv">0</span>)[<span class="dv">0</span>]))</span>
-<span id="cb9-3"><a href=""></a><span class="bu">print</span>(<span class="ss">f"選んだ変数数: </span><span class="sc">{</span>(lasso_cv.coef_ <span class="op">!=</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss"> / 100  真の10変数: </span><span class="sc">{</span>overlap<span class="sc">}</span><span class="ss"> / 10"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>選んだ変数数: 20 / 100  真の10変数: 9 / 10</code></pre>
-</div>
-</div>
-<div id="238758f8" class="cell" data-execution_count="23">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" width="1072" height="195"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>赤（真の重要変数）が高く、青はほぼゼロ。<strong>ノイズを落とせています。</strong></p>
-</section>
-<section id="デモ④ridge-vs-lasso-係数比較" class="slide level2 section-title">
-<h2>デモ④：Ridge vs Lasso 係数比較</h2>
-<p>同じデータでの両者の係数を、絶対値の大きさで比べる。</p>
-<div id="ca46e1c8" class="cell" data-execution_count="24">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" width="1431" height="250"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Ridge: ゼロでない係数 100/100  最大|係数|=67.1
-Lasso: ゼロの係数 80/100  最大|係数|=86.3</code></pre>
-</div>
-</div>
-<p>Ridgeは100本すべて残し小さく縮める。Lassoは80本をゼロに落とす。</p>
-</section>
-<section id="デモ⑤ridgeが効く別の場面" class="slide level2 section-title">
-<h2>デモ⑤：Ridgeが効く別の場面</h2>
-<!-- 下の print は、上の ::: {.note-only} の中のチャンクで作った ols と rcv を
-     使っている。ノートのチャンクも実行される（note.lua が落とすのは出力ではなく
-     Div）ので、この形で動く。ただし2つのチャンクの順序を入れ替えたり、上の
-     チャンクを消したりすると、revealjs / pptx / docx / ipynb のすべてで
-     NameError になりレンダリングが止まる。ナレーションがテストRMSE
-     （約107.2 と約82.3）を読み上げるため、print だけは画面に残してある。 -->
-<div id="2ff8c31b" class="cell" data-execution_count="26">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"OLS   テストRMSE=</span><span class="sc">{</span>root_mean_squared_error(yr_te, ols.predict(Xr_te))<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
-<span id="cb12-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Ridge テストRMSE=</span><span class="sc">{</span>root_mean_squared_error(yr_te, rcv.predict(Xr_te))<span class="sc">:.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>OLS   テストRMSE=107.2
-Ridge テストRMSE=82.3</code></pre>
-</div>
-</div>
-<div id="6864f743" class="cell" data-execution_count="27">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="889" height="158"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>今度は Ridge が勝ちます。<strong>全変数が効くときは L2 が正解。</strong></p>
-</section>
-<section id="解釈①いつridgeいつlasso" class="slide level2 section-title">
-<h2>解釈①：いつRidge・いつLasso</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>状況</th>
-<th>向いている手法</th>
-<th>理由</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>効く変数はごく一部</td>
-<td><strong>Lasso</strong></td>
-<td>不要変数をゼロにできる</td>
-</tr>
-<tr class="even">
-<td>多くの変数が薄く効く</td>
-<td><strong>Ridge</strong></td>
-<td>全部残して縮めるのが最適</td>
-</tr>
-<tr class="odd">
-<td>相関した変数群がある</td>
-<td><strong>ElasticNet</strong></td>
-<td>群ごとまとめて残せる</td>
-</tr>
-</tbody>
-</table>
-<p>最初のデモはスパース構造だったのでLassoが圧勝した。</p>
-</section>
-<section id="解釈②標準化を忘れるとどうなるか" class="slide level2 section-title">
-<h2>解釈②：標準化を忘れるとどうなるか</h2>
-<p>年齢と年収で、標準化の有無を比べる。</p>
-<div id="a9aa1f89" class="cell" data-execution_count="28">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a>rng <span class="op">=</span> np.random.RandomState(<span class="dv">0</span>)<span class="op">;</span> nn <span class="op">=</span> <span class="dv">300</span></span>
-<span id="cb14-2"><a href=""></a>age <span class="op">=</span> rng.uniform(<span class="dv">20</span>, <span class="dv">60</span>, nn)                <span class="co"># 数十のスケール</span></span>
-<span id="cb14-3"><a href=""></a>income <span class="op">=</span> rng.uniform(<span class="dv">200</span>, <span class="dv">1500</span>, nn)          <span class="co"># 数百〜千のスケール</span></span>
-<span id="cb14-4"><a href=""></a>za <span class="op">=</span> (age <span class="op">-</span> age.mean()) <span class="op">/</span> age.std()<span class="op">;</span> zi <span class="op">=</span> (income <span class="op">-</span> income.mean()) <span class="op">/</span> income.std()</span>
-<span id="cb14-5"><a href=""></a>target <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> za <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> zi <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, nn)   <span class="co"># 寄与は本来どちらも同じ</span></span>
-<span id="cb14-6"><a href=""></a>Xsc <span class="op">=</span> np.column_stack([age, income])</span>
-<span id="cb14-7"><a href=""></a>no <span class="op">=</span> Lasso(alpha<span class="op">=</span><span class="fl">0.5</span>, max_iter<span class="op">=</span><span class="dv">10000</span>).fit(Xsc, target)</span>
-<span id="cb14-8"><a href=""></a>ys <span class="op">=</span> Lasso(alpha<span class="op">=</span><span class="fl">0.5</span>, max_iter<span class="op">=</span><span class="dv">10000</span>).fit(StandardScaler().fit_transform(Xsc), target)</span>
-<span id="cb14-9"><a href=""></a><span class="bu">print</span>(<span class="st">'なし:'</span>, np.<span class="bu">round</span>(no.coef_, <span class="dv">4</span>), <span class="st">' あり:'</span>, np.<span class="bu">round</span>(ys.coef_, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>なし: [0.2446 0.0078]  あり: [2.368 2.477]</code></pre>
-</div>
-</div>
-<p>標準化なしだと年収の係数が不当に小さい。標準化後は対等になる。</p>
-</section>
-<section id="解釈③αと予測誤差スパース性" class="slide level2 section-title">
-<h2>解釈③：αと予測誤差・スパース性</h2>
-<p><span class="math inline">\alpha</span> を上げるほど係数は縮み、変数は減るが、上げ過ぎると当てはまらない。</p>
-<div id="596552ba" class="cell" data-execution_count="29">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="182"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>最適な <span class="math inline">\alpha</span> とは、バイアスとバリアンスの釣り合う点です。</p>
-<p><strong>予測は立て直せ、効く変数も絞れた——ただ、これらの解釈には落とし穴があるかもしれない。</strong></p>
-</section>
-<section id="落とし穴①標準化は必須" class="slide level2 section-title">
-<h2>落とし穴①：標準化は必須</h2>
-<p>正則化を使うなら、<strong>標準化はオプションではなく前提</strong>。</p>
+<section id="次の問い最小二乗法の仮定" class="slide level2" data-chapter="I-1">
+<h2>次の問い：最小二乗法の仮定</h2>
 <ul>
-<li>スケールの大きい変数が不当に罰を免れ、選択・縮小が歪む（解釈②で実証）</li>
-<li><code>Pipeline</code> に <code>StandardScaler</code> → 回帰器を入れ、CVの<strong>内側</strong>でfitする</li>
-<li>テストデータの統計量で <code>fit</code> しない（第3回のデータリークと同じ罠）</li>
+<li>第1回から、係数は誤差の二乗和を最小にして決めてきた</li>
+<li>最尤法は、データの出方を仮定し、出てくる確率を最大にする</li>
 </ul>
-<p><code>sklearn</code> の <code>RidgeCV</code>/<code>LassoCV</code> は標準化を<strong>してくれない</strong>——自分で入れる。</p>
+<p>最小二乗法は、確率の言葉では何を仮定していたのか。</p>
 </section>
-<section id="落とし穴②αの選び方の罠" class="slide level2 section-title">
-<h2>落とし穴②：αの選び方の罠</h2>
-<div id="4e52eb8e" class="cell" data-execution_count="30">
+<section id="変数の回帰をもう一度" class="slide level2" data-chapter="I-2">
+<h2>1変数の回帰をもう一度</h2>
+<div id="8b614228" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png" class="quarto-figure quarto-figure-center" width="1024" height="179"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="1008" height="253"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>最小点だけでなく、誤差曲線が<strong>平らな領域</strong>かも確認すると安全です。</p>
+<p>人工データ（25点）。第1回と同じく、二乗和を最小にして原点を通る直線を引いた。</p>
 </section>
-<section id="落とし穴③lassoは相関変数で不安定" class="slide level2 section-title">
-<h2>落とし穴③：Lassoは相関変数で不安定</h2>
-<p>相関の強い2変数があると、Lassoは<strong>一方しか選ばない</strong>。</p>
-<div id="ca90d58c" class="cell" data-execution_count="31">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a>rng <span class="op">=</span> np.random.RandomState(<span class="dv">3</span>)<span class="op">;</span> m <span class="op">=</span> <span class="dv">200</span></span>
-<span id="cb16-2"><a href=""></a>base <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, m)</span>
-<span id="cb16-3"><a href=""></a>xa, xb <span class="op">=</span> (base <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">0.05</span>, m) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>))   <span class="co"># 相関 ≈ 0.997</span></span>
-<span id="cb16-4"><a href=""></a>xc <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, m)</span>
-<span id="cb16-5"><a href=""></a>yc <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> base <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> xc <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, m)</span>
-<span id="cb16-6"><a href=""></a>Xc <span class="op">=</span> StandardScaler().fit_transform(np.column_stack([xa, xb, xc]))</span>
-<span id="cb16-7"><a href=""></a>las <span class="op">=</span> Lasso(alpha<span class="op">=</span><span class="fl">0.1</span>, max_iter<span class="op">=</span><span class="dv">10000</span>).fit(Xc, yc)</span>
-<span id="cb16-8"><a href=""></a><span class="bu">print</span>(<span class="st">'Lasso 係数 (xa, xb, xc) ='</span>, np.<span class="bu">round</span>(las.coef_, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Lasso 係数 (xa, xb, xc) = [0.    2.927 1.871]</code></pre>
-</div>
-</div>
-<p>同じ情報なのに、Lassoは<strong>片方だけ残して片方をゼロ</strong>にする。</p>
-</section>
-<section id="落とし穴③続き選択が標本でブレる" class="slide level2 section-title">
-<h2>落とし穴③続き：選択が標本でブレる</h2>
-<div id="2387ada6" class="cell" data-execution_count="32">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png" width="824" height="285"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>xaが選ばれる割合は約0.43、xbは1.00——相関群では<strong>どちらを選ぶかが不安定</strong>。</p>
-</section>
-<section id="落とし穴④選んだ変数は本物か" class="slide level2 section-title">
-<h2>落とし穴④：選んだ変数は本物か</h2>
-<ul>
-<li>デモ③で選ばれた20本のうち、<strong>11本は誤って拾った雑音</strong></li>
-<li>雑音の |係数| は最大 3.3、本物9本の最小は 1.4——<strong>大きさでは見分けられない</strong></li>
-<li>解釈①の表は<strong>予測</strong>のための使い分けであって、発見の保証ではない</li>
-</ul>
-<p>「効く変数の一覧」として報告する前に、<strong>選択の安定性</strong>を確かめる（発展①・②）。</p>
-</section>
-<section id="発展①elasticnetが相関群を救う" class="slide level2 section-title">
-<h2>発展①：ElasticNetが相関群を救う</h2>
-<p>相関した変数群を「まとめて残したい」ときはElasticNetが効く。</p>
-<div id="3e76018d" class="cell" data-execution_count="33">
-<div class="cell-output cell-output-stdout">
-<pre><code>Lasso       選択数=19  うち真の12変数=9
-ElasticNet  選択数=22  うち真の12変数=12</code></pre>
-</div>
-</div>
-<div id="c0cd617e" class="cell" data-execution_count="34">
+<section id="モデル誤差の出方を仮定する" class="slide level2" data-chapter="I-2">
+<h2>モデル：誤差の出方を仮定する</h2>
+<div id="55bdfbf1" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png" class="quarto-figure quarto-figure-center" width="893" height="155"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" class="quarto-figure quarto-figure-center" width="1008" height="253"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Lasso は相関した群から<strong>1本だけ選んで捨てます</strong>。ElasticNet は群ごと残せます。</p>
+<p><span class="math display">
+y_i=\beta x_i+\varepsilon_i,\qquad \varepsilon_i\sim N(0,\sigma^2)
+</span></p>
+<p><span class="math inline">y</span> は直線のまわりに、正規分布で散らばって出てくると仮定する（赤の山）。</p>
 </section>
-<section id="発展②正則化と特徴選択の関係" class="slide level2 section-title">
-<h2>発展②：正則化と特徴選択の関係</h2>
+<section id="点の出やすさ" class="slide level2" data-chapter="I-3">
+<h2>1点の出やすさ</h2>
+<p><span class="math display">
+f(y_i)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\Bigl(-\frac{(y_i-\beta x_i)^2}{2\sigma^2}\Bigr)
+</span></p>
+<p>正規分布の密度の <span class="math inline">\mu</span> を <span class="math inline">\beta x_i</span> に置いただけ。直線から縦に離れるほど出にくい。</p>
+</section>
+<section id="尤度n点の積" class="slide level2" data-chapter="I-3">
+<h2>尤度：n点の積</h2>
+<p><span class="math display">
+L(\beta,\sigma^2)=\prod_{i=1}^{n}\frac{1}{\sqrt{2\pi\sigma^2}}\exp\Bigl(-\frac{(y_i-\beta x_i)^2}{2\sigma^2}\Bigr)
+</span></p>
+<p>行が独立なら、出やすさは掛け算（コインの尤度と同じ）。これを最大にする <span class="math inline">\beta</span> を選ぶ。</p>
+</section>
+<section id="対数二乗和が出てくる" class="slide level2" data-chapter="I-5">
+<h2>対数：二乗和が出てくる</h2>
+<p><span class="math display">
+\log L(\beta,\sigma^2)=-\frac n2\log(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(y_i-\beta x_i)^2
+</span></p>
+<p><span class="math inline">\beta</span> が入るのは第2項だけ。対数尤度の最大 ＝ 二乗和の最小。</p>
+</section>
+<section id="二乗和の谷底" class="slide level2" data-chapter="I-5">
+<h2>二乗和の谷底</h2>
+<div id="a57f8513" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="360"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>左の (a) は第1回の目的関数。谷底が最小二乗法の <span class="math inline">\hat\beta</span>（赤の破線）。</p>
+</section>
+<section id="対数尤度の山頂" class="slide level2" data-chapter="I-5">
+<h2>対数尤度の山頂</h2>
+<div id="f5270009" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="360"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>右の (b) の対数尤度の山頂も、同じ <span class="math inline">\hat\beta</span> = 0.615 にある。</p>
+</section>
+<section id="分散も推定される" class="slide level2" data-chapter="I-5">
+<h2>分散も推定される</h2>
+<p><span class="math display">
+\begin{aligned}
+\frac{\partial\log L}{\partial\sigma^2}&amp;=-\frac{n}{2\sigma^2}+\frac{1}{2\sigma^4}\sum_{i}(y_i-\hat\beta x_i)^2=0\\
+\Longrightarrow\quad\hat\sigma^2&amp;=\frac{1}{n}\sum_{i}(y_i-\hat\beta x_i)^2
+\end{aligned}
+</span></p>
+<p>最小二乗法では出なかった散らばりの大きさも、同時に決まる。</p>
+</section>
+<section id="ベクトル行列で" class="slide level2" data-chapter="I-5">
+<h2>ベクトル・行列で</h2>
+<p><span class="math display">
+\begin{aligned}
+\log L&amp;=-\frac n2\log(2\pi\sigma^2)-\frac{1}{2\sigma^2}\lVert\boldsymbol y-\beta\boldsymbol x\rVert_2^2\\
+&amp;=-\frac n2\log(2\pi\sigma^2)-\frac{1}{2\sigma^2}\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_2^2\\
+&amp;\Longrightarrow\quad \mathbf X^\top\mathbf X\hat{\boldsymbol\beta}=\mathbf X^\top\boldsymbol y
+\end{aligned}
+</span></p>
+<p>勾配を0とおくと、第1回の正規方程式。<span class="math inline">p=1</span> で前の式に戻る。</p>
+</section>
+<section id="次の問い01のyには" class="slide level2" data-chapter="I-1">
+<h2>次の問い：0/1のyには？</h2>
 <ul>
-<li><strong>フィルタ法</strong>：相関などで事前に変数を選ぶ（モデルと独立）</li>
-<li><strong>ラッパー法</strong>：変数を足し引きしてCVで評価（計算が重い）</li>
-<li><strong>埋め込み法（Lasso）</strong>：学習の最適化に選択が組み込まれている</li>
+<li>誤差が正規分布なら、最尤法は最小二乗法と同じ答えを出す</li>
+<li>だが紙幣の <span class="math inline">y</span> は0か1しか取らない。<span class="math inline">y</span> のまわりに正規分布は置けない</li>
 </ul>
-<p>Lassoは埋め込み法の代表。ただし「選ばれた＝因果」ではない点は要注意。</p>
+<p>0/1の <span class="math inline">y</span> には、どんな出方を置けばよいか。</p>
 </section>
-<section id="できることできないこと" class="slide level2 section-title">
-<h2>できること・できないこと</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>手法</th>
-<th>できること</th>
-<th>できないこと</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Ridge</td>
-<td>係数を安定化・予測改善</td>
-<td>変数選択（全変数残る）</td>
-</tr>
-<tr class="even">
-<td>Lasso</td>
-<td>変数選択・解釈しやすい</td>
-<td>相関変数の扱いが不安定</td>
-</tr>
-<tr class="odd">
-<td>ElasticNet</td>
-<td>両方のバランス・群選択</td>
-<td>α と l1_ratio の2軸探索</td>
-</tr>
-</tbody>
-</table>
-<p>「変数を絞るならLasso、安定予測ならRidge、相関群があればElasticNet」。</p>
-</section>
-<section id="まとめ3点" class="slide level2 section-title">
-<h2>まとめ（3点）</h2>
+<section id="仮定の置き方は2通り" class="slide level2" data-chapter="I-2">
+<h2>仮定の置き方は2通り</h2>
 <ol type="1">
-<li><strong>正則化は係数にペナルティを加え、過学習と不安定さを抑える</strong></li>
-<li><strong>Ridgeは全βを縮小、Lassoはβをゼロにして変数選択まで行う</strong></li>
-<li><strong>αはCVで選び、標準化を必ず前処理に入れる</strong></li>
+<li><span class="math inline">\boldsymbol x</span> の出方を群ごとに置く → LDA（生成モデル）</li>
+<li><span class="math inline">y</span> の出方を <span class="math inline">\boldsymbol x</span> ごとに置く → ロジスティック回帰（識別モデル）</li>
 </ol>
-<p><span class="math inline">p &gt; n</span> で壊れたOLSを、正則化で安定したモデルへ立て直せた。</p>
+<p>まず1から見る。</p>
 </section>
-<section class="slide level2">
-
-<p><strong>次回：数値予測から分類へ——カテゴリを予測する分類モデルを学ぶ</strong></p>
-<p>回帰で培った「損失にペナルティ」の発想は、分類でもそのまま生きる。</p>
+<section id="人工データみかんの色と甘さ" class="slide level2" data-chapter="I-2">
+<h2>人工データ：みかんの色と甘さ</h2>
+<div id="93ea81f3" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>ここでは人工的なデータを使う。みかん 150 個の皮の色の濃さ <span class="math inline">x</span> と、甘い（<span class="math inline">y=1</span>、赤）か酸っぱい（<span class="math inline">y=0</span>、青）か。</p>
+</section>
+<section id="lda群を選び群の中で散らばる" class="slide level2 smaller" data-chapter="I-2">
+<h2>LDA：群を選び、群の中で散らばる</h2>
+<div id="f2c36875" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\Pr(y_i=q)=\pi_q,\qquad x_i\mid y_i=q\ \sim\ N(\mu_q,\sigma^2)
+</span></p>
+<p>分散 <span class="math inline">\sigma^2</span> は2群で共通。群の中の <span class="math inline">x</span> の出方まで仮定する：生成モデル。</p>
+</section>
+<section id="目的関数yとxの同時の尤度" class="slide level2" data-chapter="I-3">
+<h2>目的関数：yとxの同時の尤度</h2>
+<p><span class="math display">
+\begin{aligned}
+\ell(\pi_1,\mu_0,\mu_1,\sigma^2)&amp;=\sum_{i=1}^{n}\Bigl[\log\pi_{y_i}+\log f_{y_i}(x_i)\Bigr]\\
+f_q(x)&amp;=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\Bigl(-\frac{(x-\mu_q)^2}{2\sigma^2}\Bigr)
+\end{aligned}
+</span></p>
+<p><span class="math inline">y</span> も <span class="math inline">x</span> も観測した。両方の出やすさを掛ける（対数で足す）。</p>
+</section>
+<section id="導出①群の割合はコインと同じ" class="slide level2" data-chapter="I-5">
+<h2>導出①：群の割合はコインと同じ</h2>
+<p><span class="math display">
+\ell\ \text{の}\ \pi\ \text{の部分}=n_1\log\pi_1+n_0\log(1-\pi_1)
+\ \Longrightarrow\ \hat\pi_1=\frac{n_1}{n}
+</span></p>
+<p>コインの尤度（表7回）と同じ形。観測の割合がそのまま答え。</p>
+</section>
+<section id="導出②群の平均と群の中の分散" class="slide level2" data-chapter="I-5">
+<h2>導出②：群の平均と群の中の分散</h2>
+<p><span class="math display">
+\hat\mu_q=\frac{1}{n_q}\sum_{y_i=q}x_i,\qquad
+\hat\sigma^2=\frac1n\sum_{q}\sum_{y_i=q}(x_i-\hat\mu_q)^2=s_{\mathrm W}^2
+</span></p>
+<p>微分して0とおく。分散は第5回の群の中の分散 <span class="math inline">s_{\mathrm W}^2</span> になる。</p>
+</section>
+<section id="導出③ベクトル行列で" class="slide level2" data-chapter="I-5">
+<h2>導出③：ベクトル・行列で</h2>
+<p><span class="math display">
+\begin{aligned}
+\hat{\boldsymbol\mu}_q&amp;=\frac{1}{n_q}\sum_{y_i=q}\boldsymbol x_i\\
+\hat{\boldsymbol\Sigma}&amp;=\frac1n\sum_{q}\sum_{y_i=q}(\boldsymbol x_i-\hat{\boldsymbol\mu}_q)(\boldsymbol x_i-\hat{\boldsymbol\mu}_q)^\top=\mathbf S_{\mathrm W}
+\end{aligned}
+</span></p>
+<p>第5回の <span class="math inline">\mathbf S_{\mathrm W}</span> が、そのまま最尤推定になる。<span class="math inline">p=1</span> で導出②に戻る。</p>
+</section>
+<section id="次の問い確率はどう出るか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：確率はどう出るか</h2>
+<ul>
+<li>パラメータは、数えるだけで決まった</li>
+<li>欲しいのは、<span class="math inline">x</span> を見たあとの確率 <span class="math inline">\Pr(y=1\mid x)</span></li>
+</ul>
+<p>ベイズの定理に入れると、どんな形になるか。</p>
+</section>
+<section id="導出④事後確率の中身は1次式" class="slide level2" data-chapter="I-5">
+<h2>導出④：事後確率の中身は1次式</h2>
+<p><span class="math display">
+\begin{aligned}
+a(x)=\log\frac{\pi_1f_1(x)}{\pi_0f_0(x)}
+&amp;=\log\frac{\pi_1}{\pi_0}-\frac{(x-\mu_1)^2-(x-\mu_0)^2}{2\sigma^2}\\
+&amp;=\frac{d}{\sigma^2}\Bigl(x-\frac{\mu_0+\mu_1}{2}\Bigr)+\log\frac{\pi_1}{\pi_0}
+\end{aligned}
+</span></p>
+<p><span class="math inline">d=\mu_1-\mu_0</span>。分散が共通なので <span class="math inline">x^2</span> が消える。<span class="math inline">\Pr(y=1\mid x)=\operatorname{sig}(a(x))</span>。</p>
+</section>
+<section id="導出⑤向きはs_w¹d" class="slide level2" data-chapter="I-5">
+<h2>導出⑤：向きはS_W⁻¹d</h2>
+<p><span class="math display">
+\begin{aligned}
+a(\boldsymbol x)&amp;=\boldsymbol w^\top\Bigl(\boldsymbol x-\frac{\boldsymbol\mu_0+\boldsymbol\mu_1}{2}\Bigr)+\log\frac{\pi_1}{\pi_0}\\
+\boldsymbol w&amp;=\hat{\boldsymbol\Sigma}^{-1}\boldsymbol d=\mathbf S_{\mathrm W}^{-1}\boldsymbol d
+\end{aligned}
+</span></p>
+<p>最尤法でも、第5回の最小二乗法と同じ向き。<span class="math inline">p=1</span> なら <span class="math inline">w=d/\sigma^2</span>。</p>
+</section>
+<section id="確率が出る①前回の直線" class="slide level2" data-chapter="I-5">
+<h2>確率が出る①：前回の直線</h2>
+<div id="322aad83" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="1000" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>破線は、0/1に当てた直線（前回のやり方）。区間ごとの割合（黒の四角）は曲がるのに、直線は外へ伸びる。</p>
+</section>
+<section id="確率が出る②事後確率" class="slide level2" data-chapter="I-5">
+<h2>確率が出る②：事後確率</h2>
+<div id="e44b17f9" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1000" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>LDAの事後確率（緑）は、どの <span class="math inline">x</span> でも0と1の間。S字に曲がり、割合を追う。</p>
+</section>
+<section id="境界は少ない群の側へ" class="slide level2" data-chapter="I-5">
+<h2>境界は少ない群の側へ</h2>
+<div id="263dbad1" class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="1000" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>確率1/2は <span class="math inline">a=0</span>。境界は中点から <span class="math inline">\log(\pi_1/\pi_0)</span> の分だけ少ない赤の群の側へ（1.02 → 1.91）。</p>
+</section>
+<section id="次の問い形だけを置いたら" class="slide level2" data-chapter="I-1">
+<h2>次の問い：形だけを置いたら？</h2>
+<ul>
+<li>LDAの事後確率は、sig（<span class="math inline">x</span> の1次式）の形になった</li>
+<li>その形は、群ごとの正規分布と共通の分散という仮定から出た</li>
+</ul>
+<p><span class="math inline">x</span> の出方は仮定せず、この形だけを置いたらどうなるか。</p>
+</section>
+<section id="ロジスティック回帰形だけを置く" class="slide level2 smaller" data-chapter="I-2">
+<h2>ロジスティック回帰：形だけを置く</h2>
+<div id="2f3017a9" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png" class="quarto-figure quarto-figure-center" width="1005" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\Pr(y_i=1\mid x_i)=\theta_i=\operatorname{sig}(\beta_0+\beta x_i)
+</span></p>
+<p><span class="math inline">x</span> の出方は仮定しない：識別モデル。<span class="math inline">\beta_0,\beta</span> を変えると曲線が動く。どの1本を選ぶか。</p>
+</section>
+<section id="ベクトル行列で-1" class="slide level2" data-chapter="I-2">
+<h2>ベクトル・行列で</h2>
+<p><span class="math display">
+\theta_i=\operatorname{sig}(\boldsymbol x_i^\top\boldsymbol\beta),\qquad
+\boldsymbol\theta=\operatorname{sig}(\mathbf X\boldsymbol\beta)\quad(\text{成分ごとに}\ \operatorname{sig})
+</span></p>
+<p><span class="math inline">\mathbf X</span> の先頭の列を1にして、切片を <span class="math inline">\boldsymbol\beta</span> に含める。第1回と同じ掛け算 <span class="math inline">\mathbf X\boldsymbol\beta</span> を、sigに通す。</p>
+</section>
+<section id="目的関数ベルヌーイの尤度" class="slide level2" data-chapter="I-3">
+<h2>目的関数：ベルヌーイの尤度</h2>
+<p><span class="math display">
+\begin{aligned}
+L(\boldsymbol\beta)&amp;=\prod_{i=1}^{n}\theta_i^{\,y_i}(1-\theta_i)^{1-y_i}\\
+\ell(\boldsymbol\beta)&amp;=\sum_{i=1}^{n}\Bigl[y_i\log\theta_i+(1-y_i)\log(1-\theta_i)\Bigr]
+\end{aligned}
+</span></p>
+<p>行ごとに表の確率 <span class="math inline">\theta_i</span> が違うコイン。<span class="math inline">\ell</span> を最大にする曲線を選ぶ。</p>
+</section>
+<section id="交差エントロピー確率の当たり方" class="slide level2 smaller" data-chapter="I-3">
+<h2>交差エントロピー：確率の当たり方</h2>
+<div id="c53be698" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="253"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+-\frac1n\ell(\boldsymbol\beta)=-\frac1n\sum_{i=1}^{n}\Bigl[y_i\log\theta_i+(1-y_i)\log(1-\theta_i)\Bigr]
+</span></p>
+<p>符号を反転して <span class="math inline">n</span> で割ったものを交差エントロピーと呼ぶ。正解の側に付けた確率の <span class="math inline">-\log</span> の平均で、小さいほどよい。</p>
+</section>
+<section id="自信のある誤りに厳しい" class="slide level2" data-chapter="I-3">
+<h2>自信のある誤りに厳しい</h2>
+<div id="0beab267" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png" class="quarto-figure quarto-figure-center" width="998" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>正解の側に0.99なら0.01、0.5なら0.69、0.01なら4.61。0.5で切った一致率は、この違いを見ない。</p>
+</section>
+<section id="導出①1変数の微分" class="slide level2" data-chapter="I-5">
+<h2>導出①：1変数の微分</h2>
+<p><span class="math display">
+\frac{d\ell}{d\beta}=\sum_{i}\Bigl[y_i(1-\theta_i)-(1-y_i)\theta_i\Bigr]x_i=\sum_{i=1}^{n}(y_i-\theta_i)\,x_i
+</span></p>
+<p>シグモイドの対数の微分で、<span class="math inline">\log\theta_i</span> と <span class="math inline">\log(1-\theta_i)</span> を微分した。残差 <span class="math inline">y_i-\theta_i</span> と <span class="math inline">x_i</span> の積の和。</p>
+</section>
+<section id="導出②勾配はxᵀyθ" class="slide level2" data-chapter="I-5">
+<h2>導出②：勾配はXᵀ(y−θ)</h2>
+<p><span class="math display">
+\frac{\partial\ell}{\partial\boldsymbol\beta}=\mathbf X^\top(\boldsymbol y-\boldsymbol\theta)=\boldsymbol 0
+\qquad\text{（第1回：}\ \mathbf X^\top(\boldsymbol y-\mathbf X\boldsymbol\beta)=\boldsymbol 0\text{）}
+</span></p>
+<p>正規方程式と同じ形。ただし <span class="math inline">\boldsymbol\theta</span> は <span class="math inline">\boldsymbol\beta</span> をsigの中に含む：閉じた形の解がない。</p>
+</section>
+<section id="導出③山は1つ" class="slide level2 smaller" data-chapter="I-5">
+<h2>導出③：山は1つ</h2>
+<div id="c6c7128c" class="cell" data-execution_count="33">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\frac{d^2\ell}{d\beta^2}=-\sum_{i}\theta_i(1-\theta_i)\,x_i^2&lt;0
+</span></p>
+<p>2階微分がいつも負：対数尤度は山が1つ（赤の破線が山頂）。</p>
+</section>
+<section id="導出④放物線で近づく" class="slide level2 smaller" data-chapter="I-5">
+<h2>導出④：放物線で近づく</h2>
+<div id="614e7e19" class="cell" data-execution_count="34">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\beta\ \leftarrow\ \beta+\frac{\ell'(\beta)}{-\ell''(\beta)}
+</span></p>
+<p>今の点（橙）で山を放物線で近似し、その頂点（緑）へ跳ぶ。これを繰り返す（ニュートン法）。</p>
+</section>
+<section id="アルゴリズム①ldaは数えて解く" class="slide level2 smaller" data-chapter="I-6">
+<h2>アルゴリズム①：LDAは数えて解く</h2>
+<ol type="1">
+<li>データ行列 <span class="math inline">\mathbf X</span>（<span class="math inline">n\times p</span>）と0/1の <span class="math inline">\boldsymbol y</span>。群の人数 <span class="math inline">n_q</span> と割合 <span class="math inline">\hat\pi_q=n_q/n</span> を数える</li>
+<li>群の平均 <span class="math inline">\hat{\boldsymbol\mu}_q=\frac{1}{n_q}\mathbf X^\top\boldsymbol e_q</span>（<span class="math inline">\boldsymbol e_1=\boldsymbol y</span>、<span class="math inline">\boldsymbol e_0=\mathbf 1-\boldsymbol y</span>）、各行から自分の群の平均を引いた <span class="math inline">\mathbf R</span> で <span class="math inline">\mathbf S_{\mathrm W}=\frac1n\mathbf R^\top\mathbf R</span></li>
+<li>連立方程式 <span class="math inline">\mathbf S_{\mathrm W}\boldsymbol w=\hat{\boldsymbol\mu}_1-\hat{\boldsymbol\mu}_0</span> を解き、<span class="math inline">w_0=-\boldsymbol w^\top\frac{\hat{\boldsymbol\mu}_0+\hat{\boldsymbol\mu}_1}{2}+\log\frac{\hat\pi_1}{\hat\pi_0}</span></li>
+<li>確率 <span class="math inline">\boldsymbol\theta=\operatorname{sig}(\mathbf X\boldsymbol w+w_0\mathbf 1)</span></li>
+</ol>
+<p>反復はない。第5回の手順と同じ行列を作り、最後にsigに通すだけ。</p>
+</section>
+<section id="アルゴリズム②ニュートン法" class="slide level2 smaller" data-chapter="I-6">
+<h2>アルゴリズム②：ニュートン法</h2>
+<ol type="1">
+<li><span class="math inline">\mathbf X</span> の先頭に1の列を足す（<span class="math inline">n\times(p+1)</span>）。<span class="math inline">\boldsymbol\beta=\boldsymbol 0</span> から始める</li>
+<li><span class="math inline">\boldsymbol\theta=\operatorname{sig}(\mathbf X\boldsymbol\beta)</span>、<span class="math inline">\mathbf W=\operatorname{diag}\bigl(\theta_i(1-\theta_i)\bigr)</span></li>
+<li>連立方程式 <span class="math inline">(\mathbf X^\top\mathbf W\mathbf X)\,\boldsymbol\Delta=\mathbf X^\top(\boldsymbol y-\boldsymbol\theta)</span> を解き、<span class="math inline">\boldsymbol\beta\leftarrow\boldsymbol\beta+\boldsymbol\Delta</span></li>
+<li><span class="math inline">\boldsymbol\Delta</span> が十分小さくなるまで2〜3を繰り返す。確率は <span class="math inline">\boldsymbol\theta=\operatorname{sig}(\mathbf X\hat{\boldsymbol\beta})</span></li>
+</ol>
+<p>毎回、重み <span class="math inline">\mathbf W</span> の付いた正規方程式を解く（反復重み付き最小二乗法）。</p>
+</section>
+<section id="次の問い2つの向きは同じか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：2つの向きは同じか</h2>
+<ul>
+<li>LDAもロジスティック回帰も、確率は <span class="math inline">x</span> の1次式をsigに通した形</li>
+<li>LDAは数えて解き、ロジスティック回帰は反復で解く</li>
+</ul>
+<p>同じ形の確率なら、同じ向きに着くのか。</p>
+</section>
+<section id="同じ形違う式" class="slide level2" data-chapter="I-7">
+<h2>同じ形、違う式</h2>
+<p><span class="math display">
+\begin{aligned}
+\text{LDA}&amp;:\quad \boldsymbol w=\mathbf S_{\mathrm W}^{-1}(\hat{\boldsymbol\mu}_1-\hat{\boldsymbol\mu}_0)\\
+\text{ロジスティック回帰}&amp;:\quad \mathbf X^\top(\boldsymbol y-\boldsymbol\theta)=\boldsymbol 0
+\end{aligned}
+</span></p>
+<p>確率の形は同じsig(1次式)。係数を決める式が違う。</p>
+</section>
+<section id="何に合わせるかが違う" class="slide level2" data-chapter="I-7">
+<h2>何に合わせるかが違う</h2>
+<ul>
+<li>LDA：すべての行の群の平均と群の中の広がりで、向きが決まる</li>
+<li>ロジスティック回帰：<span class="math inline">y_i-\theta_i</span> が大きい、当てにくい行が向きを動かす</li>
+<li>よく当たっている行（<span class="math inline">\theta_i</span> が <span class="math inline">y_i</span> に近い行）は、ほとんど効かない</li>
+</ul>
+</section>
+<section id="仮定が合えば同じ向き" class="slide level2 smaller" data-chapter="I-7">
+<h2>仮定が合えば同じ向き</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>黒がLDA、橙の破線がロジスティック回帰の向き。LDAの仮定どおりのデータでは、差は 1°。</p>
+</div><div class="column" style="width:55%;">
+<div id="50bec073" class="cell" data-execution_count="38">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png" width="672" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="遠くの点でldaが回る" class="slide level2 smaller" data-chapter="I-7">
+<h2>遠くの点でLDAが回る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>当てやすい点を遠くに足すと、LDAは平均と広がりが動いて 31° 回る。ロジスティック回帰はほとんど動かない（0.0°）。</p>
+</div><div class="column" style="width:55%;">
+<div id="a21d8c5d" class="cell" data-execution_count="39">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png" width="672" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="最後の問い山頂がないとき" class="slide level2" data-chapter="I-1">
+<h2>最後の問い：山頂がないとき</h2>
+<ul>
+<li>ロジスティック回帰の対数尤度は、山が1つ</li>
+<li>だが、山頂があるとは限らない</li>
+</ul>
+<p>データが完全に分けられたら、何が起きるか。</p>
+</section>
+<section id="長さでs字の急さが変わる" class="slide level2 smaller" data-chapter="I-7">
+<h2>長さでS字の急さが変わる</h2>
+<div id="1804ad1c" class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="324"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">x=0</span> で完全に分かれる人工データ。境界は同じ <span class="math inline">x=0</span> のまま、<span class="math inline">\beta</span> が大きいほどS字が急になり、階段に近づく。向きが同じでも、係数の長さで確率が変わる。</p>
+</section>
+<section id="山頂がない" class="slide level2 smaller" data-chapter="I-7">
+<h2>山頂がない</h2>
+<div id="8fadf482" class="cell" data-execution_count="42">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="324"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\beta</span> を大きくするほど、すべての行で <span class="math inline">\theta_i</span> が <span class="math inline">y_i</span> に近づき、<span class="math inline">\ell</span> は0へ上がり続ける。最尤推定は存在せず、係数は際限なく大きくなる。</p>
+</section>
+<section id="罰で止める" class="slide level2 smaller" data-chapter="I-7">
+<h2>罰で止める</h2>
+<div id="af82a5e6" class="cell" data-execution_count="43">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="324"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\ell(\boldsymbol\beta)-\frac{\lambda}{2}\sum_{j\ge1}\beta_j^2
+</span></p>
+<p>第4回のリッジと同じ罰。山頂ができる（<span class="math inline">\lambda=1</span> で <span class="math inline">\beta</span> = 2.33）。</p>
+</section>
+<section id="位置づけ推定法が変わる" class="slide level2 smaller" data-chapter="I-1">
+<h2>位置づけ：推定法が変わる</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>第5回</th>
+<th>第6回（今回）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>推定法</td>
+<td>最小二乗法（距離を最小に）</td>
+<td>最尤法（確率を最大に）</td>
+</tr>
+<tr class="even">
+<td>モデル</td>
+<td>LDA</td>
+<td>線形回帰・LDA・ロジスティック回帰</td>
+</tr>
+<tr class="odd">
+<td>答え</td>
+<td>向き（スコア）</td>
+<td>確率</td>
+</tr>
+</tbody>
+</table>
+<p>第1回の地図で、推定法の列が初めて最尤法に変わる。</p>
+</section></section>
+<section>
+<section id="第ii部-実データ解析" class="title-slide slide level1 part center">
+<h1>第II部　実データ解析</h1>
 
 </section>
+<section id="第ii部でやること" class="slide level2" data-chapter="II-1">
+<h2>第II部でやること</h2>
+<ul>
+<li>第I部の3つのモデルを、紙幣のデータの4列で当てはめる</li>
+<li>LDAとロジスティック回帰を行列の手順で組み、ライブラリと比べる</li>
+<li>3つの予測値を同じ軸で並べ、確率として読めるかを見る</li>
+</ul>
+</section>
+<section id="データ紙幣の真贋" class="slide level2 smaller" data-chapter="II-1">
+<h2>データ：紙幣の真贋</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>行</td>
+<td>紙幣（と紙幣に似せた試料）の画像 1,372 枚</td>
+</tr>
+<tr class="even">
+<td>説明変数</td>
+<td>画像をウェーブレット変換した値の分散・歪度・尖度と、画像のエントロピー：4列。標準化する</td>
+</tr>
+<tr class="odd">
+<td>目的変数</td>
+<td>偽札＝1（610 枚）、真札＝0（762 枚）</td>
+</tr>
+</tbody>
+</table>
+<p>4列でもほぼ完全に分けられるデータ。精度は訓練 960 枚・テスト 412 枚に分けて測る。</p>
+</section>
+<section id="第i部の冒頭の数字" class="slide level2" data-chapter="II-1">
+<h2>第I部の冒頭の数字</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>1列（画像の分散）だけの0/1の直線</th>
+<th style="text-align: center;">値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>予測値 <span class="math inline">\hat y</span> の範囲</td>
+<td style="text-align: center;">-0.37 〜 1.39</td>
+</tr>
+<tr class="even">
+<td>0未満か1超の枚数</td>
+<td style="text-align: center;">256 枚 / 1,372 枚</td>
+</tr>
+</tbody>
+</table>
+<p>4列に増やし、3つのモデルで見直す。</p>
+</section>
+<section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
+<h2>手続き：何をどう計算したか</h2>
+<ol type="1">
+<li>データ行列：4列を標準化して <span class="math inline">\mathbf Z</span>（1,372×4）、偽札を1とした <span class="math inline">\boldsymbol y</span></li>
+<li>LDA：群の割合・平均・<span class="math inline">\mathbf S_{\mathrm W}</span> を数え、<span class="math inline">\mathbf S_{\mathrm W}\boldsymbol w=\boldsymbol d</span> を解いて確率を出す（NumPyの線形方程式ソルバー）。scikit-learnのLinearDiscriminantAnalysisの確率と比べる</li>
+<li>0/1の最小二乗法（第5回の方法）：同じ <span class="math inline">\mathbf Z</span> と <span class="math inline">\boldsymbol y</span> で正規方程式を解き、LDAの向きと比べる</li>
+<li>ロジスティック回帰：ニュートン法を手で回す。罰の強さ <span class="math inline">\lambda=1</span>（scikit-learnのLogisticRegressionの既定と同じ）と罰なし。LogisticRegressionの係数と比べる</li>
+<li>確率：3つの予測値を並べ、訓練・テストに分けて一致率と交差エントロピーを測る</li>
+</ol>
+</section>
+<section id="検証①ライブラリと同じ確率" class="slide level2" data-chapter="II-3">
+<h2>検証①：ライブラリと同じ確率</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>確かめたこと</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>手で組んだ確率と scikit-learn の LDA の確率の差（最大）</td>
+<td>6e-15</td>
+</tr>
+</tbody>
+</table>
+<p>数えて1回解くだけで、ライブラリと同じ確率が出る。</p>
+</section>
+<section id="検証①向きは最小二乗法と同じ" class="slide level2" data-chapter="II-3">
+<h2>検証①：向きは最小二乗法と同じ</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>確かめたこと</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>手で組んだ確率と scikit-learn の LDA の確率の差（最大）</td>
+<td>6e-15</td>
+</tr>
+<tr class="even">
+<td>LDA の向き <span class="math inline">\mathbf S_{\mathrm W}^{-1}\boldsymbol d</span> と 0/1 の最小二乗法の係数のコサイン</td>
+<td>1.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>LDAの向きは、0/1の最小二乗法の係数とぴったり同じ。</p>
+</section>
+<section id="検証②ニュートン法が止まる" class="slide level2 smaller" data-chapter="II-3">
+<h2>検証②：ニュートン法が止まる</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>反復</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>対数尤度 <span class="math inline">\ell</span></td>
+<td>-270.7</td>
+<td>-141.7</td>
+<td>-91.1</td>
+<td>-70.5</td>
+<td>-63.5</td>
+<td>-62.4</td>
+<td>-62.4</td>
+<td>-62.4</td>
+<td>-62.4</td>
+</tr>
+<tr class="even">
+<td>更新の最大</td>
+<td>1.81</td>
+<td>1.07</td>
+<td>0.99</td>
+<td>0.79</td>
+<td>0.41</td>
+<td>0.08</td>
+<td>3e-03</td>
+<td>3e-06</td>
+<td>3e-12</td>
+</tr>
+</tbody>
+</table>
+<p>9 回で更新が <span class="math inline">10^{-10}</span> 未満に（<span class="math inline">\lambda=1</span>）。勾配の最大 5e-15、scikit-learnとの係数の差 2e-07。</p>
+</section>
+<section id="検証③向きはほぼ同じ" class="slide level2" data-chapter="II-3">
+<h2>検証③：向きはほぼ同じ</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>2つの向き</th>
+<th>コサイン</th>
+<th>角度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LDA と 0/1 の最小二乗法</td>
+<td>1.0000000</td>
+<td>0.0°</td>
+</tr>
+<tr class="even">
+<td>ロジスティック回帰（<span class="math inline">\lambda=1</span>）と LDA</td>
+<td>0.998</td>
+<td>3.8°</td>
+</tr>
+<tr class="odd">
+<td>ロジスティック回帰（罰なし）と LDA</td>
+<td>0.9993</td>
+<td>2.1°</td>
+</tr>
+</tbody>
+</table>
+<p>4列のこのデータでは、ロジスティック回帰もLDAとほぼ同じ向きに着く。</p>
+</section>
+<section id="デモ3つの予測値を並べる" class="slide level2" data-chapter="II-4">
+<h2>デモ：3つの予測値を並べる</h2>
+<ul>
+<li>全件で当てはめた3つのモデルの予測値を、同じ横軸で描く</li>
+<li>0/1の最小二乗法、ロジスティック回帰（<span class="math inline">\lambda=1</span>）、LDAの順</li>
+<li>灰の線は0と1。その外に出たら、確率としては読めない</li>
+</ul>
+</section>
+<section id="デモ①01の回帰の予測値" class="slide level2" data-chapter="II-4">
+<h2>デモ①：0/1の回帰の予測値</h2>
+<div id="af3e64bb" class="cell" data-execution_count="53">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-54-output-1.png" class="quarto-figure quarto-figure-center" width="1003" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>4列で0/1に直線を当てた <span class="math inline">\hat y</span>。305 枚が0未満、179 枚が1超（灰の線の外）。</p>
+</section>
+<section id="デモ②ロジスティック回帰の確率" class="slide level2" data-chapter="II-4">
+<h2>デモ②：ロジスティック回帰の確率</h2>
+<div id="6b8cbc23" class="cell" data-execution_count="54">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-55-output-1.png" class="quarto-figure quarto-figure-center" width="1003" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じ軸で、すべて0と1の間。はみ出しが消え、845 枚が0.01未満か0.99超に寄る。</p>
+</section>
+<section id="デモ③ldaの確率" class="slide level2" data-chapter="II-4">
+<h2>デモ③：LDAの確率</h2>
+<div id="e490b70a" class="cell" data-execution_count="55">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-56-output-1.png" class="quarto-figure quarto-figure-center" width="1003" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>LDAも0と1の間。0.01未満か0.99超は 1297 枚で、より強く0と1に寄る。</p>
+</section>
+<section id="解釈①ŷ-と確率の関係" class="slide level2" data-chapter="II-5">
+<h2>解釈①：ŷ と確率の関係</h2>
+<div id="76f96693" class="cell" data-execution_count="56">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>LDAの確率は、<span class="math inline">\hat y</span> をS字に曲げたもの（向きが同じなので1本の曲線に乗る）。<span class="math inline">\hat y&gt;1</span> の札は確率がほぼ1。</p>
+</section>
+<section id="解釈②係数の長さが違う" class="slide level2 smaller" data-chapter="II-5">
+<h2>解釈②：係数の長さが違う</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>係数の長さ <span class="math inline">\lVert\boldsymbol w\rVert</span></th>
+<th>0.01未満か0.99超</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LDA</td>
+<td>22.6</td>
+<td>1297枚</td>
+</tr>
+<tr class="even">
+<td>ロジスティック回帰（<span class="math inline">\lambda=1</span>）</td>
+<td>8.4</td>
+<td>845枚</td>
+</tr>
+<tr class="odd">
+<td>ロジスティック回帰（罰なし）</td>
+<td>40.3</td>
+<td>1296枚</td>
+</tr>
+</tbody>
+</table>
+<p>向きはほぼ同じでも、係数の長さが違う。長いほどS字が急で、確率が0と1に寄る（第I部の完全分離の図 (a)）。</p>
+</section>
+<section id="解釈②自信のある誤り" class="slide level2 smaller" data-chapter="II-5">
+<h2>解釈②：自信のある誤り</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>係数の長さ <span class="math inline">\lVert\boldsymbol w\rVert</span></th>
+<th>0.01未満か0.99超</th>
+<th>誤りなのに0.01未満か0.99超</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LDA</td>
+<td>22.6</td>
+<td>1297枚</td>
+<td>5枚</td>
+</tr>
+<tr class="even">
+<td>ロジスティック回帰（<span class="math inline">\lambda=1</span>）</td>
+<td>8.4</td>
+<td>845枚</td>
+<td>0枚</td>
+</tr>
+<tr class="odd">
+<td>ロジスティック回帰（罰なし）</td>
+<td>40.3</td>
+<td>1296枚</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>LDAでは、0.5で切ると誤りになる札のうち 5 枚にまで、0.01未満か0.99超の確率が付く。</p>
+</section>
+<section id="解釈③一致率はどれも高い" class="slide level2 smaller" data-chapter="II-5">
+<h2>解釈③：一致率はどれも高い</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>確率が出るか</th>
+<th>全件</th>
+<th>テスト 412 枚</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0/1 の最小二乗法</td>
+<td>いいえ</td>
+<td>97.7%</td>
+<td>98.8%</td>
+</tr>
+<tr class="even">
+<td>LDA（最尤法）</td>
+<td>はい</td>
+<td>97.7%</td>
+<td>98.8%</td>
+</tr>
+<tr class="odd">
+<td>ロジスティック回帰（<span class="math inline">\lambda=1</span>）</td>
+<td>はい</td>
+<td>98.1%</td>
+<td>99.3%</td>
+</tr>
+<tr class="even">
+<td>ロジスティック回帰（罰なし）</td>
+<td>はい</td>
+<td>99.2%</td>
+<td>99.3%</td>
+</tr>
+</tbody>
+</table>
+<p>0.5で切った一致率は、どのモデルでも高い。判定だけを見ると、差はほとんどない。</p>
+</section>
+<section id="解釈③差は交差エントロピーに" class="slide level2 smaller" data-chapter="II-5">
+<h2>解釈③：差は交差エントロピーに</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>確率が出るか</th>
+<th>全件</th>
+<th>テスト 412 枚</th>
+<th>テストの交差エントロピー</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0/1 の最小二乗法</td>
+<td>いいえ</td>
+<td>97.7%</td>
+<td>98.8%</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>LDA（最尤法）</td>
+<td>はい</td>
+<td>97.7%</td>
+<td>98.8%</td>
+<td>0.032</td>
+</tr>
+<tr class="odd">
+<td>ロジスティック回帰（<span class="math inline">\lambda=1</span>）</td>
+<td>はい</td>
+<td>98.1%</td>
+<td>99.3%</td>
+<td>0.039</td>
+</tr>
+<tr class="even">
+<td>ロジスティック回帰（罰なし）</td>
+<td>はい</td>
+<td>99.2%</td>
+<td>99.3%</td>
+<td>0.026</td>
+</tr>
+</tbody>
+</table>
+<p>差が出るのは確率の当たり方（交差エントロピー、小さいほどよい）。罰なしのロジスティック回帰がいちばん小さい。</p>
+</section>
+<section id="落とし穴①列を足す" class="slide level2" data-chapter="II-6">
+<h2>落とし穴①：列を足す</h2>
+<ul>
+<li>4列の2乗と積の10列を足し、14 列にする（足した列も標準化）</li>
+<li>14 列なら、全件の偽札と真札を1枚の平面で完全に分けられる</li>
+<li>罰を外して、ニュートン法を回す</li>
+</ul>
+</section>
+<section id="落とし穴①係数が止まらない" class="slide level2" data-chapter="II-6">
+<h2>落とし穴①：係数が止まらない</h2>
+<div id="fde8b43c" class="cell" data-execution_count="65">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-66-output-1.png" class="quarto-figure quarto-figure-center" width="1000" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>4列（緑）は止まる。14 列・罰なし（赤）は、30 回で 142 になっても止まらない。</p>
+</section>
+<section id="落とし穴①罰で止まる" class="slide level2" data-chapter="II-6">
+<h2>落とし穴①：罰で止まる</h2>
+<div id="f066f711" class="cell" data-execution_count="66">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-67-output-1.png" class="quarto-figure quarto-figure-center" width="1000" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>罰 <span class="math inline">\lambda=1</span> を付ければ（黒）、14 列でも 10 回で止まる。</p>
+</section>
+<section id="落とし穴②罰の強さを変える" class="slide level2" data-chapter="II-6">
+<h2>落とし穴②：罰の強さを変える</h2>
+<ul>
+<li>4列に戻す</li>
+<li>訓練の行で、罰の強さ <span class="math inline">\lambda</span> を変えながらロジスティック回帰を当てはめる</li>
+<li>テストの行で、交差エントロピーを測る（罰で確率がどう変わるかを見るため）</li>
+</ul>
+</section>
+<section id="落とし穴②罰で確率が変わる" class="slide level2" data-chapter="II-6">
+<h2>落とし穴②：罰で確率が変わる</h2>
+<div id="2fdb23bc" class="cell" data-execution_count="67">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-68-output-1.png" class="quarto-figure quarto-figure-center" width="993" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>罰が0.1を超えるあたりから、テストの交差エントロピーが大きくなる。判定は同じでも、確率の当たり方は罰の強さで変わる。</p>
+</section>
+<section id="落とし穴②既定の罰は中立でない" class="slide level2" data-chapter="II-6">
+<h2>落とし穴②：既定の罰は中立でない</h2>
+<div id="08d047cd" class="cell" data-execution_count="68">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png" class="quarto-figure quarto-figure-center" width="993" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>既定の <span class="math inline">\lambda=1</span>（赤）は、罰なしやLDA（破線）より悪い。罰の強さは、既定に任せず選ぶもの。</p>
+</section></section>
+<section>
+<section id="締め" class="title-slide slide level1 part center">
+<h1>締め</h1>
+
+</section>
+<section id="まとめ①最小二乗法も最尤法" class="slide level2" data-chapter="締め">
+<h2>まとめ①：最小二乗法も最尤法</h2>
+<div id="8ad3a211" class="cell" data-execution_count="71">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="360"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>誤差が独立な正規分布なら、対数尤度の山頂は二乗和の谷底と同じ場所にある。</p>
+</section>
+<section id="まとめ②ldaに確率が乗る" class="slide level2" data-chapter="締め">
+<h2>まとめ②：LDAに確率が乗る</h2>
+<div id="c06f665f" class="cell" data-execution_count="72">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-73-output-1.png" class="quarto-figure quarto-figure-center" width="1000" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>群ごとの正規分布を最尤法で当てはめると、第5回と同じ向き <span class="math inline">\mathbf S_{\mathrm W}^{-1}\boldsymbol d</span> の上に確率が乗る。</p>
+</section>
+<section id="まとめ③形だけを置いて山を登る" class="slide level2" data-chapter="締め">
+<h2>まとめ③：形だけを置いて山を登る</h2>
+<div id="d68e218f" class="cell" data-execution_count="73">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-74-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>ロジスティック回帰はニュートン法で山頂へ。完全に分けられるときは罰で止める。罰の強さで確率が変わる。</p>
+</section>
+<section id="演習では①確率に写す" class="slide level2" data-chapter="締め">
+<h2>演習では①：確率に写す</h2>
+<ul>
+<li>演習8（心臓病、303人）：線形回帰の予測は −0.18〜1.34にはみ出した</li>
+<li>ロジスティック回帰は、一人ひとりに0〜1の確率を出す</li>
+</ul>
+</section>
+<section id="演習では②正解率はほぼ同じ" class="slide level2" data-chapter="締め">
+<h2>演習では②：正解率はほぼ同じ</h2>
+<ul>
+<li>交差検証（クロスバリデーション、CV）の正解率は、ロジスティック回帰0.828、LDA 0.832</li>
+<li>確率の置き方が違っても、判定の成績は近い。紙幣のデータと同じ</li>
+</ul>
+</section>
+<section id="次回予告①確率が出た" class="slide level2" data-chapter="締め">
+<h2>次回予告①：確率が出た</h2>
+<div id="42069a04" class="cell" data-execution_count="74">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-75-output-1.png" class="quarto-figure quarto-figure-center" width="1003" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>確率は0と1の間に出た。ここまでは0.5で切って数えてきた。</p>
+</section>
+<section id="次回予告②どこで切るか" class="slide level2" data-chapter="締め">
+<h2>次回予告②：どこで切るか</h2>
+<ul>
+<li>見逃し（偽札を真札と言う）と誤検出（真札を偽札と言う）は、重さが違う</li>
+<li>一致率だけで、モデルを比べてよいのか</li>
+</ul>
+<p>問い：確率が出た。どこで切り、どう測るか？</p>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

@@ -9,7 +9,7 @@
 <link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
-  <title>第15回 残差</title>
+  <title>第15回 残差と多重対応分析</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -30,74 +30,8 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-      }
-    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-    div.sourceCode
-      { color: #24292e;  }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #24292e; } /* Normal */
-    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
-    code span.an { color: #6a737d; } /* Annotation */
-    code span.at { color: #d73a49; } /* Attribute */
-    code span.bn { color: #005cc5; } /* BaseN */
-    code span.bu { color: #d73a49; } /* BuiltIn */
-    code span.cf { color: #d73a49; } /* ControlFlow */
-    code span.ch { color: #032f62; } /* Char */
-    code span.cn { color: #005cc5; } /* Constant */
-    code span.co { color: #6a737d; } /* Comment */
-    code span.cv { color: #6a737d; } /* CommentVar */
-    code span.do { color: #6a737d; } /* Documentation */
-    code span.dt { color: #d73a49; } /* DataType */
-    code span.dv { color: #005cc5; } /* DecVal */
-    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
-    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
-    code span.fl { color: #005cc5; } /* Float */
-    code span.fu { color: #6f42c1; } /* Function */
-    code span.im { color: #032f62; } /* Import */
-    code span.in { color: #6a737d; } /* Information */
-    code span.kw { color: #d73a49; } /* Keyword */
-    code span.op { color: #24292e; } /* Operator */
-    code span.ot { color: #6f42c1; } /* Other */
-    code span.pp { color: #d73a49; } /* Preprocessor */
-    code span.re { color: #6a737d; } /* RegionMarker */
-    code span.sc { color: #005cc5; } /* SpecialChar */
-    code span.ss { color: #032f62; } /* SpecialString */
-    code span.st { color: #032f62; } /* String */
-    code span.va { color: #e36209; } /* Variable */
-    code span.vs { color: #032f62; } /* VerbatimString */
-    code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-7ee8d28668e13494feddb3b516184cbd.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-1941e964fa3ab312ad1a6d8bf906c6f5.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -211,150 +145,575 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">第15回 残差</h1>
-  <p class="subtitle">ズレを比べられるようにする（最終回）</p>
+  <h1 class="title">第15回 残差と多重対応分析</h1>
+  <p class="subtitle">推定に使われた分で割って、1マスのずれを比べる（最終回）</p>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="場面この-5.5-は大きいのか" class="slide level2 section-title">
-<h2>場面：「この +5.5 は大きいのか」</h2>
-<p>前回、若年層×革新のセルに残差 +5.5 が出ました。会議でこう聞かれます。</p>
-<div id="86102f49" class="cell" data-execution_count="2">
+<section>
+<section id="第i部-理論" class="title-slide slide level1 part center">
+<h1>第I部　理論</h1>
+
+</section>
+<section id="場面①自販機の1年" class="slide level2" data-chapter="I-1">
+<h2>場面①：自販機の1年</h2>
+<div id="5577cc04" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="207"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="318"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>「5.5 は大きいんですか」</strong>——比べる物差しが要ります。それが今日の主題です。</p>
+<p>第14回の問い「1セルのズレは大きいのか？」を、新しい表で考える。自動販売機1台の1年の売上 1,000 本を、飲み物 × 季節で数えた。</p>
 </section>
-<section id="今回の問い" class="slide level2 section-title">
+<section id="場面②独立なら何本か" class="slide level2" data-chapter="I-1">
+<h2>場面②：独立なら何本か</h2>
+<div id="9b5e17d3" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>行の合計 × 列の合計 ÷ 総数（第14回の期待度数）。お茶 × 夏は、期待 168.0 本に実際 190 本。</p>
+</section>
+<section id="場面③1マスのずれ" class="slide level2" data-chapter="I-1">
+<h2>場面③：1マスのずれ</h2>
+<div id="18a68151" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>第14回の <span class="math inline">(o-e)/\sqrt e</span>（二乗して足すとχ²）。お茶 × 夏は +1.70。</p>
+</section>
+<section id="場面④2と比べると" class="slide level2" data-chapter="I-1">
+<h2>場面④：±2と比べると</h2>
+<div id="6cdee0d1" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>標準正規なら ±2を超えるのは4.55%。枠のマスは「大きい」、お茶 × 夏は届かない。</p>
+</section>
+<section id="今回の問い" class="slide level2" data-chapter="I-1">
 <h2>今回の問い</h2>
-<p>第14回は分割表を<strong>地図</strong>にしました。今回は<strong>個々のセル</strong>に戻ります。</p>
+<p>1セルのズレは大きいのか？</p>
+<p>今回覚える言葉</p>
 <ul>
-<li>観測と期待の差を、セルどうしで<strong>比べられる形</strong>にしたい</li>
-<li>現行の教科書は「調整済み残差は ±2 が目安」と書いている</li>
-<li>では<strong>なぜあの形なのか</strong>。<span class="math inline">\pm 2</span> の根拠はどこにあるのか</li>
-</ul>
-<p>→ 今日は<strong>ズレの測り方</strong>そのものを主題にします。</p>
-</section>
-<section id="データの四角形カテゴリの四角形" class="slide level2 section-title">
-<h2>データの四角形：カテゴリの四角形</h2>
-<div id="6392bd5d" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="415" height="219"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>行も列も<strong>カテゴリ</strong>。セルの中身は人数です。この四角形のズレを扱います。</p>
-</section>
-<section id="位置づけ地図からセルへ" class="slide level2 section-title">
-<h2>位置づけ：地図からセルへ</h2>
-<div id="4c3a38b5" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="171"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>第14回は<strong>全体の構造</strong>を見ました。今回は<strong>1つのセル</strong>を見ます。</p>
-</section>
-<section id="素朴な方法観測から期待を引く" class="slide level2 section-title">
-<h2>素朴な方法：観測から期待を引く</h2>
-<p><span class="math display">E_{ij} = \frac{r_i\,c_j}{N}</span></p>
-<blockquote>
-<p><strong>読み方</strong>：期待度数は、行の合計と列の合計を掛けて、全体の合計で割ったもの。</p>
-</blockquote>
-<div id="1810344b" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="171"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="素朴な限界大きいセルほど差が大きい" class="slide level2 section-title">
-<h2>素朴な限界：大きいセルほど差が大きい</h2>
-<div id="cd5a2460" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="219"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>ばらつきの幅は <span class="math inline">\sqrt{E}</span> に比例して広がります。<strong>生の差では比べられません。</strong></p>
-</section>
-<section id="定義①標準化残差" class="slide level2 section-title smaller">
-<h2>定義①：標準化残差</h2>
-<p><span class="math display">Z_{ij}=\frac{O_{ij}-E_{ij}}{\sqrt{E_{ij}}}</span></p>
-<blockquote>
-<p><strong>読み方</strong>：観測と期待の差を、期待度数の平方根で割る。ばらつきの広がりを打ち消す。</p>
-</blockquote>
-<ul>
-<li>度数が従う分布のばらつきが <span class="math inline">\sqrt{E}</span> 程度なので、割れば揃うはず</li>
-<li>実際これを二乗して全セル足すと <span class="math inline">\chi^2</span> になる</li>
-<li><strong>これで分散が1に揃った</strong>——と言えるでしょうか</li>
+<li>独立のモデルの最尤推定</li>
+<li><span class="math inline">G^2</span> 統計量</li>
+<li>標準化残差・調整済み残差</li>
+<li>ボンフェローニ補正</li>
+<li>多重対応分析・バート行列</li>
 </ul>
 </section>
-<section id="デモそれでも分散は-0.44" class="slide level2 section-title">
-<h2>デモ：それでも分散は 0.44</h2>
-<div id="c677006d" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"標準化残差の分散 = </span><span class="sc">{</span>SIM_STD<span class="sc">.</span>var()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb1-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"|値|&gt;2 の割合   = </span><span class="sc">{</span>(np.<span class="bu">abs</span>(SIM_STD) <span class="op">&gt;</span> <span class="dv">2</span>)<span class="sc">.</span>mean() <span class="op">*</span> <span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>標準化残差の分散 = 0.445
-|値|&gt;2 の割合   = 0.3%</code></pre>
-</div>
-</div>
-<div id="66ed4e9f" class="cell" data-execution_count="8">
+<section id="物差しを試す" class="slide level2" data-chapter="I-1">
+<h2>物差しを試す</h2>
+<ul>
+<li>行と列が本当に独立なモデルから、表を作る</li>
+<li>同じ周辺、同じ 1,000 本。どのマスにも本当の関連は無い</li>
+<li>それを2,000回くり返し、毎回 <span class="math inline">(o-e)/\sqrt e</span> を計算する</li>
+</ul>
+<p>関連が無いなら、±2を超えるのは4.55%のはず。</p>
+</section>
+<section id="関連が無くても山は細い" class="slide level2" data-chapter="I-1">
+<h2>関連が無くても山は細い</h2>
+<div id="b042dd28" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="183"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="312"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>1 になっていません。</strong> 山が細すぎます。±2 を超えるのは 0.3% だけです。</p>
+<p>2,000表の全マスを集めた。分散は1ではなく 0.59。</p>
 </section>
-<section id="なぜ足りないのか" class="slide level2 section-title">
-<h2>なぜ足りないのか</h2>
-<p>分散を<strong>セルごと</strong>に測ると、さらに問題が見えます。</p>
-<div id="41751fe6" class="cell" data-execution_count="9">
+<section id="をほとんど超えない" class="slide level2" data-chapter="I-1">
+<h2>±2をほとんど超えない</h2>
+<div id="34de1893" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="183"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="312"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>0.30 から 0.60 までバラバラです。<strong>周辺度数が大きい行・列ほど小さくなる。</strong> <span class="math inline">E_{ij}</span> で割っただけでは、周辺度数の影響が残っています。</p>
+<p>±2を超えたのは 1.0%だけ（4.55%のはず）。この物差しでは、本当のずれも見落とす。</p>
 </section>
-<section id="定義②調整済み残差" class="slide level2 section-title">
-<h2>定義②：調整済み残差</h2>
-<p>残った影響を、行と列の比率で割り落とします。</p>
-<p><span class="math display">d_{ij}=\frac{O_{ij}-E_{ij}}{\sqrt{E_{ij}\left(1-\dfrac{r_i}{N}\right)\left(1-\dfrac{c_j}{N}\right)}}</span></p>
-<blockquote>
-<p><strong>読み方</strong>：期待度数に「1 引く行の比率」と「1 引く列の比率」を掛けたもので割る。</p>
-</blockquote>
-<p>分母が増えたぶん、値は大きく出ます。<strong>これでようやく分散が1になります。</strong></p>
+<section id="なぜ山が細いのか" class="slide level2" data-chapter="I-1">
+<h2>なぜ山が細いのか</h2>
+<ul>
+<li>期待度数 <span class="math inline">e</span> は、同じ表の行の合計と列の合計から計算した</li>
+<li>表から推定した値を引くと、残差はそのぶん縮むのではないか</li>
+</ul>
+<p>物差しの ±2は、分散がちょうど1のときにしか使えない。</p>
 </section>
-<section id="縦の糸同じことを第4回でもした" class="slide level2 section-title">
-<h2>［縦の糸］同じことを第4回でもした</h2>
+<section id="今回の道筋" class="slide level2" data-chapter="I-1">
+<h2>今回の道筋</h2>
+<ol type="1">
+<li>期待度数は、どのモデルを、どの推定法で推定した値か</li>
+<li>推定に使うと、残差の分散はいくつに縮むか</li>
+<li>何で割り直せば、±2が使えるか</li>
+<li>3つ以上のカテゴリなら、どうするか</li>
+</ol>
+</section>
+<section id="位置づけ独立のモデル最尤法" class="slide level2 smaller" data-chapter="I-1">
+<h2>位置づけ：独立のモデル×最尤法</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>モデル</th>
+<th>推定法</th>
+<th>当てはまりの物差し</th>
+<th style="text-align: center;">回</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>独立 ＋ ランク <span class="math inline">Q</span> のずれ</td>
+<td>重み付き最小二乗法</td>
+<td>総慣性 <span class="math inline">\chi^2/n</span></td>
+<td style="text-align: center;">第14回</td>
+</tr>
+<tr class="even">
+<td>独立のモデル（<span class="math inline">Q=0</span>）</td>
+<td>最尤法</td>
+<td><span class="math inline">G^2</span>、マスごとに調整済み残差</td>
+<td style="text-align: center;">今回</td>
+</tr>
+</tbody>
+</table>
+<p>同じ独立のモデルを、最尤法の側から見直す。</p>
+</section>
+<section id="言葉を決める" class="slide level2" data-chapter="I-1">
+<h2>言葉を決める</h2>
+<ul>
+<li>期待度数を「モデルを推定した値」として読み直したい</li>
+<li>推定した後の残差が、どれだけ揺れるかを知りたい</li>
+</ul>
+<p>道具を5つそろえる：割合の最尤推定、度数のばらつき、線形変換の分散、1本の向きを除く行列、±2の根拠。</p>
+</section>
+<section id="道具①割合の対数尤度" class="slide level2" data-chapter="I-4">
+<h2>道具①：割合の対数尤度</h2>
+<p><span class="math display">
+\ell(\boldsymbol\pi)=\sum_{q=1}^{k}n_q\log\pi_q,\qquad \sum_{q=1}^{k}\pi_q=1
+</span></p>
+<p><span class="math inline">n</span> 回の試行で、結果 <span class="math inline">q</span> が確率 <span class="math inline">\pi_q</span> で出て、<span class="math inline">n_q</span> 回出た。</p>
+</section>
+<section id="道具①答えは観測した割合" class="slide level2" data-chapter="I-4">
+<h2>道具①：答えは観測した割合</h2>
+<p><span class="math display">
+\hat\pi_q=\frac{n_q}{n}
+</span></p>
+<p>第6回のコイン、第12回の <span class="math inline">\hat\pi_q=n_q/n</span> と同じ。制約を入れて微分し、0とおいた。</p>
+</section>
+<section id="道具②度数の分散は平均" class="slide level2" data-chapter="I-4">
+<h2>道具②：度数の分散は平均</h2>
+<p><span class="math display">
+o\ \text{の平均}=\mu\quad\Longrightarrow\quad \text{分散}\approx\mu
+</span></p>
+<p>数えた度数は、平均と同じくらい揺れる（ポアソン分布の近似）。</p>
+</section>
+<section id="道具②割れば分散は1" class="slide level2" data-chapter="I-4">
+<h2>道具②：割れば分散は1</h2>
+<p><span class="math display">
+z=\frac{o-\mu}{\sqrt\mu}\qquad\text{平均 0、分散 1}
+</span></p>
+<p><span class="math inline">(o-e)/\sqrt e</span> は、この形をしている。マスどうしはほぼ独立とみなす。</p>
+</section>
+<section id="道具③スカラーの分散" class="slide level2" data-chapter="I-4">
+<h2>道具③：スカラーの分散</h2>
+<p><span class="math display">
+\operatorname{Var}(az)=a^2\operatorname{Var}(z)=a^2
+</span></p>
+<p>分散1の <span class="math inline">z</span> を <span class="math inline">a</span> 倍すると、分散は <span class="math inline">a^2</span> 倍。</p>
+</section>
+<section id="道具③ベクトルの分散" class="slide level2" data-chapter="I-4">
+<h2>道具③：ベクトルの分散</h2>
+<p><span class="math display">
+\operatorname{Var}\bigl([\mathbf A\boldsymbol z]_i\bigr)=\sum_{i'} a_{ii'}^2=[\mathbf A\mathbf A^\top]_{ii}
+</span></p>
+<p>成分が独立で分散1の <span class="math inline">\boldsymbol z</span>。第3回の道具② <span class="math inline">\operatorname{Var}(\mathbf A\boldsymbol y)=\mathbf A\boldsymbol\Sigma\mathbf A^\top</span> で <span class="math inline">\boldsymbol\Sigma=\mathbf I</span>。</p>
+</section>
+<section id="道具③行列の分散" class="slide level2" data-chapter="I-4">
+<h2>道具③：行列の分散</h2>
+<p><span class="math display">
+\operatorname{Var}\bigl([\mathbf A\mathbf Z\mathbf B]_{ij}\bigr)=\sum_{i'}\sum_l a_{ii'}^2b_{lj}^2=[\mathbf A\mathbf A^\top]_{ii}\,[\mathbf B^\top\mathbf B]_{jj}
+</span></p>
+<p>左右から掛けても、行の分と列の分の積になる。<span class="math inline">\mathbf B=1</span> ならベクトルの式。</p>
+</section>
+<section id="道具④1本の向きを除く" class="slide level2" data-chapter="I-4">
+<h2>道具④：1本の向きを除く</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+\mathbf Q_{\boldsymbol u}=\mathbf I-\boldsymbol u\boldsymbol u^\top
+</span></p>
+<p><span class="math inline">\lVert\boldsymbol u\rVert_2=1</span>。<span class="math inline">\mathbf Q_{\boldsymbol u}\boldsymbol z</span> は、<span class="math inline">\boldsymbol z</span> から <span class="math inline">\boldsymbol u</span> の向きの成分（破線）を引いたもの。</p>
+</div><div class="column" style="width:55%;">
+<div id="67cb445c" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" width="393" height="370"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="道具④除いた向きは0" class="slide level2" data-chapter="I-4">
+<h2>道具④：除いた向きは0</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+\begin{aligned}
+&amp;\mathbf Q_{\boldsymbol u}\boldsymbol u=\boldsymbol 0\\
+&amp;\mathbf Q_{\boldsymbol u}\mathbf Q_{\boldsymbol u}^\top=\mathbf Q_{\boldsymbol u}\\
+&amp;[\mathbf Q_{\boldsymbol u}]_{jj}=1-u_j^2
+\end{aligned}
+</span></p>
+<p>2回除いても同じ。対角は1より小さい。</p>
+</div><div class="column" style="width:55%;">
+<div id="46d86286" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" width="393" height="370"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="道具④第3回の残差の行列" class="slide level2" data-chapter="I-4">
+<h2>道具④：第3回の残差の行列</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>第3回の射影行列 <span class="math inline">\mathbf H</span> で、列が <span class="math inline">\boldsymbol u</span> の1本だけなら <span class="math inline">\mathbf H=\boldsymbol u\boldsymbol u^\top</span>。</p>
+<p><span class="math inline">\mathbf Q_{\boldsymbol u}=\mathbf I-\mathbf H</span> は、残差を作る行列。</p>
+</div><div class="column" style="width:55%;">
+<div id="fcc105d0" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" width="393" height="370"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="道具⑤2の根拠" class="slide level2" data-chapter="I-4">
+<h2>道具⑤：±2の根拠</h2>
+<div id="370d2477" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="822" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>標準正規分布で、絶対値が2を超える確率は4.55%（塗った部分）。</p>
+</section>
+<section id="道具⑤分散が小さいと" class="slide level2" data-chapter="I-4">
+<h2>道具⑤：分散が小さいと</h2>
+<div id="6dca057f" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="822" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>4.55%は、分散がちょうど1のときの値。分散が小さいと、ほとんど超えない。</p>
+</section>
+<section id="道具がそろった" class="slide level2" data-chapter="I-1">
+<h2>道具がそろった</h2>
+<ul>
+<li>割合の最尤推定値は、観測した割合</li>
+<li>度数は <span class="math inline">\sqrt\mu</span> で割れば分散1。線形変換の分散は <span class="math inline">[\mathbf A\mathbf A^\top]_{ii}[\mathbf B^\top\mathbf B]_{jj}</span></li>
+<li><span class="math inline">\mathbf I-\boldsymbol u\boldsymbol u^\top</span> を掛けると、1本の向きが除かれる</li>
+</ul>
+<p>では、第14回の期待度数は、何のモデルの推定値か。</p>
+</section>
+<section id="モデル①1本ずつマスへ" class="slide level2" data-chapter="I-2">
+<h2>モデル①：1本ずつマスへ</h2>
+<p><span class="math display">
+\Pr(\text{1本がマス}\ (i,j)\ \text{に入る})=\pi_{ij},\qquad \sum_{i=1}^{I}\sum_{j=1}^{J}\pi_{ij}=1
+</span></p>
+<p>売れた <span class="math inline">n</span> 本が1本ずつ、確率 <span class="math inline">\pi_{ij}</span> でどれか1つのマスに入る。</p>
+</section>
+<section id="モデル②独立なら掛け算" class="slide level2" data-chapter="I-2">
+<h2>モデル②：独立なら掛け算</h2>
+<p><span class="math display">
+\pi_{ij}=\pi_{i\cdot}\,\pi_{\cdot j}
+</span></p>
+<p>飲み物の確率 <span class="math inline">\pi_{i\cdot}</span> × 季節の確率 <span class="math inline">\pi_{\cdot j}</span>。第14回の <span class="math inline">p_{ij}=r_ic_j</span> を確率のモデルとして書いたもの。</p>
+</section>
+<section id="モデル③行列でランク1" class="slide level2" data-chapter="I-2">
+<h2>モデル③：行列でランク1</h2>
+<div id="e5e8772f" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="595" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\boldsymbol\Pi=\boldsymbol\pi_r\boldsymbol\pi_c^\top</span>：第14回の <span class="math inline">Q=0</span>。推定するのは <span class="math inline">\boldsymbol\pi_r</span> と <span class="math inline">\boldsymbol\pi_c</span>（赤く塗った箱）だけ。</p>
+</section>
+<section id="目的関数①1マスの対数尤度" class="slide level2" data-chapter="I-3">
+<h2>目的関数①：1マスの対数尤度</h2>
+<p><span class="math display">
+\ell(\boldsymbol\Pi)=\sum_{i=1}^{I}\sum_{j=1}^{J}o_{ij}\log\pi_{ij}
+</span></p>
+<p>1本がマス <span class="math inline">(i,j)</span> に入る確率は <span class="math inline">\pi_{ij}</span>。そこに <span class="math inline">o_{ij}</span> 本入ったので、logの和に <span class="math inline">o_{ij}\log\pi_{ij}</span>。</p>
+</section>
+<section id="目的関数②行と列に分かれる" class="slide level2" data-chapter="I-3">
+<h2>目的関数②：行と列に分かれる</h2>
+<p><span class="math display">
+\begin{aligned}
+\ell&amp;=\sum_{i,j}o_{ij}\bigl(\log\pi_{i\cdot}+\log\pi_{\cdot j}\bigr)\\
+&amp;=\sum_{i=1}^{I}o_{i+}\log\pi_{i\cdot}+\sum_{j=1}^{J}o_{+j}\log\pi_{\cdot j}
+\end{aligned}
+</span></p>
+<p><span class="math inline">o_{i+}</span> は行の合計、<span class="math inline">o_{+j}</span> は列の合計。行の部分と列の部分に分かれる。</p>
+</section>
+<section id="目的関数③行列で" class="slide level2" data-chapter="I-3">
+<h2>目的関数③：行列で</h2>
+<p><span class="math display">
+\begin{aligned}
+\ell&amp;=\mathbf 1_I^\top\bigl(\mathbf O\odot\log\boldsymbol\Pi\bigr)\mathbf 1_J\\
+&amp;=(\mathbf O\mathbf 1_J)^\top\log\boldsymbol\pi_r+(\mathbf O^\top\mathbf 1_I)^\top\log\boldsymbol\pi_c
+\end{aligned}
+</span></p>
+<p><span class="math inline">\odot</span> はマスごとの積、<span class="math inline">\log</span> は成分ごと。必要なのは行の合計と列の合計だけ。</p>
+</section>
+<section id="導出①行と列を別々に" class="slide level2" data-chapter="I-5">
+<h2>導出①：行と列を別々に</h2>
+<p><span class="math display">
+\hat\pi_{i\cdot}=\frac{o_{i+}}{n}=r_i,\qquad
+\hat\pi_{\cdot j}=\frac{o_{+j}}{n}=c_j
+</span></p>
+<p>行の部分と列の部分に、道具①を1回ずつ。答えは周辺。</p>
+</section>
+<section id="導出②期待度数は最尤推定値" class="slide level2" data-chapter="I-5">
+<h2>導出②：期待度数は最尤推定値</h2>
+<p><span class="math display">
+\hat e_{ij}=n\hat\pi_{i\cdot}\hat\pi_{\cdot j}=nr_ic_j
+</span></p>
+<p>第14回の「行の合計 × 列の合計 ÷ 総数」は、独立のモデルの最尤推定値だった。</p>
+</section>
+<section id="当てはまり①飽和モデル" class="slide level2" data-chapter="I-5">
+<h2>当てはまり①：飽和モデル</h2>
+<p><span class="math display">
+\pi_{ij}\ \text{を自由に}\quad\Longrightarrow\quad \hat\pi_{ij}=\frac{o_{ij}}{n}=p_{ij}
+</span></p>
+<p>マスごとに確率を1つずつ持つモデル。表を完全に再現する。</p>
+</section>
+<section id="当てはまり②g²統計量" class="slide level2" data-chapter="I-5">
+<h2>当てはまり②：G²統計量</h2>
+<p><span class="math display">
+G^2=2\bigl(\ell_{\text{飽和}}-\hat\ell\bigr)=2\sum_{i,j}o_{ij}\log\frac{o_{ij}}{e_{ij}}
+</span></p>
+<p>差の2倍は第13回の <span class="math inline">-2\ell</span> と同じ尺度。自販機の表で 158.7。</p>
+</section>
+<section id="当てはまり③logの近似" class="slide level2" data-chapter="I-5">
+<h2>当てはまり③：logの近似</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\log(1+x)\approx x-\frac{x^2}{2}\qquad\Bigl(x=\frac{o-e}{e}\ \text{が}\ 0\ \text{に近いとき}\Bigr)\\
+&amp;o\log\frac oe=e(1+x)\log(1+x)\approx e\Bigl(x+\frac{x^2}{2}\Bigr)
+\end{aligned}
+</span></p>
+<p><span class="math inline">o=e(1+x)</span> とおいて、<span class="math inline">x^3</span> の項を捨てる。</p>
+</section>
+<section id="当てはまり④g²とχ²は近い" class="slide level2" data-chapter="I-5">
+<h2>当てはまり④：G²とχ²は近い</h2>
+<p><span class="math display">
+G^2\approx2\sum_{i,j}(o_{ij}-e_{ij})+\sum_{i,j}\frac{(o_{ij}-e_{ij})^2}{e_{ij}}=\chi^2
+</span></p>
+<p><span class="math inline">\sum(o-e)=0</span>。最尤法の物差しと、第14回の重み付き二乗の物差しが一致する。</p>
+</section>
+<section id="次の問い残差はどれだけ縮むか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：残差はどれだけ縮むか</h2>
+<ul>
+<li>期待度数は、表の行の合計と列の合計から推定した</li>
+<li>推定に使った分だけ、残差 <span class="math inline">o-e</span> は小さくなるはず</li>
+</ul>
+<p>推定したものが少ない順に、1マス、1行、表全体と広げて分散を求める。</p>
+</section>
+<section id="導出③1マス何も推定しない" class="slide level2" data-chapter="I-5">
+<h2>導出③：1マス（何も推定しない）</h2>
+<p><span class="math display">
+z_{ij}=\frac{o_{ij}-n\pi_{ij}}{\sqrt{n\pi_{ij}}}\qquad\text{分散}\ 1
+</span></p>
+<p>本当の <span class="math inline">\pi_{ij}</span> がわかっていれば、道具②そのもの。±2がそのまま使える。</p>
+</section>
+<section id="導出④1行行の合計を使う" class="slide level2" data-chapter="I-5">
+<h2>導出④：1行（行の合計を使う）</h2>
+<p><span class="math display">
+\frac{o_{ij}-o_{i+}\pi_{\cdot j}}{\sqrt{n\pi_{ij}}}
+=z_{ij}-\sqrt{\pi_{\cdot j}}\sum_{l}\sqrt{\pi_{\cdot l}}\,z_{il}
+</span></p>
+<p>季節の確率はわかっているとし、行の確率の代わりに行の合計 <span class="math inline">o_{i+}</span> を使う。</p>
+</section>
+<section id="導出⑤1本の向きが除かれる" class="slide level2" data-chapter="I-5">
+<h2>導出⑤：1本の向きが除かれる</h2>
+<p><span class="math display">
+\frac{o_{ij}-o_{i+}\pi_{\cdot j}}{\sqrt{n\pi_{ij}}}
+=\bigl[(\mathbf I-\sqrt{\boldsymbol\pi_c}\sqrt{\boldsymbol\pi_c}^\top)\boldsymbol z_i\bigr]_j
+\qquad\text{分散}\ 1-\pi_{\cdot j}
+</span></p>
+<p>行 <span class="math inline">\boldsymbol z_i</span> から <span class="math inline">\sqrt{\boldsymbol\pi_c}</span> の向きが除かれる。分散は道具④の対角。</p>
+</section>
+<section id="導出⑥表全体行と列の合計" class="slide level2" data-chapter="I-5">
+<h2>導出⑥：表全体（行と列の合計）</h2>
+<p><span class="math display">
+\sqrt n\,\mathbf S\approx
+\bigl(\mathbf I-\sqrt{\boldsymbol r}\sqrt{\boldsymbol r}^\top\bigr)\,\mathbf Z\,\bigl(\mathbf I-\sqrt{\boldsymbol c}\sqrt{\boldsymbol c}^\top\bigr)
+</span></p>
+<p>行の合計と列の合計の両方を使うと、左右から1本ずつ向きが除かれる。</p>
+</section>
+<section id="導出⑦マスの分散" class="slide level2" data-chapter="I-5">
+<h2>導出⑦：マスの分散</h2>
+<p><span class="math display">
+\operatorname{Var}\bigl(\sqrt n\,s_{ij}\bigr)\approx(1-r_i)(1-c_j)
+</span></p>
+<p>道具③の行列の式に、道具④の対角を入れる。列の合計を使わなければ導出⑤に戻る。</p>
+</section>
+<section id="言葉標準化残差" class="slide level2" data-chapter="I-5">
+<h2>言葉：標準化残差</h2>
+<p><span class="math display">
+\frac{o_{ij}-e_{ij}}{\sqrt{e_{ij}}}=\sqrt n\,s_{ij}
+</span></p>
+<p>第14回の <span class="math inline">(o-e)/\sqrt e</span> を標準化残差（ピアソン残差）と呼ぶ。分散は1ではない。</p>
+</section>
+<section id="定義調整済み残差" class="slide level2" data-chapter="I-5">
+<h2>定義：調整済み残差</h2>
+<p><span class="math display">
+d_{ij}=\frac{o_{ij}-e_{ij}}{\sqrt{e_{ij}\,(1-r_i)(1-c_j)}}
+=\frac{\sqrt n\,s_{ij}}{\sqrt{(1-r_i)(1-c_j)}}
+</span></p>
+<p>分散が1にそろう。±2の物差しはこちらに当てる。</p>
+</section>
+<section id="アルゴリズム残差を読む手順" class="slide level2 smaller" data-chapter="I-6">
+<h2>アルゴリズム：残差を読む手順</h2>
+<ol type="1">
+<li>周辺：<span class="math inline">\mathbf P=\mathbf O/n</span>、<span class="math inline">\boldsymbol r=\mathbf P\mathbf 1_J</span>、<span class="math inline">\boldsymbol c=\mathbf P^\top\mathbf 1_I</span>（最尤推定値）</li>
+<li>期待度数：<span class="math inline">\mathbf E=n\boldsymbol r\boldsymbol c^\top</span>。<span class="math inline">G^2=2\,\mathbf 1_I^\top\bigl(\mathbf O\odot\log(\mathbf O\oslash\mathbf E)\bigr)\mathbf 1_J</span>、<span class="math inline">\chi^2=n\lVert\mathbf S\rVert_F^2</span></li>
+<li>標準化残差：<span class="math inline">\sqrt n\,\mathbf S=\sqrt n\,\mathbf D_r^{-1/2}(\mathbf P-\boldsymbol r\boldsymbol c^\top)\mathbf D_c^{-1/2}</span>（第14回）</li>
+<li>割り直す：<span class="math inline">\mathbf D_d=\sqrt n\,(\mathbf I-\mathbf D_r)^{-1/2}\,\mathbf S\,(\mathbf I-\mathbf D_c)^{-1/2}</span></li>
+<li>比べる：±2と比べる。強さは <span class="math inline">\mathbf E</span> との比 <span class="math inline">\mathbf O\oslash\mathbf E</span> で読む</li>
+</ol>
+</section>
+<section id="第14回の手順との違い" class="slide level2" data-chapter="I-6">
+<h2>第14回の手順との違い</h2>
+<ul>
+<li>手順1〜3は、第14回で <span class="math inline">\mathbf S</span> を作るところまでと同じ（<span class="math inline">\oslash</span> はマスごとの割り算）</li>
+<li>違うのは手順4だけ：周辺から決まる対角行列を、左右から掛ける</li>
+</ul>
+<p>特異値分解は要らない。行列の積と割り算だけで、全マスの調整済み残差が出る。</p>
+</section>
+<section id="次の問い割り直すと何が言えるか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：割り直すと何が言えるか</h2>
+<ul>
+<li>標準化残差の分散は <span class="math inline">(1-r_i)(1-c_j)</span> だった</li>
+<li>割り直した調整済み残差なら、±2が使えるはず</li>
+</ul>
+<p>どのマスがどれだけ縮むのか。回帰の残差と何が同じか。場面の表で確かめる。</p>
+</section>
+<section id="帰結①どのマスが縮むか" class="slide level2" data-chapter="I-7">
+<h2>帰結①：どのマスが縮むか</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>自販機の表で、標準化残差の分散をマスごとに並べた。</p>
+<p>行の合計と列の合計の大きいマス（お茶 × 夏）ほど小さい。</p>
+</div><div class="column" style="width:55%;">
+<div id="c871a1d2" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" width="393" height="389"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="帰結②分散の和は自由度" class="slide level2" data-chapter="I-7">
+<h2>帰結②：分散の和は自由度</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 80%;">
+<p><span class="math display">
+\begin{aligned}
+&amp;\textstyle\sum_{i,j}(1-r_i)(1-c_j)\\
+&amp;=(I-1)(J-1)=12
+\end{aligned}
+</span></p>
+</div>
+<p>χ²の自由度。20マスの平均は 0.60（場面の山の分散）。</p>
+</div><div class="column" style="width:55%;">
+<div id="11b36157" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" width="393" height="389"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="帰結③推定に使われた度合い" class="slide level2" data-chapter="I-7">
+<h2>帰結③：推定に使われた度合い</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;h_{ij}=1-(1-r_i)(1-c_j)=r_i+c_j-r_ic_j\\
+&amp;\sum_{i,j}h_{ij}=I+J-1
+\end{aligned}
+</span></p>
+<p><span class="math inline">I+J-1</span> ＝ 総数1 ＋ 行の確率 <span class="math inline">I-1</span> ＋ 列の確率 <span class="math inline">J-1</span>：推定した数の個数。</p>
+</section>
+<section id="帰結④回帰の残差" class="slide level2" data-chapter="I-7">
+<h2>帰結④：回帰の残差</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\boldsymbol e=(\mathbf I-\mathbf H)\boldsymbol\varepsilon\\
+&amp;\operatorname{Var}(e_i)=\sigma^2(1-h_{ii}),\qquad \sum_ih_{ii}=p
+\end{aligned}
+</span></p>
+<p>第3・4回：てこ比 <span class="math inline">h_{ii}</span> は、行 <span class="math inline">i</span> が自分の予測に使われた度合い。</p>
+</section>
+<section id="帰結⑤回帰でも同じ型" class="slide level2 smaller" data-chapter="I-7">
+<h2>帰結⑤：回帰でも同じ型</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -364,407 +723,993 @@
 <thead>
 <tr class="header">
 <th></th>
-<th>回帰（第4回）</th>
+<th>回帰（第3・4回）</th>
 <th>分割表（今回）</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>生のズレ</td>
-<td>残差 <span class="math inline">e_i</span></td>
-<td><span class="math inline">O_{ij}-E_{ij}</span></td>
+<td>残差</td>
+<td><span class="math inline">\boldsymbol e=(\mathbf I-\mathbf H)\boldsymbol\varepsilon</span></td>
+<td><span class="math inline">\sqrt n\mathbf S\approx(\mathbf I-\sqrt{\boldsymbol r}\sqrt{\boldsymbol r}^\top)\mathbf Z(\mathbf I-\sqrt{\boldsymbol c}\sqrt{\boldsymbol c}^\top)</span></td>
 </tr>
 <tr class="even">
-<td>ばらつきの源</td>
+<td>推定に使われた度合い</td>
 <td>てこ比 <span class="math inline">h_{ii}</span></td>
-<td>周辺度数 <span class="math inline">r_i/N,\ c_j/N</span></td>
+<td><span class="math inline">h_{ij}=r_i+c_j-r_ic_j</span></td>
 </tr>
 <tr class="odd">
+<td>その和</td>
+<td><span class="math inline">\operatorname{tr}\mathbf H=p</span></td>
+<td><span class="math inline">I+J-1</span></td>
+</tr>
+<tr class="even">
 <td>割るもの</td>
 <td><span class="math inline">\hat\sigma\sqrt{1-h_{ii}}</span></td>
-<td><span class="math inline">\sqrt{E(1-\frac{r_i}{N})(1-\frac{c_j}{N})}</span></td>
+<td><span class="math inline">\sqrt{e_{ij}(1-h_{ij})}</span></td>
 </tr>
 </tbody>
 </table>
-<p><strong>どちらも「1 − 影響力」の平方根で割っています。</strong></p>
+<p>どちらも残差 ÷ √(1 − 推定に使われた度合い)。</p>
 </section>
-<section id="回帰の標準化残差" class="slide level2 section-title smaller">
-<h2>回帰の標準化残差</h2>
-<p><span class="math display">r_i=\frac{e_i}{\hat\sigma\sqrt{1-h_{ii}}}</span></p>
-<blockquote>
-<p><strong>読み方</strong>：残差を、その点固有のばらつきで割る。<span class="math inline">h_{ii}</span> が大きい点ほど大きく割り戻す。</p>
-</blockquote>
-<div id="2dccefa1" class="cell" data-execution_count="10">
+<section id="帰結⑥割れば分散は1" class="slide level2" data-chapter="I-7">
+<h2>帰結⑥：割れば分散は1</h2>
+<div id="ed0fa529" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="171"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="312"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>点が理論線に乗ります。<strong>生の残差はてこ比が大きい点ほど小さく出る。</strong></p>
+<p>場面の2,000表で、調整済み残差の分散は 0.99、±2を超えるのは 4.4%。</p>
 </section>
-<section id="デモ割ると揃う" class="slide level2 section-title">
-<h2>デモ：割ると揃う</h2>
-<div id="9609eb3f" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>lo, hi <span class="op">=</span> HII <span class="op">&lt;</span> np.quantile(HII, <span class="fl">.2</span>), HII <span class="op">&gt;</span> np.quantile(HII, <span class="fl">.8</span>)</span>
-<span id="cb3-2"><a href=""></a>E_lo, E_hi <span class="op">=</span> REG_E[:, lo].var(), REG_E[:, hi].var()</span>
-<span id="cb3-3"><a href=""></a>R_lo, R_hi <span class="op">=</span> REG_R[:, lo].var(), REG_R[:, hi].var()</span>
-<span id="cb3-4"><a href=""></a><span class="bu">print</span>(<span class="ss">f"生の残差   てこ比小 </span><span class="sc">{</span>E_lo<span class="sc">:.2f}</span><span class="ss">  大 </span><span class="sc">{</span>E_hi<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb3-5"><a href=""></a><span class="bu">print</span>(<span class="ss">f"標準化残差 てこ比小 </span><span class="sc">{</span>R_lo<span class="sc">:.2f}</span><span class="ss">  大 </span><span class="sc">{</span>R_hi<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>生の残差   てこ比小 2.89  大 2.77
-標準化残差 てこ比小 1.01  大 0.99</code></pre>
-</div>
-</div>
-<div id="42208ab5" class="cell" data-execution_count="12">
+<section id="帰結⑦場面のマスを割り直す" class="slide level2" data-chapter="I-7">
+<h2>帰結⑦：場面のマスを割り直す</h2>
+<div id="3819fd3d" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="170"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="318"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>割る前は傾いていて、割ったあとは<strong>平らになります。</strong></p>
+<p>お茶 × 夏：+1.70 ÷ √0.348 ＝ +2.88。±2を超える。</p>
 </section>
-<section id="共通の型ズレ-固有のばらつき" class="slide level2 section-title">
-<h2>共通の型：ズレ ÷ 固有のばらつき</h2>
-<div id="33a8f87e" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="207"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>比べたいなら、それぞれのばらつきで割って揃える。</strong> 場面が変わっても型は同じです。</p>
-</section>
-<section id="効き方の大きさは違う" class="slide level2 section-title">
-<h2>効き方の大きさは違う</h2>
-<p>同じ型でも、<strong>補正の効き方は場面によってまるで違います。</strong></p>
-<div id="40cc2db7" class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="955" height="183"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>回帰は <span class="math inline">n \gg p</span> でてこ比が小さく、補正は<strong>数パーセント</strong>。分割表では<strong>2倍</strong>変わります。 だから回帰では省略しても実害が小さく、<strong>分割表では基準そのものが壊れます。</strong></p>
-</section>
-<section id="デモ調整済み残差なら-1-になる" class="slide level2 section-title">
-<h2>デモ：調整済み残差なら 1 になる</h2>
-<div id="83cb3cf1" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"調整済み残差の分散 = </span><span class="sc">{</span>SIM_ADJ<span class="sc">.</span>var()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb5-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"|値|&gt;2 の割合     = </span><span class="sc">{</span>(np.<span class="bu">abs</span>(SIM_ADJ) <span class="op">&gt;</span> <span class="dv">2</span>)<span class="sc">.</span>mean() <span class="op">*</span> <span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>調整済み残差の分散 = 1.009
-|値|&gt;2 の割合     = 4.5%</code></pre>
-</div>
-</div>
-<div id="62aef468" class="cell" data-execution_count="16">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="183"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>山が重なりました。</strong> ±2 を超えるのも約 5%。これで基準が使えます。</p>
-</section>
-<section id="解釈2-の意味" class="slide level2 section-title">
-<h2>解釈：±2 の意味</h2>
-<div id="9fa4ab5a" class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="183"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>関連が無ければ <strong>±2 を超えるのは約5%</strong>。太字のセルが「偶然では説明しにくい」ところです。</p>
-<p><strong>若年層×革新の +8.3 は明確に大きい——ただ、この解釈には落とし穴があるかもしれない。</strong></p>
-</section>
-<section id="落とし穴9セルを一度に見ている" class="slide level2 section-title">
-<h2>落とし穴：9セルを一度に見ている</h2>
-<p><strong>±2 の 5% は「1セルあたり」の話</strong>です。</p>
+<section id="次の問い20マスを一度に見ると" class="slide level2" data-chapter="I-1">
+<h2>次の問い：20マスを一度に見ると</h2>
 <ul>
-<li>9セルすべてを一斉に眺めれば、どれかが ±2 を超える確率はずっと高い</li>
-<li>「有意なセルを探す」行為そのものが、<strong>何度も検定している</strong>のと同じ</li>
-<li>これを<strong>多重比較</strong>の問題という</li>
+<li>±2は、1つのマスを見るときの物差し</li>
+<li>表を眺めて、超えたマスを拾うと、20回比べたことになる</li>
 </ul>
-<p><strong>眺めた回数を数えていないと、偶然を発見と取り違えます。</strong></p>
+<p>関連が無い表でも、どれかのマスは超えてしまうのではないか。</p>
 </section>
-<section id="デモセルが増えると偽陽性が増える" class="slide level2 section-title">
-<h2>デモ：セルが増えると偽陽性が増える</h2>
-<p>関連のないデータで「±2 を超えるセルが1つでもある」確率を測ります。</p>
-<div id="8e7e14ad" class="cell" data-execution_count="18">
+<section id="帰結⑧どれかが超える" class="slide level2" data-chapter="I-7">
+<h2>帰結⑧：どれかが超える</h2>
+<div id="3cabc4d6" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="195"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" class="quarto-figure quarto-figure-center" width="826" height="294"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>関連が無いのに、セルが増えるほど「見つかって」しまいます。</strong></p>
+<p>本当の関連はどこにも無いのに、52%の表で、どれかのマスが ±2を超えた。</p>
 </section>
-<section id="対処数えてから見る" class="slide level2 section-title">
-<h2>対処：数えてから見る</h2>
-<p>やることは単純です。<strong>見た回数を数え、基準を厳しくする。</strong></p>
-<ul>
-<li><strong>ボンフェローニ補正</strong>：水準 <span class="math inline">\alpha</span> をセル数で割る。9セルなら <span class="math inline">0.05/9 \approx 0.006</span></li>
-<li>残差でいえば、±2 ではなく <strong>±2.7 程度</strong>を基準にする</li>
-<li>そもそも<strong>見るセルを事前に絞る</strong>のがいちばん強い対処</li>
-</ul>
-<p>「全セルを眺めて大きいものを報告する」のは、<strong>探した事実を隠している</strong>ことになります。</p>
-</section>
-<section id="再訪第2回と同じ罪" class="slide level2 section-title">
-<h2>［再訪］第2回と同じ罪</h2>
-<p>この構図は第2回で一度見ました。</p>
-<ul>
-<li>第2回 <code>落とし穴①</code>：<strong>テストセットを何度も見る</strong>と、報告する精度が楽観的になる</li>
-<li>今回：<strong>セルを何度も見る</strong>と、報告する有意が楽観的になる</li>
-<li>どちらも「<strong>見た回数を数えていない</strong>」ことが原因</li>
-</ul>
-<p><strong>データを何度覗いたかは、結果の信頼性に直結します。</strong> 手法が変わっても同じです。</p>
-</section>
-<section id="χ²-は残差の二乗和だった" class="slide level2 section-title">
-<h2>χ² は残差の二乗和だった</h2>
-<p><span class="math display">\chi^2=\sum_{i,j} Z_{ij}^2</span></p>
-<blockquote>
-<p><strong>読み方</strong>：カイ二乗値は、標準化残差を二乗して全セルで足したもの。</p>
-</blockquote>
-<div id="c3670152" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>Z2 <span class="op">=</span> (STD <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>()</span>
-<span id="cb7-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"標準化残差の二乗和 = </span><span class="sc">{</span>Z2<span class="sc">:.2f}</span><span class="ss">   chi2_contingency = </span><span class="sc">{</span>CHI2<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>標準化残差の二乗和 = 107.99   chi2_contingency = 107.99</code></pre>
-</div>
-</div>
-<p><strong>検定統計量は、残差を集計したものにすぎません。</strong></p>
-</section>
-<section id="慣性とクラメールの-v" class="slide level2 section-title smaller">
-<h2>慣性とクラメールの V</h2>
-<p><span class="math display">V=\sqrt{\frac{\chi^2}{N\,(\min(I,J)-1)}}</span></p>
-<blockquote>
-<p><strong>読み方</strong>：カイ二乗値を標本数と自由度で割って平方根を取る。0が無関連、1が完全関連。</p>
-</blockquote>
-<ul>
-<li>第14回の<strong>慣性</strong>は <span class="math inline">\chi^2/N</span> でした。<span class="math inline">V</span> はそれをさらに揃えたもの</li>
-<li>どちらも「<strong>標本数を外した関連の強さ</strong>」を表します</li>
-</ul>
-</section>
-<section id="デモ標本を増やすと何が起きるか" class="slide level2 section-title">
-<h2>デモ：標本を増やすと何が起きるか</h2>
-<p><strong>同じ構造</strong>のデータで標本数だけ変え、<span class="math inline">p</span> 値と <span class="math inline">V</span> を比べます。</p>
-<div id="da7158ce" class="cell" data-execution_count="20">
+<section id="帰結⑨物差しを上げる" class="slide level2" data-chapter="I-7">
+<h2>帰結⑨：物差しを上げる</h2>
+<div id="c431f4f4" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="1012" height="207"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" class="quarto-figure quarto-figure-center" width="826" height="294"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong><span class="math inline">p</span> 値は下がり続けます。<span class="math inline">V</span> はほぼ平らです。</strong> 構造は変えていないのに。</p>
+<p><span class="math inline">M</span> マスを見るなら <span class="math inline">\pm z_{0.025/M}</span>（ボンフェローニ補正）。<span class="math inline">M=20</span> で ±3.02、超えるのは 3.7%。</p>
 </section>
-<section id="有意性と強さは別物" class="slide level2 section-title">
-<h2>有意性と強さは別物</h2>
-<p>前のスライドが示していることは、実務でいちばん誤解される点です。</p>
+<section id="帰結⑩本数をt倍すると" class="slide level2" data-chapter="I-7">
+<h2>帰結⑩：本数をt倍すると</h2>
+<div id="2caa58f7" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="324"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じ形の表で、本数だけ <span class="math inline">t</span> 倍にする。お茶 × 夏の <span class="math inline">d</span> は <span class="math inline">\sqrt t</span> 倍：本数が多いほど ±2を超える。</p>
+</section>
+<section id="帰結⑪何倍かは変わらない" class="slide level2" data-chapter="I-7">
+<h2>帰結⑪：何倍かは変わらない</h2>
+<div id="c3daba68" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="324"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">o/e</span> と <span class="math inline">V=\sqrt{\chi^2/(n(\min(I,J)-1))}</span> は <span class="math inline">t</span> によらない。「偶然では説明しにくい」と「期待の何倍か」は別の問い。</p>
+</section>
+<section id="最後の問い3つ以上のカテゴリ" class="slide level2" data-chapter="I-1">
+<h2>最後の問い：3つ以上のカテゴリ</h2>
 <ul>
-<li><span class="math inline">p</span> 値が小さい＝「<strong>関連が無いとは言いにくい</strong>」だけ</li>
-<li>標本を増やせば、<strong>どんなに弱い関連でも有意になります</strong></li>
-<li>「強さ」を伝えたいなら <span class="math inline">V</span> や残差の大きさを併記する</li>
+<li>第14回の対応分析が扱ったのは、行と列の2つのカテゴリの表</li>
+<li>自販機なら、飲み物・季節に加えて、温度（ホット・つめたい）も一緒に見たい</li>
 </ul>
-<p><strong>「有意でした」は強さを何も語っていません。</strong> 必ず <span class="math inline">N</span> と効果量を添えてください。</p>
+<p>3つ以上のカテゴリを、1枚の地図にできるか。</p>
 </section>
-<section id="再訪第14回の慣性につながる" class="slide level2 section-title">
-<h2>［再訪］第14回の慣性につながる</h2>
-<div id="165d4aa2" class="cell" data-execution_count="21">
+<section id="多重対応①1本を01で書く" class="slide level2" data-chapter="I-7">
+<h2>多重対応①：1本を0/1で書く</h2>
+<div id="bf70a660" class="cell" data-execution_count="28">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="183"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png" class="quarto-figure quarto-figure-center" width="942" height="329"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>第14回で分解した<strong>慣性の正体は、セルごとの残差</strong>でした。 地図の座標も、元をたどれば1つ1つのズレからできています。</p>
+<p>1本ごとに、飲み物の5つの値のどれかに1。第8回・第11回の所属行列と同じ形（<span class="math inline">\mathbf G_1\mathbf 1=\mathbf 1</span>）。</p>
 </section>
-<section id="変数へ指示行列" class="slide level2 section-title">
-<h2>3変数へ：指示行列</h2>
-<p>ここまでは2変数でした。<strong>3変数以上</strong>を同時に扱うにはどうするか。</p>
-<div id="085de96f" class="cell" data-execution_count="22">
+<section id="多重対応②横に並べる" class="slide level2" data-chapter="I-7">
+<h2>多重対応②：横に並べる</h2>
+<div id="fe4d00c5" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png" class="quarto-figure quarto-figure-center" width="1130" height="194"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png" class="quarto-figure quarto-figure-center" width="942" height="329"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>各人は9個の0/1で表されます。<strong>変数ごとに1つだけ1</strong>が立ちます。</p>
+<p><span class="math inline">\mathbf Z=[\mathbf G_1\ \mathbf G_2\ \mathbf G_3]</span> を指示行列と呼ぶ。どの行の和も、カテゴリの数 <span class="math inline">p=3</span>。</p>
 </section>
-<section id="mca-の仕組み" class="slide level2 section-title">
-<h2>MCA の仕組み</h2>
-<p><span class="math display">Z^\top Z / n \;\longrightarrow\; \text{固有値分解}</span></p>
-<blockquote>
-<p><strong>読み方</strong>：指示行列の自分自身との積を標本数で割り、CA と同じように分解する。</p>
-</blockquote>
+<section id="多重対応③zを分割表とみる" class="slide level2" data-chapter="I-7">
+<h2>多重対応③：Zを分割表とみる</h2>
+<p><span class="math display">
+\mathbf P=\frac{\mathbf Z}{np},\qquad
+\boldsymbol r=\frac1n\mathbf 1_n,\qquad
+\boldsymbol c=\frac{\mathbf Z^\top\mathbf 1_n}{np}
+</span></p>
+<p>行が1本1本、列がカテゴリの値の分割表。総数は <span class="math inline">np</span>。</p>
+</section>
+<section id="多重対応④第14回の手順" class="slide level2" data-chapter="I-7">
+<h2>多重対応④：第14回の手順</h2>
+<p><span class="math display">
+\mathbf S_Z=\mathbf D_r^{-1/2}\bigl(\mathbf P-\boldsymbol r\boldsymbol c^\top\bigr)\mathbf D_c^{-1/2}=\mathbf K\boldsymbol\Delta\mathbf L^\top
+</span></p>
+<p>特異値分解を1回。値の点 <span class="math inline">\mathbf D_c^{-1/2}\mathbf L_1\boldsymbol\Delta_1</span> を描くと、すべての値が1枚に並ぶ。</p>
+</section>
+<section id="多重対応⑤バート行列" class="slide level2" data-chapter="I-7">
+<h2>多重対応⑤：バート行列</h2>
+<p><span class="math display">
+\mathbf Z^\top\mathbf Z=
+\begin{bmatrix}
+\mathbf G_1^\top\mathbf G_1&amp;\mathbf G_1^\top\mathbf G_2&amp;\mathbf G_1^\top\mathbf G_3\\
+\mathbf G_2^\top\mathbf G_1&amp;\mathbf G_2^\top\mathbf G_2&amp;\mathbf G_2^\top\mathbf G_3\\
+\mathbf G_3^\top\mathbf G_1&amp;\mathbf G_3^\top\mathbf G_2&amp;\mathbf G_3^\top\mathbf G_3
+\end{bmatrix}
+</span></p>
+<p>対角は各値の本数、外は2つずつの分割表。地図は2つずつの表のずれからできる。</p>
+</section>
+<section id="多重対応⑥総慣性はjp1" class="slide level2" data-chapter="I-7">
+<h2>多重対応⑥：総慣性はJ/p−1</h2>
+<p><span class="math display">
+\lVert\mathbf S_Z\rVert_F^2=\frac Jp-1,\qquad
+\text{軸は}\ J-p\ \text{本まで}
+</span></p>
+<p><span class="math inline">z_{ij}^2=z_{ij}</span> から。総慣性はデータの中身によらない。</p>
+</section>
+<section id="多重対応⑦p2のとき" class="slide level2" data-chapter="I-7">
+<h2>多重対応⑦：p＝2のとき</h2>
+<p><span class="math display">
+\delta_{Z}^2=\frac{1\pm\delta_m}{2}\qquad(\text{それ以外の軸は}\ 1/2)
+</span></p>
+<p><span class="math inline">\delta_m</span> は、2つのカテゴリの表を第14回の対応分析にかけた特異値。関連が0でも慣性は <span class="math inline">1/2</span>。</p>
+</section>
+<section id="多重対応⑧寄与率は低く出る" class="slide level2" data-chapter="I-7">
+<h2>多重対応⑧：寄与率は低く出る</h2>
+<div id="8a54d9b2" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png" class="quarto-figure quarto-figure-center" width="1110" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じ自販機の表でも、軸1は対応分析で 96%、多重対応分析で 20%。総慣性の多くは、関連と無関係な分。</p>
+</section>
+<section id="多重対応⑨数え直す補正" class="slide level2" data-chapter="I-7">
+<h2>多重対応⑨：数え直す補正</h2>
+<p><span class="math display">
+\tilde\lambda_m=\Bigl(\frac{p}{p-1}\Bigl(\delta_{Z,m}^2-\frac1p\Bigr)\Bigr)^2\qquad\Bigl(\delta_{Z,m}^2&gt;\frac1p\ \text{の軸だけ}\Bigr)
+</span></p>
+<p>Benzécriの補正。<span class="math inline">p=2</span> なら <span class="math inline">\tilde\lambda_m=\delta_m^2</span> で、対応分析の寄与率に戻る。</p>
+</section></section>
+<section>
+<section id="第ii部-実データ解析" class="title-slide slide level1 part center">
+<h1>第II部　実データ解析</h1>
+
+</section>
+<section id="第ii部でやること" class="slide level2" data-chapter="II-1">
+<h2>第II部でやること</h2>
 <ul>
-<li>全カテゴリが<strong>同じ空間に布置</strong>される（変数が違っても比べられる）</li>
-<li>変数が3つでも10個でも、同じ手続きで扱えます</li>
+<li>第I部の手順を、キノコの図鑑から作った表に当てる</li>
+<li>期待度数と残差の分散が、第I部の式どおりになるかを確かめる</li>
+<li>どのマスが大きいかを読み、4つのカテゴリを1枚の地図にする</li>
 </ul>
 </section>
-<section id="デモ3変数の布置" class="slide level2 section-title">
-<h2>デモ：3変数の布置</h2>
-<div id="72cf6dde" class="cell" data-execution_count="23">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="295"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>同じ側に来たカテゴリは共起しやすい。</p>
-<p><strong>若年・革新・低収入 ⇔ 高齢・保守・高収入——ただ、この読みには落とし穴があるかもしれない。</strong></p>
-</section>
-<section id="落とし穴同じ側直接の関連" class="slide level2 section-title smaller">
-<h2>落とし穴：同じ側≠直接の関連</h2>
-<p>低収入は革新の近くにある。では、政治志向と収入を<strong>直接</strong>クロス集計するとどうか。</p>
-<div id="8b3c4871" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="cf">for</span> a, b <span class="kw">in</span> [(<span class="st">'年齢層'</span>, <span class="st">'政治志向'</span>), (<span class="st">'年齢層'</span>, <span class="st">'収入'</span>), (<span class="st">'政治志向'</span>, <span class="st">'収入'</span>)]:</span>
-<span id="cb9-2"><a href=""></a>    c2, p, dof, _ <span class="op">=</span> chi2_contingency(pd.crosstab(df[a], df[b]))</span>
-<span id="cb9-3"><a href=""></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">×</span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">: χ²=</span><span class="sc">{</span>c2<span class="sc">:6.2f}</span><span class="ss">  p=</span><span class="sc">{</span>p<span class="sc">:.2g}</span><span class="ss">  V=</span><span class="sc">{</span>np<span class="sc">.</span>sqrt(c2 <span class="op">/</span> (<span class="bu">len</span>(df) <span class="op">*</span> <span class="dv">2</span>))<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>年齢層×政治志向: χ²=107.99  p=2e-22  V=0.300
-年齢層×収入: χ²= 43.80  p=7e-09  V=0.191
-政治志向×収入: χ²=  5.03  p=0.28  V=0.065</code></pre>
-</div>
-</div>
-<ul>
-<li>政治志向×収入には<strong>関連が検出できない</strong>。近いのは、どちらも<strong>年齢層と関連している</strong>から</li>
-<li>強い2つの関連が、3つめの<strong>見かけの近さ</strong>を作る</li>
-<li>そもそも関連は<strong>因果ではない</strong>。「若いから革新的になる」とは言えない</li>
-</ul>
-</section>
-<section id="落とし穴mca-の寄与率は低く出る" class="slide level2 section-title">
-<h2>落とし穴：MCA の寄与率は低く出る</h2>
-<div id="ce088ad5" class="cell" data-execution_count="25">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="952" height="183"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>CA の第1軸が 81.5% だったのに対し、MCA は 20% 台です。 <strong>カテゴリ数が増えると軸に分散する</strong>ためで、説明力が弱いわけではありません。</p>
-</section>
-<section id="全15回の総まとめ" class="slide level2 section-title">
-<h2>全15回の総まとめ</h2>
-<div id="19d4d309" class="cell" data-execution_count="26">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1311" height="183"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>目的（予測か発見か）とデータ型（連続かカテゴリか）で手法を選ぶ</strong>——これが全15回の地図。</p>
-</section>
-<section id="総括同じ四角形への操作だった" class="slide level2 section-title smaller">
-<h2>総括：同じ四角形への操作だった</h2>
+<section id="データキノコの図鑑" class="slide level2 smaller" data-chapter="II-1">
+<h2>データ：キノコの図鑑</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>出典</td>
+<td>UCI機械学習リポジトリのMushroom（id 73）。図鑑の記述から作った仮想の標本</td>
+</tr>
+<tr class="even">
+<td>1行</td>
+<td>キノコ1本。全 8,124 本、22 列すべてカテゴリ（かさの形・色、におい、生える場所…）</td>
+</tr>
+<tr class="odd">
+<td>表</td>
+<td>食べられるか（食べられる 4,208・毒 3,916）× かさの色（10 色）</td>
+</tr>
+<tr class="even">
+<td>多重対応</td>
+<td>食べられるか・かさの色・生える場所・傷で色が変わるかの 4 列</td>
+</tr>
+</tbody>
+</table>
+<p>実際のキノコの見分けには使えない（図鑑の23種の記述から作った練習用のデータ）。</p>
+</section>
+<section id="データ2-10の表" class="slide level2" data-chapter="II-1">
+<h2>データ：2 × 10の表</h2>
+<div id="5570b085" class="cell" data-execution_count="34">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png" width="1120" height="252"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>食べられるか × かさの色の本数。茶・灰・赤・黄・白で、全体の大半を占める。</p>
+</section>
+<section id="第i部で導いたこと" class="slide level2" data-chapter="II-1">
+<h2>第I部で導いたこと</h2>
+<ul>
+<li>期待度数は、独立のモデルの最尤推定値。<span class="math inline">G^2\approx\chi^2</span></li>
+<li>標準化残差の分散は <span class="math inline">(1-r_i)(1-c_j)</span>。割り直した <span class="math inline">d</span> なら ±2</li>
+<li>多重対応分析の総慣性は <span class="math inline">J/p-1</span></li>
+</ul>
+<p>この3つを、キノコの表で確かめる。</p>
+</section>
+<section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
+<h2>手続き：何をどう計算したか</h2>
+<ol type="1">
+<li>期待度数：食べられるか × かさの色の表（2 × 10）でI-6の手順1〜4。<span class="math inline">\mathbf E</span>、標準化残差、調整済み残差</li>
+<li>最尤推定を確かめる：対数尤度を汎用の最適化で最大にし、周辺と比べる。χ²・<span class="math inline">G^2</span> はSciPyと比べる</li>
+<li>独立の表を作る：同じ <span class="math inline">n</span>・<span class="math inline">\boldsymbol r</span>・<span class="math inline">\boldsymbol c</span> の独立のモデルから2,000表。マスごとの分散を測る</li>
+<li>多重対応分析：200本に満たない 5 色を「その他の色」にまとめ、指示行列（8,124 × 17）に第14回の手順。バート行列も作る</li>
+</ol>
+</section>
+<section id="検証①最尤推定は周辺" class="slide level2" data-chapter="II-3">
+<h2>検証①：最尤推定は周辺</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>四角形への操作</th>
-<th>手法</th>
-<th>回</th>
+<th>確かめたこと</th>
+<th>値</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>y に <span class="math inline">\mathbf{X}\boldsymbol{\beta}</span> を近づける</td>
-<td>重回帰・正則化・分類</td>
-<td>1, 5–8</td>
-</tr>
-<tr class="even">
-<td>行を切る・切り回す</td>
-<td>分割・交差検証</td>
-<td>2, 4, 8</td>
-</tr>
-<tr class="odd">
-<td>列を揃える</td>
-<td>標準化・前処理</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td>列を圧縮する</td>
-<td>PCA・次元縮小</td>
-<td>10–11</td>
-</tr>
-<tr class="odd">
-<td>行をグループに分ける</td>
-<td>クラスタリング</td>
-<td>12–13</td>
-</tr>
-<tr class="even">
-<td>カテゴリを 0/1 に開く</td>
-<td>CA・MCA</td>
-<td>14–15</td>
+<td>最適化で求めた <span class="math inline">\hat\pi_{i\cdot},\hat\pi_{\cdot j}</span> と周辺 <span class="math inline">r_i,c_j</span> の差の最大</td>
+<td>1e-08</td>
 </tr>
 </tbody>
 </table>
-<p>手法は増えても<strong>四角形の絵は一枚だけ</strong>。<span class="math inline">\mathbf{X}</span> に何をしているかから考える。</p>
+<p>対数尤度を直接最大にしても、答えは周辺。期待度数は最尤推定値（導出②）。</p>
 </section>
-<section id="縦の糸ズレの測り方も一貫していた" class="slide level2 section-title">
-<h2>［縦の糸］ズレの測り方も一貫していた</h2>
-<div id="4425a850" class="cell" data-execution_count="27">
+<section id="検証②χ²とg²をscipyと" class="slide level2" data-chapter="II-3">
+<h2>検証②：χ²とG²をSciPyと</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>確かめたこと</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>χ²：自分の計算 ／ SciPy</td>
+<td>387.60 ／ 387.60</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">G^2</span>：自分の計算 ／ SciPy</td>
+<td>406.00 ／ 406.00</td>
+</tr>
+</tbody>
+</table>
+<p>どちらも一致。ただし、この表では <span class="math inline">G^2</span> とχ²は少し離れている。</p>
+</section>
+<section id="検証③独立ならg²χ²" class="slide level2" data-chapter="II-3">
+<h2>検証③：独立ならG²≈χ²</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>確かめたこと</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>独立の2,000表で <span class="math inline">\lvert G^2-\chi^2\rvert</span> の平均</td>
+<td>0.10</td>
+</tr>
+<tr class="even">
+<td>χ²の平均 ／ 自由度</td>
+<td>9.0 ／ 9</td>
+</tr>
+</tbody>
+</table>
+<p>独立のモデルから作った表なら、2つの物差しはほぼ同じ値になる。</p>
+</section>
+<section id="検証④分散は1r1c" class="slide level2" data-chapter="II-3">
+<h2>検証④：分散は(1−r)(1−c)</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>独立の2,000表で、20 マスの標準化残差の分散を測った。</p>
+<p>横軸が理論の分散、縦軸が測った分散。どのマスも差は 0.029 以内。</p>
+</div><div class="column" style="width:55%;">
+<div id="d0a59b99" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="219"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png" width="390" height="371"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>どの回も「ズレを測って、比べられる形に直す」ことをしていました。</strong></p>
+</div></div>
 </section>
-<section id="全15回を貫く共通の作法" class="slide level2 section-title">
-<h2>全15回を貫く共通の作法</h2>
-<p>手法は違っても、<strong>向き合い方は一貫</strong>していました。</p>
-<ol type="1">
-<li><strong>データを見る</strong> → 2. <strong>素朴に試す</strong> → 3. <strong>限界を知る</strong></li>
-<li><strong>適切な手法を選ぶ</strong> → 5. <strong>解釈し、生データで裏を取る</strong></li>
-</ol>
-<p>回帰でもクラスタリングでも分割表でも、この5ステップは変わりません。 <strong>新しい手法に出会っても同じ姿勢で取り組める。</strong> これが一番の財産です。</p>
+<section id="検証⑤割れば分散は1" class="slide level2 smaller" data-chapter="II-3">
+<h2>検証⑤：割れば分散は1</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>確かめたこと</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>標準化残差の分散の平均 ／ <span class="math inline">(I-1)(J-1)/(IJ)</span></td>
+<td>0.448 ／ 0.450</td>
+</tr>
+<tr class="even">
+<td>調整済み残差の分散</td>
+<td>0.994</td>
+</tr>
+<tr class="odd">
+<td>±2を超えた割合：標準化 ／ 調整済み（標準正規4.55%）</td>
+<td>0.25% ／ 4.46%</td>
+</tr>
+</tbody>
+</table>
+<p>行が2つなので、標準化残差の分散は半分にも満たない。</p>
 </section>
-<section id="締めあなたのデータで" class="slide level2 section-title">
-<h2>締め：あなたのデータで</h2>
-<p>主要な地図はひととおり手に入りました。<strong>本当の学びはここからです。</strong></p>
+<section id="検証⑥多重対応の総慣性" class="slide level2" data-chapter="II-3">
+<h2>検証⑥：多重対応の総慣性</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>確かめたこと</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>総慣性 ／ <span class="math inline">J/p-1</span></td>
+<td>3.2500 ／ 3.2500</td>
+</tr>
+<tr class="even">
+<td>0でない特異値の数 ／ <span class="math inline">J-p</span></td>
+<td>13 ／ 13</td>
+</tr>
+</tbody>
+</table>
+<p>総慣性は、データの中身によらず <span class="math inline">J/p-1</span>。</p>
+</section>
+<section id="検証⑦バート行列とp2" class="slide level2" data-chapter="II-3">
+<h2>検証⑦：バート行列とp＝2</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>確かめたこと</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>バート行列の食べられるか × かさの色のブロックと分割表の差</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">p=2</span>（2 × 10 の表）：指示行列の慣性と <span class="math inline">(1+\delta_m)/2</span> の差（上位2本）</td>
+<td>1e-15</td>
+</tr>
+</tbody>
+</table>
+<p>バート行列の外のブロックは、2つずつの分割表そのもの。</p>
+</section>
+<section id="デモ①割る前" class="slide level2" data-chapter="II-4">
+<h2>デモ①：割る前</h2>
+<div id="c5fbf10e" class="cell" data-execution_count="37">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>標準化残差で ±2に届かないのは、シナモン × 食べられるの +1.93 だけ（橙の枠）。</p>
+</section>
+<section id="デモ②割った後" class="slide level2" data-chapter="II-4">
+<h2>デモ②：割った後</h2>
+<div id="4b13b790" class="cell" data-execution_count="38">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>シナモンは +2.79。行が2つなので <span class="math inline">1-r_i</span> はおよそ0.5、割り直すと10色すべてが ±2を超える。</p>
+</section>
+<section id="デモ③10色を一度に見る" class="slide level2" data-chapter="II-4">
+<h2>デモ③：10色を一度に見る</h2>
+<div id="e2ecc563" class="cell" data-execution_count="39">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>2行の表では、2つの行の <span class="math inline">d</span> は符号だけが逆。違う値は 10 個なので物差しは ±2.81：シナモンだけが届かない。</p>
+</section>
+<section id="解釈①何倍か" class="slide level2 smaller" data-chapter="II-5">
+<h2>解釈①：何倍か</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>マス</th>
+<th>観測</th>
+<th>期待度数</th>
+<th>何倍か</th>
+<th>標準化</th>
+<th>調整済み</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>白 × 食べられる</td>
+<td>720</td>
+<td>538.7</td>
+<td>1.34</td>
+<td>+7.81</td>
+<td>+12.05</td>
+</tr>
+<tr class="even">
+<td>シナモン × 食べられる</td>
+<td>32</td>
+<td>22.8</td>
+<td>1.40</td>
+<td>+1.93</td>
+<td>+2.79</td>
+</tr>
+<tr class="odd">
+<td>ピンク × 食べられる</td>
+<td>56</td>
+<td>74.6</td>
+<td>0.75</td>
+<td>-2.15</td>
+<td>-3.13</td>
+</tr>
+<tr class="even">
+<td>緑 × 食べられる</td>
+<td>16</td>
+<td>8.3</td>
+<td>1.93</td>
+<td>+2.68</td>
+<td>+3.86</td>
+</tr>
+<tr class="odd">
+<td>赤 × 毒</td>
+<td>876</td>
+<td>723.0</td>
+<td>1.21</td>
+<td>+5.69</td>
+<td>+8.75</td>
+</tr>
+</tbody>
+</table>
+<p>白いかさの食べられるものは期待の 1.34 倍。調整済み残差も表の中で最も大きい。</p>
+</section>
+<section id="解釈②強いのに小さい" class="slide level2 smaller" data-chapter="II-5">
+<h2>解釈②：強いのに小さい</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>マス</th>
+<th>観測</th>
+<th>期待度数</th>
+<th>何倍か</th>
+<th>標準化</th>
+<th>調整済み</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>白 × 食べられる</td>
+<td>720</td>
+<td>538.7</td>
+<td>1.34</td>
+<td>+7.81</td>
+<td>+12.05</td>
+</tr>
+<tr class="even">
+<td>シナモン × 食べられる</td>
+<td>32</td>
+<td>22.8</td>
+<td>1.40</td>
+<td>+1.93</td>
+<td>+2.79</td>
+</tr>
+<tr class="odd">
+<td>ピンク × 食べられる</td>
+<td>56</td>
+<td>74.6</td>
+<td>0.75</td>
+<td>-2.15</td>
+<td>-3.13</td>
+</tr>
+<tr class="even">
+<td>緑 × 食べられる</td>
+<td>16</td>
+<td>8.3</td>
+<td>1.93</td>
+<td>+2.68</td>
+<td>+3.86</td>
+</tr>
+<tr class="odd">
+<td>赤 × 毒</td>
+<td>876</td>
+<td>723.0</td>
+<td>1.21</td>
+<td>+5.69</td>
+<td>+8.75</td>
+</tr>
+</tbody>
+</table>
+<p>緑は 16 本すべてが食べられる（1.93 倍）。本数が少なく <span class="math inline">d</span> は +3.86。表全体のVは 0.218。</p>
+</section>
+<section id="解釈③g²とχ²が離れる理由" class="slide level2" data-chapter="II-5">
+<h2>解釈③：G²とχ²が離れる理由</h2>
+<div id="9f32788b" class="cell" data-execution_count="42">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png" width="1120" height="252"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>緑と紫の毒は、期待 7.7 本に観測0本（橙の枠）。<span class="math inline">o/e</span> が1から遠く、<span class="math inline">G^2\approx\chi^2</span> の近似が成り立たない。</p>
+</section>
+<section id="デモ④多重対応の地図" class="slide level2" data-chapter="II-4">
+<h2>デモ④：多重対応の地図</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>赤が食べられるか、青がかさの色、緑が生える場所、紫が傷。</p>
+<p>4列の 17 の値が、1枚に並ぶ。</p>
+</div><div class="column" style="width:55%;">
+<div id="0240600d" class="cell" data-execution_count="45">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png" width="391" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="デモ⑤軸1の右と左" class="slide level2" data-chapter="II-4">
+<h2>デモ⑤：軸1の右と左</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>右に、食べられる・傷で変色する・白・牧草地・荒れ地。</p>
+<p>左に、毒・変色しない・道ばた・落ち葉・赤。</p>
+</div><div class="column" style="width:55%;">
+<div id="4bdbfcb7" class="cell" data-execution_count="46">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png" width="391" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="落とし穴①寄与率を見る" class="slide level2" data-chapter="II-6">
+<h2>落とし穴①：寄与率を見る</h2>
 <ul>
-<li>講義のデータは整っていましたが、現実のデータは雑然としています</li>
-<li>数値を鵜呑みにせず、<strong>生データとドメイン知識で裏を取る</strong></li>
-<li>うまくいかないときこそ、学んだ作法が支えになります</li>
+<li>4列、値は全部で <span class="math inline">J</span> = 17。総慣性は <span class="math inline">J/p-1</span> = 3</li>
+<li>軸は <span class="math inline">J-p</span> = 13 本まで</li>
 </ul>
-<p>15回お疲れさまでした。あなたのデータ分析が、ここから始まることを願っています。</p>
+<p>地図の2本の軸は、総慣性の何割を表しているか。</p>
+</section>
+<section id="落とし穴①2本で3割に届かない" class="slide level2" data-chapter="II-6">
+<h2>落とし穴①：2本で3割に届かない</h2>
+<div id="1b92eb7d" class="cell" data-execution_count="47">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png" class="quarto-figure quarto-figure-center" width="821" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>軸1は 15.6%、軸2は 11.7%。2本で 27.3%。慣性が <span class="math inline">1/p</span> 前後の軸が並ぶ。</p>
+</section>
+<section id="落とし穴①同じ表でも低い" class="slide level2" data-chapter="II-6">
+<h2>落とし穴①：同じ表でも低い</h2>
+<div id="b51d4163" class="cell" data-execution_count="48">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-49-output-1.png" class="quarto-figure quarto-figure-center" width="821" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>2 × 10の表は、対応分析なら軸1本で100%。同じ表を指示行列にすると、軸1は 12.2%。</p>
+</section>
+<section id="落とし穴①補正して読む" class="slide level2" data-chapter="II-6">
+<h2>落とし穴①：補正して読む</h2>
+<div id="a2a394ed" class="cell" data-execution_count="49">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png" class="quarto-figure quarto-figure-center" width="821" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Benzécriの補正（<span class="math inline">1/p</span> を超える軸だけ数え直す）では、軸1が 68.3%、軸2が 18.1%。</p>
+</section>
+<section id="落とし穴②地図で近い2つ" class="slide level2" data-chapter="II-6">
+<h2>落とし穴②：地図で近い2つ</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>食べられると街なかは、地図の上で近い（距離 0.31）。</p>
+<p>街なかのキノコは、食べられる側に偏っているのか。</p>
+</div><div class="column" style="width:55%;">
+<div id="0ad74681" class="cell" data-execution_count="50">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png" width="391" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="落とし穴②表に戻ると逆向き" class="slide level2" data-chapter="II-6">
+<h2>落とし穴②：表に戻ると逆向き</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>食べられるか × 生える場所の表：街なかの 368 本のうち、食べられるのは 96 本。</p>
+<p>調整済み残差は -10.10。街なかは毒の側。</p>
+</div><div class="column" style="width:55%;">
+<div id="13e9af74" class="cell" data-execution_count="51">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png" width="391" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="落とし穴②白と変色が仲立ち" class="slide level2" data-chapter="II-6">
+<h2>落とし穴②：白と変色が仲立ち</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>食べられるは、白（<span class="math inline">d</span> = +12.05）と変色する（+45.20）に偏る。</p>
+<p>街なかも、白（+10.36）と変色する（+12.89）に偏る。</p>
+<p>地図の近さは、2つの表のマスで確かめる。</p>
+</div><div class="column" style="width:55%;">
+<div id="fd246413" class="cell" data-execution_count="52">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png" width="391" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section id="締め" class="title-slide slide level1 part center">
+<h1>締め</h1>
 
 </section>
+<section id="まとめ①期待度数は推定値" class="slide level2" data-chapter="締め">
+<h2>まとめ①：期待度数は推定値</h2>
+<div id="b86f8c0f" class="cell" data-execution_count="57">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-58-output-1.png" width="1152" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>期待度数は、独立のモデル <span class="math inline">\boldsymbol\Pi=\boldsymbol\pi_r\boldsymbol\pi_c^\top</span> の最尤推定値。当てはまりの悪さ <span class="math inline">G^2</span> は、χ²に近い。</p>
+</section>
+<section id="まとめ②割り直して-2" class="slide level2" data-chapter="締め">
+<h2>まとめ②：割り直して ±2</h2>
+<div id="2fd11b2a" class="cell" data-execution_count="58">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png" width="1152" height="312"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>残差は推定に使われた分だけ縮む（分散 <span class="math inline">(1-r_i)(1-c_j)</span>）。割り直した調整済み残差に ±2。たくさん見るなら物差しを上げ、強さは <span class="math inline">o/e</span> で。</p>
+</section>
+<section id="まとめ③多重対応分析" class="slide level2" data-chapter="締め">
+<h2>まとめ③：多重対応分析</h2>
+<div id="ec051c68" class="cell" data-execution_count="59">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-60-output-1.png" width="942" height="329"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>指示行列に第14回の手順。寄与率は低く出る。地図の近さは、2つずつの表のマスで確かめる。</p>
+</section>
+<section id="演習では①ロマンスの1マス" class="slide level2" data-chapter="締め">
+<h2>演習では①：ロマンスの1マス</h2>
+<ul>
+<li>演習14：映画のジャンル × 年代の表</li>
+<li>1930年代のロマンスは、期待 20.7 本に実際48本（2.32倍）</li>
+</ul>
+</section>
+<section id="演習では②今日の言葉で" class="slide level2" data-chapter="締め">
+<h2>演習では②：今日の言葉で</h2>
+<ul>
+<li>標準化残差 +6.00、調整済み残差 +6.32</li>
+<li>90マスすべてを見ても、物差し ±3.45 を超える</li>
+</ul>
+</section>
+<section id="演習では③ペンギンの地図" class="slide level2" data-chapter="締め">
+<h2>演習では③：ペンギンの地図</h2>
+<ul>
+<li>演習14の発展：ペンギンの多重対応分析は、2本で65.1%</li>
+<li>「CAより低めに出るのが普通」の理由は、総慣性が <span class="math inline">J/p-1</span> に決まっていること</li>
+</ul>
+</section>
+<section id="全15回の地図①yを近似する" class="slide level2 smaller" data-chapter="締め">
+<h2>全15回の地図①：yを近似する</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>モデル ＼ 推定法</th>
+<th style="text-align: center;">最小二乗法</th>
+<th style="text-align: center;">最尤法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>線形回帰</td>
+<td style="text-align: center;">第1〜3回（罰則付き 第4回）</td>
+<td style="text-align: center;">第6回</td>
+</tr>
+<tr class="even">
+<td>LDA ／ ロジスティック回帰</td>
+<td style="text-align: center;">第5回 ／ —</td>
+<td style="text-align: center;">第6回（しきい値は第7回）</td>
+</tr>
+</tbody>
+</table>
+<p>第8回：<span class="math inline">\boldsymbol y</span> を近似するか、<span class="math inline">\mathbf X</span> を近似するか。</p>
+</section>
+<section id="全15回の地図②xを近似する" class="slide level2 smaller" data-chapter="締め">
+<h2>全15回の地図②：Xを近似する</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>モデル ＼ 推定法</th>
+<th style="text-align: center;">最小二乗法</th>
+<th style="text-align: center;">最尤法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>線形回帰</td>
+<td style="text-align: center;">第1〜3回（罰則付き 第4回）</td>
+<td style="text-align: center;">第6回</td>
+</tr>
+<tr class="even">
+<td>LDA ／ ロジスティック回帰</td>
+<td style="text-align: center;">第5回 ／ —</td>
+<td style="text-align: center;">第6回（しきい値は第7回）</td>
+</tr>
+<tr class="odd">
+<td>主成分分析</td>
+<td style="text-align: center;">第9・10回</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td>k-means ／ 混合正規分布</td>
+<td style="text-align: center;">第11回 ／ —</td>
+<td style="text-align: center;">— ／ 第12回（<span class="math inline">k</span> は第13回）</td>
+</tr>
+<tr class="odd">
+<td>対応分析・多重対応分析</td>
+<td style="text-align: center;">第14回・第15回（重み付き）</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="even">
+<td>独立のモデル</td>
+<td style="text-align: center;">第14回（χ²、重み付き）</td>
+<td style="text-align: center;">第15回（<span class="math inline">G^2</span>、残差）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="どの回もデータ-モデル" class="slide level2 smaller" data-chapter="締め">
+<h2>どの回も「データ − モデル」</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>回</th>
+<th>データ</th>
+<th>モデル</th>
+<th>測り方</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1〜4</td>
+<td><span class="math inline">\boldsymbol y</span></td>
+<td><span class="math inline">\mathbf X\boldsymbol\beta</span></td>
+<td><span class="math inline">\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_2^2</span>（＋罰）</td>
+</tr>
+<tr class="even">
+<td>9・10</td>
+<td><span class="math inline">\mathbf X</span></td>
+<td><span class="math inline">\mathbf F\mathbf A^\top</span></td>
+<td><span class="math inline">\lVert\mathbf X-\mathbf F\mathbf A^\top\rVert_F^2</span>：特異値分解1回</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td><span class="math inline">\mathbf X</span></td>
+<td><span class="math inline">\mathbf G\mathbf C</span></td>
+<td><span class="math inline">\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2</span></td>
+</tr>
+<tr class="even">
+<td>14・15</td>
+<td><span class="math inline">\mathbf S</span></td>
+<td><span class="math inline">\mathbf Y</span>（ランク <span class="math inline">Q</span>）</td>
+<td><span class="math inline">\lVert\mathbf S-\mathbf Y\rVert_F^2</span>：重み <span class="math inline">1/(r_ic_j)</span></td>
+</tr>
+<tr class="odd">
+<td>6・12・15</td>
+<td>データ</td>
+<td>確率のモデル</td>
+<td><span class="math inline">-2\ell</span>（<span class="math inline">G^2</span> はその差）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="残差を何で割るか" class="slide level2 smaller" data-chapter="締め">
+<h2>残差を何で割るか</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>回</th>
+<th>残差</th>
+<th>割るもの</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>第3回</td>
+<td>残差平方和</td>
+<td><span class="math inline">n-p</span></td>
+<td>係数 <span class="math inline">p</span> 個のぶん短い</td>
+</tr>
+<tr class="even">
+<td>第4回</td>
+<td><span class="math inline">e_i</span></td>
+<td><span class="math inline">1-h_{ii}</span>（LOO）</td>
+<td>自分の予測に使われた</td>
+</tr>
+<tr class="odd">
+<td>第14回</td>
+<td><span class="math inline">o-e</span></td>
+<td><span class="math inline">\sqrt e</span></td>
+<td>期待の大きいマスほど揺れる</td>
+</tr>
+<tr class="even">
+<td>第15回</td>
+<td><span class="math inline">o-e</span></td>
+<td><span class="math inline">\sqrt{e(1-r_i)(1-c_j)}</span></td>
+<td>周辺の推定に使われた</td>
+</tr>
+</tbody>
+</table>
+<p>数字を見たら、何で割った数字かを聞く。</p>
+</section>
+<section id="結び何で割った数字か" class="slide level2" data-chapter="締め">
+<h2>結び：何で割った数字か</h2>
+<ul>
+<li>最小二乗法も最尤法も、データとモデルのずれを測って小さくする</li>
+<li>残ったずれは、モデルを推定に使った分だけ縮んでいる</li>
+<li>数字を比べる前に、その数字が何で割られているかを確かめる</li>
+</ul>
+<p>15回、お疲れさまでした。</p>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

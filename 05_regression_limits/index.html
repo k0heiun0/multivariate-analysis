@@ -9,7 +9,7 @@
 <link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
-  <title>第5回 線形回帰の限界</title>
+  <title>第5回 分類①：最小二乗法</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -30,74 +30,8 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-      }
-    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-    div.sourceCode
-      { color: #24292e;  }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #24292e; } /* Normal */
-    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
-    code span.an { color: #6a737d; } /* Annotation */
-    code span.at { color: #d73a49; } /* Attribute */
-    code span.bn { color: #005cc5; } /* BaseN */
-    code span.bu { color: #d73a49; } /* BuiltIn */
-    code span.cf { color: #d73a49; } /* ControlFlow */
-    code span.ch { color: #032f62; } /* Char */
-    code span.cn { color: #005cc5; } /* Constant */
-    code span.co { color: #6a737d; } /* Comment */
-    code span.cv { color: #6a737d; } /* CommentVar */
-    code span.do { color: #6a737d; } /* Documentation */
-    code span.dt { color: #d73a49; } /* DataType */
-    code span.dv { color: #005cc5; } /* DecVal */
-    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
-    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
-    code span.fl { color: #005cc5; } /* Float */
-    code span.fu { color: #6f42c1; } /* Function */
-    code span.im { color: #032f62; } /* Import */
-    code span.in { color: #6a737d; } /* Information */
-    code span.kw { color: #d73a49; } /* Keyword */
-    code span.op { color: #24292e; } /* Operator */
-    code span.ot { color: #6f42c1; } /* Other */
-    code span.pp { color: #d73a49; } /* Preprocessor */
-    code span.re { color: #6a737d; } /* RegionMarker */
-    code span.sc { color: #005cc5; } /* SpecialChar */
-    code span.ss { color: #032f62; } /* SpecialString */
-    code span.st { color: #032f62; } /* String */
-    code span.va { color: #e36209; } /* Variable */
-    code span.vs { color: #032f62; } /* VerbatimString */
-    code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-7ee8d28668e13494feddb3b516184cbd.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-1941e964fa3ab312ad1a6d8bf906c6f5.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -211,513 +145,1146 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">第5回 線形回帰の限界</h1>
-  <p class="subtitle">よく作れたはずのモデルが現場で外れる——なぜ？</p>
+  <h1 class="title">第5回 分類①：最小二乗法</h1>
+  <p class="subtitle">0/1 に直線を当てると、判別の向きが出る</p>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="場面検証では完璧だったのに" class="slide level2 section-title">
-<h2>場面：「検証では完璧だったのに」</h2>
-<p>交差検証で良い成績を出したモデルを現場に出しました。ところが大きく外れます。</p>
-<div id="101814ba" class="cell" data-execution_count="2">
+<section>
+<section id="第i部-理論" class="title-slide slide level1 part center">
+<h1>第I部　理論</h1>
+
+</section>
+<section id="前回の問いyが01なら" class="slide level2" data-chapter="I-1">
+<h2>前回の問い：yが0/1なら</h2>
+<ul>
+<li>ここまでの目的変数は、進行度やPSAのような連続の量だった</li>
+<li>病気か否かのように、0か1しか取らない目的変数もある</li>
+</ul>
+<p>問い：0/1の <span class="math inline">y</span> に、同じ最小二乗法を当ててよいか？</p>
+</section>
+<section id="場面①悪性か良性か" class="slide level2" data-chapter="I-1">
+<h2>場面①：悪性か、良性か</h2>
+<div id="8980695c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1068" height="264"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="354"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>直線が悪いのではありません。</strong> 見たことのない範囲へ延ばしたのが問題です。</p>
+<p>乳がんの細胞の画像 569 件。横軸は、画像から測った細胞核の半径の平均。</p>
 </section>
-<section id="今回の問い" class="slide level2 section-title">
+<section id="場面②yは0か1" class="slide level2" data-chapter="I-1">
+<h2>場面②：yは0か1</h2>
+<div id="c2e8dec8" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>悪性を1（赤）、良性を0（青）とおく。<span class="math inline">y</span> は0か1しか取らない（縦に少しずらして打った）。</p>
+</section>
+<section id="場面③01に直線を当てる" class="slide level2" data-chapter="I-1">
+<h2>場面③：0/1に直線を当てる</h2>
+<div id="f9a783f4" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>第1回と同じ最小二乗法の直線。<span class="math inline">y</span> の中身が0/1になっただけで、計算はそのままできる。</p>
+</section>
+<section id="場面④0.5で切る" class="slide level2" data-chapter="I-1">
+<h2>場面④：0.5で切る</h2>
+<div id="3e61e769" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\hat y\ge 0.5</span> を悪性とすると、半径 15.4 以上が悪性になる。</p>
+</section>
+<section id="場面⑤どれだけ当たるか" class="slide level2" data-chapter="I-1">
+<h2>場面⑤：どれだけ当たるか</h2>
+<div id="c248f17a" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1001" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>診断と一致するのは 88%。一致した割合を正解率と呼ぶ。直線でも2つの群は分けられる。</p>
+</section>
+<section id="変数を増やすと向きになる" class="slide level2" data-chapter="I-1">
+<h2>変数を増やすと向きになる</h2>
+<ul>
+<li>変数が1つなら、係数は正か負かの符号しか持たない</li>
+<li>30変数をすべて使えば、係数は30次元のベクトルになる</li>
+<li>ベクトルの向きは、どの変数の組み合わせで悪性と良性を分けるかを表す</li>
+</ul>
+</section>
+<section id="今回の問い" class="slide level2" data-chapter="I-1">
 <h2>今回の問い</h2>
-<p>クロスバリデーションで良いモデルを選んだのに、<strong>現場に出すと外れる</strong>。</p>
+<p>0/1に最小二乗法を当てたとき、係数の向きは何を指しているのか？</p>
+<p>今回覚える言葉</p>
 <ul>
-<li><strong>外挿</strong>：訓練データの範囲外への予測</li>
-<li><strong>分布のずれ</strong>：訓練とテストが別の集団</li>
-<li><strong>多重共線性</strong>：説明変数どうしの強い相関</li>
-</ul>
-<p>線形回帰が失敗するのはどんなときか——今回はその「限界」を体系的に学ぶ。</p>
-</section>
-<section id="データの四角形似た列と外の行" class="slide level2 section-title">
-<h2>データの四角形：似た列と、外の行</h2>
-<div id="0bf2cf25" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="453" height="281"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>今回の主役は2つ。<strong>ほぼ同じ2列</strong>（多重共線性）と、<strong>四角形の範囲の外にある行</strong>（外挿・分布のずれ）。</p>
-</section>
-<section id="動機なぜcvは現場の失敗を防げないか" class="slide level2 section-title">
-<h2>動機：なぜCVは現場の失敗を防げないか</h2>
-<ul>
-<li>訓練：<strong>夏のデータ</strong> → 運用：<strong>冬のデータ</strong>（分布が違う）</li>
-<li>訓練：<strong>20〜35℃</strong> の範囲 → 予測：<strong>−5〜10℃</strong>（範囲外）</li>
-</ul>
-<blockquote>
-<p>モデルは「知らないこと」について黙ることができない。 範囲外でも、自信満々に何らかの数値を返してしまう。</p>
-</blockquote>
-</section>
-<section id="具体化①外挿で予測が崩れる" class="slide level2 section-title">
-<h2>具体化①：外挿で予測が崩れる</h2>
-<p>訓練データの<strong>範囲外では、予測をまったく信頼できない</strong>。</p>
-<div id="6308bfc4" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" width="1065" height="284"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="外挿の数字を確かめる" class="slide level2">
-<h2>外挿の数字を確かめる</h2>
-<p>訓練範囲内と範囲外で、誤差は桁違いに変わる。</p>
-<div id="71136a42" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-stdout">
-<pre><code>訓練範囲内（夏）の RMSE = 4.9
-範囲外（冬）の   RMSE = 136.1
-
-範囲外の誤差は範囲内の約 28 倍</code></pre>
-</div>
-</div>
-<div id="ee371243" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="896" height="183"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>モデルが悪いのではなく、<strong>範囲外を尋ねること自体が誤り</strong>。</p>
-</section>
-<section id="具体化②分布のずれ共変量シフト" class="slide level2 section-title">
-<h2>具体化②：分布のずれ（共変量シフト）</h2>
-<p>説明変数の<strong>分布が訓練と運用でずれる</strong>と、たとえ式が同じでも精度が落ちる。</p>
-<div id="eb81c0c9" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png" width="944" height="285"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="共変量シフトと外挿の違い" class="slide level2">
-<h2>共変量シフトと外挿の違い</h2>
-<p>真の関係は両方で同じ——なのに運用RMSEが大きく悪化する。</p>
-<div id="65195919" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-stdout">
-<pre><code>訓練 RMSE = 1.17
-運用 RMSE = 6.12   （約 5.2 倍）</code></pre>
-</div>
-</div>
-<ul>
-<li><strong>外挿</strong>：予測点が訓練データの「外側」にある</li>
-<li><strong>共変量シフト</strong>：説明変数の<strong>分布の中心</strong>が訓練と運用でずれる</li>
-</ul>
-<p>訓練が密な領域で直線の当てはめがズレると、その誤差が薄い領域で拡大する。 実務例：モデルを作った時期と使う時期で、ユーザー属性が変わった。</p>
-</section>
-<section id="素朴な限界①cvスコアは良くても安心できない" class="slide level2 section-title">
-<h2>素朴な限界①：CVスコアは良くても安心できない</h2>
-<div id="536fb9d6" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="183"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>CV が測るのは<strong>同じ分布のなかでの</strong>汎化。範囲外と分布のずれは見ていない。</p>
-</section>
-<section id="素朴な限界②係数の解釈が壊れる" class="slide level2 section-title">
-<h2>素朴な限界②：係数の解釈が壊れる</h2>
-<p>「どの変数が効くか」を係数で語りたい——だが共線性があると係数は暴れる。</p>
-<ul>
-<li>予測精度は意外と落ちないことがある</li>
-<li>しかし<strong>係数の符号・大きさが不安定</strong>になり、解釈ができない</li>
-<li>「テレビ広告の効果は係数2.9」と言っても、データが少し変われば変わる</li>
-</ul>
-<p>予測が当たることと、係数が信頼できることは<strong>別問題</strong>。</p>
-</section>
-<section id="位置づけ第4回からの流れ" class="slide level2 section-title">
-<h2>位置づけ：第4回からの流れ</h2>
-<ul>
-<li><strong>第4回</strong>：CVで公正にモデルを選び、残差で当てはまりを診断した</li>
-<li><strong>第5回（今回）</strong>：その線形回帰が<strong>通用しなくなる条件</strong>を体系化する</li>
-<li><strong>第6回（次回）</strong>：限界の一部（共線性・過学習）に<strong>正則化</strong>で対処する</li>
-</ul>
-<p>今回は「敵を知る」回。診断の指標（VIF）と直感（外挿・シフト）を手に入れる。</p>
-</section>
-<section id="行列で見る列がほぼ平行だと壊れる" class="slide level2 section-title">
-<h2>行列で見る：列がほぼ平行だと壊れる</h2>
-<div id="a79b9ce9" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="486" height="284"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>列 <span class="math inline">\mathbf{x}_{(1)}\approx\mathbf{x}_{(2)}</span> のとき <span class="math inline">\mathbf{X}^\top\mathbf{X}</span> の逆行列が不安定 → <strong>係数が暴れる</strong>。このあとの VIF はその度合いの指標。</p>
-</section>
-<section id="定義①多重共線性とは" class="slide level2 section-title">
-<h2>定義①：多重共線性とは</h2>
-<p><strong>多重共線性</strong>：説明変数どうしに強い線形相関がある状態。</p>
-<p><span class="math display">x_2 \approx a\,x_1 + b \quad\text{のような関係が成り立つ}</span></p>
-<ul>
-<li>「収入」と「資産」のように似た情報の変数を入れると起きる</li>
-<li>完全な共線性なら <span class="math inline">X^\top X</span> が<strong>逆行列を持たない</strong></li>
-<li>「ほぼ共線」でも解は不安定になる</li>
+<li>群の中の共分散行列</li>
+<li>フィッシャーの基準</li>
+<li>判別方向</li>
+<li>線形判別分析（LDA）</li>
+<li>マスキング</li>
 </ul>
 </section>
-<section id="定義②vif分散拡大係数" class="slide level2 section-title">
-<h2>定義②：VIF（分散拡大係数）</h2>
-<p>共線性の強さを変数ごとに測る指標が <strong>VIF</strong>。</p>
-<p><span class="math display">\text{VIF}_j = \frac{1}{1 - R^2_j}</span></p>
-<div id="f3ab8073" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="170"></p>
-</figure>
-</div>
-</div>
-</div>
-<div style="font-size:0.62em">
+<section id="位置づけモデルが変わる" class="slide level2 smaller" data-chapter="I-1">
+<h2>位置づけ：モデルが変わる</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th><span class="math inline">R^2_j</span></th>
-<th>0</th>
-<th>0.5</th>
-<th>0.9</th>
-<th>0.95</th>
-<th>0.99</th>
+<th></th>
+<th>第4回</th>
+<th>第5回（今回）</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>VIF</td>
-<td>1</td>
-<td>2</td>
-<td>10</td>
-<td>20</td>
-<td>100</td>
+<td>目的変数</td>
+<td>連続の量（PSA）</td>
+<td>0か1（悪性か良性か）</td>
+</tr>
+<tr class="even">
+<td>推定法</td>
+<td>罰則付き最小二乗法</td>
+<td>最小二乗法（第1回と同じ）</td>
+</tr>
+<tr class="odd">
+<td>答えの読み方</td>
+<td>線形回帰の係数</td>
+<td>線形判別分析（LDA）の向き</td>
 </tr>
 </tbody>
 </table>
-</div>
+<p>第1回の地図の「LDA × 最小二乗法」のマス。モデルの行が初めて変わる。</p>
 </section>
-<section id="定義③vifは係数の分散の倍率" class="slide level2 section-title">
-<h2>定義③：VIFは「係数の分散の倍率」</h2>
-<p><span class="math display">\operatorname{Var}(\hat\beta_j) = \frac{\sigma^2}{(n-1)\,s_j^2}\cdot\frac{1}{1-R^2_j} = (\text{共線性なしの分散})\times \text{VIF}_j</span></p>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>なぜ VIF &gt; 10 が目安か</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math inline">\text{VIF}=10</span> は <span class="math inline">R^2_j=0.9</span>、すなわち「ある変数が他の変数で90%説明できる」状態。 標準誤差は <span class="math inline">\sqrt{10}\approx 3.2</span> 倍になる。VIF<span class="math inline">=20</span>（<span class="math inline">R^2_j=0.95</span>）ならさらに膨らむ。 「10」は慣習的な目安で、厳しめに VIF<span class="math inline">&gt;5</span> を警戒する流儀もある。</p>
-</div>
-</div>
-</div>
-</section>
-<section id="導出①共線性で分散が膨らむ仕組み" class="slide level2 section-title">
-<h2>導出①：共線性で分散が膨らむ仕組み</h2>
-<div id="8814a2c0" class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="891" height="218"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>予測（合計）は安定でも、<strong>内訳が定まらない</strong>。</p>
-</section>
-<section id="導出②幾何で見る共線性" class="slide level2 section-title">
-<h2>導出②：幾何で見る共線性</h2>
-<p>ほぼ平行な2ベクトルへの分解は、わずかな揺れで係数が大きく変わる。</p>
-<div id="074ffafc" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" width="849" height="284"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>左は <span class="math inline">x_1,x_2</span> が直交して分解が一意。右はほぼ重なり、分解が一意に決まりにくい。</p>
-</section>
-<section id="手順vifの計算アルゴリズム" class="slide level2 section-title">
-<h2>手順：VIFの計算アルゴリズム</h2>
-<div id="b39db991" class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="1131" height="171"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><code>statsmodels</code> の <code>variance_inflation_factor</code> が1関数で実行する。</p>
-</section>
-<section id="pythonデモ①共線データを作る" class="slide level2 section-title">
-<h2>Pythonデモ①：共線データを作る</h2>
-<p><span class="math inline">x_2 \approx x_1</span>（相関 ≈ 0.99）の状況を人工的に作る。</p>
-<div id="0e787f1f" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>np.random.seed(<span class="dv">2</span>)</span>
-<span id="cb3-2"><a href=""></a>n <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb3-3"><a href=""></a>x1 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
-<span id="cb3-4"><a href=""></a>x2 <span class="op">=</span> x1 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.1</span>, n)   <span class="co"># x2 ≈ x1</span></span>
-<span id="cb3-5"><a href=""></a>x3 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)          <span class="co"># 無関係な変数</span></span>
-<span id="cb3-6"><a href=""></a>y_mc <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> x1 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> x2 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
-<span id="cb3-7"><a href=""></a></span>
-<span id="cb3-8"><a href=""></a><span class="bu">print</span>(<span class="ss">f"x1 と x2 の相関 = </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(x1, x2)[<span class="dv">0</span>,<span class="dv">1</span>]<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>x1 と x2 の相関 = 0.994</code></pre>
-</div>
-</div>
-<p>真の関係は <span class="math inline">y = 3x_1 + 2x_2 + \text{誤差}</span>。x3 は <span class="math inline">y</span> に効かない。</p>
-</section>
-<section id="pythonデモ②vifを算出する" class="slide level2 section-title">
-<h2>Pythonデモ②：VIFを算出する</h2>
-<div id="e85784bf" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>X_mc <span class="op">=</span> pd.DataFrame({<span class="st">'x1'</span>: x1, <span class="st">'x2'</span>: x2, <span class="st">'x3'</span>: x3})</span>
-<span id="cb5-2"><a href=""></a>X_const <span class="op">=</span> sm.add_constant(X_mc)</span>
-<span id="cb5-3"><a href=""></a>vif <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb5-4"><a href=""></a>    <span class="st">'変数'</span>: X_mc.columns,</span>
-<span id="cb5-5"><a href=""></a>    <span class="st">'VIF'</span>: [variance_inflation_factor(X_const.values, i <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb5-6"><a href=""></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)],</span>
-<span id="cb5-7"><a href=""></a>})</span>
-<span id="cb5-8"><a href=""></a><span class="bu">print</span>(vif.to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>変数       VIF
-x1 89.719549
-x2 89.547588
-x3  1.019451</code></pre>
-</div>
-</div>
-<p>x1・x2 は桁違い。x3 は約1.0——<strong>共線性の場所が特定できる</strong>。</p>
-</section>
-<section id="pythonデモ③変数を足すと係数が暴れる" class="slide level2 section-title">
-<h2>Pythonデモ③：変数を足すと係数が暴れる</h2>
-<!-- 下の print は、上の ::: {.note-only} の中のチャンクで作った lr_a と lr_b を
-     使っている。ノートのチャンクも実行される（note.lua が落とすのは出力ではなく
-     Div）ので、この形で動く。ただし2つのチャンクの順序を入れ替えたり、上の
-     チャンクを消したりすると、revealjs / pptx / docx / ipynb のすべてで
-     NameError になりレンダリングが止まる。ナレーションが β2 の値
-     （約1.9）を読み上げるため、print だけは画面に残してある。 -->
-<div id="200fc86c" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="bu">print</span>(<span class="ss">f"x1 のみ        : β1 = </span><span class="sc">{</span>lr_a<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb7-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"x1 + x2 を投入 : β1 = </span><span class="sc">{</span>lr_b<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">,  β2 = </span><span class="sc">{</span>lr_b<span class="sc">.</span>coef_[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>x1 のみ        : β1 = 4.83
-x1 + x2 を投入 : β1 = 2.94,  β2 = 1.89</code></pre>
-</div>
-</div>
-<div id="f8c3f024" class="cell" data-execution_count="20">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="889" height="147"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>同じデータ・同じ x1 なのに、隣の変数で係数が大きく変わる。</strong></p>
-</section>
-<section id="pythonデモ④ブートストラップで係数分布" class="slide level2 section-title">
-<h2>Pythonデモ④：ブートストラップで係数分布</h2>
-<p>データを少し変える（再標本化）と、係数がどれだけブレるか。</p>
-<div id="181ac3ce" class="cell" data-execution_count="21">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" width="1170" height="298"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="4eaba1e8" class="cell" data-execution_count="22">
-<div class="cell-output cell-output-stdout">
-<pre><code>β1 の標準偏差 = 0.88  （範囲 0.8〜5.7）
-β2 の標準偏差 = 0.87</code></pre>
-</div>
-</div>
-</section>
-<section id="解釈①共線なしと比べる" class="slide level2 section-title">
-<h2>解釈①：共線なしと比べる</h2>
-<p>無相関な2変数で同じことをすると、係数のブレは桁違いに小さい。</p>
-<div id="0250ca63" class="cell" data-execution_count="23">
-<div class="cell-output cell-output-stdout">
-<pre><code>共線あり  β1 の標準偏差 = 0.88
-共線なし  β1 の標準偏差 = 0.11
-
-ブレの比 = 約 8 倍</code></pre>
-</div>
-</div>
-<p>共線性があると、係数の標準偏差が約8倍に膨らむ——VIFが警告していた通り。</p>
-</section>
-<section id="解釈②実データでvifを見るカリフォルニア住宅" class="slide level2 section-title">
-<h2>解釈②：実データでVIFを見る（カリフォルニア住宅）</h2>
-<div id="3a242153" class="cell" data-execution_count="24">
-<div class="cell-output cell-output-stdout">
-<pre><code>        変数      VIF
-  Latitude 9.297624
- Longitude 8.962263
-  AveRooms 8.342786
- AveBedrms 6.994995
-    MedInc 2.501295
-  HouseAge 1.241254
-Population 1.138125
-  AveOccup 1.008324</code></pre>
-</div>
-</div>
-<p>緯度と経度は地理的に連動し（相関 −0.92）、情報が重なっています。</p>
-</section>
-<section id="解釈③vifの読み方" class="slide level2 section-title">
-<h2>解釈③：VIFの読み方</h2>
-<p>VIF表は「どの変数の係数を信じてよいか」の地図になる。</p>
-<div id="c80305ec" class="cell" data-execution_count="26">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="147"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>収入（VIF≈2.5）や占有率の係数は比較的信頼できます。</p>
-<p><strong>VIF で係数表の読める場所が分かった——ただ、これらの解釈には落とし穴があるかもしれない。</strong></p>
-</section>
-<section id="落とし穴①外挿と非線形の見落とし" class="slide level2 section-title">
-<h2>落とし穴①：外挿と非線形の見落とし</h2>
-<div id="53a4d44f" class="cell" data-execution_count="27">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="195"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>「数字が返ってきた」ことを、当たっている証拠と勘違いしない。</p>
-</section>
-<section id="落とし穴②欠落変数バイアス" class="slide level2 section-title">
-<h2>落とし穴②：欠落変数バイアス</h2>
-<p>重要な変数を入れ忘れると、<strong>残った係数が真値からずれる</strong>。</p>
-<div id="dc8c489c" class="cell" data-execution_count="28">
-<div class="cell-output cell-output-stdout">
-<pre><code>z を入れた完全モデル : x の係数 = 2.06  （真値=2）
-z を落としたモデル   : x の係数 = 4.31  ← 過大評価</code></pre>
-</div>
-</div>
-<div id="3cc24ecb" class="cell" data-execution_count="29">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png" class="quarto-figure quarto-figure-center" width="893" height="178"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">x</span> が <span class="math inline">z</span> の効果まで肩代わりします。共線性とは逆に、<strong>入れ忘れ</strong>が危ない。</p>
-</section>
-<section id="落とし穴③係数解釈の過信" class="slide level2 section-title">
-<h2>落とし穴③：係数解釈の過信</h2>
+<section id="言葉を決める" class="slide level2" data-chapter="I-4">
+<h2>言葉を決める</h2>
 <ul>
-<li><strong>他の変数を固定したとき</strong>の効果（実際には固定できないことが多い）</li>
-<li>スケールが違えば係数の大小は比較できない（標準化が必要）</li>
-<li>共線性があれば係数は不安定（VIFで確認）</li>
-<li>相関は因果ではない——係数が大きくても「効く」とは限らない</li>
+<li>0/1の <span class="math inline">y</span> によって、データの行は2つの群に分かれる</li>
+<li>係数の向きを調べるには、群ごとの平均とばらつきが要る</li>
 </ul>
-<p>「係数が大きいから重要」は、<strong>最も危険な早合点</strong>。</p>
+<p>道具を先にそろえる。</p>
 </section>
-<section id="発展①正則化で共線性に対処第6回" class="slide level2 section-title">
-<h2>発展①：正則化で共線性に対処（第6回）</h2>
-<p><span class="math display">\hat\beta_{\text{Ridge}} = \arg\min_\beta \|y - X\beta\|^2 + \lambda\|\beta\|^2</span></p>
+<section id="道具①群の割合" class="slide level2" data-chapter="I-4">
+<h2>道具①：群の割合</h2>
+<div id="7d7b79e6" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="243"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\pi_q=\frac{n_q}{n}
+</span></p>
+<p>人工データ。青 150 個、赤 30 個で <span class="math inline">\pi_1</span> = 1/6。</p>
+</section>
+<section id="道具①群の平均" class="slide level2" data-chapter="I-4">
+<h2>道具①：群の平均</h2>
+<div id="7903fbe2" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="243"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\mu_q=\frac{1}{n_q}\sum_{y_i=q}x_i
+</span></p>
+<p><span class="math inline">y_i=q</span> の行だけで平均をとる（破線）。</p>
+</section>
+<section id="道具①全体の平均" class="slide level2" data-chapter="I-4">
+<h2>道具①：全体の平均</h2>
+<div id="bf40b86e" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1011" height="243"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\bar x=\pi_0\mu_0+\pi_1\mu_1
+</span></p>
+<p>全体の平均は、群の平均を割合で重み付けした平均。人数の多い青の側に寄る。</p>
+</section>
+<section id="道具②群の中のばらつき" class="slide level2" data-chapter="I-4">
+<h2>道具②：群の中のばらつき</h2>
+<p><span class="math display">
+s_{\mathrm T}^2=\frac1n\sum_{i=1}^{n}(x_i-\bar x)^2,\qquad
+s_{\mathrm W}^2=\frac1n\sum_{q=0}^{1}\sum_{y_i=q}(x_i-\mu_q)^2
+</span></p>
+<p>全体の分散 <span class="math inline">s_{\mathrm T}^2</span> は全体の平均から測る。群の中の分散 <span class="math inline">s_{\mathrm W}^2</span> は、自分の群の平均から測る。本章ではどちらも <span class="math inline">n</span> で割る。</p>
+</section>
+<section id="道具②群の平均を通って分ける" class="slide level2" data-chapter="I-4">
+<h2>道具②：群の平均を通って分ける</h2>
+<p><span class="math display">
+\begin{aligned}
+x_i-\bar x&amp;=(x_i-\mu_q)+(\mu_q-\bar x)\\
+\sum_{y_i=q}(x_i-\mu_q)&amp;=0
+\end{aligned}
+</span></p>
+<p>二乗して和をとると、交差項は群ごとに0になって消える。</p>
+</section>
+<section id="道具②群の平均と全体の平均の差" class="slide level2" data-chapter="I-4">
+<h2>道具②：群の平均と全体の平均の差</h2>
+<p><span class="math display">
+\mu_0-\bar x=-\pi_1d,\qquad \mu_1-\bar x=\pi_0d,\qquad d=\mu_1-\mu_0
+</span></p>
+<p>道具①の全体の平均から。二乗の和に入れると、残る項は <span class="math inline">n\pi_0\pi_1d^2</span> になる。</p>
+</section>
+<section id="道具②ばらつきを2つに分ける" class="slide level2" data-chapter="I-4">
+<h2>道具②：ばらつきを2つに分ける</h2>
+<p><span class="math display">
+s_{\mathrm T}^2=s_{\mathrm W}^2+\pi_0\pi_1d^2
+</span></p>
+<p>全体のばらつき ＝ 群の中のばらつき ＋ 群の平均の差の分。人工データでは 1.790 ＝ 0.950 ＋ 0.840。</p>
+</section>
+<section id="道具③群の中の共分散行列" class="slide level2" data-chapter="I-4">
+<h2>道具③：群の中の共分散行列</h2>
+<p><span class="math display">
+\mathbf S_{\mathrm W}=\frac1n\sum_{q=0}^{1}\sum_{y_i=q}(\boldsymbol x_i-\boldsymbol\mu_q)(\boldsymbol x_i-\boldsymbol\mu_q)^\top
+</span></p>
+<p>変数が <span class="math inline">p</span> 個なら、<span class="math inline">\boldsymbol x_i</span> と <span class="math inline">\boldsymbol\mu_q</span> はベクトル。分散は第3回の分散共分散行列になる。</p>
+</section>
+<section id="道具③行列でも分ける" class="slide level2" data-chapter="I-4">
+<h2>道具③：行列でも分ける</h2>
+<p><span class="math display">
+\mathbf S_{\mathrm T}=\mathbf S_{\mathrm W}+\pi_0\pi_1\,\boldsymbol d\boldsymbol d^\top,\qquad
+\boldsymbol d=\boldsymbol\mu_1-\boldsymbol\mu_0
+</span></p>
+<p>道具②と同じ計算。<span class="math inline">p=1</span> なら <span class="math inline">\mathbf S_{\mathrm T}=s_{\mathrm T}^2</span>、<span class="math inline">\mathbf S_{\mathrm W}=s_{\mathrm W}^2</span> で、道具②に戻る。</p>
+</section>
+<section id="道具③第2項はいつもdを向く" class="slide level2" data-chapter="I-4">
+<h2>道具③：第2項はいつもdを向く</h2>
+<p><span class="math display">
+\bigl(\pi_0\pi_1\,\boldsymbol d\boldsymbol d^\top\bigr)\boldsymbol v=\pi_0\pi_1\bigl(\boldsymbol d^\top\boldsymbol v\bigr)\,\boldsymbol d
+</span></p>
+<p><span class="math inline">\boldsymbol d^\top\boldsymbol v</span> はスカラー。第2項は、どのベクトルに掛けても <span class="math inline">\boldsymbol d</span> の向きになる。</p>
+</section>
+<section id="道具④向きに映したスコア" class="slide level2" data-chapter="I-4">
+<h2>道具④：向きに映したスコア</h2>
+<p><span class="math display">
+\begin{aligned}
+z_i&amp;=\boldsymbol w^\top\boldsymbol x_i\\
+\text{スコアの群の平均の差}&amp;=\boldsymbol w^\top\boldsymbol d\\
+\text{スコアの群の中の分散}&amp;=\boldsymbol w^\top\mathbf S_{\mathrm W}\boldsymbol w
+\end{aligned}
+</span></p>
+<p>多変数を1本のスコアに映すと、道具②の1変数の量に戻る。</p>
+</section>
+<section id="道具⑤2次形式の勾配" class="slide level2" data-chapter="I-4">
+<h2>道具⑤：2次形式の勾配</h2>
+<p><span class="math display">
+\frac{\partial\,\boldsymbol w^\top\boldsymbol d}{\partial\boldsymbol w}=\boldsymbol d,\qquad
+\frac{\partial\,\boldsymbol w^\top\mathbf A\boldsymbol w}{\partial\boldsymbol w}=2\mathbf A\boldsymbol w\quad(\mathbf A\ \text{が対称})
+</span></p>
+<p>第1回の2つの公式から。<span class="math inline">p=1</span> なら <span class="math inline">aw^2</span> の微分 <span class="math inline">2aw</span> に戻る。</p>
+</section>
+<section id="道具⑥2つの向きを比べる" class="slide level2" data-chapter="I-4">
+<h2>道具⑥：2つの向きを比べる</h2>
+<p><span class="math display">
+\cos\theta=\frac{\boldsymbol a^\top\boldsymbol b}{\lVert\boldsymbol a\rVert_2\,\lVert\boldsymbol b\rVert_2}
+</span></p>
+<p>第1回の内積とユークリッドノルムから。1なら同じ向き、0なら直角。ベクトルの長さにはよらない。</p>
+</section>
+<section id="道具がそろった" class="slide level2" data-chapter="I-4">
+<h2>道具がそろった</h2>
 <ul>
-<li>解は <span class="math inline">(X^\top X + \lambda I)^{-1}X^\top y</span>——<span class="math inline">\lambda I</span> が<strong>逆行列を安定化</strong>する</li>
-<li>共線性で <span class="math inline">X^\top X</span> がほぼ特異でも、<span class="math inline">\lambda I</span> を足せば解ける</li>
+<li>群の割合 <span class="math inline">\pi_q</span> と群の平均 <span class="math inline">\mu_q</span></li>
+<li>ばらつきの分解 <span class="math inline">\mathbf S_{\mathrm T}=\mathbf S_{\mathrm W}+\pi_0\pi_1\boldsymbol d\boldsymbol d^\top</span></li>
+<li>映したスコアの平均の差と分散、勾配の公式、コサイン</li>
 </ul>
-<p>詳しくは次回。今回の「係数が暴れる」問題への直接の処方箋になる。</p>
+<p>これで、群を分ける向きを式に書ける。</p>
 </section>
-<section id="発展②非線形モデルへの動機" class="slide level2 section-title">
-<h2>発展②：非線形モデルへの動機</h2>
+<section id="次の問いどの向きで分けるか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：どの向きで分けるか</h2>
 <ul>
-<li><strong>多項式回帰</strong>：曲がりを項として明示（第4回で体験済み）</li>
-<li><strong>決定木・勾配ブースティング</strong>：区分的に複雑な関係を表現</li>
-<li>ただし非線形にしても<strong>外挿の危険は消えない</strong>——範囲外は依然として未知</li>
+<li>調べたいのは、0/1の回帰の係数の向き</li>
+<li>その前に、比べる相手の向きを決めておく</li>
 </ul>
-<p>「線形の限界」を知ることが、次の手法を選ぶ判断力になる。</p>
+<p>問い：2つの群を最もよく分ける向きは？</p>
 </section>
-<section id="できることできないこと" class="slide level2 section-title">
-<h2>できること・できないこと</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>問題</th>
-<th>検出方法</th>
-<th>対処法</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>外挿</td>
-<td>説明変数の範囲確認</td>
-<td>範囲内でのみ使う</td>
-</tr>
-<tr class="even">
-<td>共変量シフト</td>
-<td>分布の比較</td>
-<td>再学習</td>
-</tr>
-<tr class="odd">
-<td>多重共線性</td>
-<td>VIF</td>
-<td>変数削除・正則化</td>
-</tr>
-<tr class="even">
-<td>欠落変数</td>
-<td>ドメイン知識・残差</td>
-<td>変数を追加する</td>
-</tr>
-</tbody>
-</table>
-<p><strong>線形回帰が「使える条件」を知ることが、正しい使い方の第一歩。</strong></p>
+<section id="変数2群のデータ" class="slide level2" data-chapter="I-2">
+<h2>2変数・2群のデータ</h2>
+<div id="89ba57de" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="958" height="363"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>人工データ。<span class="math inline">y=0</span> が 100 個（青）、<span class="math inline">y=1</span> が 50 個（赤）。どちらの群も右上がりに細長い。</p>
 </section>
-<section id="まとめ3点" class="slide level2 section-title">
-<h2>まとめ（3点）</h2>
+<section id="モデルスコアを切って分ける" class="slide level2 smaller" data-chapter="I-2">
+<h2>モデル：スコアを切って分ける</h2>
+<div id="98c896df" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="958" height="363"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+z=\boldsymbol w^\top\boldsymbol x:\quad z\ge c\ \text{なら}\ y=1
+</span></p>
+<p>1本のスコアに映して切る。決めるのは向き <span class="math inline">\boldsymbol w</span> としきい値 <span class="math inline">c</span>。</p>
+</section>
+<section id="素朴な候補平均を結ぶ向き" class="slide level2" data-chapter="I-2">
+<h2>素朴な候補：平均を結ぶ向き</h2>
+<div id="13bb31ab" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="958" height="363"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>矢印は、2つの群の平均を結ぶ向き <span class="math inline">\boldsymbol d</span>。破線は中点を通る境界 <span class="math inline">\boldsymbol w^\top\boldsymbol x=c</span> で、<span class="math inline">\boldsymbol w</span> に直角な直線。</p>
+</section>
+<section id="平均の差の向きでは重なる" class="slide level2" data-chapter="I-2">
+<h2>平均の差の向きでは重なる</h2>
+<div id="ab90bce9" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" class="quarto-figure quarto-figure-center" width="958" height="363"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\boldsymbol d</span> に映すと、細長い向きのばらつきも拾って山が重なる。平均の差 ÷ 群の中の標準偏差は 1.44。</p>
+</section>
+<section id="よく分ける向きとは" class="slide level2" data-chapter="I-3">
+<h2>よく分ける向きとは</h2>
+<ul>
+<li>映したスコアの群の平均が離れている：<span class="math inline">\boldsymbol w^\top\boldsymbol d</span> が大きい</li>
+<li>映したスコアの群の中が締まっている：<span class="math inline">\boldsymbol w^\top\mathbf S_{\mathrm W}\boldsymbol w</span> が小さい</li>
+</ul>
+<p>この2つを、1つの比にまとめる（道具④）。</p>
+</section>
+<section id="フィッシャーの基準" class="slide level2" data-chapter="I-3">
+<h2>フィッシャーの基準</h2>
+<p><span class="math display">
+J(\boldsymbol w)=\frac{(\boldsymbol w^\top\boldsymbol d)^2}{\boldsymbol w^\top\mathbf S_{\mathrm W}\boldsymbol w}
+=\frac{(\text{スコアの群の平均の差})^2}{\text{スコアの群の中の分散}}
+</span></p>
+<p>平均が離れ、群の中が締まる向きほど大きい。</p>
+</section>
+<section id="決まるのは向きだけ" class="slide level2" data-chapter="I-3">
+<h2>決まるのは向きだけ</h2>
+<p><span class="math display">
+J(a\boldsymbol w)=\frac{a^2(\boldsymbol w^\top\boldsymbol d)^2}{a^2\,\boldsymbol w^\top\mathbf S_{\mathrm W}\boldsymbol w}=J(\boldsymbol w)
+</span></p>
+<p><span class="math inline">\boldsymbol w</span> を何倍しても同じ値。<span class="math inline">J</span> を最大にして決まるのは、<span class="math inline">\boldsymbol w</span> の長さではなく向き。</p>
+</section>
+<section id="基準を最大にする勾配を0に" class="slide level2" data-chapter="I-5">
+<h2>基準を最大にする：勾配を0に</h2>
+<p><span class="math display">
+\frac{\partial J}{\partial\boldsymbol w}
+=\frac{2(\boldsymbol w^\top\boldsymbol d)}{\boldsymbol w^\top\mathbf S_{\mathrm W}\boldsymbol w}
+\Bigl(\boldsymbol d-\frac{\boldsymbol w^\top\boldsymbol d}{\boldsymbol w^\top\mathbf S_{\mathrm W}\boldsymbol w}\,\mathbf S_{\mathrm W}\boldsymbol w\Bigr)=\boldsymbol 0
+</span></p>
+<p>道具⑤の2つの公式で、分子と分母をそれぞれ微分した。</p>
+</section>
+<section id="最大にする向き" class="slide level2" data-chapter="I-5">
+<h2>最大にする向き</h2>
+<p><span class="math display">
+\mathbf S_{\mathrm W}\boldsymbol w\propto\boldsymbol d
+\quad\Longrightarrow\quad
+\boldsymbol w\propto\mathbf S_{\mathrm W}^{-1}\boldsymbol d
+</span></p>
+<p>括弧の中が0になるのは、<span class="math inline">\mathbf S_{\mathrm W}\boldsymbol w</span> が <span class="math inline">\boldsymbol d</span> のスカラー倍のとき。<span class="math inline">p=1</span> なら <span class="math inline">w\propto d/s_{\mathrm W}^2</span> で、平均の差の符号だけが残る。</p>
+</section>
+<section id="フィッシャーの向きに映す" class="slide level2" data-chapter="I-5">
+<h2>フィッシャーの向きに映す</h2>
+<div id="ea6cfecf" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png" class="quarto-figure quarto-figure-center" width="958" height="363"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>矢印は、平均の差の向きから大きく回る。群が細く締まった向きを使う。</p>
+</section>
+<section id="重なりが減る" class="slide level2" data-chapter="I-5">
+<h2>重なりが減る</h2>
+<div id="01444d56" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="958" height="363"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\mathbf S_{\mathrm W}^{-1}\boldsymbol d</span> に映すと、2つの山が離れる。平均の差 ÷ 群の中の標準偏差は 4.04（<span class="math inline">\boldsymbol d</span> では 1.44）。</p>
+</section>
+<section id="定義判別方向とlda" class="slide level2" data-chapter="I-3">
+<h2>定義：判別方向とLDA</h2>
+<ul>
+<li>判別方向：<span class="math inline">J</span> を最大にする向き <span class="math inline">\boldsymbol w\propto\mathbf S_{\mathrm W}^{-1}(\boldsymbol\mu_1-\boldsymbol\mu_0)</span></li>
+<li>線形判別分析（LDA）：判別方向のスコアを、しきい値で切って群を分ける方法</li>
+<li>しきい値の素朴な選び方：2つの群の平均の中点を通る境界</li>
+</ul>
+</section>
+<section id="次の問い01の回帰はどこを向くか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：0/1の回帰はどこを向くか</h2>
+<ul>
+<li>判別方向は、群の平均と群の中の共分散から直接計算できる</li>
+<li>最小二乗法は、群を分けることを何も求めていない</li>
+</ul>
+<p>問い：0/1の回帰の係数は、どの向きを向くか？</p>
+</section>
+<section id="目的関数yが01の最小二乗" class="slide level2" data-chapter="I-3">
+<h2>目的関数：yが0/1の最小二乗</h2>
+<p><span class="math display">
+f(\beta_0,\boldsymbol\beta)=\sum_{i=1}^{n}\bigl(y_i-\beta_0-\boldsymbol x_i^\top\boldsymbol\beta\bigr)^2,\qquad y_i\in\{0,1\}
+</span></p>
+<p>第1回と同じ式。違うのは <span class="math inline">y_i</span> の中身だけ。</p>
+</section>
+<section id="切片を切り離す" class="slide level2" data-chapter="I-5">
+<h2>切片を切り離す</h2>
+<p><span class="math display">
+\hat\beta_0=\bar y-\bar{\boldsymbol x}^\top\hat{\boldsymbol\beta},\qquad \bar y=\pi_1
+</span></p>
+<p>列を中心化すれば、切片は切り離せる（第3回）。0/1の列の平均は、1の割合 <span class="math inline">\pi_1</span>。</p>
+</section>
+<section id="変数単回帰の解" class="slide level2" data-chapter="I-5">
+<h2>1変数：単回帰の解</h2>
+<p><span class="math display">
+\hat\beta=\frac{s_{xy}}{s_{\mathrm T}^2},\qquad
+s_{xy}=\frac1n\sum_{i=1}^{n}(x_i-\bar x)(y_i-\bar y)
+</span></p>
+<p>第1回の単回帰の解。まず <span class="math inline">p=1</span> で解く。共分散も <span class="math inline">n</span> で割る。</p>
+</section>
+<section id="変数yȳは2つの値" class="slide level2" data-chapter="I-5">
+<h2>1変数：y−ȳは2つの値</h2>
+<p><span class="math display">
+y_i-\bar y=\begin{cases}1-\pi_1=\pi_0&amp;(y_i=1)\\ -\pi_1&amp;(y_i=0)\end{cases}
+</span></p>
+<p><span class="math inline">y</span> が0と1だけなので、<span class="math inline">y_i-\bar y</span> も2つの値しか取らない。</p>
+</section>
+<section id="変数共分散は平均の差に比例" class="slide level2" data-chapter="I-5">
+<h2>1変数：共分散は平均の差に比例</h2>
+<p><span class="math display">
+\begin{aligned}
+s_{xy}&amp;=\frac1n\Bigl[\pi_0\sum_{y_i=1}(x_i-\bar x)-\pi_1\sum_{y_i=0}(x_i-\bar x)\Bigr]\\
+&amp;=\pi_0\pi_1(\mu_1-\bar x)-\pi_1\pi_0(\mu_0-\bar x)=\pi_0\pi_1\,d
+\end{aligned}
+</span></p>
+<p><span class="math inline">x</span> と0/1の <span class="math inline">y</span> の共分散は、群の平均の差 <span class="math inline">d</span> に比例する。</p>
+</section>
+<section id="変数群の量で書き直す" class="slide level2" data-chapter="I-5">
+<h2>1変数：群の量で書き直す</h2>
+<p><span class="math display">
+\hat\beta=\frac{\pi_0\pi_1\,d}{s_{\mathrm W}^2+\pi_0\pi_1d^2}
+</span></p>
+<p>分母に道具②を使った。分子は平均の差、分母は群の中＋群の間のばらつき。</p>
+</section>
+<section id="変数人工データで確かめる" class="slide level2" data-chapter="I-5">
+<h2>1変数：人工データで確かめる</h2>
+<div id="edb1bf9e" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>道具①の人工データ。式の値は 0.191、第1回の単回帰で直接求めた傾きも 0.191。</p>
+</section>
+<section id="ベクトルで共分散は内積" class="slide level2" data-chapter="I-5">
+<h2>ベクトルで：共分散は内積</h2>
+<p><span class="math display">
+s_{xy}=\frac1n(\boldsymbol x-\bar x\mathbf 1)^\top(\boldsymbol y-\pi_1\mathbf 1)=\pi_0\pi_1\,d
+</span></p>
+<p><span class="math inline">\boldsymbol y-\pi_1\mathbf 1</span> は、<span class="math inline">y_i=1</span> の行に <span class="math inline">\pi_0</span>、<span class="math inline">y_i=0</span> の行に <span class="math inline">-\pi_1</span> が並んだベクトル。</p>
+</section>
+<section id="列がp本なら" class="slide level2" data-chapter="I-5">
+<h2>列がp本なら</h2>
+<p><span class="math display">
+\frac1n\mathbf X_{\mathrm c}^\top(\boldsymbol y-\pi_1\mathbf 1)=\pi_0\pi_1\boldsymbol d
+</span></p>
+<p>列ごとの内積を縦に並べる。<span class="math inline">\boldsymbol d</span> の第 <span class="math inline">j</span> 成分は、第 <span class="math inline">j</span> 列の群の平均の差。</p>
+</section>
+<section id="行列で正規方程式をnで割る" class="slide level2" data-chapter="I-5">
+<h2>行列で：正規方程式をnで割る</h2>
+<p><span class="math display">
+\frac1n\mathbf X_{\mathrm c}^\top\mathbf X_{\mathrm c}\hat{\boldsymbol\beta}=\frac1n\mathbf X_{\mathrm c}^\top(\boldsymbol y-\pi_1\mathbf 1)
+\quad\Longrightarrow\quad
+\mathbf S_{\mathrm T}\hat{\boldsymbol\beta}=\pi_0\pi_1\boldsymbol d
+</span></p>
+<p>第1回の正規方程式。左辺の <span class="math inline">\frac1n\mathbf X_{\mathrm c}^\top\mathbf X_{\mathrm c}</span> は全体の共分散行列 <span class="math inline">\mathbf S_{\mathrm T}</span>。</p>
+</section>
+<section id="行列で道具③を代入" class="slide level2" data-chapter="I-5">
+<h2>行列で：道具③を代入</h2>
+<p><span class="math display">
+\mathbf S_{\mathrm W}\hat{\boldsymbol\beta}+\pi_0\pi_1\boldsymbol d\,(\boldsymbol d^\top\hat{\boldsymbol\beta})=\pi_0\pi_1\boldsymbol d
+</span></p>
+<p><span class="math inline">\mathbf S_{\mathrm T}=\mathbf S_{\mathrm W}+\pi_0\pi_1\boldsymbol d\boldsymbol d^\top</span> を入れた。<span class="math inline">\boldsymbol d^\top\hat{\boldsymbol\beta}</span> はスカラー。</p>
+</section>
+<section id="行列で右辺はdの向き" class="slide level2" data-chapter="I-5">
+<h2>行列で：右辺はdの向き</h2>
+<p><span class="math display">
+\mathbf S_{\mathrm W}\hat{\boldsymbol\beta}=\pi_0\pi_1\bigl(1-\boldsymbol d^\top\hat{\boldsymbol\beta}\bigr)\,\boldsymbol d
+</span></p>
+<p>右辺はスカラー × <span class="math inline">\boldsymbol d</span>。<span class="math inline">\mathbf S_{\mathrm W}\hat{\boldsymbol\beta}</span> は <span class="math inline">\boldsymbol d</span> を向く。フィッシャーの基準の勾配を0とおいた条件と同じ。</p>
+</section>
+<section id="係数は判別方向の正の数倍" class="slide level2" data-chapter="I-5">
+<h2>係数は判別方向の正の数倍</h2>
+<p><span class="math display">
+\hat{\boldsymbol\beta}=\frac{\pi_0\pi_1}{1+\pi_0\pi_1D^2}\,\mathbf S_{\mathrm W}^{-1}\boldsymbol d
+\qquad(D^2=\boldsymbol d^\top\mathbf S_{\mathrm W}^{-1}\boldsymbol d)
+</span></p>
+<p>係数は、正の数 × LDAの判別方向。<span class="math inline">p=1</span> なら1変数の式に戻る。</p>
+</section>
+<section id="同じ向きを指す" class="slide level2" data-chapter="I-5">
+<h2>同じ向きを指す</h2>
+<div id="fbac0cc4" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="958" height="363"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>0/1回帰の係数（橙の破線）は、フィッシャーの向き（黒）と重なる。コサインは 1.0000000。</p>
+</section>
+<section id="なぜ一致するのか" class="slide level2" data-chapter="I-5">
+<h2>なぜ一致するのか</h2>
+<ul>
+<li>最小二乗法は、データとモデルの距離を小さくするだけ</li>
+<li>それでも <span class="math inline">y</span> が0/1なので、<span class="math inline">y</span> との共分散が平均の差 <span class="math inline">\pi_0\pi_1\boldsymbol d</span> になる</li>
+<li>全体の共分散も、群の中と平均の差の分に分かれる</li>
+</ul>
+<p>だから係数は、群を最もよく分ける向きに着く。</p>
+</section>
+<section id="次の問いしきい値も同じか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：しきい値も同じか</h2>
+<ul>
+<li>0/1の回帰の向きは、判別方向と同じ</li>
+<li>残る違いは、しきい値 <span class="math inline">c</span> だけ</li>
+</ul>
+<p>問い：0.5で切る境界は、2つの群の平均の中点を通るか？</p>
+</section>
+<section id="予測値と中点" class="slide level2" data-chapter="I-5">
+<h2>予測値と中点</h2>
+<p><span class="math display">
+\begin{aligned}
+\hat y(\boldsymbol x)&amp;=\pi_1+\hat{\boldsymbol\beta}^\top(\boldsymbol x-\bar{\boldsymbol x})\\
+\boldsymbol m-\bar{\boldsymbol x}&amp;=\frac{\pi_0-\pi_1}{2}\,\boldsymbol d,\qquad \boldsymbol m=\frac{\boldsymbol\mu_0+\boldsymbol\mu_1}{2}
+\end{aligned}
+</span></p>
+<p>中点 <span class="math inline">\boldsymbol m</span> と全体の平均の差は、人数の差に比例する（道具①）。</p>
+</section>
+<section id="中点での予測値" class="slide level2" data-chapter="I-5">
+<h2>中点での予測値</h2>
+<p><span class="math display">
+\hat y(\boldsymbol m)=\frac12+\frac{(\pi_1-\pi_0)\bigl(1-\boldsymbol d^\top\hat{\boldsymbol\beta}\bigr)}{2}
+</span></p>
+<p>1行目に2行目を入れた。第2項が、1/2からのずれ。</p>
+</section>
+<section id="ずれは少ない群の側へ" class="slide level2" data-chapter="I-5">
+<h2>ずれは少ない群の側へ</h2>
+<p><span class="math display">
+\boldsymbol d^\top\hat{\boldsymbol\beta}=\frac{\pi_0\pi_1D^2}{1+\pi_0\pi_1D^2}\quad(0\ \text{と}\ 1\ \text{の間})
+</span></p>
+<p><span class="math inline">\pi_1&lt;\pi_0</span> なら、中点での予測値は1/2より小さい。0.5に届くのは、中点から <span class="math inline">y=1</span> の群の側へ進んでから。</p>
+</section>
+<section id="変数で見る中点での予測値" class="slide level2" data-chapter="I-7">
+<h2>1変数で見る：中点での予測値</h2>
+<div id="cfe24dce" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>中点（橙）での予測値は 0.32。0.5に届かない。</p>
+</section>
+<section id="境界は少ない群の側へ" class="slide level2" data-chapter="I-7">
+<h2>境界は少ない群の側へ</h2>
+<div id="b75e4ca8" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">y=1</span> は 30 対 150 と少ない。<span class="math inline">\hat y=0.5</span> の境界（黒の破線）は、赤の群の側へずれる。</p>
+</section>
+<section id="人数が等しければ一致" class="slide level2" data-chapter="I-7">
+<h2>人数が等しければ一致</h2>
+<p><span class="math display">
+\pi_0=\pi_1=\tfrac12\quad\Longrightarrow\quad\hat y\Bigl(\frac{\boldsymbol\mu_0+\boldsymbol\mu_1}{2}\Bigr)=\frac12
+</span></p>
+<p>向きはいつも同じ。しきい値は、人数が等しいときだけ中点で一致する。</p>
+</section>
+<section id="アルゴリズム01を回帰して切る" class="slide level2 smaller" data-chapter="I-6">
+<h2>アルゴリズム：0/1を回帰して切る</h2>
 <ol type="1">
-<li><strong>外挿・共変量シフトはCVでは検出できない</strong>——適用範囲を事前に確認する</li>
-<li><strong>多重共線性は予測でなく解釈を壊す</strong>——VIF（<span class="math inline">1/(1-R^2_j)</span>）で診断する</li>
-<li><strong>係数を「効果」と読むのは慎重に</strong>——欠落変数・スケール・因果に注意</li>
+<li>データ行列 <span class="math inline">\mathbf X</span>（<span class="math inline">n\times p</span>）と0/1の <span class="math inline">\boldsymbol y</span> を作り、列の平均 <span class="math inline">\bar{\boldsymbol x}</span> を引いて <span class="math inline">\mathbf X_{\mathrm c}</span>、<span class="math inline">\bar y=\pi_1</span> を引いて <span class="math inline">\boldsymbol y_{\mathrm c}</span></li>
+<li>正規方程式 <span class="math inline">\mathbf X_{\mathrm c}^\top\mathbf X_{\mathrm c}\,\boldsymbol\beta=\mathbf X_{\mathrm c}^\top\boldsymbol y_{\mathrm c}</span> を連立方程式として解く（向きは <span class="math inline">\mathbf S_{\mathrm W}^{-1}\boldsymbol d</span>）</li>
+<li>新しい行 <span class="math inline">\boldsymbol x</span> のスコア <span class="math inline">\hat y=\bar y+(\boldsymbol x-\bar{\boldsymbol x})^\top\hat{\boldsymbol\beta}</span> を作り、<span class="math inline">\hat y\ge0.5</span> なら <span class="math inline">y=1</span></li>
 </ol>
-<p>CVのスコアが良くても、現場で外れる理由がこれで説明できる。</p>
 </section>
-<section class="slide level2">
-
-<p><strong>次回：多重共線性と過学習への対処——正則化（Ridge・Lasso）</strong></p>
-<p>今回の「係数が暴れる」問題に、ペナルティ項で正面から対処する。</p>
+<section id="k群なら指示行列" class="slide level2 smaller" data-chapter="I-6">
+<h2>k群なら：指示行列</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">行</th>
+<th style="text-align: center;">群</th>
+<th style="text-align: center;">列1</th>
+<th style="text-align: center;">列2</th>
+<th style="text-align: center;">列3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">y</span> を指示行列 <span class="math inline">\mathbf Y</span>（<span class="math inline">n\times k</span>）にかえる。行 <span class="math inline">i</span> の属する群の列だけが1、ほかは0。各行の和は1。</p>
+</section>
+<section id="k群ならまとめて解く" class="slide level2" data-chapter="I-6">
+<h2>k群なら：まとめて解く</h2>
+<div id="e866b36d" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="301" height="228"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\mathbf X_{\mathrm c}^\top\mathbf X_{\mathrm c}\mathbf B=\mathbf X_{\mathrm c}^\top\mathbf Y_{\mathrm c}
+</span></p>
+<p>係数は行列 <span class="math inline">\mathbf B</span>（<span class="math inline">p\times k</span>）。<span class="math inline">k</span> 本の右辺を、1回の分解でまとめて解く。</p>
+</section>
+<section id="k群なら最大の列を選ぶ" class="slide level2" data-chapter="I-6">
+<h2>k群なら：最大の列を選ぶ</h2>
+<p><span class="math display">
+\hat{\boldsymbol y}^\top=\bar{\boldsymbol y}^\top+(\boldsymbol x-\bar{\boldsymbol x})^\top\hat{\mathbf B}\qquad(1\times k)
+</span></p>
+<p>新しい行の予測値の中で、最大の成分の群を選ぶ。<span class="math inline">k=2</span> なら、<span class="math inline">\hat y\ge0.5</span> で切るのと同じ。</p>
+</section>
+<section id="次の問い予測値は何を表すか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：予測値は何を表すか</h2>
+<ul>
+<li>向きは判別方向、しきい値は人数の比で決まった</li>
+<li>残るのは、予測値 <span class="math inline">\hat y</span> そのもの</li>
+</ul>
+<p>問い：<span class="math inline">\hat y</span> は、<span class="math inline">y=1</span> の確率として読めるか？</p>
+</section>
+<section id="区間ごとのy1の割合" class="slide level2" data-chapter="I-7">
+<h2>区間ごとのy=1の割合</h2>
+<div id="34335b51" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">x</span> を幅1の区間に分け、区間ごとの <span class="math inline">y=1</span> の割合を黒の四角で打つ。割合は0と1の間で、左で0、右で1に張り付く。</p>
+</section>
+<section id="直線は割合を追えない" class="slide level2" data-chapter="I-7">
+<h2>直線は割合を追えない</h2>
+<div id="fb179759" class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>直線は割合を追えず、左端で -0.57、右端で 1.34 まで伸びる。</p>
+</section>
+<section id="予測値はスコアである" class="slide level2" data-chapter="I-7">
+<h2>予測値はスコアである</h2>
+<ul>
+<li><span class="math inline">\hat y=-0.3</span> を「確率 <span class="math inline">-30</span>%」とは読めない</li>
+<li>残差も2通りの値しか取らず、その散らばり方は <span class="math inline">x</span> の場所で変わる</li>
+</ul>
+<p>予測値は群を分けるためのスコアであって、確率ではない。</p>
+</section>
+<section id="群なら" class="slide level2" data-chapter="I-7">
+<h2>3群なら</h2>
+<div id="c45a1ffd" class="cell" data-execution_count="28">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>1変数に3つの群（平均 <span class="math inline">-3</span>、0、3、各60個）を並べる。指示行列 <span class="math inline">\mathbf Y</span>（180×3）を最小二乗法で回帰する。</p>
+</section>
+<section id="両端の群の直線は傾く" class="slide level2" data-chapter="I-7">
+<h2>両端の群の直線は傾く</h2>
+<div id="11f5771c" class="cell" data-execution_count="29">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>群1（青）の列は左で1、群3（赤）の列は右で1。どちらの直線も、それを追って傾く。</p>
+</section>
+<section id="真ん中の群の直線は平ら" class="slide level2" data-chapter="I-7">
+<h2>真ん中の群の直線は平ら</h2>
+<div id="8b9c867c" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>群2（緑）の列は、左右で0、真ん中だけ1。1次式では表せず、傾きは 0.004 とほぼ平ら。</p>
+</section>
+<section id="真ん中の群は選ばれない" class="slide level2" data-chapter="I-7">
+<h2>真ん中の群は選ばれない</h2>
+<div id="bab804da" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>上の帯は、予測値が最大の群。緑はどこでも最大にならず、群2の60個は1つも群2と判定されない。</p>
+</section>
+<section id="マスキング" class="slide level2" data-chapter="I-7">
+<h2>マスキング</h2>
+<div id="db96c119" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>ある群の予測値がどこでもほかの群を上回らず、その群が一度も選ばれない。これをマスキングと呼ぶ。</p>
+</section></section>
+<section>
+<section id="第ii部-実データ解析" class="title-slide slide level1 part center">
+<h1>第II部　実データ解析</h1>
 
 </section>
+<section id="第ii部でやること" class="slide level2" data-chapter="II-1">
+<h2>第II部でやること</h2>
+<ul>
+<li>第I部の結果を、乳がんデータの30列で確かめる</li>
+<li>0/1の回帰とLDAを同じデータで計算し、向き・しきい値を比べる</li>
+<li>予測値が確率として読めるかを見る</li>
+</ul>
+</section>
+<section id="データ乳がんデータ" class="slide level2 smaller" data-chapter="II-1">
+<h2>データ：乳がんデータ</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>行</td>
+<td>乳房の腫瘤から採った細胞の画像 569 件（Wisconsin診断データ）</td>
+</tr>
+<tr class="even">
+<td>説明変数</td>
+<td>細胞核の10の測定値（半径・きめ・周囲の長さ・面積・くぼみ…）× 平均・標準誤差・最悪値 ＝ 30列。標準化する</td>
+</tr>
+<tr class="odd">
+<td>目的変数</td>
+<td>悪性＝1（212 件）、良性＝0（357 件）。scikit-learnの0/1とは逆にした</td>
+</tr>
+</tbody>
+</table>
+<p>列どうしがよく似る：半径の平均と周囲の長さの平均の相関係数は 0.998。</p>
+</section>
+<section id="第i部の場面の数字" class="slide level2" data-chapter="II-1">
+<h2>第I部の場面の数字</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>説明変数</th>
+<th style="text-align: center;">正解率（0.5で切る）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>半径の平均だけ（第I部の場面）</td>
+<td style="text-align: center;">87.5%</td>
+</tr>
+</tbody>
+</table>
+<p>この1列の直線を、30列の0/1の回帰に広げる。</p>
+</section>
+<section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
+<h2>手続き：何をどう計算したか</h2>
+<ol type="1">
+<li>データ行列：30列を標準化して <span class="math inline">\mathbf Z</span>（569×30）、悪性を1とした <span class="math inline">\boldsymbol y</span></li>
+<li>0/1の回帰：列と <span class="math inline">\boldsymbol y</span> を中心化して、正規方程式を解く（NumPyの線形方程式ソルバー）</li>
+<li>LDAの向き：群ごとの平均 <span class="math inline">\boldsymbol\mu_0,\boldsymbol\mu_1</span> と <span class="math inline">\mathbf S_{\mathrm W}</span> を作り、<span class="math inline">\mathbf S_{\mathrm W}\boldsymbol w=\boldsymbol d</span> を解く。scikit-learnのLinearDiscriminantAnalysisの係数とも比べる</li>
+<li>しきい値：中点での <span class="math inline">\hat y</span> を第I部の式と比べる。良性を乱数で 212 件に間引いて人数をそろえ、同じ計算</li>
+<li>予測値：<span class="math inline">\hat y</span> の分布と0.5で切った結果。訓練 398 件・テスト 171 件に分けて測り直す</li>
+</ol>
+</section>
+<section id="検証①判別方向と同じ向き" class="slide level2" data-chapter="II-3">
+<h2>検証①：判別方向と同じ向き</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>0/1 の回帰の係数 <span class="math inline">\hat{\boldsymbol\beta}</span> と</th>
+<th>コサイン</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\mathbf S_{\mathrm W}^{-1}\boldsymbol d</span>（手で組んだ判別方向）</td>
+<td>1.0000000</td>
+</tr>
+<tr class="even">
+<td>scikit-learn の LDA の係数</td>
+<td>1.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>30次元でも、2つの判別方向とぴったり同じ向き。</p>
+</section>
+<section id="検証①平均の差とはほぼ直角" class="slide level2" data-chapter="II-3">
+<h2>検証①：平均の差とはほぼ直角</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>0/1 の回帰の係数 <span class="math inline">\hat{\boldsymbol\beta}</span> と</th>
+<th>コサイン</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\mathbf S_{\mathrm W}^{-1}\boldsymbol d</span>（手で組んだ判別方向）</td>
+<td>1.0000000</td>
+</tr>
+<tr class="even">
+<td>scikit-learn の LDA の係数</td>
+<td>1.0000000</td>
+</tr>
+<tr class="odd">
+<td>平均の差 <span class="math inline">\boldsymbol d</span> そのもの</td>
+<td>0.08</td>
+</tr>
+</tbody>
+</table>
+<p>平均の差 <span class="math inline">\boldsymbol d</span> の向きとは、ほとんど直角。似た列が多いので、<span class="math inline">\mathbf S_{\mathrm W}^{-1}</span> を掛けると向きが大きく変わる。</p>
+</section>
+<section id="検証②中点での予測値" class="slide level2" data-chapter="II-3">
+<h2>検証②：中点での予測値</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>人数（悪性：良性）</th>
+<th>中点での <span class="math inline">\hat y</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>全件</td>
+<td>212：357</td>
+<td>0.4712452</td>
+</tr>
+</tbody>
+</table>
+<p>第I部の式の値 0.4712452 に一致。悪性が少ないので、0.5より小さい。</p>
+</section>
+<section id="検証②人数をそろえる" class="slide level2" data-chapter="II-3">
+<h2>検証②：人数をそろえる</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>人数（悪性：良性）</th>
+<th>中点での <span class="math inline">\hat y</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>全件</td>
+<td>212：357</td>
+<td>0.4712452</td>
+</tr>
+<tr class="even">
+<td>良性を間引く</td>
+<td>212：212</td>
+<td>0.5000000</td>
+</tr>
+</tbody>
+</table>
+<p>良性を間引いて人数をそろえると、ちょうど0.5。向きは判別方向とコサイン 1.0000000 で一致したまま。</p>
+</section>
+<section id="デモ①予測値の分布" class="slide level2" data-chapter="II-4">
+<h2>デモ①：予測値の分布</h2>
+<div id="a4014752" class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png" class="quarto-figure quarto-figure-center" width="1003" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>30列の回帰でも、19.3%が0未満、12.0%が1超（灰の線の外）。</p>
+</section>
+<section id="デモ②0.5で切る" class="slide level2" data-chapter="II-4">
+<h2>デモ②：0.5で切る</h2>
+<div id="2518c97d" class="cell" data-execution_count="42">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png" class="quarto-figure quarto-figure-center" width="1003" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>2つの山は、向き <span class="math inline">\hat{\boldsymbol\beta}</span> の上でよく分かれる。0.5で切ると、正解率は 96.5%（半径だけなら 87.5%）。</p>
+</section>
+<section id="デモ③テストの行で測り直す" class="slide level2" data-chapter="II-4">
+<h2>デモ③：テストの行で測り直す</h2>
+<ul>
+<li>訓練 398 件で当てはめ、テスト 171 件で予測する（標準化も訓練の行で）</li>
+<li>テストの正解率は 94.2%</li>
+<li>テストでも、0未満が 30 件、1超が 13 件</li>
+</ul>
+</section>
+<section id="解釈①区間ごとの悪性の割合" class="slide level2" data-chapter="II-5">
+<h2>解釈①：区間ごとの悪性の割合</h2>
+<div id="1f736fc9" class="cell" data-execution_count="43">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png" class="quarto-figure quarto-figure-center" width="1006" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\hat y</span> が確率なら、点は灰の破線に乗る。実際の割合は、0.2を下回るとほぼ0、0.8を超えるとほぼ1に張り付く。</p>
+</section>
+<section id="解釈②1.3は130ではない" class="slide level2" data-chapter="II-5">
+<h2>解釈②：1.3は130%ではない</h2>
+<div id="d0185fa0" class="cell" data-execution_count="44">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png" class="quarto-figure quarto-figure-center" width="1006" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\hat y&gt;1</span> の 68 件は悪性が 100%、<span class="math inline">\hat y&lt;0</span> の 110 件は 0%。<span class="math inline">\hat y=1.3</span> は、向きの上で悪性の群の奥にあるだけ。</p>
+</section>
+<section id="解釈③人数の比が動かすもの" class="slide level2" data-chapter="II-5">
+<h2>解釈③：人数の比が動かすもの</h2>
+<ul>
+<li>向き：人数によらず <span class="math inline">\mathbf S_{\mathrm W}^{-1}\boldsymbol d</span></li>
+<li>しきい値：中点での <span class="math inline">\hat y</span> は 0.471。0.5との差はわずか</li>
+<li>0.5で切るか中点で切るかで判定が変わるのは、569 件中 2 件</li>
+</ul>
+</section>
+<section id="落とし穴係数を1列ずつ読む" class="slide level2" data-chapter="II-6">
+<h2>落とし穴：係数を1列ずつ読む</h2>
+<div id="6a5451c9" class="cell" data-execution_count="47">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>悪性の細胞は核が大きい。大きさの6列は、どれも群の平均の差が正（標準化した単位）。</p>
+</section>
+<section id="落とし穴半径の係数は負" class="slide level2" data-chapter="II-6">
+<h2>落とし穴：半径の係数は負</h2>
+<div id="aa667769" class="cell" data-execution_count="48">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-49-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>半径の平均の係数は -0.77。30列のうち 11 列で、係数の符号が平均の差と逆になる。</p>
+</section></section>
+<section>
+<section id="締め" class="title-slide slide level1 part center">
+<h1>締め</h1>
+
+</section>
+<section id="まとめ①係数はldaの向き" class="slide level2" data-chapter="締め">
+<h2>まとめ①：係数はLDAの向き</h2>
+<div id="750733ce" class="cell" data-execution_count="50">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png" class="quarto-figure quarto-figure-center" width="958" height="363"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>0/1に最小二乗法を当てると、係数は判別方向 <span class="math inline">\mathbf S_{\mathrm W}^{-1}(\boldsymbol\mu_1-\boldsymbol\mu_0)</span> を向く。推定法は第1回のまま。</p>
+</section>
+<section id="まとめ②しきい値だけずれる" class="slide level2" data-chapter="締め">
+<h2>まとめ②：しきい値だけずれる</h2>
+<div id="16e9341b" class="cell" data-execution_count="51">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>0.5の境界は、人数の少ない群の側へずれる。人数が等しければ中点で一致する。</p>
+</section>
+<section id="まとめ③確率は出ない" class="slide level2" data-chapter="締め">
+<h2>まとめ③：確率は出ない</h2>
+<div id="6dea2a43" class="cell" data-execution_count="52">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>予測値は0と1の外へはみ出し、確率としては読めない。3群以上ではマスキングが起きる。</p>
+</section>
+<section id="演習では①心臓病を直線で当てる" class="slide level2" data-chapter="締め">
+<h2>演習では①：心臓病を直線で当てる</h2>
+<ul>
+<li>演習8（心臓病、303人）：心臓病あり＝1として線形回帰で当てる</li>
+<li>予測は −0.18〜1.34 まで散らばる</li>
+</ul>
+</section>
+<section id="演習では②テストでもはみ出す" class="slide level2" data-chapter="締め">
+<h2>演習では②：テストでもはみ出す</h2>
+<ul>
+<li>テストの61人中9人が、0〜1の外にはみ出す</li>
+<li>乳がんデータで見たのと同じはみ出し</li>
+</ul>
+</section>
+<section id="次回予告①割合は曲がる" class="slide level2" data-chapter="締め">
+<h2>次回予告①：割合は曲がる</h2>
+<div id="52e6ecf8" class="cell" data-execution_count="53">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-54-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">y=1</span> の割合（黒の四角）は、0と1の間で曲がる。直線は曲がれない。向きは正しいが、確率が出ない。</p>
+</section>
+<section id="次回予告②出方を仮定する" class="slide level2" data-chapter="締め">
+<h2>次回予告②：出方を仮定する</h2>
+<ul>
+<li>最小二乗法は、データとモデルの距離を最小にする → 向きは出る</li>
+<li>データがどう出てくるかを確率で仮定すれば、確率も出せるのではないか</li>
+</ul>
+<p>問い：方向は出るが確率が出ない。確率を出すには？</p>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

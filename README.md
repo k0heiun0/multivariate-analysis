@@ -10,21 +10,21 @@
 |---|---|
 | 1 | 多変量解析とは（[読み物 PDF](01_intro/reading.pdf)） |
 | 2 | 汎化誤差とデータリーク（[読み物 PDF](02_generalization/reading.pdf)） |
-| 3 | データの前処理 |
-| 4 | 射影行列——当てはめの幾何 |
-| 5 | 線形回帰の限界 |
-| 6 | 正則化 |
-| 7 | 分類モデル |
-| 8 | 決定理論——しきい値を原理から決める |
-| 9 | 教師あり学習と教師なし学習 |
-| 10 | 主成分分析（PCA） |
-| 11 | SVD と低ランク近似 |
-| 12 | クラスタリング |
-| 13 | モデル選択 |
-| 14 | コレスポンデンス分析 |
-| 15 | 残差 |
+| 3 | 係数の揺れと最小二乗法の限界（[読み物 PDF](03_preprocessing/reading.pdf)） |
+| 4 | 罰則付き最小二乗法（[読み物 PDF](04_regression_flow/reading.pdf)） |
+| 5 | 分類①：最小二乗法（[読み物 PDF](05_regression_limits/reading.pdf)） |
+| 6 | 分類②：最尤法（[読み物 PDF](06_regularization/reading.pdf)） |
+| 7 | 決定理論と評価（[読み物 PDF](07_classification/reading.pdf)） |
+| 8 | 教師あり学習と教師なし学習（[読み物 PDF](08_classification_flow/reading.pdf)） |
+| 9 | 主成分分析①（[読み物 PDF](09_supervised_unsupervised/reading.pdf)） |
+| 10 | 主成分分析②（[読み物 PDF](10_pca/reading.pdf)） |
+| 11 | k-means（[読み物 PDF](11_dim_reduction_flow/reading.pdf)） |
+| 12 | 混合正規分布と EM アルゴリズム（[読み物 PDF](12_clustering/reading.pdf)） |
+| 13 | モデル選択（[読み物 PDF](13_clustering_flow/reading.pdf)） |
+| 14 | 対応分析（[読み物 PDF](14_correspondence/reading.pdf)） |
+| 15 | 残差と多重対応分析（[読み物 PDF](15_contingency_flow/reading.pdf)） |
 
-理論の回と演習の回を交互に置き、回帰・分類・次元縮小・クラスタリング・分割表の順に進みます。
+各回は「第I部 理論 → 第II部 実データ解析 → 締め」の順に組んであります。回帰・分類・次元縮小・クラスタリング・分割表の順に進みます。
 
 ## スライドの操作
 

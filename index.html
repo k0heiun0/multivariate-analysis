@@ -85,81 +85,94 @@
     </li>
     <li>
       <a href="03_preprocessing/">
-        <span class="t">第3回 データの前処理</span>
-        <span class="s">生データをそのまま使うとどうなるか？</span>
+        <span class="t">第3回 係数の揺れと最小二乗法の限界</span>
+        <span class="s">列が似ているとき、点が遠いとき、列が多すぎるとき</span>
       </a>
+      <a class="pdf" href="03_preprocessing/reading.pdf" download="多変量解析_第3回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="04_regression_flow/">
-        <span class="t">第4回 射影行列——当てはめの幾何</span>
-        <span class="s">当てはめ値は y の影である——1つの行列から R²・自由度・てこ比・LOO が出てくる</span>
+        <span class="t">第4回 罰則付き最小二乗法</span>
+        <span class="s">係数の大きさに罰を足し、罰の強さを交差検証で選ぶ</span>
       </a>
+      <a class="pdf" href="04_regression_flow/reading.pdf" download="多変量解析_第4回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="05_regression_limits/">
-        <span class="t">第5回 線形回帰の限界</span>
-        <span class="s">よく作れたはずのモデルが現場で外れる——なぜ？</span>
+        <span class="t">第5回 分類①：最小二乗法</span>
+        <span class="s">0/1 に直線を当てると、判別の向きが出る</span>
       </a>
+      <a class="pdf" href="05_regression_limits/reading.pdf" download="多変量解析_第5回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="06_regularization/">
-        <span class="t">第6回 正則化</span>
-        <span class="s">高次元データで係数を安定させ、重要変数を絞る</span>
+        <span class="t">第6回 分類②：最尤法</span>
+        <span class="s">データの出方を仮定すると、確率が出る</span>
       </a>
+      <a class="pdf" href="06_regularization/reading.pdf" download="多変量解析_第6回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="07_classification/">
-        <span class="t">第7回 分類モデル</span>
-        <span class="s">確率を出力してカテゴリを判断する——ロジスティック回帰・LDA・AUC</span>
+        <span class="t">第7回 決定理論と評価</span>
+        <span class="s">損失を決めると、切る場所と測る量が決まる</span>
       </a>
+      <a class="pdf" href="07_classification/reading.pdf" download="多変量解析_第7回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="08_classification_flow/">
-        <span class="t">第8回 決定理論——しきい値を原理から決める</span>
-        <span class="s">0.5 はどこから来たのか——誤りのコストを決めれば最適なしきい値は式で出る</span>
+        <span class="t">第8回 教師あり学習と教師なし学習</span>
+        <span class="s">y が無ければ、X 自身を近似する</span>
       </a>
+      <a class="pdf" href="08_classification_flow/reading.pdf" download="多変量解析_第8回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="09_supervised_unsupervised/">
-        <span class="t">第9回 教師あり学習と教師なし学習</span>
-        <span class="s">正解ラベルがないとき何ができるか——同じ顧客データで2つのアプローチを比較する</span>
+        <span class="t">第9回 主成分分析①</span>
+        <span class="s">X を少数の軸で近似し、F と A を交互に解く</span>
       </a>
+      <a class="pdf" href="09_supervised_unsupervised/reading.pdf" download="多変量解析_第9回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="10_pca/">
-        <span class="t">第10回 主成分分析（PCA）</span>
-        <span class="s">数百の変数を人間が解釈できる形にできるか——64次元の手書き数字を2次元に圧縮する</span>
+        <span class="t">第10回 主成分分析②</span>
+        <span class="s">X を1回特異値分解して、反復せずに解く</span>
       </a>
+      <a class="pdf" href="10_pca/reading.pdf" download="多変量解析_第10回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="11_dim_reduction_flow/">
-        <span class="t">第11回 SVD と低ランク近似</span>
-        <span class="s">64次元を2次元にするとき、何を失っているのか——近似誤差を最小にする問題として解く</span>
+        <span class="t">第11回 k-means</span>
+        <span class="s">G と C を交互に解き、初期値を変えてやり直す</span>
       </a>
+      <a class="pdf" href="11_dim_reduction_flow/reading.pdf" download="多変量解析_第11回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="12_clustering/">
-        <span class="t">第12回 クラスタリング</span>
-        <span class="s">似たものをどうグループ化するか——k-means・階層クラスタリング・距離尺度</span>
+        <span class="t">第12回 混合正規分布と EM アルゴリズム</span>
+        <span class="s">ラベルの見えない LDA を、所属の確率で解く</span>
       </a>
+      <a class="pdf" href="12_clustering/reading.pdf" download="多変量解析_第12回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="13_clustering_flow/">
         <span class="t">第13回 モデル選択</span>
-        <span class="s">k は目的関数では決まらない——当てはめの外に基準を置く</span>
+        <span class="s">当てはまりは複雑さとともに良くなる。罰を足すか、外の行で測る</span>
       </a>
+      <a class="pdf" href="13_clustering_flow/reading.pdf" download="多変量解析_第13回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="14_correspondence/">
-        <span class="t">第14回 コレスポンデンス分析</span>
-        <span class="s">カテゴリカルデータの関係をどう可視化するか——年齢層×好みのジャンルで読み解く</span>
+        <span class="t">第14回 対応分析</span>
+        <span class="s">独立の表からのずれを、重みを付けて低ランク近似する</span>
       </a>
+      <a class="pdf" href="14_correspondence/reading.pdf" download="多変量解析_第14回.pdf">読み物（PDF）</a>
     </li>
     <li>
       <a href="15_contingency_flow/">
-        <span class="t">第15回 残差</span>
-        <span class="s">ズレを比べられるようにする（最終回）</span>
+        <span class="t">第15回 残差と多重対応分析</span>
+        <span class="s">推定に使われた分で割って、1マスのずれを比べる（最終回）</span>
       </a>
+      <a class="pdf" href="15_contingency_flow/reading.pdf" download="多変量解析_第15回.pdf">読み物（PDF）</a>
     </li>
   </ol>
 
