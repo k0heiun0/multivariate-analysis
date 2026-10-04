@@ -10,7 +10,7 @@
 |---|---|
 | 1 | 多変量解析とは（[読み物 PDF](01_intro/reading.pdf)） |
 | 2 | 汎化誤差とデータリーク（[読み物 PDF](02_generalization/reading.pdf)） |
-| 3 | 係数の揺れと最小二乗法の限界（[読み物 PDF](03_preprocessing/reading.pdf)） |
+| 3 | 係数の不安定性と最小二乗法の限界（[読み物 PDF](03_preprocessing/reading.pdf)） |
 | 4 | 罰則付き最小二乗法（[読み物 PDF](04_regression_flow/reading.pdf)） |
 | 5 | 分類①：最小二乗法（[読み物 PDF](05_regression_limits/reading.pdf)） |
 | 6 | 分類②：最尤法（[読み物 PDF](06_regularization/reading.pdf)） |
