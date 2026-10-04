@@ -159,7 +159,7 @@
 </section>
 <section id="第1回の最小二乗法" class="slide level2" data-chapter="I-1">
 <h2>第1回の最小二乗法</h2>
-<div id="64bcaa6d" class="cell" data-execution_count="2">
+<div id="99fce44a" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -183,6 +183,7 @@
 <p>今回覚える言葉</p>
 <ul>
 <li>訓練誤差・汎化誤差</li>
+<li>過学習・過小学習</li>
 <li>バイアス・バリアンス分解</li>
 <li>テスト誤差と訓練・テスト分割（ホールドアウト）</li>
 <li>データリーク</li>
@@ -190,7 +191,7 @@
 </section>
 <section id="誤差をもっと小さくする" class="slide level2" data-chapter="I-7">
 <h2>誤差をもっと小さくする</h2>
-<div id="dfeb932f" class="cell" data-execution_count="4">
+<div id="864ef29f" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -203,7 +204,7 @@
 </section>
 <section id="次直線" class="slide level2" data-chapter="I-7">
 <h2>1次：直線</h2>
-<div id="52730575" class="cell" data-execution_count="5">
+<div id="c2be76e5" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -216,7 +217,7 @@
 </section>
 <section id="次" class="slide level2" data-chapter="I-7">
 <h2>3次</h2>
-<div id="bf17c5b0" class="cell" data-execution_count="6">
+<div id="5bcac1b2" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -229,7 +230,7 @@
 </section>
 <section id="次全部の点を通る" class="slide level2" data-chapter="I-7">
 <h2>9次：全部の点を通る</h2>
-<div id="72fdacc8" class="cell" data-execution_count="7">
+<div id="d3974042" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -242,7 +243,7 @@
 </section>
 <section id="訓練誤差だけ見れば9次が最良" class="slide level2" data-chapter="I-7">
 <h2>訓練誤差だけ見れば9次が最良</h2>
-<div id="a7ddb806" class="cell" data-execution_count="8">
+<div id="e4237d53" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -255,7 +256,7 @@
 </section>
 <section id="新しい点を持ってくる" class="slide level2" data-chapter="I-7">
 <h2>新しい点を持ってくる</h2>
-<div id="ece5a7f9" class="cell" data-execution_count="9">
+<div id="694ae4fc" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -268,7 +269,7 @@
 </section>
 <section id="次は新しい点で外れる" class="slide level2" data-chapter="I-7">
 <h2>9次は新しい点で外れる</h2>
-<div id="4b1bd7f8" class="cell" data-execution_count="10">
+<div id="c6c6b789" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -277,11 +278,11 @@
 </div>
 </div>
 </div>
-<p>新しい点での誤差を測る。訓練誤差0の9次が、いちばん外れる。</p>
+<p>新しい点での誤差を測る。訓練誤差0の9次が、いちばん外れる。点に合わせすぎた状態を過学習と呼ぶ。</p>
 </section>
 <section id="次数ごとに並べる①" class="slide level2" data-chapter="I-7">
 <h2>次数ごとに並べる①</h2>
-<div id="7929a86a" class="cell" data-execution_count="11">
+<div id="d280c30e" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -294,7 +295,7 @@
 </section>
 <section id="次数ごとに並べる②" class="slide level2" data-chapter="I-7">
 <h2>次数ごとに並べる②</h2>
-<div id="995ef5b7" class="cell" data-execution_count="12">
+<div id="e9671163" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -303,11 +304,11 @@
 </div>
 </div>
 </div>
-<p>新しい点での誤差を重ねる。3次で最小になり、そこから上がる（U字）。訓練誤差では、U字の右側が見えない。</p>
+<p>新しい点での誤差を重ねる。3次で最小（U字）。左側は単純すぎる過小学習、右側は合わせすぎの過学習。</p>
 </section>
 <section id="訓練誤差ではモデルを選べない" class="slide level2" data-chapter="I-7">
 <h2>訓練誤差ではモデルを選べない</h2>
-<div id="2a7f7f71" class="cell" data-execution_count="13">
+<div id="4484f977" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -320,7 +321,7 @@
 </section>
 <section id="本当に小さくしたい誤差" class="slide level2" data-chapter="I-7">
 <h2>本当に小さくしたい誤差</h2>
-<div id="b2dc5466" class="cell" data-execution_count="14">
+<div id="8b5af11b" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -369,7 +370,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </section>
 <section id="次の問いなぜu字になるのか" class="slide level2" data-chapter="I-1">
 <h2>次の問い：なぜU字になるのか</h2>
-<div id="27db5d76" class="cell" data-execution_count="17">
+<div id="1e366438" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -382,7 +383,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </section>
 <section id="訓練データを取り直す" class="slide level2" data-chapter="I-7">
 <h2>訓練データを取り直す</h2>
-<div id="0785891e" class="cell" data-execution_count="18">
+<div id="d2176230" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -395,7 +396,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </section>
 <section id="曲線の平均" class="slide level2" data-chapter="I-7">
 <h2>曲線の平均</h2>
-<div id="ecf4c544" class="cell" data-execution_count="19">
+<div id="a640aab3" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -408,7 +409,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </section>
 <section id="bias平均が真の関係からずれる" class="slide level2" data-chapter="I-7">
 <h2>Bias：平均が真の関係からずれる</h2>
-<div id="b9a33388" class="cell" data-execution_count="20">
+<div id="9e11abea" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -417,11 +418,11 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </div>
 </div>
 </div>
-<p>1次の平均（青）は、何度取り直しても真の関係（破線）に届かない。青く塗った隙間が系統的なずれ。単純すぎると大きい。</p>
+<p>1次の平均（青）は、何度取り直しても真の関係（破線）に届かない。青く塗った隙間が系統的なずれ。過小学習で大きい。</p>
 </section>
 <section id="variance平均のまわりで暴れる" class="slide level2" data-chapter="I-7">
 <h2>Variance：平均のまわりで暴れる</h2>
-<div id="f4d107c4" class="cell" data-execution_count="21">
+<div id="c29b429a" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -430,11 +431,11 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </div>
 </div>
 </div>
-<p>8次の平均は真の関係に近い。だが1本1本が大きく揺れる（赤い帯）。複雑すぎると大きい。</p>
+<p>8次の平均は真の関係に近い。だが1本1本が大きく揺れる（赤い帯）。過学習で大きい。</p>
 </section>
 <section id="次ずれも揺れも小さい" class="slide level2" data-chapter="I-7">
 <h2>3次：ずれも揺れも小さい</h2>
-<div id="4d3d435f" class="cell" data-execution_count="22">
+<div id="2cfcdc82" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -447,7 +448,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </section>
 <section id="的当て①曲線1本が矢1本" class="slide level2" data-chapter="I-7">
 <h2>的当て①：曲線1本が矢1本</h2>
-<div id="f47fca14" class="cell" data-execution_count="23">
+<div id="368c911e" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -460,7 +461,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </section>
 <section id="的当て②1次は外れて固まる" class="slide level2" data-chapter="I-7">
 <h2>的当て②：1次は外れて固まる</h2>
-<div id="19e63468" class="cell" data-execution_count="24">
+<div id="c83c2abb" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -473,7 +474,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </section>
 <section id="的当て③8次は散らばる" class="slide level2" data-chapter="I-7">
 <h2>的当て③：8次は散らばる</h2>
-<div id="236095b3" class="cell" data-execution_count="25">
+<div id="8867d822" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -486,7 +487,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 </section>
 <section id="的当て④3次は中心に集まる" class="slide level2" data-chapter="I-7">
 <h2>的当て④：3次は中心に集まる</h2>
-<div id="18b76f2c" class="cell" data-execution_count="26">
+<div id="5c671327" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -503,7 +504,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 <div class="column" style="width:45%;">
 <p>1次の直線全体を、1つの集合とみる。当てはめは、集合の中から1点を選ぶこと。集合が★に届かない隙間がBias。</p>
 </div><div class="column" style="width:55%;">
-<div id="c5a1891c" class="cell" data-execution_count="27">
+<div id="f0ea228c" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -520,7 +521,7 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 <div class="column" style="width:45%;">
 <p>8次の集合は★の近くまで届く。だが広い分、取り直すたびに選ぶ点が散らばる。これがVariance。集合を広げるとBiasは減り、Varianceは増える。</p>
 </div><div class="column" style="width:55%;">
-<div id="af1c499a" class="cell" data-execution_count="28">
+<div id="690de55e" class="cell" data-execution_count="28">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -576,9 +577,9 @@ E_{\text{gen}} \approx \frac{1}{n_{\text{new}}}\sum_{i=1}^{n_{\text{new}}}\bigl(
 <section id="ノイズ真の曲線でも残る誤差" class="slide level2" data-chapter="I-3">
 <h2>ノイズ：真の曲線でも残る誤差</h2>
 <p><span class="math display">
-y=g(x)+\varepsilon
+y=g(x)+\varepsilon,\qquad \varepsilon\sim N(0,\sigma^2)
 </span></p>
-<p>新しい点は、真の曲線のまわりに散らばる。ノイズ <span class="math inline">\varepsilon</span> の二乗の平均を <span class="math inline">\sigma^2</span> と書く。真の曲線で予測しても、この分は外れる。</p>
+<p>ノイズ <span class="math inline">\varepsilon</span> は、平均0・分散 <span class="math inline">\sigma^2</span> の正規分布に従うと仮定する（人工データでは <span class="math inline">\sigma=2</span>）。真の曲線で予測しても、この分は外れる。</p>
 </section>
 <section id="バイアスバリアンス分解" class="slide level2" data-chapter="I-5">
 <h2>バイアス・バリアンス分解</h2>
@@ -599,7 +600,7 @@ y=g(x)+\varepsilon
 <div class="column" style="width:45%;">
 <p>次数を上げると Bias² は下がり、Variance は上がる。両方が小さいのは、その間だけ（トレードオフ）。</p>
 </div><div class="column" style="width:55%;">
-<div id="c749898a" class="cell" data-execution_count="33">
+<div id="d4c81abe" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -616,7 +617,7 @@ y=g(x)+\varepsilon
 <div class="column" style="width:45%;">
 <p><span class="math inline">\sigma^2</span> を足した和（緑）が、新しい点で直接測った誤差（×）と重なる。和はU字を描く。</p>
 </div><div class="column" style="width:55%;">
-<div id="7f877a41" class="cell" data-execution_count="34">
+<div id="b8b0dfcb" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -633,7 +634,7 @@ y=g(x)+\varepsilon
 <div class="column" style="width:45%;">
 <p>どの次数でも、和は <span class="math inline">\sigma^2</span> の下に入らない。訓練誤差を0にすることは目標にならない。</p>
 </div><div class="column" style="width:55%;">
-<div id="8dbd82a6" class="cell" data-execution_count="35">
+<div id="b8125ea5" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -644,16 +645,16 @@ y=g(x)+\varepsilon
 </div>
 </div></div>
 </section>
-<section id="分解から言える処方" class="slide level2" data-chapter="I-7">
-<h2>分解から言える処方</h2>
+<section id="分解から言える対処法" class="slide level2" data-chapter="I-7">
+<h2>分解から言える対処法</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <ul>
-<li>左側（訓練でも新しい点でも誤差が大）＝ Bias過多 → モデルを複雑に</li>
-<li>右側（訓練だけ誤差が小）＝ Variance過多 → 単純に、またはデータを増やす</li>
+<li>左側（訓練でも新しい点でも誤差が大）＝ 過小学習（Bias過多）→ モデルを複雑に</li>
+<li>右側（訓練だけ誤差が小）＝ 過学習（Variance過多）→ 単純に、またはデータを増やす</li>
 </ul>
 </div><div class="column" style="width:55%;">
-<div id="6c975d14" class="cell" data-execution_count="36">
+<div id="1dd7b8fb" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -666,7 +667,7 @@ y=g(x)+\varepsilon
 </section>
 <section id="学習曲線①人数を増やして測る" class="slide level2" data-chapter="I-7">
 <h2>学習曲線①：人数を増やして測る</h2>
-<div id="dfeaf7c1" class="cell" data-execution_count="38">
+<div id="c86b9ea1" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -679,7 +680,7 @@ y=g(x)+\varepsilon
 </section>
 <section id="学習曲線②開きが縮む" class="slide level2" data-chapter="I-7">
 <h2>学習曲線②：開きが縮む</h2>
-<div id="576d2f97" class="cell" data-execution_count="39">
+<div id="d5e0d942" class="cell" data-execution_count="39">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -688,11 +689,11 @@ y=g(x)+\varepsilon
 </div>
 </div>
 </div>
-<p>Variance過多の6次。点を増やすと、2本の開き（Variance）が縮んで <span class="math inline">\sigma^2</span> に近づく。データを増やせば効く。</p>
+<p>過学習の6次。点を増やすと、2本の開き（Variance）が縮んで <span class="math inline">\sigma^2</span> に近づく。データを増やせば効く。</p>
 </section>
 <section id="学習曲線③両方高いまま" class="slide level2" data-chapter="I-7">
 <h2>学習曲線③：両方高いまま</h2>
-<div id="9a1aa399" class="cell" data-execution_count="40">
+<div id="ae24d9df" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -701,20 +702,20 @@ y=g(x)+\varepsilon
 </div>
 </div>
 </div>
-<p>Bias過多の1次では、2本とも高いところで平らになる。点を増やしても下がらない。データではなく、モデルを複雑にする。</p>
+<p>過小学習の1次では、2本とも高いところで平らになる。点を増やしても下がらない。データではなく、モデルを複雑にする。</p>
 </section>
-<section id="列も増やせば開きは縮まない" class="slide level2" data-chapter="I-7">
-<h2>列も増やせば開きは縮まない</h2>
-<div id="08edc8da" class="cell" data-execution_count="41">
+<section id="列も足せば過学習のまま" class="slide level2" data-chapter="I-7">
+<h2>列も足せば過学習のまま</h2>
+<div id="e1b6d39c" class="cell" data-execution_count="41">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png" class="quarto-figure quarto-figure-center" width="1185" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png" class="quarto-figure quarto-figure-center" width="1185" height="285"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>右は、無関係な列を足して係数を点の数の半分にした場合。200点集めても開きは縮まない。開きを決めるのは、点の数と複雑さの釣り合い。</p>
+<p>右は、点を増やすたびに <span class="math inline">y</span> と無関係な列も足した場合。200点集めても過学習のまま。点を集めるだけでは、過学習は防げない。</p>
 </section>
 <section id="次の問い汎化誤差はわからない" class="slide level2" data-chapter="I-1">
 <h2>次の問い：汎化誤差はわからない</h2>
@@ -726,7 +727,7 @@ y=g(x)+\varepsilon
 </section>
 <section id="行を分ける" class="slide level2" data-chapter="I-2">
 <h2>行を分ける</h2>
-<div id="30a8a83e" class="cell" data-execution_count="44">
+<div id="c8bb42c2" class="cell" data-execution_count="44">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -770,7 +771,7 @@ E_{\text{test}} = \frac{1}{n_{\text{test}}}\lVert \boldsymbol y_{\text{test}} - 
 <ul>
 <li>行は分けた。係数は訓練の行だけで決めた</li>
 <li>それでも、テストの行の情報が訓練にこっそり入り込む道がある</li>
-<li>入口は、当てはめる前の下ごしらえ（前処理）</li>
+<li>入口は、当てはめる前に行う処理（前処理）</li>
 </ul>
 </section>
 <section id="前処理の例標準化" class="slide level2" data-chapter="I-4">
@@ -780,23 +781,46 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 \quad\Longrightarrow\quad
 \mathbf Z = (\mathbf X - \mathbf 1\bar{\boldsymbol x}^\top)\,\mathbf D^{-1}
 </span></p>
-<p>列ごとに平均を引き、標準偏差で割る。列の単位をそろえる下ごしらえ。<span class="math inline">\mathbf D=\operatorname{diag}(s_1,\dots,s_p)</span>。</p>
+<p>列ごとに平均を引き、標準偏差で割る。列の単位をそろえる前処理。</p>
+</section>
+<section id="diagベクトルを対角に並べる" class="slide level2" data-chapter="I-4">
+<h2>diag：ベクトルを対角に並べる</h2>
+<div id="32082459" class="cell" data-execution_count="45">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png" class="quarto-figure quarto-figure-center" width="634" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\mathbf D=\operatorname{diag}(s_1,\dots,s_p)</span> は、標準偏差を対角に並べ、残りを0にした行列。対角行列と呼ぶ。</p>
+</section>
+<section id="d¹を右から掛ける" class="slide level2" data-chapter="I-4">
+<h2>D⁻¹を右から掛ける</h2>
+<p><span class="math display">
+\begin{bmatrix} a_{11} &amp; a_{12}\\ a_{21} &amp; a_{22}\\ a_{31} &amp; a_{32}\end{bmatrix}
+\begin{bmatrix} 1/s_1 &amp; 0\\ 0 &amp; 1/s_2\end{bmatrix}
+=
+\begin{bmatrix} a_{11}/s_1 &amp; a_{12}/s_2\\ a_{21}/s_1 &amp; a_{22}/s_2\\ a_{31}/s_1 &amp; a_{32}/s_2\end{bmatrix}
+</span></p>
+<p><span class="math inline">\mathbf D^{-1}=\operatorname{diag}(1/s_1,\dots,1/s_p)</span>。平均を引いた行列に右から掛けると、第 <span class="math inline">j</span> 列が <span class="math inline">s_j</span> で割られる。</p>
 </section>
 <section id="平均と標準偏差も推定した値" class="slide level2" data-chapter="I-7">
 <h2>平均と標準偏差も推定した値</h2>
 <ul>
-<li><span class="math inline">\bar x_j,\ s_j</span> は天から与えられた定数ではない。手元のデータから計算した値</li>
+<li><span class="math inline">\bar x_j,\ s_j</span> は、手元のデータから推定した値</li>
 <li>前処理はモデルの前置きではなく、モデルの一部</li>
 <li>だから係数 <span class="math inline">\hat{\boldsymbol\beta}</span> と同じく、訓練の行だけから決める</li>
 </ul>
 </section>
 <section id="データリーク" class="slide level2" data-chapter="I-7">
 <h2>データリーク</h2>
-<div id="58d0ddb8" class="cell" data-execution_count="45">
+<div id="a7ef5b05" class="cell" data-execution_count="46">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="207"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="207"></p>
 </figure>
 </div>
 </div>
@@ -805,11 +829,11 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </section>
 <section id="アルゴリズム訓練の統計量で変換" class="slide level2 smaller" data-chapter="I-6">
 <h2>アルゴリズム：訓練の統計量で変換</h2>
-<div id="b3d1bb8f" class="cell" data-execution_count="46">
+<div id="4d0a1d1d" class="cell" data-execution_count="47">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="207"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="207"></p>
 </figure>
 </div>
 </div>
@@ -928,20 +952,7 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </section>
 <section id="検証①まず訓練の行で測る" class="slide level2" data-chapter="II-3">
 <h2>検証①：まず訓練の行で測る</h2>
-<div id="c03cafa3" class="cell" data-execution_count="49">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png" class="quarto-figure quarto-figure-center" width="945" height="295"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>係数を決めた309人で測ると、第1回の全員の数字に近い。</p>
-</section>
-<section id="検証①次にテストの行で測る" class="slide level2" data-chapter="II-3">
-<h2>検証①：次にテストの行で測る</h2>
-<div id="7e3279e5" class="cell" data-execution_count="50">
+<div id="15646079" class="cell" data-execution_count="50">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -950,11 +961,11 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </div>
 </div>
 </div>
-<p>測る133人では、10変数の誤差が約 10% 大きくなる。BMIだけでは、ほとんど変わらない。</p>
+<p>係数を決めた309人で測ると、第1回の全員の数字に近い。</p>
 </section>
-<section id="検証①崩れ方は小さい" class="slide level2" data-chapter="II-3">
-<h2>検証①：崩れ方は小さい</h2>
-<div id="c427eb8b" class="cell" data-execution_count="51">
+<section id="検証①次にテストの行で測る" class="slide level2" data-chapter="II-3">
+<h2>検証①：次にテストの行で測る</h2>
+<div id="054a5871" class="cell" data-execution_count="51">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -963,15 +974,28 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </div>
 </div>
 </div>
+<p>測る133人では、10変数の誤差が約 10% 大きくなる。BMIだけでは、ほとんど変わらない。</p>
+</section>
+<section id="検証①崩れ方は小さい" class="slide level2" data-chapter="II-3">
+<h2>検証①：崩れ方は小さい</h2>
+<div id="e96d451a" class="cell" data-execution_count="52">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png" class="quarto-figure quarto-figure-center" width="945" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>係数 11 個を309人で決めている。第I部の9次の曲線のようには崩れない。BMIだけなら係数は2個。</p>
 </section>
 <section id="検証②前処理は訓練の値だけで" class="slide level2" data-chapter="II-3">
 <h2>検証②：前処理は訓練の値だけで</h2>
-<div id="fc83da26" class="cell" data-execution_count="52">
+<div id="28e08ac3" class="cell" data-execution_count="53">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png" class="quarto-figure quarto-figure-center" width="944" height="294"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-54-output-1.png" class="quarto-figure quarto-figure-center" width="944" height="294"></p>
 </figure>
 </div>
 </div>
@@ -980,11 +1004,11 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </section>
 <section id="検証②0にならないのが正しい" class="slide level2" data-chapter="II-3">
 <h2>検証②：0にならないのが正しい</h2>
-<div id="484a79e0" class="cell" data-execution_count="53">
+<div id="b78ae802" class="cell" data-execution_count="54">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-54-output-1.png" class="quarto-figure quarto-figure-center" width="944" height="294"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-55-output-1.png" class="quarto-figure quarto-figure-center" width="944" height="294"></p>
 </figure>
 </div>
 </div>
@@ -1001,20 +1025,7 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </section>
 <section id="デモ①訓練誤差" class="slide level2" data-chapter="II-4">
 <h2>デモ①：訓練誤差</h2>
-<div id="307cafc3" class="cell" data-execution_count="56">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png" class="quarto-figure quarto-figure-center" width="940" height="354"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>人数が少ないうちは、モデルがその人たちに合わせきれるので低い。増やすと少し上がる。</p>
-</section>
-<section id="デモ②テスト誤差を重ねる" class="slide level2" data-chapter="II-4">
-<h2>デモ②：テスト誤差を重ねる</h2>
-<div id="310fffee" class="cell" data-execution_count="57">
+<div id="be55a3dd" class="cell" data-execution_count="57">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1023,22 +1034,35 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </div>
 </div>
 </div>
+<p>人数が少ないうちは、モデルがその人たちに合わせきれるので低い。増やすと少し上がる。</p>
+</section>
+<section id="デモ②テスト誤差を重ねる" class="slide level2" data-chapter="II-4">
+<h2>デモ②：テスト誤差を重ねる</h2>
+<div id="b5509192" class="cell" data-execution_count="58">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png" class="quarto-figure quarto-figure-center" width="940" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>テスト誤差は人数とともに下がる。2本の開き（Variance）が縮む。モデルは何も変えていない。</p>
 </section>
 <section id="解釈曲線の形で診断する" class="slide level2 smaller" data-chapter="II-5">
 <h2>解釈：曲線の形で診断する</h2>
-<div id="71a5e130" class="cell" data-execution_count="58">
+<div id="2737005f" class="cell" data-execution_count="59">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="220"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-60-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="220"></p>
 </figure>
 </div>
 </div>
 </div>
 <ul>
-<li>2本の開きが大きい → Variance過多：データを増やす、単純にする</li>
-<li>両方高く開きが小さい → Bias過多：モデルを複雑にする</li>
+<li>2本の開きが大きい → 過学習：データを増やす、単純にする</li>
+<li>両方高く開きが小さい → 過小学習：モデルを複雑にする</li>
 <li>右端が平ら → 集めても同じ値が続く</li>
 </ul>
 </section>
@@ -1052,11 +1076,11 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </section>
 <section id="落とし穴訓練の行だけで選ぶ" class="slide level2" data-chapter="II-6">
 <h2>落とし穴：訓練の行だけで選ぶ</h2>
-<div id="ef748b47" class="cell" data-execution_count="60">
+<div id="2ada16f6" class="cell" data-execution_count="61">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png" class="quarto-figure quarto-figure-center" width="886" height="243"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-62-output-1.png" class="quarto-figure quarto-figure-center" width="886" height="243"></p>
 </figure>
 </div>
 </div>
@@ -1065,11 +1089,11 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </section>
 <section id="落とし穴全行で先に選ぶと" class="slide level2" data-chapter="II-6">
 <h2>落とし穴：全行で先に選ぶと</h2>
-<div id="9bfd4ea3" class="cell" data-execution_count="61">
+<div id="b68616a8" class="cell" data-execution_count="62">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-62-output-1.png" class="quarto-figure quarto-figure-center" width="886" height="243"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-63-output-1.png" class="quarto-figure quarto-figure-center" width="886" height="243"></p>
 </figure>
 </div>
 </div>
@@ -1091,20 +1115,7 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </section>
 <section id="列の数を点の数より増やす" class="slide level2" data-chapter="締め">
 <h2>列の数を点の数より増やす</h2>
-<div id="ade85ac4" class="cell" data-execution_count="63">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-64-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="390"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>訓練の点は40。列（パラメータ）を増やして当てはめる。列が点より少ないうちはU字。</p>
-</section>
-<section id="列の数が点の数に並ぶと" class="slide level2" data-chapter="締め">
-<h2>列の数が点の数に並ぶと</h2>
-<div id="3d36aab1" class="cell" data-execution_count="64">
+<div id="35713a67" class="cell" data-execution_count="64">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1113,15 +1124,28 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </div>
 </div>
 </div>
-<p>列が40本になると、40点を全部通せる。訓練誤差は0、テスト誤差は最大。9次の曲線と同じ。</p>
+<p>訓練の点は40。列（パラメータ）を増やして当てはめる。列が点より少ないうちはU字。</p>
 </section>
-<section id="さらに増やすと再び下がる" class="slide level2" data-chapter="締め">
-<h2>さらに増やすと再び下がる</h2>
-<div id="8d9c7342" class="cell" data-execution_count="65">
+<section id="列の数が点の数に並ぶと" class="slide level2" data-chapter="締め">
+<h2>列の数が点の数に並ぶと</h2>
+<div id="11cc22d2" class="cell" data-execution_count="65">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="slide_files/figure-revealjs/cell-66-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="390"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>列が40本になると、40点を全部通せる。訓練誤差は0、テスト誤差は最大。9次の曲線と同じ。</p>
+</section>
+<section id="さらに増やすと再び下がる" class="slide level2" data-chapter="締め">
+<h2>さらに増やすと再び下がる</h2>
+<div id="37574871" class="cell" data-execution_count="66">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-67-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="390"></p>
 </figure>
 </div>
 </div>
@@ -1140,13 +1164,13 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 <h2>まとめ①：誤差は3つに分かれる</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p>Bias² ＋ Variance ＋ σ²。単純すぎればBias、複雑すぎればVariance。σ²は消せない。</p>
+<p>Bias² ＋ Variance ＋ σ²。過小学習ではBias、過学習ではVariance が大きい。σ²は消せない。</p>
 </div><div class="column" style="width:55%;">
-<div id="4b8fbfe0" class="cell" data-execution_count="67">
+<div id="da469361" class="cell" data-execution_count="68">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-68-output-1.png" width="413" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png" width="413" height="378"></p>
 </figure>
 </div>
 </div>
@@ -1155,11 +1179,11 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </section>
 <section id="まとめ②測る行を残す" class="slide level2" data-chapter="締め">
 <h2>まとめ②：測る行を残す</h2>
-<div id="9f301784" class="cell" data-execution_count="68">
+<div id="31724eb6" class="cell" data-execution_count="69">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png" class="quarto-figure quarto-figure-center" width="941" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png" class="quarto-figure quarto-figure-center" width="941" height="342"></p>
 </figure>
 </div>
 </div>
@@ -1168,45 +1192,58 @@ z_{ij}=\frac{x_{ij}-\bar x_j}{s_j}
 </section>
 <section id="まとめ③前処理も訓練の行で" class="slide level2" data-chapter="締め">
 <h2>まとめ③：前処理も訓練の行で</h2>
-<div id="b9ff52b1" class="cell" data-execution_count="69">
+<div id="61c9fab9" class="cell" data-execution_count="70">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="207"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-71-output-1.png" class="quarto-figure quarto-figure-center" width="1071" height="207"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>前処理の平均・標準偏差もモデルの一部。係数と同じく、訓練の行だけで学ぶ。</p>
 </section>
-<section id="次回予告①分割を変えて測り直す" class="slide level2" data-chapter="締め">
-<h2>次回予告①：分割を変えて測り直す</h2>
-<div id="1dd5c741" class="cell" data-execution_count="70">
+<section id="次回予告①分け方は恣意的" class="slide level2" data-chapter="締め">
+<h2>次回予告①：分け方は恣意的</h2>
+<div id="637ebb38" class="cell" data-execution_count="71">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-71-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="298"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png" class="quarto-figure quarto-figure-center" width="614" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>行を訓練とテストに分けた。だが、どの行をテストに回すかは乱数で決めただけ。分け方は恣意的。</p>
+</section>
+<section id="次回予告②分割を変えて測り直す" class="slide level2" data-chapter="締め">
+<h2>次回予告②：分割を変えて測り直す</h2>
+<div id="b3396e9f" class="cell" data-execution_count="72">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-73-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="298"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>第1回の10変数のモデルを、分割の乱数だけ変えて20回測り直した。データもモデルも同じ。</p>
 </section>
-<section id="次回予告②数字が揺れる" class="slide level2" data-chapter="締め">
-<h2>次回予告②：数字が揺れる</h2>
-<div id="1c820ec5" class="cell" data-execution_count="71">
+<section id="次回予告③数字が揺れる" class="slide level2" data-chapter="締め">
+<h2>次回予告③：数字が揺れる</h2>
+<div id="344eb647" class="cell" data-execution_count="73">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="298"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-74-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="298"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>テスト誤差は 2,266〜3,464。違うのは、どの133人をテストに回したかだけ。</p>
 </section>
-<section id="次回予告③係数が揺れる" class="slide level2" data-chapter="締め">
-<h2>次回予告③：係数が揺れる</h2>
+<section id="次回予告④係数が揺れる" class="slide level2" data-chapter="締め">
+<h2>次回予告④：係数が揺れる</h2>
 <ul>
 <li>訓練の行が変わるたびに、係数 <span class="math inline">\hat{\boldsymbol\beta}</span> そのものが変わる</li>
 <li>Varianceは、訓練データを取り直したときの予測の揺れだった</li>
