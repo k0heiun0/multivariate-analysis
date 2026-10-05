@@ -168,7 +168,7 @@
 </section>
 <section id="場面①分割を20通り変える" class="slide level2" data-chapter="I-1">
 <h2>場面①：分割を20通り変える</h2>
-<div id="8e515f64" class="cell" data-execution_count="2">
+<div id="262a808d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -181,7 +181,7 @@
 </section>
 <section id="場面②テスト誤差が揺れる" class="slide level2" data-chapter="I-1">
 <h2>場面②：テスト誤差が揺れる</h2>
-<div id="fb7b5f1f" class="cell" data-execution_count="3">
+<div id="262bd957" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -194,7 +194,7 @@
 </section>
 <section id="場面③所得の係数" class="slide level2" data-chapter="I-1">
 <h2>場面③：所得の係数</h2>
-<div id="1e40f648" class="cell" data-execution_count="4">
+<div id="7efa30fb" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -207,7 +207,7 @@
 </section>
 <section id="場面④寝室数の係数" class="slide level2" data-chapter="I-1">
 <h2>場面④：寝室数の係数</h2>
-<div id="771deab8" class="cell" data-execution_count="5">
+<div id="2d98ae73" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -220,7 +220,7 @@
 </section>
 <section id="揺れの大きさを比べる" class="slide level2" data-chapter="I-1">
 <h2>揺れの大きさを比べる</h2>
-<div id="7e80df9b" class="cell" data-execution_count="6">
+<div id="9008e024" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -290,7 +290,7 @@
 </section>
 <section id="道具①サイコロを振り続ける" class="slide level2" data-chapter="I-4">
 <h2>道具①：サイコロを振り続ける</h2>
-<div id="ddbbcc6a" class="cell" data-execution_count="8">
+<div id="f9034578" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -335,7 +335,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 \boldsymbol y=\begin{bmatrix}y_1\\ \vdots\\ y_n\end{bmatrix},\qquad
 \mathbb E[\boldsymbol y]=\begin{bmatrix}\mathbb E[y_1]\\ \vdots\\ \mathbb E[y_n]\end{bmatrix}
 </span></p>
-<p>期待値は成分ごとに取る。これを期待値ベクトルと呼ぶ。</p>
+<p>期待値は成分ごとに取る。これを期待値ベクトルと呼ぶ。サイコロ2つなら <span class="math inline">[3.5,\ 3.5]^\top</span>。</p>
 </section>
 <section id="道具⑦分散共分散行列" class="slide level2" data-chapter="I-4">
 <h2>道具⑦：分散共分散行列</h2>
@@ -350,7 +350,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 \operatorname{Var}(\boldsymbol y)=\begin{bmatrix}\sigma^2&amp;0&amp;0\\ 0&amp;\sigma^2&amp;0\\ 0&amp;0&amp;\sigma^2\end{bmatrix}=\sigma^2\mathbf I_3
 \qquad(n=3)
 </span></p>
-<p>独立なら共分散は0。分散がそろえば <span class="math inline">\operatorname{Var}(\boldsymbol y)=\sigma^2\mathbf I_n</span>。</p>
+<p>独立なら共分散は0。分散がそろえば <span class="math inline">\operatorname{Var}(\boldsymbol y)=\sigma^2\mathbf I_n</span>。サイコロ2つなら <span class="math inline">\sigma^2\approx2.92</span>、<span class="math inline">n=2</span>。</p>
 </section>
 <section id="道具⑨定数倍と和の分散" class="slide level2" data-chapter="I-4">
 <h2>道具⑨：定数倍と和の分散</h2>
@@ -369,6 +369,32 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 \operatorname{Var}(\mathbf A\boldsymbol y)=\mathbf A\operatorname{Var}(\boldsymbol y)\mathbf A^\top
 </span></p>
 <p><span class="math inline">\mathbf A</span> が1行 <span class="math inline">\boldsymbol a^\top</span> なら <span class="math inline">\sigma^2\boldsymbol a^\top\boldsymbol a=\sigma^2\sum_ia_i^2</span>。道具⑨の和の式に戻る。</p>
+</section>
+<section id="例2つの目の和" class="slide level2" data-chapter="I-4">
+<h2>例：2つの目の和</h2>
+<div id="709ed0d9" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1013" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\mathbf A=[1\ \ 1]</span> を掛けると目の和。道具⑩から、分散は <span class="math inline">\mathbf A(\sigma^2\mathbf I_2)\mathbf A^\top=2\sigma^2\approx5.83</span>。20万回振った和でも 5.83。</p>
+</section>
+<section id="例2つの目の差" class="slide level2" data-chapter="I-4">
+<h2>例：2つの目の差</h2>
+<div id="3c808786" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1013" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\mathbf A=[1\ \ -1]</span> なら目の差。<span class="math inline">(-1)^2=1</span> なので、分散はやはり <span class="math inline">2\sigma^2\approx5.83</span>。引き算をしても、分散は足し算で増える。</p>
 </section>
 <section id="道具⑪22の逆行列" class="slide level2" data-chapter="I-4">
 <h2>道具⑪：2×2の逆行列</h2>
@@ -415,11 +441,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="取り直してみる①同じxで" class="slide level2" data-chapter="I-7">
 <h2>取り直してみる①：同じxで</h2>
-<div id="2a94e61a" class="cell" data-execution_count="10">
+<div id="3d9574b1" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
 </figure>
 </div>
 </div>
@@ -428,11 +454,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="取り直してみる②扇が開く" class="slide level2" data-chapter="I-7">
 <h2>取り直してみる②：扇が開く</h2>
-<div id="091d0daf" class="cell" data-execution_count="11">
+<div id="6caa952d" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
 </figure>
 </div>
 </div>
@@ -455,11 +481,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="スカラーxが広いほど揺れない" class="slide level2" data-chapter="I-5">
 <h2>スカラー：xが広いほど揺れない</h2>
-<div id="542196a2" class="cell" data-execution_count="12">
+<div id="460de91d" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
 </figure>
 </div>
 </div>
@@ -530,33 +556,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="係数の空間①似ていない2列" class="slide level2" data-chapter="I-7">
 <h2>係数の空間①：似ていない2列</h2>
-<div id="dea1ebed" class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="862" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>人工データの2列で、<span class="math inline">y</span> を300回取り直した <span class="math inline">(\hat\beta_1,\hat\beta_2)</span>（★が真の値）。似ていなければ、丸く小さく散らばる。</p>
-</section>
-<section id="係数の空間②似た2列" class="slide level2" data-chapter="I-7">
-<h2>係数の空間②：似た2列</h2>
-<div id="3575f28c" class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" class="quarto-figure quarto-figure-center" width="862" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>相関0.9の2列では、同じノイズでも斜めに細長く伸びる。</p>
-</section>
-<section id="和は決まり内訳は決まらない" class="slide level2" data-chapter="I-7">
-<h2>和は決まり、内訳は決まらない</h2>
-<div id="748a1a41" class="cell" data-execution_count="16">
+<div id="732a6a83" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -565,7 +565,54 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </div>
 </div>
 </div>
+<p>人工データの2列で、<span class="math inline">y</span> を300回取り直した <span class="math inline">(\hat\beta_1,\hat\beta_2)</span>（★が真の値）。似ていなければ、丸く小さく散らばる。</p>
+</section>
+<section id="係数の空間②似た2列" class="slide level2" data-chapter="I-7">
+<h2>係数の空間②：似た2列</h2>
+<div id="f62eb7cd" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="862" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>相関0.9の2列では、同じノイズでも斜めに細長く伸びる。</p>
+</section>
+<section id="和は決まり内訳は決まらない" class="slide level2" data-chapter="I-7">
+<h2>和は決まり、内訳は決まらない</h2>
+<div id="411197db" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" class="quarto-figure quarto-figure-center" width="862" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
 <p><span class="math inline">x_1\approx x_2</span> なら <span class="math inline">\beta_1x_1+\beta_2x_2\approx(\beta_1+\beta_2)x_1</span>。和 <span class="math inline">\beta_1+\beta_2</span> は決まるが、内訳が決まらない。</p>
+</section>
+<section id="例コーヒーの量とカップ" class="slide level2" data-chapter="I-7">
+<h2>例：コーヒーの量とカップ</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 85%;">
+<p>カフェのコーヒーの値段を、注いだ量とカップの大きさの2列で説明する。</p>
+<p>大きいカップほど多く注ぐので、2列はほぼ同じ動きをする（相関 0.99）。</p>
+<p>値段の差が量によるのか、カップによるのかは、データから分けられない。</p>
+</div>
+</div><div class="column" style="width:55%;">
+<div id="2907d325" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" width="389" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
 <section id="列が2本xᵀxを書き下す" class="slide level2" data-chapter="I-5">
 <h2>列が2本：XᵀXを書き下す</h2>
@@ -595,16 +642,47 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="倍率を数える" class="slide level2" data-chapter="I-5">
 <h2>倍率を数える</h2>
-<div id="5608cfd1" class="cell" data-execution_count="17">
+<div id="a28d7f8b" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="862" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="862" height="384"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>相関 <span class="math inline">r_{12}=0.9</span> なら、倍率は <span class="math inline">1/(1-0.81)\approx5.3</span>。標準偏差にして約2.3倍。右の図の横の広がりがこれ。</p>
+</section>
+<section id="例相関と倍率" class="slide level2" data-chapter="I-5">
+<h2>例：相関と倍率</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>相関 <span class="math inline">r_{12}</span></th>
+<th>0</th>
+<th>0.5</th>
+<th>0.9</th>
+<th>0.99</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>分散の倍率 <span class="math inline">1/(1-r_{12}^2)</span></td>
+<td>1</td>
+<td>1.33</td>
+<td>5.3</td>
+<td>50</td>
+</tr>
+<tr class="even">
+<td>標準偏差の倍率</td>
+<td>1</td>
+<td>1.15</td>
+<td>2.3</td>
+<td>7.1</td>
+</tr>
+</tbody>
+</table>
+<p>0.5ならほとんど膨らまない。コーヒーの量とカップ（0.99）なら、係数の標準偏差は約 7 倍。</p>
 </section>
 <section id="vif列が何本でも" class="slide level2" data-chapter="I-5">
 <h2>VIF：列が何本でも</h2>
@@ -619,11 +697,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="vifは1の近くで急に膨らむ" class="slide level2" data-chapter="I-5">
 <h2>VIFは1の近くで急に膨らむ</h2>
-<div id="63ed9e73" class="cell" data-execution_count="18">
+<div id="8f20efee" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png" class="quarto-figure quarto-figure-center" width="925" height="389"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" class="quarto-figure quarto-figure-center" width="925" height="389"></p>
 </figure>
 </div>
 </div>
@@ -665,11 +743,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="残った行列の大きさ" class="slide level2" data-chapter="I-5">
 <h2>残った行列の大きさ</h2>
-<div id="6bd117c8" class="cell" data-execution_count="21">
+<div id="07634f02" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="870" height="296"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="870" height="296"></p>
 </figure>
 </div>
 </div>
@@ -678,16 +756,90 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="射影行列hnnの箱" class="slide level2" data-chapter="I-5">
 <h2>射影行列H：n×nの箱</h2>
-<div id="077f3832" class="cell" data-execution_count="22">
+<div id="c8cf0f3b" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png" class="quarto-figure quarto-figure-center" width="870" height="296"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="870" height="296"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span class="math inline">\mathbf H=\mathbf X(\mathbf X^\top\mathbf X)^{-1}\mathbf X^\top</span> は <span class="math inline">n</span> 行 <span class="math inline">n</span> 列。<span class="math inline">\boldsymbol y</span> に掛けると予測値になる：<span class="math inline">\hat{\boldsymbol y}=\mathbf H\boldsymbol y</span>。これを射影行列と呼ぶ。</p>
+</section>
+<section id="例ラーメン屋に3回" class="slide level2" data-chapter="I-7">
+<h2>例：ラーメン屋に3回</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 85%;">
+<p>ラーメン屋に3回行き、毎回1杯食べた。杯数を <span class="math inline">\boldsymbol x</span>、支払いを <span class="math inline">\boldsymbol y</span> とする。</p>
+<p><span class="math display">
+\begin{aligned}
+\boldsymbol x&amp;=[1,\ 1,\ 1]^\top\\
+\boldsymbol y&amp;=[800,\ 900,\ 1000]^\top
+\end{aligned}
+</span></p>
+<p>原点を通る直線 <span class="math inline">y=\beta x</span> の傾き <span class="math inline">\beta</span> が、1杯の値段。</p>
+</div>
+</div><div class="column" style="width:55%;">
+<div id="38adf287" class="cell" data-execution_count="28">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png" width="418" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="例hを計算する" class="slide level2" data-chapter="I-7">
+<h2>例：Hを計算する</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 85%;">
+<p>列は1本なので <span class="math inline">\mathbf X=\boldsymbol x</span>、<span class="math inline">\mathbf X^\top\mathbf X=1+1+1=3</span>。</p>
+<p><span class="math display">
+\mathbf H=\frac13\begin{bmatrix}1&amp;1&amp;1\\1&amp;1&amp;1\\1&amp;1&amp;1\end{bmatrix}
+</span></p>
+<p>どの成分も <span class="math inline">1/3</span>。</p>
+</div>
+</div><div class="column" style="width:55%;">
+<div id="011ff046" class="cell" data-execution_count="29">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png" width="418" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="例hyは3回の平均" class="slide level2" data-chapter="I-7">
+<h2>例：Hyは3回の平均</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 85%;">
+<p><span class="math display">
+\begin{aligned}
+\hat{\boldsymbol y}&amp;=\mathbf H\boldsymbol y\\
+&amp;=[900,\ 900,\ 900]^\top
+\end{aligned}
+</span></p>
+<p>どの行も、3回の支払いを足して3で割る。予測値は平均の900円。</p>
+</div>
+</div><div class="column" style="width:55%;">
+<div id="8026809a" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png" width="418" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
 <section id="hを2回掛ける" class="slide level2" data-chapter="I-5">
 <h2>Hを2回掛ける</h2>
@@ -708,6 +860,32 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </span></p>
 <p><span class="math inline">(\mathbf X^\top\mathbf X)^{-1}</span> が対称なので、<span class="math inline">\mathbf H</span> も対称。一度 <span class="math inline">\mathbf H</span> で写したものは、もう一度写しても動かない。</p>
 </section>
+<section id="例平均をもう一度平均する" class="slide level2" data-chapter="I-7">
+<h2>例：平均をもう一度平均する</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 85%;">
+<p>予測値 <span class="math inline">\hat{\boldsymbol y}</span> に、もう一度 <span class="math inline">\mathbf H</span> を掛ける。</p>
+<p><span class="math display">
+\begin{aligned}
+\mathbf H\hat{\boldsymbol y}&amp;=[900,\ 900,\ 900]^\top\\
+&amp;=\hat{\boldsymbol y}
+\end{aligned}
+</span></p>
+<p>900円を3つ平均しても900円。<span class="math inline">\mathbf H\mathbf H=\mathbf H</span> は、このこと。</p>
+</div>
+</div><div class="column" style="width:55%;">
+<div id="3f2f1fe3" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png" width="418" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
 <section id="hは何をしているか" class="slide level2" data-chapter="I-1">
 <h2>Hは何をしているか</h2>
 <ul>
@@ -719,11 +897,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="図解①xの列空間" class="slide level2" data-chapter="I-5">
 <h2>図解①：Xの列空間</h2>
-<div id="3059306e" class="cell" data-execution_count="23">
+<div id="91eaebcf" class="cell" data-execution_count="32">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" class="quarto-figure quarto-figure-center" width="760" height="387"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png" class="quarto-figure quarto-figure-center" width="760" height="387"></p>
 </figure>
 </div>
 </div>
@@ -732,11 +910,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="図解②yの影がŷ" class="slide level2" data-chapter="I-5">
 <h2>図解②：yの影がŷ</h2>
-<div id="ed2f73ad" class="cell" data-execution_count="24">
+<div id="758f9415" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" class="quarto-figure quarto-figure-center" width="760" height="387"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png" class="quarto-figure quarto-figure-center" width="760" height="387"></p>
 </figure>
 </div>
 </div>
@@ -745,11 +923,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="直角を式で書くxᵀe" class="slide level2" data-chapter="I-5">
 <h2>直角を式で書く：Xᵀe</h2>
-<div id="b239912a" class="cell" data-execution_count="25">
+<div id="857fb739" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="353" height="229"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png" class="quarto-figure quarto-figure-center" width="353" height="229"></p>
 </figure>
 </div>
 </div>
@@ -761,11 +939,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="残差は列空間と直角" class="slide level2" data-chapter="I-5">
 <h2>残差は列空間と直角</h2>
-<div id="3144be72" class="cell" data-execution_count="26">
+<div id="75bd42ef" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="353" height="229"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png" class="quarto-figure quarto-figure-center" width="353" height="229"></p>
 </figure>
 </div>
 </div>
@@ -799,6 +977,53 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </ul>
 <p><span class="math inline">\mathbf X</span> だけで決まり、<span class="math inline">y_i</span> が外れているかどうかとは別。</p>
 </section>
+<section id="例てこ比はどれも13" class="slide level2" data-chapter="I-7">
+<h2>例：てこ比はどれも1/3</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 85%;">
+<p><span class="math inline">\mathbf H</span> の対角は、どれも <span class="math inline">1/3</span> になる。</p>
+<p>和は1で、列の数 <span class="math inline">p=1</span> に等しい。</p>
+<p>3回とも1杯なので、どの回も同じ重みで予測に効く。</p>
+</div>
+</div><div class="column" style="width:55%;">
+<div id="6c044af9" class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png" width="418" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="例6杯の日のてこ比" class="slide level2" data-chapter="I-7">
+<h2>例：6杯の日のてこ比</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 85%;">
+<p>杯数が1杯・2杯・6杯なら、<span class="math inline">\sum_i x_i^2=41</span>。</p>
+<p><span class="math display">
+\begin{aligned}
+h_{ii}&amp;=x_i^2/41\\
+&amp;=1/41,\ 4/41,\ 36/41
+\end{aligned}
+</span></p>
+<p>6杯の日は 0.88。直線は6杯の日に引き寄せられ、1杯の値段がほぼこの1回で決まる。</p>
+</div>
+</div><div class="column" style="width:55%;">
+<div id="ea8eac8c" class="cell" data-execution_count="37">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png" width="388" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
 <section id="列を足すと揺れが増える" class="slide level2" data-chapter="I-5">
 <h2>列を足すと揺れが増える</h2>
 <p><span class="math display">
@@ -808,11 +1033,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="遠い1点のてこ比" class="slide level2" data-chapter="I-7">
 <h2>遠い1点のてこ比</h2>
-<div id="8c94b883" class="cell" data-execution_count="29">
+<div id="f97ead10" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
 </figure>
 </div>
 </div>
@@ -821,11 +1046,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="点で直線が変わる" class="slide level2" data-chapter="I-7">
 <h2>1点で直線が変わる</h2>
-<div id="440f015f" class="cell" data-execution_count="30">
+<div id="c640a2f1" class="cell" data-execution_count="41">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
 </figure>
 </div>
 </div>
@@ -843,11 +1068,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="ブートストラップ行ごと取り直す" class="slide level2" data-chapter="I-7">
 <h2>ブートストラップ：行ごと取り直す</h2>
-<div id="c00c4d71" class="cell" data-execution_count="31">
+<div id="66b90b3a" class="cell" data-execution_count="42">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
 </figure>
 </div>
 </div>
@@ -856,11 +1081,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="式の標準誤差より大きく揺れる" class="slide level2" data-chapter="I-7">
 <h2>式の標準誤差より大きく揺れる</h2>
-<div id="b99c5ef3" class="cell" data-execution_count="32">
+<div id="915c86e4" class="cell" data-execution_count="43">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
 </figure>
 </div>
 </div>
@@ -878,11 +1103,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="新しい点の予測も同じ形" class="slide level2" data-chapter="I-7">
 <h2>新しい点の予測も同じ形</h2>
-<div id="dabce0ea" class="cell" data-execution_count="34">
+<div id="7b7147d3" class="cell" data-execution_count="45">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
 </figure>
 </div>
 </div>
@@ -891,11 +1116,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="離れるほど帯が開く" class="slide level2" data-chapter="I-7">
 <h2>離れるほど帯が開く</h2>
-<div id="7fc5270e" class="cell" data-execution_count="35">
+<div id="2413fd76" class="cell" data-execution_count="46">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
 </figure>
 </div>
 </div>
@@ -914,11 +1139,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="外挿範囲の外で扇が開く" class="slide level2" data-chapter="I-7">
 <h2>外挿：範囲の外で扇が開く</h2>
-<div id="a5d96b59" class="cell" data-execution_count="36">
+<div id="0179fab7" class="cell" data-execution_count="47">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
 </figure>
 </div>
 </div>
@@ -927,11 +1152,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="外挿形は確かめようがない" class="slide level2" data-chapter="I-7">
 <h2>外挿：形は確かめようがない</h2>
-<div id="34b8082b" class="cell" data-execution_count="37">
+<div id="a01fb6c9" class="cell" data-execution_count="48">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-49-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
 </figure>
 </div>
 </div>
@@ -944,11 +1169,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 <div class="column" style="width:45%;">
 <p>似た2列（相関0.9、50行）。★の点は、<span class="math inline">x_1</span> も <span class="math inline">x_2</span> も範囲（破線）の中にある。</p>
 </div><div class="column" style="width:55%;">
-<div id="590a1618" class="cell" data-execution_count="38">
+<div id="87d7609b" class="cell" data-execution_count="49">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png" width="359" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png" width="359" height="366"></p>
 </figure>
 </div>
 </div>
@@ -962,11 +1187,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 <p>★の <span class="math inline">\boldsymbol x_0^\top(\mathbf X^\top\mathbf X)^{-1}\boldsymbol x_0</span> は 0.90。平均 <span class="math inline">p/n</span> = 0.04 の約 23 倍。</p>
 <p>原点から同じ遠さでも、雲に沿った◆なら 0.05。</p>
 </div><div class="column" style="width:55%;">
-<div id="823590da" class="cell" data-execution_count="39">
+<div id="86699b64" class="cell" data-execution_count="50">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png" width="359" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png" width="359" height="366"></p>
 </figure>
 </div>
 </div>
@@ -984,11 +1209,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="相関0.9谷底は1点" class="slide level2" data-chapter="I-7">
 <h2>相関0.9：谷底は1点</h2>
-<div id="f75303cc" class="cell" data-execution_count="41">
+<div id="4ee28f2e" class="cell" data-execution_count="52">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
 </figure>
 </div>
 </div>
@@ -997,11 +1222,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="相関1谷底が線になる" class="slide level2" data-chapter="I-7">
 <h2>相関1：谷底が線になる</h2>
-<div id="e37a6722" class="cell" data-execution_count="42">
+<div id="ed7e8196" class="cell" data-execution_count="53">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-54-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
 </figure>
 </div>
 </div>
@@ -1010,11 +1235,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="影は1つ内訳は無数" class="slide level2" data-chapter="I-7">
 <h2>影は1つ、内訳は無数</h2>
-<div id="cfd98e54" class="cell" data-execution_count="43">
+<div id="c3e7ea16" class="cell" data-execution_count="54">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-55-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
 </figure>
 </div>
 </div>
@@ -1122,11 +1347,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 <div class="column" style="width:45%;">
 <p>8列どうしの相関。<span class="math inline">\mathbf X^\top\mathbf X</span> の中身は、列どうしの似かただった。</p>
 </div><div class="column" style="width:55%;">
-<div id="41a5cab8" class="cell" data-execution_count="46">
+<div id="543b14a0" class="cell" data-execution_count="57">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png" width="535" height="434"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-58-output-1.png" width="535" height="434"></p>
 </figure>
 </div>
 </div>
@@ -1139,11 +1364,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 <div class="column" style="width:45%;">
 <p>部屋数と寝室数は 0.85、緯度と経度は -0.92。よく似た2組がある（緑の枠）。</p>
 </div><div class="column" style="width:55%;">
-<div id="090d4c6a" class="cell" data-execution_count="47">
+<div id="c089c2ec" class="cell" data-execution_count="58">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png" width="535" height="434"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png" width="535" height="434"></p>
 </figure>
 </div>
 </div>
@@ -1163,11 +1388,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="結果①式の標準誤差" class="slide level2" data-chapter="II-3">
 <h2>結果①：式の標準誤差</h2>
-<div id="12b34b6e" class="cell" data-execution_count="49">
+<div id="7de76666" class="cell" data-execution_count="60">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
 </figure>
 </div>
 </div>
@@ -1176,11 +1401,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="結果①作り直した揺れと重なる" class="slide level2" data-chapter="II-3">
 <h2>結果①：作り直した揺れと重なる</h2>
-<div id="0ce5266c" class="cell" data-execution_count="50">
+<div id="561bd5a7" class="cell" data-execution_count="61">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-62-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="354"></p>
 </figure>
 </div>
 </div>
@@ -1349,11 +1574,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="結果②似ていない2列" class="slide level2" data-chapter="II-4">
 <h2>結果②：似ていない2列</h2>
-<div id="fa41e883" class="cell" data-execution_count="55">
+<div id="c7c1da64" class="cell" data-execution_count="66">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-56-output-1.png" class="quarto-figure quarto-figure-center" width="892" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-67-output-1.png" class="quarto-figure quarto-figure-center" width="892" height="390"></p>
 </figure>
 </div>
 </div>
@@ -1362,11 +1587,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="結果②似た2列" class="slide level2" data-chapter="II-4">
 <h2>結果②：似た2列</h2>
-<div id="5c3aea5c" class="cell" data-execution_count="56">
+<div id="fbc13b32" class="cell" data-execution_count="67">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png" class="quarto-figure quarto-figure-center" width="892" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-68-output-1.png" class="quarto-figure quarto-figure-center" width="892" height="390"></p>
 </figure>
 </div>
 </div>
@@ -1375,11 +1600,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="結果②内訳が決まらない" class="slide level2" data-chapter="II-4">
 <h2>結果②：内訳が決まらない</h2>
-<div id="a237896d" class="cell" data-execution_count="57">
+<div id="7360e085" class="cell" data-execution_count="68">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-58-output-1.png" class="quarto-figure quarto-figure-center" width="892" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png" class="quarto-figure quarto-figure-center" width="892" height="390"></p>
 </figure>
 </div>
 </div>
@@ -1388,11 +1613,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="結果③膨らんでも符号は揺れない" class="slide level2" data-chapter="II-5">
 <h2>結果③：膨らんでも符号は揺れない</h2>
-<div id="b53cf060" class="cell" data-execution_count="58">
+<div id="7bf656d5" class="cell" data-execution_count="69">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="318"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="318"></p>
 </figure>
 </div>
 </div>
@@ -1401,11 +1626,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="なぜ揺れても読めるか" class="slide level2" data-chapter="II-5">
 <h2>なぜ揺れても読めるか</h2>
-<div id="cadb093c" class="cell" data-execution_count="59">
+<div id="4cdd702e" class="cell" data-execution_count="70">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-60-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="318"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-71-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="318"></p>
 </figure>
 </div>
 </div>
@@ -1414,11 +1639,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="結果④地区ごと取り直す" class="slide level2" data-chapter="II-6">
 <h2>結果④：地区ごと取り直す</h2>
-<div id="e5765804" class="cell" data-execution_count="62">
+<div id="bb800600" class="cell" data-execution_count="73">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-63-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-74-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="330"></p>
 </figure>
 </div>
 </div>
@@ -1427,11 +1652,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="結果④式より大きく揺れる" class="slide level2" data-chapter="II-6">
 <h2>結果④：式より大きく揺れる</h2>
-<div id="636c03dc" class="cell" data-execution_count="63">
+<div id="89e7a973" class="cell" data-execution_count="74">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-64-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-75-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="330"></p>
 </figure>
 </div>
 </div>
@@ -1440,11 +1665,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="なぜ外れたか①飛び離れた地区" class="slide level2" data-chapter="II-6">
 <h2>なぜ外れたか①：飛び離れた地区</h2>
-<div id="c74e2713" class="cell" data-execution_count="64">
+<div id="07906d6b" class="cell" data-execution_count="75">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-65-output-1.png" class="quarto-figure quarto-figure-center" width="942" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-76-output-1.png" class="quarto-figure quarto-figure-center" width="942" height="366"></p>
 </figure>
 </div>
 </div>
@@ -1453,11 +1678,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="なぜ外れたか①1世帯に1243人" class="slide level2" data-chapter="II-6">
 <h2>なぜ外れたか①：1世帯に1,243人</h2>
-<div id="7d074668" class="cell" data-execution_count="65">
+<div id="4445298b" class="cell" data-execution_count="76">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-66-output-1.png" class="quarto-figure quarto-figure-center" width="942" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-77-output-1.png" class="quarto-figure quarto-figure-center" width="942" height="366"></p>
 </figure>
 </div>
 </div>
@@ -1466,11 +1691,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="なぜ外れたか②5地区を抜く" class="slide level2" data-chapter="II-6">
 <h2>なぜ外れたか②：5地区を抜く</h2>
-<div id="e4d5f622" class="cell" data-execution_count="66">
+<div id="cf6f6737" class="cell" data-execution_count="77">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-67-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-78-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="342"></p>
 </figure>
 </div>
 </div>
@@ -1479,11 +1704,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="なぜ外れたか②5地区で変わる" class="slide level2" data-chapter="II-6">
 <h2>なぜ外れたか②：5地区で変わる</h2>
-<div id="9274230c" class="cell" data-execution_count="67">
+<div id="a710ec33" class="cell" data-execution_count="78">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-68-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-79-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="342"></p>
 </figure>
 </div>
 </div>
@@ -1496,11 +1721,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 <div class="column" style="width:45%;">
 <p>ほかの列はすべて平均で、緯度 41.5・経度 -115 の地区を考える。緯度も経度も、範囲（破線）の中にある。</p>
 </div><div class="column" style="width:55%;">
-<div id="34ff715b" class="cell" data-execution_count="68">
+<div id="291870a2" class="cell" data-execution_count="79">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png" width="389" height="367"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-80-output-1.png" width="389" height="367"></p>
 </figure>
 </div>
 </div>
@@ -1513,11 +1738,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 <div class="column" style="width:45%;">
 <p>緯度も経度も範囲（破線）の中。でも組み合わせは雲の外。<span class="math inline">\boldsymbol x_0^\top(\mathbf X^\top\mathbf X)^{-1}\boldsymbol x_0</span> = 0.0109（平均の約 25 倍）、予測は -2.39（負の価格）。予想③どおり。</p>
 </div><div class="column" style="width:55%;">
-<div id="f19a4123" class="cell" data-execution_count="69">
+<div id="02c0ef5c" class="cell" data-execution_count="80">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png" width="389" height="367"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-81-output-1.png" width="389" height="367"></p>
 </figure>
 </div>
 </div>
@@ -1540,11 +1765,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="まとめ①係数の不安定性の式" class="slide level2" data-chapter="締め">
 <h2>まとめ①：係数の不安定性の式</h2>
-<div id="375b5c37" class="cell" data-execution_count="74">
+<div id="d800126d" class="cell" data-execution_count="85">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-75-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-86-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
 </figure>
 </div>
 </div>
@@ -1553,11 +1778,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="まとめ②列が似ると膨らむ" class="slide level2" data-chapter="締め">
 <h2>まとめ②：列が似ると膨らむ</h2>
-<div id="b9d89d46" class="cell" data-execution_count="75">
+<div id="94593403" class="cell" data-execution_count="86">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-76-output-1.png" class="quarto-figure quarto-figure-center" width="862" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-87-output-1.png" class="quarto-figure quarto-figure-center" width="862" height="384"></p>
 </figure>
 </div>
 </div>
@@ -1566,11 +1791,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="まとめ③離れた点の予測は揺れる" class="slide level2" data-chapter="締め">
 <h2>まとめ③：離れた点の予測は揺れる</h2>
-<div id="c7d59a1d" class="cell" data-execution_count="76">
+<div id="f39fc349" class="cell" data-execution_count="87">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-77-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-88-output-1.png" class="quarto-figure quarto-figure-center" width="1181" height="330"></p>
 </figure>
 </div>
 </div>
@@ -1599,13 +1824,13 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 <li><span class="math inline">p&lt;n</span> でも完全な共線。<span class="math inline">\mathbf X^\top\mathbf X</span> は逆行列を持たず、分け前は無数にある</li>
 </ul>
 </section>
-<section id="次回予告①係数が非常に不安定になる" class="slide level2" data-chapter="締め">
-<h2>次回予告①：係数が非常に不安定になる</h2>
-<div id="544cacc7" class="cell" data-execution_count="77">
+<section id="次回予告①係数が非常に不安定" class="slide level2" data-chapter="締め">
+<h2>次回予告①：係数が非常に不安定</h2>
+<div id="d645d957" class="cell" data-execution_count="88">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-78-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-89-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
 </figure>
 </div>
 </div>
@@ -1614,11 +1839,11 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 </section>
 <section id="次回予告②係数が決まらない" class="slide level2" data-chapter="締め">
 <h2>次回予告②：係数が決まらない</h2>
-<div id="13fafa3c" class="cell" data-execution_count="78">
+<div id="445bcc15" class="cell" data-execution_count="89">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-79-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-90-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="390"></p>
 </figure>
 </div>
 </div>
