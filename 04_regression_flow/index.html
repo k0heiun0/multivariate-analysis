@@ -160,15 +160,15 @@
 <section id="前回の問い" class="slide level2" data-chapter="I-1">
 <h2>前回の問い</h2>
 <ul>
-<li>係数の揺れは <span class="math inline">\operatorname{Var}(\hat{\boldsymbol\beta})=\sigma^2(\mathbf X^\top\mathbf X)^{-1}</span> で決まる</li>
-<li>列が似ていると、揺れは大きく膨らむ</li>
+<li>係数の不安定性は <span class="math inline">\operatorname{Var}(\hat{\boldsymbol\beta})=\sigma^2(\mathbf X^\top\mathbf X)^{-1}</span> で決まる</li>
+<li>列が似ていると、係数が不安定になる</li>
 <li>列が重なると、逆行列が無く、係数は1つに決まらない</li>
 </ul>
-<p>係数が大きく揺れる、あるいは1つに決まらないとき、どうするか？</p>
+<p>係数が非常に不安定になる、あるいは1つに決まらないとき、どうするか？</p>
 </section>
 <section id="場面①前立腺がんの8本の係数" class="slide level2" data-chapter="I-1">
 <h2>場面①：前立腺がんの8本の係数</h2>
-<div id="fa0c3415" class="cell" data-execution_count="2">
+<div id="03404003" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -181,7 +181,7 @@
 </section>
 <section id="場面②取り直すと揺れる" class="slide level2" data-chapter="I-1">
 <h2>場面②：取り直すと揺れる</h2>
-<div id="42cd7aa6" class="cell" data-execution_count="3">
+<div id="af406501" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -194,7 +194,7 @@
 </section>
 <section id="場面③似た2列の雲" class="slide level2" data-chapter="I-1">
 <h2>場面③：似た2列の雲</h2>
-<div id="20831d28" class="cell" data-execution_count="4">
+<div id="dd63af1d" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -207,7 +207,7 @@
 </section>
 <section id="場面④内訳が決まらない" class="slide level2" data-chapter="I-1">
 <h2>場面④：内訳が決まらない</h2>
-<div id="35a023be" class="cell" data-execution_count="5">
+<div id="3779befe" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -276,7 +276,7 @@
 </section>
 <section id="道具①係数の大きさℓ2" class="slide level2" data-chapter="I-4">
 <h2>道具①：係数の大きさ（ℓ2）</h2>
-<div id="6c99b271" class="cell" data-execution_count="7">
+<div id="e4f4f468" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -292,7 +292,7 @@
 </section>
 <section id="道具①もう1つの大きさℓ1" class="slide level2" data-chapter="I-4">
 <h2>道具①：もう1つの大きさ（ℓ1）</h2>
-<div id="52ed31c6" class="cell" data-execution_count="8">
+<div id="4148f91b" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -344,7 +344,7 @@
 </section>
 <section id="係数1つの目的関数" class="slide level2" data-chapter="I-3">
 <h2>係数1つの目的関数</h2>
-<div id="7bcdd0be" class="cell" data-execution_count="10">
+<div id="70db1892" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -357,7 +357,7 @@
 </section>
 <section id="罰を足す" class="slide level2" data-chapter="I-3">
 <h2>罰を足す</h2>
-<div id="3a0069e4" class="cell" data-execution_count="11">
+<div id="78a34a48" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -373,7 +373,7 @@ f_\lambda(\beta)=\sum_{i=1}^{n}(y_i-\beta x_i)^2+\lambda\beta^2\qquad(\lambda\ge
 </section>
 <section id="谷底が0へ寄る" class="slide level2" data-chapter="I-3">
 <h2>谷底が0へ寄る</h2>
-<div id="4c2a4b15" class="cell" data-execution_count="12">
+<div id="9d9ec3d3" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -450,7 +450,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="谷底が線のとき" class="slide level2" data-chapter="I-7">
 <h2>谷底が線のとき</h2>
-<div id="712d216c" class="cell" data-execution_count="13">
+<div id="a8acc3a7" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -463,7 +463,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="谷底が1点に決まる" class="slide level2" data-chapter="I-7">
 <h2>谷底が1点に決まる</h2>
-<div id="3902d617" class="cell" data-execution_count="14">
+<div id="c23e7957" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -484,7 +484,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="取り直すと扇が開く" class="slide level2" data-chapter="I-7">
 <h2>取り直すと扇が開く</h2>
-<div id="9fefd732" class="cell" data-execution_count="17">
+<div id="bf71ea21" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -497,7 +497,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="罰を足すと扇が閉じる" class="slide level2" data-chapter="I-7">
 <h2>罰を足すと扇が閉じる</h2>
-<div id="54be3ea9" class="cell" data-execution_count="18">
+<div id="0515eb39" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -521,7 +521,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="偏りの二乗と揺れ" class="slide level2" data-chapter="I-7">
 <h2>偏りの二乗と揺れ</h2>
-<div id="e5854ae3" class="cell" data-execution_count="19">
+<div id="0e91e28f" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -534,7 +534,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="和はu字" class="slide level2" data-chapter="I-7">
 <h2>和はU字</h2>
-<div id="04fc9821" class="cell" data-execution_count="20">
+<div id="616c1757" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -547,7 +547,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="底の位置はわからない" class="slide level2" data-chapter="I-7">
 <h2>底の位置はわからない</h2>
-<div id="9b46b71b" class="cell" data-execution_count="21">
+<div id="3448d8aa" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -560,7 +560,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="行列細長い雲" class="slide level2" data-chapter="I-7">
 <h2>行列：細長い雲</h2>
-<div id="217843c4" class="cell" data-execution_count="22">
+<div id="f0e40689" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -573,7 +573,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="リッジで雲が縮む" class="slide level2" data-chapter="I-7">
 <h2>リッジで雲が縮む</h2>
-<div id="720ad335" class="cell" data-execution_count="23">
+<div id="ef49b7ef" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -604,7 +604,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="絶対値の罰" class="slide level2" data-chapter="I-3">
 <h2>絶対値の罰</h2>
-<div id="19976a7e" class="cell" data-execution_count="27">
+<div id="80eadc1b" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -618,7 +618,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="尖りに引っかかる" class="slide level2" data-chapter="I-3">
 <h2>尖りに引っかかる</h2>
-<div id="79150140" class="cell" data-execution_count="28">
+<div id="30db04b4" class="cell" data-execution_count="28">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -648,7 +648,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 <div class="column" style="width:45%;">
 <p>最小二乗の推定値 <span class="math inline">c/S</span> に対して、リッジ回帰は <span class="math inline">S/(S+\lambda)</span> を掛ける。比で縮めるので、0にはならない。</p>
 </div><div class="column" style="width:55%;">
-<div id="2c7ade34" class="cell" data-execution_count="29">
+<div id="19939c67" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -665,7 +665,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 <div class="column" style="width:45%;">
 <p>ラッソは <span class="math inline">|c/S|</span> から <span class="math inline">\lambda/(2S)</span> を引く。差で縮め、引ききれない小さな推定値をちょうど0にする（軟しきい値）。</p>
 </div><div class="column" style="width:55%;">
-<div id="89dcd408" class="cell" data-execution_count="30">
+<div id="929bb4aa" class="cell" data-execution_count="30">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -689,7 +689,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="罰を動かして係数を並べる" class="slide level2" data-chapter="I-7">
 <h2>罰を動かして係数を並べる</h2>
-<div id="9640782c" class="cell" data-execution_count="33">
+<div id="fb6bf5e3" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -702,7 +702,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="ラッソの道筋" class="slide level2" data-chapter="I-7">
 <h2>ラッソの道筋</h2>
-<div id="1be6f17c" class="cell" data-execution_count="34">
+<div id="3a47f2f9" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -791,7 +791,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="pから0へ下がる" class="slide level2" data-chapter="I-7">
 <h2>pから0へ下がる</h2>
-<div id="0cd3985b" class="cell" data-execution_count="36">
+<div id="7bcdcddd" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -812,7 +812,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="訓練誤差では選べない" class="slide level2" data-chapter="I-7">
 <h2>訓練誤差では選べない</h2>
-<div id="8889ca92" class="cell" data-execution_count="38">
+<div id="4feeed23" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -825,7 +825,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="u字の中身" class="slide level2" data-chapter="I-7">
 <h2>U字の中身</h2>
-<div id="7e4496e5" class="cell" data-execution_count="39">
+<div id="26225043" class="cell" data-execution_count="39">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -846,7 +846,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="分割訓練検証テスト" class="slide level2" data-chapter="I-6">
 <h2>3分割：訓練・検証・テスト</h2>
-<div id="3ce8289b" class="cell" data-execution_count="40">
+<div id="91382b1f" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -859,7 +859,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="組を測る側に回す" class="slide level2" data-chapter="I-6">
 <h2>1組を測る側に回す</h2>
-<div id="15302649" class="cell" data-execution_count="41">
+<div id="0a2eb2fb" class="cell" data-execution_count="41">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -872,7 +872,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="どの組も1度ずつ測る" class="slide level2" data-chapter="I-6">
 <h2>どの組も1度ずつ測る</h2>
-<div id="dcd1703e" class="cell" data-execution_count="42">
+<div id="fa156844" class="cell" data-execution_count="42">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -895,7 +895,7 @@ f_\lambda(\boldsymbol\beta)=\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_
 </section>
 <section id="cvはu字をなぞる" class="slide level2" data-chapter="I-7">
 <h2>CVはU字をなぞる</h2>
-<div id="7572a803" class="cell" data-execution_count="43">
+<div id="1f30871e" class="cell" data-execution_count="43">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1065,7 +1065,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="結果①リッジで2列が近づく" class="slide level2" data-chapter="II-3">
 <h2>結果①：リッジで2列が近づく</h2>
-<div id="8f2a9c95" class="cell" data-execution_count="48">
+<div id="99f4f705" class="cell" data-execution_count="48">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1078,7 +1078,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="結果①ラッソで片方が0に" class="slide level2" data-chapter="II-3">
 <h2>結果①：ラッソで片方が0に</h2>
-<div id="d951181b" class="cell" data-execution_count="49">
+<div id="7a96b8a9" class="cell" data-execution_count="49">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1091,7 +1091,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="結果②罰の強さとcvの誤差" class="slide level2" data-chapter="II-4">
 <h2>結果②：罰の強さとCVの誤差</h2>
-<div id="5a1efd41" class="cell" data-execution_count="50">
+<div id="baa8f73d" class="cell" data-execution_count="50">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1104,7 +1104,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="結果②ラッソも底が平ら" class="slide level2" data-chapter="II-4">
 <h2>結果②：ラッソも底が平ら</h2>
-<div id="15f9e43d" class="cell" data-execution_count="51">
+<div id="65df5787" class="cell" data-execution_count="51">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1117,7 +1117,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="結果②選ばれた罰は弱い" class="slide level2" data-chapter="II-4">
 <h2>結果②：選ばれた罰は弱い</h2>
-<div id="ff49e103" class="cell" data-execution_count="52">
+<div id="75fe868e" class="cell" data-execution_count="52">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1183,7 +1183,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="揺れの減り方も小さい" class="slide level2" data-chapter="II-5">
 <h2>揺れの減り方も小さい</h2>
-<div id="2abeea7f" class="cell" data-execution_count="54">
+<div id="7f9360ee" class="cell" data-execution_count="54">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1267,7 +1267,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="結果③1回の分割の揺れ" class="slide level2" data-chapter="II-4">
 <h2>結果③：1回の分割の揺れ</h2>
-<div id="6b2ad773" class="cell" data-execution_count="61">
+<div id="05e406fb" class="cell" data-execution_count="61">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1280,7 +1280,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="結果③cvの揺れは小さい" class="slide level2" data-chapter="II-4">
 <h2>結果③：CVの揺れは小さい</h2>
-<div id="ffa331eb" class="cell" data-execution_count="62">
+<div id="1c2a205a" class="cell" data-execution_count="62">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1423,7 +1423,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="落とし穴②取り直すと入れ替わる" class="slide level2" data-chapter="II-6">
 <h2>落とし穴②：取り直すと入れ替わる</h2>
-<div id="8a011924" class="cell" data-execution_count="69">
+<div id="4e4c1738" class="cell" data-execution_count="69">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1450,7 +1450,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="まとめ①罰を足して1つを選ぶ" class="slide level2" data-chapter="締め">
 <h2>まとめ①：罰を足して1つを選ぶ</h2>
-<div id="c4a7769a" class="cell" data-execution_count="72">
+<div id="7018ff54" class="cell" data-execution_count="72">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1467,7 +1467,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 <div class="column" style="width:45%;">
 <p>リッジ回帰は比で縮め、ラッソは差で縮めて小さい係数を0にする。罰の前に標準化する。</p>
 </div><div class="column" style="width:55%;">
-<div id="3b9d55cd" class="cell" data-execution_count="73">
+<div id="a38bead2" class="cell" data-execution_count="73">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1480,7 +1480,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="まとめ③u字の底をcvで探す" class="slide level2" data-chapter="締め">
 <h2>まとめ③：U字の底をCVで探す</h2>
-<div id="20721b77" class="cell" data-execution_count="74">
+<div id="8138cf7b" class="cell" data-execution_count="74">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1507,7 +1507,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="次回予告①yが01なら" class="slide level2" data-chapter="締め">
 <h2>次回予告①：yが0/1なら</h2>
-<div id="91a3241d" class="cell" data-execution_count="75">
+<div id="2f17e5a1" class="cell" data-execution_count="75">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1520,7 +1520,7 @@ y_i-\hat y_i^{(-i)}=\frac{y_i-\hat y_i}{1-h_{ii}},\qquad h_{ii}=[\mathbf H_\lamb
 </section>
 <section id="次回予告②同じ直線を当てる" class="slide level2" data-chapter="締め">
 <h2>次回予告②：同じ直線を当てる</h2>
-<div id="e09edf45" class="cell" data-execution_count="76">
+<div id="61c56ec8" class="cell" data-execution_count="76">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
