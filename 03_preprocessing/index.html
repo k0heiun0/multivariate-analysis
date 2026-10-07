@@ -160,7 +160,7 @@
 <section id="前回の問い" class="slide level2" data-chapter="I-1">
 <h2>前回の問い</h2>
 <ul>
-<li>前回は、分割の乱数を変えるだけで、テスト誤差が揺れた</li>
+<li>前回は、分割の乱数を変えるだけで、テスト誤差がばらついた</li>
 <li>訓練の行が変わるたびに、係数 <span class="math inline">\hat{\boldsymbol\beta}</span> そのものも変わる</li>
 <li>今回は別のデータ、カリフォルニアの住宅価格で確かめる</li>
 </ul>
@@ -168,7 +168,7 @@
 </section>
 <section id="場面①分割を20通り変える" class="slide level2" data-chapter="I-1">
 <h2>場面①：分割を20通り変える</h2>
-<div id="cb32b313" class="cell" data-execution_count="2">
+<div id="63c05ca6" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -179,9 +179,9 @@
 </div>
 <p>訓練7割・テスト3割の分割を、乱数の種0〜19で20通り作る。8列の線形回帰を当てはめ、テスト誤差を測る。</p>
 </section>
-<section id="場面②テスト誤差が揺れる" class="slide level2" data-chapter="I-1">
-<h2>場面②：テスト誤差が揺れる</h2>
-<div id="d0c68fd8" class="cell" data-execution_count="3">
+<section id="場面②テスト誤差がばらつく" class="slide level2" data-chapter="I-1">
+<h2>場面②：テスト誤差がばらつく</h2>
+<div id="04023a49" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -194,7 +194,7 @@
 </section>
 <section id="場面③所得の係数" class="slide level2" data-chapter="I-1">
 <h2>場面③：所得の係数</h2>
-<div id="168a7acc" class="cell" data-execution_count="4">
+<div id="6a316b13" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -207,7 +207,7 @@
 </section>
 <section id="場面④寝室数の係数" class="slide level2" data-chapter="I-1">
 <h2>場面④：寝室数の係数</h2>
-<div id="56ea97f6" class="cell" data-execution_count="5">
+<div id="fed48d2c" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -216,11 +216,11 @@
 </div>
 </div>
 </div>
-<p>寝室数の係数を重ねる。同じ分割なのに、こちらは大きく揺れる。</p>
+<p>寝室数の係数を重ねる。同じ分割なのに、こちらは大きくばらつく。</p>
 </section>
-<section id="揺れの大きさを比べる" class="slide level2" data-chapter="I-1">
-<h2>揺れの大きさを比べる</h2>
-<div id="3d9464c8" class="cell" data-execution_count="6">
+<section id="ばらつきの大きさを比べる" class="slide level2" data-chapter="I-1">
+<h2>ばらつきの大きさを比べる</h2>
+<div id="25cca50b" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -233,7 +233,7 @@
 </section>
 <section id="場面⑤40地区だけなら" class="slide level2" data-chapter="I-1">
 <h2>場面⑤：40地区だけなら</h2>
-<div id="f4408617" class="cell" data-execution_count="7">
+<div id="a10253af" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -246,7 +246,7 @@
 </section>
 <section id="場面⑥符号が逆になる" class="slide level2" data-chapter="I-1">
 <h2>場面⑥：符号が逆になる</h2>
-<div id="3e7de4b4" class="cell" data-execution_count="8">
+<div id="7d29b775" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -259,7 +259,7 @@
 </section>
 <section id="別の困りごと遠い1点" class="slide level2" data-chapter="I-1">
 <h2>別の困りごと：遠い1点</h2>
-<div id="d45ebb8a" class="cell" data-execution_count="9">
+<div id="f4c741f9" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -272,7 +272,7 @@
 </section>
 <section id="別の困りごと値段が決まらない" class="slide level2" data-chapter="I-1">
 <h2>別の困りごと：値段が決まらない</h2>
-<div id="b7994139" class="cell" data-execution_count="10">
+<div id="daefb40e" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -314,11 +314,11 @@
 <tbody>
 <tr class="odd">
 <td>見たもの</td>
-<td>テスト誤差の揺れ</td>
+<td>テスト誤差のばらつき</td>
 <td>係数の不安定性</td>
 </tr>
 <tr class="even">
-<td>揺れの源</td>
+<td>ばらつきの源</td>
 <td>どの行で測るか</td>
 <td>係数を決める行の取り直し</td>
 </tr>
@@ -333,7 +333,7 @@
 </section>
 <section id="手元のデータは1回分" class="slide level2" data-chapter="I-1">
 <h2>手元のデータは1回分</h2>
-<div id="c4ace18d" class="cell" data-execution_count="13">
+<div id="83b62e9c" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -348,7 +348,7 @@
 <h2>記述統計と推測統計</h2>
 <ul>
 <li>記述統計：手元のデータを、そのまま要約する（平均、相関係数）</li>
-<li>推測統計：手元のデータを1回分とみて、その揺れを推し量る（標準誤差）</li>
+<li>推測統計：手元のデータを1回分とみて、そのばらつきを推し量る（標準誤差）</li>
 </ul>
 <p>今回から、推測統計の見方を使う。</p>
 </section>
@@ -357,13 +357,13 @@
 <ul>
 <li>第2回は、訓練データを300回取り直し、平均で数えた</li>
 <li>回数を無限にした平均（期待値）と、そのまわりの散らばり（分散）を式で扱いたい</li>
-<li>揺れるのは係数 <span class="math inline">p</span> 個の組 <span class="math inline">\hat{\boldsymbol\beta}</span>。ベクトルにも広げる。2×2の逆行列も要る</li>
+<li>ばらつくのは係数 <span class="math inline">p</span> 個の組 <span class="math inline">\hat{\boldsymbol\beta}</span>。ベクトルにも広げる。2×2の逆行列も要る</li>
 </ul>
 <p>道具を先にそろえる。</p>
 </section>
 <section id="道具①サイコロを振り続ける" class="slide level2" data-chapter="I-4">
 <h2>道具①：サイコロを振り続ける</h2>
-<div id="e310480b" class="cell" data-execution_count="14">
+<div id="392844b3" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -402,13 +402,13 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </span></p>
 <p>2つのサイコロのように、一方の値がもう一方の値に関係しないこと。このとき、平均のまわりのずれどうしを掛けた平均は0になる。</p>
 </section>
-<section id="道具⑥揺れる量を縦に並べる" class="slide level2" data-chapter="I-4">
-<h2>道具⑥：揺れる量を縦に並べる</h2>
+<section id="道具⑥確率変数を縦に並べる" class="slide level2" data-chapter="I-4">
+<h2>道具⑥：確率変数を縦に並べる</h2>
 <p><span class="math display">
 \boldsymbol y=\begin{bmatrix}y_1\\ \vdots\\ y_n\end{bmatrix},\qquad
 \mathbb E[\boldsymbol y]=\begin{bmatrix}\mathbb E[y_1]\\ \vdots\\ \mathbb E[y_n]\end{bmatrix}
 </span></p>
-<p>期待値は成分ごとに取る。これを期待値ベクトルと呼ぶ。サイコロ2つなら <span class="math inline">[3.5,\ 3.5]^\top</span>。</p>
+<p>確率変数を縦に並べたものを確率ベクトルと呼ぶ。期待値は成分ごとに取り、これを期待値ベクトルと呼ぶ。サイコロ2つなら <span class="math inline">[3.5,\ 3.5]^\top</span>。</p>
 </section>
 <section id="道具⑦分散共分散行列" class="slide level2" data-chapter="I-4">
 <h2>道具⑦：分散共分散行列</h2>
@@ -445,7 +445,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="例2つの目の和" class="slide level2" data-chapter="I-4">
 <h2>例：2つの目の和</h2>
-<div id="80c67a46" class="cell" data-execution_count="15">
+<div id="bc79cb3e" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -458,7 +458,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="例2つの目の差" class="slide level2" data-chapter="I-4">
 <h2>例：2つの目の差</h2>
-<div id="9a4d090d" class="cell" data-execution_count="16">
+<div id="72c79ef2" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -497,24 +497,24 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 <section id="道具がそろった" class="slide level2" data-chapter="I-1">
 <h2>道具がそろった</h2>
 <ul>
-<li>いくつもの量の揺れは、分散共分散行列で書ける</li>
-<li>行列を掛けた量の揺れは <span class="math inline">\mathbf A\operatorname{\mathbb{V}ar}(\boldsymbol y)\mathbf A^\top</span></li>
+<li>確率ベクトルのばらつきは、分散共分散行列で書ける</li>
+<li>行列を掛けた確率ベクトルの分散は <span class="math inline">\mathbf A\operatorname{\mathbb{V}ar}(\boldsymbol y)\mathbf A^\top</span></li>
 <li>2×2の逆行列は手で書ける</li>
 </ul>
 <p>では、係数の不安定性を式にする。使いどころ：係数に ± を付けて報告し、効くと言えるかを判断する。</p>
 </section>
-<section id="モデル揺れるのは誤差だけ" class="slide level2" data-chapter="I-2">
-<h2>モデル：揺れるのは誤差だけ</h2>
+<section id="モデルばらつくのは誤差だけ" class="slide level2" data-chapter="I-2">
+<h2>モデル：ばらつくのは誤差だけ</h2>
 <p><span class="math display">
 \boldsymbol y=\mathbf X\boldsymbol\beta+\boldsymbol\varepsilon,\qquad
 \mathbb E[\boldsymbol\varepsilon]=\boldsymbol 0,\qquad
 \operatorname{\mathbb{V}ar}(\boldsymbol\varepsilon)=\sigma^2\mathbf I_n
 </span></p>
-<p><span class="math inline">\mathbf X</span> は固定。データを取り直すたびに変わるのは誤差 <span class="math inline">\boldsymbol\varepsilon</span>（だから <span class="math inline">\boldsymbol y</span>）だけ。第2回の <span class="math inline">\varepsilon\sim N(0,\sigma^2)</span> のうち、平均と分散だけを使う。</p>
+<p><span class="math inline">\mathbf X</span> は固定。データを取り直すたびに変わる確率変数は、誤差 <span class="math inline">\boldsymbol\varepsilon</span>（だから <span class="math inline">\boldsymbol y</span>）だけ。第2回の <span class="math inline">\varepsilon\sim N(0,\sigma^2)</span> のうち、平均と分散だけを使う。</p>
 </section>
 <section id="取り直してみる①同じxで" class="slide level2" data-chapter="I-7">
 <h2>取り直してみる①：同じxで</h2>
-<div id="41387694" class="cell" data-execution_count="18">
+<div id="befb9930" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -527,7 +527,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="取り直してみる②扇が開く" class="slide level2" data-chapter="I-7">
 <h2>取り直してみる②：扇が開く</h2>
-<div id="95fcbcee" class="cell" data-execution_count="19">
+<div id="5d447992" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -550,11 +550,11 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 <p><span class="math display">
 \operatorname{\mathbb{V}ar}(\hat\beta)=\sum_i w_i^2\sigma^2=\frac{\sigma^2}{\sum_i x_i^2}
 </span></p>
-<p>道具⑨の和の分散を当てる。揺れはノイズ <span class="math inline">\sigma^2</span> と、<span class="math inline">x</span> の広がり <span class="math inline">\sum x_i^2</span> で決まる。</p>
+<p>道具⑨の和の分散を当てる。分散はノイズ <span class="math inline">\sigma^2</span> と、<span class="math inline">x</span> の広がり <span class="math inline">\sum x_i^2</span> で決まる。</p>
 </section>
-<section id="スカラーxが広いほど揺れない" class="slide level2" data-chapter="I-5">
-<h2>スカラー：xが広いほど揺れない</h2>
-<div id="24aca96f" class="cell" data-execution_count="20">
+<section id="スカラーxが広いほどばらつかない" class="slide level2" data-chapter="I-5">
+<h2>スカラー：xが広いほどばらつかない</h2>
+<div id="36a44843" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -580,6 +580,13 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </span></p>
 <p>第1回の正規方程式の解。<span class="math inline">\mathbf X</span> は固定なので、<span class="math inline">\mathbf A</span> は定数の行列。</p>
 </section>
+<section id="推定量と推定値" class="slide level2" data-chapter="I-5">
+<h2>推定量と推定値</h2>
+<p><span class="math display">
+\hat{\boldsymbol\beta}=\mathbf A\boldsymbol y
+</span></p>
+<p><span class="math inline">\boldsymbol y</span> が確率変数なので、<span class="math inline">\hat{\boldsymbol\beta}</span> も確率変数。<span class="math inline">\boldsymbol y</span> から係数を計算するこの規則を推定量、手元のデータで計算した1つの値を推定値と呼ぶ。</p>
+</section>
 <section id="行列𝕍arβ-σ²xᵀx¹" class="slide level2" data-chapter="I-5">
 <h2>行列：𝕍ar(β̂) ＝ σ²(XᵀX)⁻¹</h2>
 <p><span class="math display">
@@ -602,7 +609,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 \end{bmatrix}
 \qquad(p=2)
 </span></p>
-<p>対角の外は2つの係数の共分散（Cov）。そろって揺れるか、逆向きに揺れるかを表す。</p>
+<p>対角の外は2つの係数の共分散（Cov）。同じ向きに動くか、逆向きに動くかを表す。</p>
 </section>
 <section id="σ²は残差から見積もる" class="slide level2" data-chapter="I-5">
 <h2>σ²は残差から見積もる</h2>
@@ -616,7 +623,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 <p><span class="math display">
 \text{標準誤差}=\hat\sigma\sqrt{\bigl[(\mathbf X^\top\mathbf X)^{-1}\bigr]_{jj}}
 </span></p>
-<p>見積もった <span class="math inline">\hat\sigma^2</span> を入れ、対角の <span class="math inline">j</span> 番目の平方根を取る。1回の当てはめから、係数 <span class="math inline">\hat\beta_j</span> の揺れが読める。</p>
+<p>見積もった <span class="math inline">\hat\sigma^2</span> を入れ、対角の <span class="math inline">j</span> 番目の平方根を取る。1回の当てはめから、推定量 <span class="math inline">\hat\beta_j</span> の標準偏差が読める。</p>
 </section>
 <section id="次の問い列どうしの関係" class="slide level2" data-chapter="I-1">
 <h2>次の問い：列どうしの関係</h2>
@@ -629,7 +636,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="係数の空間①似ていない2列" class="slide level2" data-chapter="I-7">
 <h2>係数の空間①：似ていない2列</h2>
-<div id="5674efbd" class="cell" data-execution_count="22">
+<div id="c1e3da95" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -642,7 +649,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="係数の空間②似た2列" class="slide level2" data-chapter="I-7">
 <h2>係数の空間②：似た2列</h2>
-<div id="e980fd0a" class="cell" data-execution_count="23">
+<div id="54477fad" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -655,7 +662,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="和は決まり内訳は決まらない" class="slide level2" data-chapter="I-7">
 <h2>和は決まり、内訳は決まらない</h2>
-<div id="a68b2079" class="cell" data-execution_count="24">
+<div id="ddf3f75e" class="cell" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -668,7 +675,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="たとえいつも2人で押す車" class="slide level2" data-chapter="I-7">
 <h2>たとえ：いつも2人で押す車</h2>
-<div id="c70a8a91" class="cell" data-execution_count="25">
+<div id="bf78e209" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -689,7 +696,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 <p>値段の差が量によるのか、カップによるのかは、データから分けられない。</p>
 </div>
 </div><div class="column" style="width:55%;">
-<div id="532b1696" class="cell" data-execution_count="27">
+<div id="488c1889" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -728,7 +735,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="倍率を数える" class="slide level2" data-chapter="I-5">
 <h2>倍率を数える</h2>
-<div id="1077e43d" class="cell" data-execution_count="28">
+<div id="d74cfc88" class="cell" data-execution_count="28">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -783,7 +790,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="vifは1の近くで急に膨らむ" class="slide level2" data-chapter="I-5">
 <h2>VIFは1の近くで急に膨らむ</h2>
-<div id="38c78126" class="cell" data-execution_count="30">
+<div id="fcb3cc9f" class="cell" data-execution_count="30">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -812,7 +819,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="次の問い危ない行を先に見つける" class="slide level2" data-chapter="I-1">
 <h2>次の問い：危ない行を先に見つける</h2>
-<div id="4bd8916e" class="cell" data-execution_count="34">
+<div id="f869579f" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -833,7 +840,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="残った行列の大きさ" class="slide level2" data-chapter="I-5">
 <h2>残った行列の大きさ</h2>
-<div id="9e4598f7" class="cell" data-execution_count="35">
+<div id="a439428a" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -846,7 +853,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="射影行列hnnの箱" class="slide level2" data-chapter="I-5">
 <h2>射影行列H：n×nの箱</h2>
-<div id="2d972485" class="cell" data-execution_count="36">
+<div id="c7746ab0" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -872,7 +879,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 <p>原点を通る直線 <span class="math inline">y=\beta x</span> の傾き <span class="math inline">\beta</span> が、1杯の値段。</p>
 </div>
 </div><div class="column" style="width:55%;">
-<div id="c1e67574" class="cell" data-execution_count="37">
+<div id="4479b08d" class="cell" data-execution_count="37">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -895,7 +902,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 <p>どの成分も <span class="math inline">1/3</span>。</p>
 </div>
 </div><div class="column" style="width:55%;">
-<div id="5bbf6ab3" class="cell" data-execution_count="38">
+<div id="d45ef987" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -920,7 +927,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 <p>どの行も、3回の支払いを足して3で割る。予測値は平均の900円。</p>
 </div>
 </div><div class="column" style="width:55%;">
-<div id="7b46b4fd" class="cell" data-execution_count="39">
+<div id="05e21caf" class="cell" data-execution_count="39">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -933,7 +940,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="図解①xの列空間" class="slide level2" data-chapter="I-5">
 <h2>図解①：Xの列空間</h2>
-<div id="aa8cb29f" class="cell" data-execution_count="40">
+<div id="80d48ad9" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -946,7 +953,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="図解②yの影がŷ" class="slide level2" data-chapter="I-5">
 <h2>図解②：yの影がŷ</h2>
-<div id="6ac68440" class="cell" data-execution_count="41">
+<div id="8534c555" class="cell" data-execution_count="41">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -959,7 +966,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="図解③残差は列空間と直角" class="slide level2" data-chapter="I-5">
 <h2>図解③：残差は列空間と直角</h2>
-<div id="8cbbbcb6" class="cell" data-execution_count="42">
+<div id="9cf85810" class="cell" data-execution_count="42">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -972,7 +979,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="図解④直交補空間" class="slide level2" data-chapter="I-5">
 <h2>図解④：直交補空間</h2>
-<div id="856300d5" class="cell" data-execution_count="43">
+<div id="9a5ee17f" class="cell" data-execution_count="43">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -985,7 +992,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="図解⑤yを2つに分ける" class="slide level2" data-chapter="I-5">
 <h2>図解⑤：yを2つに分ける</h2>
-<div id="53026430" class="cell" data-execution_count="44">
+<div id="156df8aa" class="cell" data-execution_count="44">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1018,7 +1025,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="図解⑥影の影は影" class="slide level2" data-chapter="I-5">
 <h2>図解⑥：影の影は影</h2>
-<div id="31c904b4" class="cell" data-execution_count="45">
+<div id="434f4db0" class="cell" data-execution_count="45">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1045,7 +1052,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 <p>直交補空間は「足すと0」の向き全体。3次元のうちの2次元。</p>
 </div>
 </div><div class="column" style="width:55%;">
-<div id="c7632b61" class="cell" data-execution_count="46">
+<div id="a0385560" class="cell" data-execution_count="46">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1058,7 +1065,7 @@ X,\,Y \text{ が独立なら}\quad \mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]
 </section>
 <section id="次元を数えるnp" class="slide level2" data-chapter="I-5">
 <h2>次元を数える：n−p</h2>
-<div id="abd847a1" class="cell" data-execution_count="47">
+<div id="4187290b" class="cell" data-execution_count="47">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1103,7 +1110,7 @@ h_{ii}=\tilde{\boldsymbol x}_i^\top(\mathbf X^\top\mathbf X)^{-1}\tilde{\boldsym
 <p>3回とも1杯なので、どの回も同じ重みで予測に効く。</p>
 </div>
 </div><div class="column" style="width:55%;">
-<div id="ae00edc5" class="cell" data-execution_count="48">
+<div id="41132cb8" class="cell" data-execution_count="48">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1129,7 +1136,7 @@ h_{ii}&amp;=x_i^2/41\\
 <p>6杯の日は 0.88。直線は6杯の日に引き寄せられ、1杯の値段がほぼこの1回で決まる。</p>
 </div>
 </div><div class="column" style="width:55%;">
-<div id="3e9f0a26" class="cell" data-execution_count="49">
+<div id="8329b500" class="cell" data-execution_count="49">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1142,7 +1149,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="たとえシーソー" class="slide level2" data-chapter="I-7">
 <h2>たとえ：シーソー</h2>
-<div id="834d526f" class="cell" data-execution_count="50">
+<div id="705839ca" class="cell" data-execution_count="50">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1153,12 +1160,12 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 <p>直線は、データの中心を支点に回る板（原点を通る直線なら支点は原点）。同じ重さでも、端に座るほど板を大きく傾ける。6杯の日が、端の子。</p>
 </section>
-<section id="列を足すと揺れが増える" class="slide level2" data-chapter="I-5">
-<h2>列を足すと揺れが増える</h2>
+<section id="列を足すとばらつきが増える" class="slide level2" data-chapter="I-5">
+<h2>列を足すとばらつきが増える</h2>
 <p><span class="math display">
 \frac1n\sum_{i=1}^{n}\operatorname{\mathbb{V}ar}(\hat y_i)=\frac{\sigma^2}{n}\sum_{i=1}^{n}h_{ii}=\sigma^2\,\frac{p}{n}
 </span></p>
-<p>手元の行の予測値の揺れは、平均すると <span class="math inline">\sigma^2p/n</span>。列を1本足すたびに増える。第2回で、列を足すと過学習に向かったのはこのため。</p>
+<p>手元の行の予測値の分散は、平均すると <span class="math inline">\sigma^2p/n</span>。列を1本足すたびに増える。第2回で、列を足すと過学習に向かったのはこのため。</p>
 </section>
 <section id="残差の分散σ²ih" class="slide level2" data-chapter="I-5">
 <h2>残差の分散：σ²(I−H)</h2>
@@ -1172,7 +1179,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="遠い1点のてこ比" class="slide level2" data-chapter="I-7">
 <h2>遠い1点のてこ比</h2>
-<div id="39510a99" class="cell" data-execution_count="54">
+<div id="92a51211" class="cell" data-execution_count="54">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1185,7 +1192,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="残差では見つからない" class="slide level2" data-chapter="I-7">
 <h2>残差では見つからない</h2>
-<div id="6b78eb95" class="cell" data-execution_count="55">
+<div id="3435f685" class="cell" data-execution_count="55">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1203,11 +1210,11 @@ h_{ii}&amp;=x_i^2/41\\
 <li>実際にデータを集め直すと、行そのものが入れ替わる</li>
 <li>遠い点が入るかどうかも、集め直すたびに変わる</li>
 </ul>
-<p>行ごと取り直すと、係数はどれだけ揺れるか。使いどころ：式の前提が怪しいとき、手元のデータだけで揺れを測り直す。</p>
+<p>行ごと取り直すと、係数はどれだけばらつくか。使いどころ：式の前提が怪しいとき、手元のデータだけでばらつきを測り直す。</p>
 </section>
 <section id="ブートストラップ行ごと取り直す" class="slide level2" data-chapter="I-7">
 <h2>ブートストラップ：行ごと取り直す</h2>
-<div id="9120d382" class="cell" data-execution_count="56">
+<div id="8a673805" class="cell" data-execution_count="56">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1218,9 +1225,9 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 <p>21行から21行を、同じ行を何度選んでもよい形で選び直して当てはめる（1000回、橙は80回ぶん）。これをブートストラップと呼ぶ。</p>
 </section>
-<section id="式の標準誤差より大きく揺れる" class="slide level2" data-chapter="I-7">
-<h2>式の標準誤差より大きく揺れる</h2>
-<div id="bd3aa1c2" class="cell" data-execution_count="57">
+<section id="式の標準誤差より大きくばらつく" class="slide level2" data-chapter="I-7">
+<h2>式の標準誤差より大きくばらつく</h2>
+<div id="5fe32bd8" class="cell" data-execution_count="57">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1229,20 +1236,20 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>傾きの標準偏差は 0.36、式の標準誤差 0.20 の約 1.8 倍。式は、遠い点がいつもそこにあるときの揺れ。</p>
+<p>傾きの標準偏差は 0.36、式の標準誤差 0.20 の約 1.8 倍。式は、遠い点がいつもそこにあるときの標準誤差。</p>
 </section>
 <section id="次の問い手元に無い点では" class="slide level2" data-chapter="I-1">
 <h2>次の問い：手元に無い点では</h2>
 <ul>
-<li>てこ比は、手元の行の予測値の揺れだった</li>
+<li><span class="math inline">\sigma^2h_{ii}</span> は、手元の行の予測値の分散だった</li>
 <li>本当に予測したいのは、手元に無い新しい点 <span class="math inline">\boldsymbol x_0</span></li>
 <li>その点が手元の行から離れていたら？</li>
 </ul>
-<p>手元の行から離れた点の予測は、どれだけ揺れるか。使いどころ：記録にない条件（寒い日、新しい地域）で予測する前の確認。</p>
+<p>手元の行から離れた点の予測は、どれだけばらつくか。使いどころ：記録にない条件（寒い日、新しい地域）で予測する前の確認。</p>
 </section>
 <section id="新しい点の予測も同じ形" class="slide level2" data-chapter="I-7">
 <h2>新しい点の予測も同じ形</h2>
-<div id="dcc220c7" class="cell" data-execution_count="59">
+<div id="efa15f65" class="cell" data-execution_count="59">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1255,7 +1262,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="離れるほど帯が開く" class="slide level2" data-chapter="I-7">
 <h2>離れるほど帯が開く</h2>
-<div id="107e5d7e" class="cell" data-execution_count="60">
+<div id="1679e9b6" class="cell" data-execution_count="60">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1278,7 +1285,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="外挿範囲の外で扇が開く" class="slide level2" data-chapter="I-7">
 <h2>外挿：範囲の外で扇が開く</h2>
-<div id="84c7aa02" class="cell" data-execution_count="61">
+<div id="241de39e" class="cell" data-execution_count="61">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1287,11 +1294,11 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>緑がデータのある範囲。その外で予測することを外挿と呼んだ（第1回）。範囲の外では揺れが膨らむ。</p>
+<p>緑がデータのある範囲。その外で予測することを外挿と呼んだ（第1回）。範囲の外ではばらつきが膨らむ。</p>
 </section>
 <section id="外挿形は確かめようがない" class="slide level2" data-chapter="I-7">
 <h2>外挿：形は確かめようがない</h2>
-<div id="55930655" class="cell" data-execution_count="62">
+<div id="3c0bd46d" class="cell" data-execution_count="62">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1300,11 +1307,11 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>帯は、範囲の外でも直線が正しいとしたときの揺れ。直線でよいかは、データの無い場所では確かめようがない。</p>
+<p>帯は、範囲の外でも直線が正しいとしたときの ±2標準偏差。直線でよいかは、データの無い場所では確かめようがない。</p>
 </section>
 <section id="例記録にない寒い日" class="slide level2" data-chapter="I-7">
 <h2>例：記録にない寒い日</h2>
-<div id="cd839510" class="cell" data-execution_count="63">
+<div id="4546c3d7" class="cell" data-execution_count="63">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1317,7 +1324,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="例本当は曲がっていた" class="slide level2" data-chapter="I-7">
 <h2>例：本当は曲がっていた</h2>
-<div id="a3c3a7f5" class="cell" data-execution_count="64">
+<div id="5940edf4" class="cell" data-execution_count="64">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1334,7 +1341,7 @@ h_{ii}&amp;=x_i^2/41\\
 <div class="column" style="width:45%;">
 <p>似た2列（相関0.9、50行）。★の点は、<span class="math inline">x_1</span> も <span class="math inline">x_2</span> も範囲（破線）の中にある。</p>
 </div><div class="column" style="width:55%;">
-<div id="fc2c8c4b" class="cell" data-execution_count="65">
+<div id="b186c2c9" class="cell" data-execution_count="65">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1352,7 +1359,7 @@ h_{ii}&amp;=x_i^2/41\\
 <p>★の <span class="math inline">\boldsymbol x_0^\top(\mathbf X^\top\mathbf X)^{-1}\boldsymbol x_0</span> は 0.90。平均 <span class="math inline">p/n</span> = 0.04 の約 23 倍。</p>
 <p>原点から同じ遠さでも、雲に沿った◆なら 0.05。</p>
 </div><div class="column" style="width:55%;">
-<div id="01e31dc8" class="cell" data-execution_count="66">
+<div id="6fbbb6c9" class="cell" data-execution_count="66">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1374,7 +1381,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="相関0.9谷底は1点" class="slide level2" data-chapter="I-7">
 <h2>相関0.9：谷底は1点</h2>
-<div id="144534a6" class="cell" data-execution_count="69">
+<div id="04ddee4c" class="cell" data-execution_count="69">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1387,7 +1394,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="相関1谷底が線になる" class="slide level2" data-chapter="I-7">
 <h2>相関1：谷底が線になる</h2>
-<div id="a853552e" class="cell" data-execution_count="70">
+<div id="1a07a884" class="cell" data-execution_count="70">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1400,7 +1407,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="影は1つ内訳は無数" class="slide level2" data-chapter="I-7">
 <h2>影は1つ、内訳は無数</h2>
-<div id="7732a479" class="cell" data-execution_count="71">
+<div id="9a6e3821" class="cell" data-execution_count="71">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1413,7 +1420,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="例伝票2枚で3品の値段" class="slide level2" data-chapter="I-7">
 <h2>例：伝票2枚で3品の値段</h2>
-<div id="43d91f11" class="cell" data-execution_count="72">
+<div id="b738d593" class="cell" data-execution_count="72">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1469,7 +1476,7 @@ h_{ii}&amp;=x_i^2/41\\
 <h2>理論の予想</h2>
 <ul>
 <li>予想①：係数の不安定性は、1回の当てはめの <span class="math inline">\hat\sigma^2(\mathbf X^\top\mathbf X)^{-1}</span> で読める</li>
-<li>予想②：似た列（部屋数と寝室数、緯度と経度）の係数は、VIF倍に膨らんで揺れる</li>
+<li>予想②：似た列（部屋数と寝室数、緯度と経度）の係数は、VIF倍に膨らんでばらつく</li>
 <li>予想③：手元の行から離れた組み合わせでは、予測が危うい</li>
 </ul>
 </section>
@@ -1517,7 +1524,7 @@ h_{ii}&amp;=x_i^2/41\\
 </tr>
 </tbody>
 </table>
-<p>寝室数は所得の約 4 倍揺れた。この差を、第I部の式で説明できるか。</p>
+<p>寝室数の標準偏差は、所得の約 4 倍。この差を、第I部の式で説明できるか。</p>
 </section>
 <section id="相関行列8列" class="slide level2" data-chapter="II-1">
 <h2>相関行列：8列</h2>
@@ -1525,7 +1532,7 @@ h_{ii}&amp;=x_i^2/41\\
 <div class="column" style="width:45%;">
 <p>8列どうしの相関。<span class="math inline">\mathbf X^\top\mathbf X</span> の中身は、列どうしの似かただった。</p>
 </div><div class="column" style="width:55%;">
-<div id="d914a9ae" class="cell" data-execution_count="76">
+<div id="e65efc71" class="cell" data-execution_count="76">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1542,7 +1549,7 @@ h_{ii}&amp;=x_i^2/41\\
 <div class="column" style="width:45%;">
 <p>部屋数と寝室数は 0.85、緯度と経度は -0.92。よく似た2組がある（緑の枠）。</p>
 </div><div class="column" style="width:55%;">
-<div id="0929f8c0" class="cell" data-execution_count="77">
+<div id="120ae215" class="cell" data-execution_count="77">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1566,7 +1573,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="結果①式の標準誤差" class="slide level2" data-chapter="II-3">
 <h2>結果①：式の標準誤差</h2>
-<div id="f401cf3a" class="cell" data-execution_count="79">
+<div id="df099f8d" class="cell" data-execution_count="79">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1575,11 +1582,11 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>1回の当てはめの <span class="math inline">\hat\sigma^2(\mathbf X^\top\mathbf X)^{-1}</span> から出した揺れ。緯度・経度・部屋数・寝室数が大きい。</p>
+<p>1回の当てはめの <span class="math inline">\hat\sigma^2(\mathbf X^\top\mathbf X)^{-1}</span> から出した標準誤差。緯度・経度・部屋数・寝室数が大きい。</p>
 </section>
-<section id="結果①作り直した揺れと重なる" class="slide level2" data-chapter="II-3">
-<h2>結果①：作り直した揺れと重なる</h2>
-<div id="a78edc12" class="cell" data-execution_count="80">
+<section id="結果①作り直しと重なる" class="slide level2" data-chapter="II-3">
+<h2>結果①：作り直しと重なる</h2>
+<div id="c177c5ed" class="cell" data-execution_count="80">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1588,7 +1595,7 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p><span class="math inline">\mathbf X</span> を固定して実際に作り直した揺れを重ねる。8列すべてで重なり、差は最大 3%。予想①どおり。</p>
+<p><span class="math inline">\mathbf X</span> を固定して実際に作り直した1000回の標準偏差を重ねる。8列すべてで重なり、差は最大 3%。予想①どおり。</p>
 </section>
 <section id="確認2通りのvif" class="slide level2 smaller" data-chapter="II-3">
 <h2>確認：2通りのVIF</h2>
@@ -1752,7 +1759,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="結果②似ていない2列" class="slide level2" data-chapter="II-4">
 <h2>結果②：似ていない2列</h2>
-<div id="bc26ac46" class="cell" data-execution_count="85">
+<div id="2b4c3a6a" class="cell" data-execution_count="85">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1765,7 +1772,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="結果②似た2列" class="slide level2" data-chapter="II-4">
 <h2>結果②：似た2列</h2>
-<div id="4eda9920" class="cell" data-execution_count="86">
+<div id="79078da2" class="cell" data-execution_count="86">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1778,7 +1785,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="結果②内訳が決まらない" class="slide level2" data-chapter="II-4">
 <h2>結果②：内訳が決まらない</h2>
-<div id="503c46da" class="cell" data-execution_count="87">
+<div id="af932df1" class="cell" data-execution_count="87">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1787,11 +1794,11 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>部屋数と寝室数の係数の相関は -0.92。「広さ」は決まり、内訳が揺れる。場面で寝室数が揺れたのはこのため。</p>
+<p>部屋数と寝室数の係数の相関は -0.92。「広さ」は決まり、内訳がばらつく。場面の寝室数もこれ。</p>
 </section>
-<section id="結果③膨らんでも符号は揺れない" class="slide level2" data-chapter="II-5">
-<h2>結果③：膨らんでも符号は揺れない</h2>
-<div id="928127f9" class="cell" data-execution_count="88">
+<section id="結果③符号は変わらない" class="slide level2" data-chapter="II-5">
+<h2>結果③：符号は変わらない</h2>
+<div id="f09aace0" class="cell" data-execution_count="88">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1800,11 +1807,11 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>VIFは1のあたりの4列と、10のあたりの4列。だが寝室数の係数は、膨らんでも符号まで揺れることはない。予想②は半分外れた。</p>
+<p>VIFは1のあたりの4列と、10のあたりの4列。だが寝室数の係数は、膨らんでも符号は変わらない。予想②は半分外れた。</p>
 </section>
-<section id="なぜ揺れても読めるか" class="slide level2" data-chapter="II-5">
-<h2>なぜ揺れても読めるか</h2>
-<div id="f744c927" class="cell" data-execution_count="89">
+<section id="なぜばらついても読めるか" class="slide level2" data-chapter="II-5">
+<h2>なぜばらついても読めるか</h2>
+<div id="8858ab6f" class="cell" data-execution_count="89">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1817,7 +1824,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="行の数が効く40地区と比べる" class="slide level2" data-chapter="II-5">
 <h2>行の数が効く：40地区と比べる</h2>
-<div id="d9ad9c2f" class="cell" data-execution_count="90">
+<div id="77be1113" class="cell" data-execution_count="90">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1830,7 +1837,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="結果④地区ごと取り直す" class="slide level2" data-chapter="II-6">
 <h2>結果④：地区ごと取り直す</h2>
-<div id="103ed03f" class="cell" data-execution_count="93">
+<div id="9862d594" class="cell" data-execution_count="93">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1841,9 +1848,9 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 <p>予想①を、もう1つの取り直し方で試す。地区を復元抽出して1000回当てはめ直し（ブートストラップ）、標準偏差を式の標準誤差で割る。1（破線）なら式どおり。</p>
 </section>
-<section id="結果④式より大きく揺れる" class="slide level2" data-chapter="II-6">
-<h2>結果④：式より大きく揺れる</h2>
-<div id="1475e25c" class="cell" data-execution_count="94">
+<section id="結果④式より大きくばらつく" class="slide level2" data-chapter="II-6">
+<h2>結果④：式より大きくばらつく</h2>
+<div id="279008bc" class="cell" data-execution_count="94">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1852,11 +1859,11 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>世帯人数の揺れは式の 42 倍。予想①は外れた。なぜか。</p>
+<p>世帯人数の標準偏差は式の標準誤差の 42 倍。予想①は外れた。なぜか。</p>
 </section>
 <section id="なぜ外れたか①飛び離れた地区" class="slide level2" data-chapter="II-6">
 <h2>なぜ外れたか①：飛び離れた地区</h2>
-<div id="8c4317b5" class="cell" data-execution_count="95">
+<div id="6f030d12" class="cell" data-execution_count="95">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1869,7 +1876,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="なぜ外れたか①1世帯に1243人" class="slide level2" data-chapter="II-6">
 <h2>なぜ外れたか①：1世帯に1,243人</h2>
-<div id="5286e067" class="cell" data-execution_count="96">
+<div id="febb9a57" class="cell" data-execution_count="96">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1882,7 +1889,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="なぜ外れたか②5地区を抜く" class="slide level2" data-chapter="II-6">
 <h2>なぜ外れたか②：5地区を抜く</h2>
-<div id="34806ea9" class="cell" data-execution_count="97">
+<div id="c23ceee4" class="cell" data-execution_count="97">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1895,7 +1902,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="なぜ外れたか②5地区で変わる" class="slide level2" data-chapter="II-6">
 <h2>なぜ外れたか②：5地区で変わる</h2>
-<div id="cc79009d" class="cell" data-execution_count="98">
+<div id="5a91160e" class="cell" data-execution_count="98">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1904,7 +1911,7 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>5地区を抜くだけで、世帯人数の係数は -0.039 → -0.505。式は <span class="math inline">\mathbf X</span> を固定していて、この数地区の出入りによる揺れを含まない。</p>
+<p>5地区を抜くだけで、世帯人数の係数は -0.039 → -0.505。式は <span class="math inline">\mathbf X</span> を固定していて、この数地区の出入りによるばらつきを含まない。</p>
 </section>
 <section id="結果⑤架空の地区" class="slide level2" data-chapter="II-6">
 <h2>結果⑤：架空の地区</h2>
@@ -1912,7 +1919,7 @@ h_{ii}&amp;=x_i^2/41\\
 <div class="column" style="width:45%;">
 <p>ほかの列はすべて平均で、緯度 41.5・経度 -115 の地区を考える。緯度も経度も、範囲（破線）の中にある。</p>
 </div><div class="column" style="width:55%;">
-<div id="6c726353" class="cell" data-execution_count="99">
+<div id="4ad99e0b" class="cell" data-execution_count="99">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1929,7 +1936,7 @@ h_{ii}&amp;=x_i^2/41\\
 <div class="column" style="width:45%;">
 <p>緯度も経度も範囲（破線）の中。でも組み合わせは雲の外。<span class="math inline">\boldsymbol x_0^\top(\mathbf X^\top\mathbf X)^{-1}\boldsymbol x_0</span> = 0.0109（平均の約 25 倍）、予測は -2.39（負の価格）。予想③どおり。</p>
 </div><div class="column" style="width:55%;">
-<div id="a67563f7" class="cell" data-execution_count="100">
+<div id="bcdb1299" class="cell" data-execution_count="100">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1944,8 +1951,8 @@ h_{ii}&amp;=x_i^2/41\\
 <h2>このデータでわかったこと</h2>
 <ul>
 <li>予想①：<span class="math inline">\mathbf X</span> を固定した作り直しでは当たった。地区ごと取り直すと外れた</li>
-<li>外れた理由：てこ比の大きい数地区が係数を握る。式はその揺れを含まない</li>
-<li>予想②：似た列はVIF倍に膨らんだ。だが行が多く、符号は揺れなかった</li>
+<li>外れた理由：てこ比の大きい数地区が係数を握る。式はそのばらつきを含まない</li>
+<li>予想②：似た列はVIF倍に膨らんだ。だが行が多く、符号は変わらなかった</li>
 <li>予想③：範囲の中でも、組み合わせが外なら負の価格になった</li>
 </ul>
 </section></section>
@@ -1956,7 +1963,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="まとめ①係数の不安定性の式" class="slide level2" data-chapter="締め">
 <h2>まとめ①：係数の不安定性の式</h2>
-<div id="5f09d826" class="cell" data-execution_count="105">
+<div id="3b1d3e4b" class="cell" data-execution_count="105">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1965,11 +1972,11 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p><span class="math inline">\operatorname{\mathbb{V}ar}(\hat{\boldsymbol\beta})=\sigma^2(\mathbf X^\top\mathbf X)^{-1}</span>。ノイズが小さく、列が広いほど揺れない。</p>
+<p><span class="math inline">\operatorname{\mathbb{V}ar}(\hat{\boldsymbol\beta})=\sigma^2(\mathbf X^\top\mathbf X)^{-1}</span>。ノイズが小さく、列が広いほどばらつかない。</p>
 </section>
 <section id="まとめ②列が似ると膨らむ" class="slide level2" data-chapter="締め">
 <h2>まとめ②：列が似ると膨らむ</h2>
-<div id="7b5bc232" class="cell" data-execution_count="106">
+<div id="e229fa00" class="cell" data-execution_count="106">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1978,11 +1985,11 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>列が似ると、分散はVIF倍に膨らむ。和は決まり、内訳が揺れる。</p>
+<p>列が似ると、分散はVIF倍に膨らむ。和は決まり、内訳がばらつく。</p>
 </section>
-<section id="まとめ③離れた点の予測は揺れる" class="slide level2" data-chapter="締め">
-<h2>まとめ③：離れた点の予測は揺れる</h2>
-<div id="e70b5175" class="cell" data-execution_count="107">
+<section id="まとめ③離れた点の予測" class="slide level2" data-chapter="締め">
+<h2>まとめ③：離れた点の予測</h2>
+<div id="c3940308" class="cell" data-execution_count="107">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -1991,7 +1998,7 @@ h_{ii}&amp;=x_i^2/41\\
 </div>
 </div>
 </div>
-<p>予測の揺れは <span class="math inline">\sigma^2\boldsymbol x_0^\top(\mathbf X^\top\mathbf X)^{-1}\boldsymbol x_0</span>。手元の行ではてこ比、範囲の外では外挿。</p>
+<p>予測の分散は <span class="math inline">\sigma^2\boldsymbol x_0^\top(\mathbf X^\top\mathbf X)^{-1}\boldsymbol x_0</span>。手元の行ではてこ比、範囲の外では外挿。</p>
 </section>
 <section id="演習では①お風呂で安くなる" class="slide level2" data-chapter="締め">
 <h2>演習では①：お風呂で安くなる？</h2>
@@ -2007,7 +2014,7 @@ h_{ii}&amp;=x_i^2/41\\
 <li>台数の係数は、面積を入れると −312ドル、外すと +7,725ドル</li>
 <li>ブートストラップ100回では、台数の係数が64%の回でマイナス</li>
 </ul>
-<p>似た列が並ぶと、係数の内訳は揺れる。</p>
+<p>似た列が並ぶと、係数の内訳はばらつく。</p>
 </section>
 <section id="演習では③足すとほかの列になる" class="slide level2" data-chapter="締め">
 <h2>演習では③：足すとほかの列になる</h2>
@@ -2018,7 +2025,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="次回予告①係数が非常に不安定" class="slide level2" data-chapter="締め">
 <h2>次回予告①：係数が非常に不安定</h2>
-<div id="fe69956a" class="cell" data-execution_count="108">
+<div id="58db9e96" class="cell" data-execution_count="108">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -2031,7 +2038,7 @@ h_{ii}&amp;=x_i^2/41\\
 </section>
 <section id="次回予告②係数が決まらない" class="slide level2" data-chapter="締め">
 <h2>次回予告②：係数が決まらない</h2>
-<div id="a33820b2" class="cell" data-execution_count="109">
+<div id="101be58b" class="cell" data-execution_count="109">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
