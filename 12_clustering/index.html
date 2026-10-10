@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-1941e964fa3ab312ad1a6d8bf906c6f5.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-cb2dd3e547cb76b46b665cb07db7938a.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -171,53 +171,66 @@
 <div class="column" style="width:45%;">
 <p>小麦の粒 210 粒の、粒の長さと溝の長さ。第11回のk-means（<span class="math inline">k=3</span>）で3つの群に分けた。境目は代表点（■）の垂直二等分線。</p>
 </div><div class="column" style="width:55%;">
-<div id="82f7f079" class="cell" data-execution_count="3">
+<div id="3c0b912e" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" width="367" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=0c4b396f" width="367" height="366"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="場面②境目のそばも100" class="slide level2" data-chapter="I-1">
-<h2>場面②：境目のそばも100%</h2>
+<section id="困りごと①境目のそばも100" class="slide level2" data-chapter="I-1">
+<h2>困りごと①：境目のそばも100%</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p>丸で囲んだ粒は、境目のすぐそばにある。それでも <span class="math inline">\mathbf G</span> では1か0で、どれか1つの群に100%入る。</p>
+<p>丸で囲んだ粒は、境目のすぐそばにある。それでも <span class="math inline">\mathbf G</span> では1か0で、どれか1つの群に100%入る。「どちらとも言えない」と言えないか？</p>
 </div><div class="column" style="width:55%;">
-<div id="095a4ffb" class="cell" data-execution_count="4">
+<div id="1f12a01c" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" width="367" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=0c4b396f" width="367" height="366"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="場面②群の形も見ていない" class="slide level2" data-chapter="I-1">
-<h2>場面②：群の形も見ていない</h2>
+<section id="困りごと②群の形を見ていない" class="slide level2" data-chapter="I-1">
+<h2>困りごと②：群の形を見ていない</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p>粒の雲は、左下から右上へ斜めに伸びている（矢印）。垂直二等分線の境目は、この伸び方と関係なく引かれる。</p>
+<p>粒の雲は、左下から右上へ斜めに伸びている（矢印）。垂直二等分線の境目は、この伸び方と関係なく引かれる。群の形や広がりも使って分けられないか？</p>
 </div><div class="column" style="width:55%;">
-<div id="96f1a6ed" class="cell" data-execution_count="5">
+<div id="0b8cb1dd" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png" width="367" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=0c4b396f" width="367" height="366"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="場面③空いたマス" class="slide level2" data-chapter="I-1">
-<h2>場面③：空いたマス</h2>
+<section id="困りごと③品種が見えない" class="slide level2" data-chapter="I-1">
+<h2>困りごと③：品種が見えない</h2>
+<div id="cf6788c3" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="724" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>第6回のLDAは、品種を見て群ごとの平均と散らばりを推定した。品種が見えないと、その最尤法は使えない。どう解く？</p>
+</section>
+<section id="前回の問い空いたマス" class="slide level2" data-chapter="I-1">
+<h2>前回の問い：空いたマス</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -241,8 +254,8 @@
 </table>
 <p>行を群に分ける問題には、最尤法のマスがまだ無い。</p>
 </section>
-<section id="場面③第6回の道" class="slide level2" data-chapter="I-1">
-<h2>場面③：第6回の道</h2>
+<section id="前回の問い第6回の道" class="slide level2" data-chapter="I-1">
+<h2>前回の問い：第6回の道</h2>
 <ul>
 <li>第5回：0/1の <span class="math inline">y</span> を最小二乗法で近似すると、確率が出なかった</li>
 <li>第6回：<span class="math inline">y</span> の出方を確率で仮定して最尤法で解くと、確率が出た</li>
@@ -251,7 +264,7 @@
 </section>
 <section id="今回の問い" class="slide level2" data-chapter="I-1">
 <h2>今回の問い</h2>
-<p>第11回の最後に残した問い：同じ群を最尤法で推定すると？</p>
+<p>第11回の最後に残した問い：同じ群を最尤法で推定すると？（困りごと③。①②にも答える）</p>
 <p>今回覚える言葉</p>
 <ul>
 <li>混合正規分布</li>
@@ -267,15 +280,15 @@
 <li>群に分ける問題でも、行の出方を確率で書きたい</li>
 <li>ただし、どの行がどの群かは見えていない</li>
 </ul>
-<p>問い：所属が見えないとき、行はどんな確率で出てくるか？</p>
+<p>問い：所属が見えないとき、行はどんな確率で出てくるか？使いどころ：所属の見えないデータを、確率付きで群に分ける（混ざった卵、品種のわからない粒）。</p>
 </section>
 <section id="小さな例卵のかご" class="slide level2" data-chapter="I-2">
 <h2>小さな例：卵のかご</h2>
-<div id="0861ad00" class="cell" data-execution_count="7">
+<div id="643532b2" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -284,11 +297,11 @@
 </section>
 <section id="モデル①第6回のlda" class="slide level2" data-chapter="I-2">
 <h2>モデル①：第6回のLDA</h2>
-<div id="a376a514" class="cell" data-execution_count="8">
+<div id="ee3d6ea0" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -300,11 +313,11 @@
 </section>
 <section id="モデル①群の中で散らばる" class="slide level2" data-chapter="I-2">
 <h2>モデル①：群の中で散らばる</h2>
-<div id="122964a1" class="cell" data-execution_count="9">
+<div id="3c3ad416" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -316,11 +329,11 @@ x_i\mid g_{iq}=1\ \sim\ N(\mu_q,\sigma^2)
 </section>
 <section id="モデル②所属を隠す" class="slide level2" data-chapter="I-2">
 <h2>モデル②：所属を隠す</h2>
-<div id="dfb69abc" class="cell" data-execution_count="10">
+<div id="c5a6b59a" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -329,11 +342,11 @@ x_i\mid g_{iq}=1\ \sim\ N(\mu_q,\sigma^2)
 </section>
 <section id="モデル②2つの道を足す" class="slide level2" data-chapter="I-2">
 <h2>モデル②：2つの道を足す</h2>
-<div id="3c15a12b" class="cell" data-execution_count="11">
+<div id="6ae32bd6" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -345,11 +358,11 @@ f(x)=\pi_1f_1(x)+\pi_2f_2(x)
 </section>
 <section id="定義混合正規分布" class="slide level2" data-chapter="I-2">
 <h2>定義：混合正規分布</h2>
-<div id="5b6d3a19" class="cell" data-execution_count="12">
+<div id="9de02ca8" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -362,11 +375,11 @@ f(x)=\pi_1f_1(x)+\pi_2f_2(x)
 <div class="column" style="width:45%;">
 <p>2変数の例：浜辺で拾った貝殻120個の長さと高さ。行 <span class="math inline">i</span> はベクトル <span class="math inline">\tilde{\boldsymbol x}_i</span>（第11回と同じ記号）。</p>
 </div><div class="column" style="width:55%;">
-<div id="3598350e" class="cell" data-execution_count="14">
+<div id="7109406d" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" width="364" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png?v=0c4b396f" width="364" height="366"></p>
 </figure>
 </div>
 </div>
@@ -385,11 +398,11 @@ f(\tilde{\boldsymbol x})=\sum_{q=1}^{k}\pi_qN(\tilde{\boldsymbol x};\boldsymbol\
 </div>
 <p><span class="math inline">p=1</span>、<span class="math inline">k=2</span> なら1変数の式に戻る。</p>
 </div><div class="column" style="width:55%;">
-<div id="6547f429" class="cell" data-execution_count="15">
+<div id="86661e6a" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" width="364" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png?v=0c4b396f" width="364" height="366"></p>
 </figure>
 </div>
 </div>
@@ -402,11 +415,11 @@ f(\tilde{\boldsymbol x})=\sum_{q=1}^{k}\pi_qN(\tilde{\boldsymbol x};\boldsymbol\
 <div class="column" style="width:45%;">
 <p>第6回のLDAは、共分散行列を群で共通にした。ここでは群ごとに <span class="math inline">\boldsymbol\Sigma_q</span> を持たせてよい。楕円の傾きと大きさが群で変わる。</p>
 </div><div class="column" style="width:55%;">
-<div id="69df94d1" class="cell" data-execution_count="16">
+<div id="84f7363a" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png" width="364" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=0c4b396f" width="364" height="366"></p>
 </figure>
 </div>
 </div>
@@ -516,11 +529,11 @@ f(x_i)=\pi_1f_1(x_i)+\pi_2f_2(x_i)
 </div>
 <p><span class="math inline">\boldsymbol\Phi\mathbf 1_k</span> の第 <span class="math inline">i</span> 成分が、行 <span class="math inline">i</span> の出やすさ。logは成分ごとにとる。</p>
 </div><div class="column" style="width:55%;">
-<div id="294b188e" class="cell" data-execution_count="19">
+<div id="20dacadd" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" width="323" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png?v=0c4b396f" width="323" height="342"></p>
 </figure>
 </div>
 </div>
@@ -534,15 +547,15 @@ f(x_i)=\pi_1f_1(x_i)+\pi_2f_2(x_i)
 <li>logの中に和があると、偏微分の式に分数が出てくる</li>
 <li>その分数には、意味と名前がある</li>
 </ul>
-<p>道具を先にそろえる。</p>
+<p>道具を先にそろえる。使いどころ：見えない値を含むモデルを、最尤法で解く。</p>
 </section>
 <section id="道具①この卵はどちら" class="slide level2" data-chapter="I-4">
 <h2>道具①：この卵はどちら？</h2>
-<div id="39032c0f" class="cell" data-execution_count="20">
+<div id="183e8ef5" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -551,11 +564,11 @@ f(x_i)=\pi_1f_1(x_i)+\pi_2f_2(x_i)
 </section>
 <section id="道具①ベイズの定理第6回" class="slide level2" data-chapter="I-4">
 <h2>道具①：ベイズの定理（第6回）</h2>
-<div id="e9376560" class="cell" data-execution_count="21">
+<div id="b3f84e3c" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -571,6 +584,19 @@ r_{iq}=\Pr(g_{iq}=1\mid x_i)=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 r_{iq}=\Pr(g_{iq}=1\mid\tilde{\boldsymbol x}_i)=\frac{\pi_qf_q(\tilde{\boldsymbol x}_i)}{\sum_{l=1}^{k}\pi_lf_l(\tilde{\boldsymbol x}_i)}
 </span></p>
 <p><span class="math inline">\tilde{\boldsymbol x}_i</span> を見たうえで群 <span class="math inline">q</span> である確率（事後確率）。群 <span class="math inline">q</span> が行 <span class="math inline">i</span> を説明する責任の大きさと見て、責任度と呼ぶ。</p>
+</section>
+<section id="たとえどんぐりはどの木から" class="slide level2" data-chapter="I-4">
+<h2>たとえ：どんぐりはどの木から</h2>
+<div id="f5e2e5ab" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="897" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>拾ったどんぐりが、どちらの木から落ちたかは見えない。木からの近さと、木の大きさ（落とす数）から「木Bのものが8割」と確率で言う。これが責任度。</p>
 </section>
 <section id="道具①見えないgの期待値" class="slide level2" data-chapter="I-4">
 <h2>道具①：見えないgの期待値</h2>
@@ -666,11 +692,11 @@ n_q=\sum_{i=1}^{n}r_{iq},\qquad
 </section>
 <section id="道具④重み付きの和" class="slide level2" data-chapter="I-4">
 <h2>道具④：重み付きの和</h2>
-<div id="7065c279" class="cell" data-execution_count="23">
+<div id="1ab8daed" class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" class="quarto-figure quarto-figure-center" width="636" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="636" height="295"></p>
 </figure>
 </div>
 </div>
@@ -735,11 +761,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="導出③rを固定して解く" class="slide level2" data-chapter="I-5">
 <h2>導出③：rを固定して解く</h2>
-<div id="d8dce51b" class="cell" data-execution_count="24">
+<div id="f2c9ed0f" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" class="quarto-figure quarto-figure-center" width="1003" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1003" height="295"></p>
 </figure>
 </div>
 </div>
@@ -862,13 +888,26 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 <li>ランダムスタート：2〜5を何通りかの初期値で行い、<span class="math inline">\ell</span> が最も大きい答えを採る</li>
 </ol>
 </section>
-<section id="卵で回す①初期値" class="slide level2" data-chapter="I-6">
-<h2>卵で回す①：初期値</h2>
-<div id="413d6053" class="cell" data-execution_count="25">
+<section id="たとえ木の場所を測り直す" class="slide level2" data-chapter="I-6">
+<h2>たとえ：木の場所を測り直す</h2>
+<div id="cc9c8941" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="897" height="284"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>木の場所がわからなくても、仮の場所から各どんぐりの確率を出し（E）、その確率で重みを付けて木の場所を測り直す（M）。これを繰り返す。</p>
+</section>
+<section id="卵で回す①初期値" class="slide level2" data-chapter="I-6">
+<h2>卵で回す①：初期値</h2>
+<div id="8bcb140e" class="cell" data-execution_count="28">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -877,11 +916,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="卵で回す②山が離れる" class="slide level2" data-chapter="I-6">
 <h2>卵で回す②：山が離れる</h2>
-<div id="1cc3c7d7" class="cell" data-execution_count="26">
+<div id="9f919243" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -890,16 +929,29 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="卵で回す③止まる" class="slide level2" data-chapter="I-6">
 <h2>卵で回す③：止まる</h2>
-<div id="9537985a" class="cell" data-execution_count="27">
+<div id="3a1dc892" class="cell" data-execution_count="30">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>73 回で止まった。M玉とL玉の山に近い2つの道が出る。</p>
+</section>
+<section id="困りごと③に戻る" class="slide level2" data-chapter="I-6">
+<h2>困りごと③に戻る</h2>
+<div id="992bcf36" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>所属が見えなくても、所属を確率（責任度）で推し、その重みで第6回の最尤法を解き直せばよい。EとMを交互に回すと、見えない2つの群が出てくる。</p>
 </section>
 <section id="k-meansの手順と並べる" class="slide level2 smaller" data-chapter="I-6">
 <h2>k-meansの手順と並べる</h2>
@@ -946,11 +998,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="帰結①ℓは毎回上がる" class="slide level2" data-chapter="I-7">
 <h2>帰結①：ℓは毎回上がる</h2>
-<div id="2ea05292" class="cell" data-execution_count="29">
+<div id="3139d7ec" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png" class="quarto-figure quarto-figure-center" width="761" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="761" height="342"></p>
 </figure>
 </div>
 </div>
@@ -959,11 +1011,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="帰結①平らな所がある" class="slide level2" data-chapter="I-7">
 <h2>帰結①：平らな所がある</h2>
-<div id="2c648e65" class="cell" data-execution_count="30">
+<div id="6ca609b8" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png" class="quarto-figure quarto-figure-center" width="761" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="761" height="342"></p>
 </figure>
 </div>
 </div>
@@ -972,11 +1024,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="帰結②所属を見たs字" class="slide level2" data-chapter="I-7">
 <h2>帰結②：所属を見たS字</h2>
-<div id="e3b55203" class="cell" data-execution_count="31">
+<div id="7b31cd52" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
 </figure>
 </div>
 </div>
@@ -985,11 +1037,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="帰結②yを見ずに確率が出る" class="slide level2" data-chapter="I-7">
 <h2>帰結②：yを見ずに確率が出る</h2>
-<div id="905f520a" class="cell" data-execution_count="32">
+<div id="f4920efe" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
 </figure>
 </div>
 </div>
@@ -998,11 +1050,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="帰結②k-meansなら階段" class="slide level2" data-chapter="I-7">
 <h2>帰結②：k-meansなら階段</h2>
-<div id="7102a8be" class="cell" data-execution_count="33">
+<div id="57ffae50" class="cell" data-execution_count="37">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
 </figure>
 </div>
 </div>
@@ -1011,11 +1063,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="帰結③k-meansの境目" class="slide level2" data-chapter="I-7">
 <h2>帰結③：k-meansの境目</h2>
-<div id="ec6d0021" class="cell" data-execution_count="34">
+<div id="0b4113d9" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="396"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="888" height="396"></p>
 </figure>
 </div>
 </div>
@@ -1024,29 +1076,55 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="帰結③群ごとの楕円" class="slide level2" data-chapter="I-7">
 <h2>帰結③：群ごとの楕円</h2>
-<div id="2f0add50" class="cell" data-execution_count="35">
+<div id="42688046" class="cell" data-execution_count="39">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="396"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="888" height="396"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>EMは群ごとの楕円を推定する。ハマグリの帯に沿った細長い楕円になり、境目が曲がる。</p>
 </section>
-<section id="帰結④境目のそばは半々" class="slide level2" data-chapter="I-7">
-<h2>帰結④：境目のそばは半々</h2>
-<div id="55ed8df3" class="cell" data-execution_count="36">
+<section id="困りごと②に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと②に戻る</h2>
+<div id="89511d0e" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="396"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="888" height="396"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>群ごとに共分散行列 <span class="math inline">\boldsymbol\Sigma_q</span> を持たせると、群の形と広がりを推定できる。境目は楕円に合わせて曲がる。</p>
+</section>
+<section id="帰結④境目のそばは半々" class="slide level2" data-chapter="I-7">
+<h2>帰結④：境目のそばは半々</h2>
+<div id="cf64fdf4" class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="888" height="396"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>丸は最大の責任度が0.9未満の 8 点。どちらとも言えないことを、確率で言える。</p>
+</section>
+<section id="困りごと①に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと①に戻る</h2>
+<div id="9a02cd85" class="cell" data-execution_count="42">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="888" height="396"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>所属は0か1ではなく、責任度という確率で出る。境目のそばの点は「どちらとも言えない」と、数で言える。</p>
 </section>
 <section id="次の問いk-meansとどうつながる" class="slide level2" data-chapter="I-1">
 <h2>次の問い：k-meansとどうつながる</h2>
@@ -1058,11 +1136,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="帰結⑤σ²を小さくすると" class="slide level2" data-chapter="I-7">
 <h2>帰結⑤：σ²を小さくすると</h2>
-<div id="e80ba90a" class="cell" data-execution_count="40">
+<div id="5938dfbe" class="cell" data-execution_count="46">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
 </figure>
 </div>
 </div>
@@ -1071,11 +1149,11 @@ r_{iq}=\frac{\pi_qf_q(x_i)}{\pi_1f_1(x_i)+\pi_2f_2(x_i)}
 </section>
 <section id="帰結⑤s字が階段になる" class="slide level2" data-chapter="I-7">
 <h2>帰結⑤：S字が階段になる</h2>
-<div id="fa4b388f" class="cell" data-execution_count="41">
+<div id="cc2f95c9" class="cell" data-execution_count="47">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1002" height="366"></p>
 </figure>
 </div>
 </div>
@@ -1114,11 +1192,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="帰結⑦初期値しだい" class="slide level2" data-chapter="I-7">
 <h2>帰結⑦：初期値しだい</h2>
-<div id="deb9f4f6" class="cell" data-execution_count="43">
+<div id="9eeb78bd" class="cell" data-execution_count="49">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png" class="quarto-figure quarto-figure-center" width="761" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="761" height="354"></p>
 </figure>
 </div>
 </div>
@@ -1127,11 +1205,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="帰結⑧1点に縮むと" class="slide level2" data-chapter="I-7">
 <h2>帰結⑧：1点に縮むと</h2>
-<div id="ab1b2609" class="cell" data-execution_count="44">
+<div id="bc6586bf" class="cell" data-execution_count="50">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1007" height="263"></p>
 </figure>
 </div>
 </div>
@@ -1285,11 +1363,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 <div class="column" style="width:45%;">
 <p>場面①の答え。第11回のk-means（<span class="math inline">k=3</span>、初期値20通りの最良）で、群は 88・56・66 粒、<span class="math inline">J</span> = 60.15。</p>
 </div><div class="column" style="width:55%;">
-<div id="7fa71c67" class="cell" data-execution_count="47">
+<div id="6c0ecd11" class="cell" data-execution_count="53">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png" width="367" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-54-output-1.png?v=0c4b396f" width="367" height="366"></p>
 </figure>
 </div>
 </div>
@@ -1309,11 +1387,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="結果①k-meansの境目" class="slide level2" data-chapter="II-3">
 <h2>結果①：k-meansの境目</h2>
-<div id="aeac0243" class="cell" data-execution_count="49">
+<div id="29ba09d3" class="cell" data-execution_count="55">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-56-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
 </figure>
 </div>
 </div>
@@ -1322,11 +1400,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="結果①楕円で分ける" class="slide level2" data-chapter="II-3">
 <h2>結果①：楕円で分ける</h2>
-<div id="591b20bf" class="cell" data-execution_count="50">
+<div id="8e8377bd" class="cell" data-execution_count="56">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
 </figure>
 </div>
 </div>
@@ -1335,11 +1413,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="結果①品種で塗ると" class="slide level2" data-chapter="II-3">
 <h2>結果①：品種で塗ると</h2>
-<div id="4a1aaa12" class="cell" data-execution_count="51">
+<div id="d6d7a259" class="cell" data-execution_count="57">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-58-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
 </figure>
 </div>
 </div>
@@ -1348,11 +1426,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="結果②境目の粒" class="slide level2" data-chapter="II-3">
 <h2>結果②：境目の粒</h2>
-<div id="dcaca39c" class="cell" data-execution_count="52">
+<div id="d4afa9fd" class="cell" data-execution_count="58">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
 </figure>
 </div>
 </div>
@@ -1389,11 +1467,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="結果②自信を持って外れる" class="slide level2" data-chapter="II-3">
 <h2>結果②：自信を持って外れる</h2>
-<div id="1f5df0e4" class="cell" data-execution_count="54">
+<div id="b390ec06" class="cell" data-execution_count="60">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-55-output-1.png" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1032" height="384"></p>
 </figure>
 </div>
 </div>
@@ -1424,11 +1502,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="確認ℓとライブラリ" class="slide level2" data-chapter="II-3">
 <h2>確認：ℓとライブラリ</h2>
-<div id="67790a15" class="cell" data-execution_count="58">
+<div id="ef2c6484" class="cell" data-execution_count="64">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png" class="quarto-figure quarto-figure-center" width="761" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-65-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="761" height="378"></p>
 </figure>
 </div>
 </div>
@@ -1500,11 +1578,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="落とし穴①着く先がばらばら" class="slide level2" data-chapter="II-6">
 <h2>落とし穴①：着く先がばらばら</h2>
-<div id="d5285372" class="cell" data-execution_count="63">
+<div id="8ae9767a" class="cell" data-execution_count="69">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-64-output-1.png" class="quarto-figure quarto-figure-center" width="760" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="760" height="330"></p>
 </figure>
 </div>
 </div>
@@ -1513,11 +1591,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="落とし穴①品種から離れる" class="slide level2" data-chapter="II-6">
 <h2>落とし穴①：品種から離れる</h2>
-<div id="78247969" class="cell" data-execution_count="64">
+<div id="4036af22" class="cell" data-execution_count="70">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-65-output-1.png" class="quarto-figure quarto-figure-center" width="760" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-71-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="760" height="330"></p>
 </figure>
 </div>
 </div>
@@ -1592,11 +1670,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="まとめ①ラベルを隠したlda" class="slide level2" data-chapter="締め">
 <h2>まとめ①：ラベルを隠したLDA</h2>
-<div id="8d0bb742" class="cell" data-execution_count="68">
+<div id="464b5959" class="cell" data-execution_count="74">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-75-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1004" height="295"></p>
 </figure>
 </div>
 </div>
@@ -1605,11 +1683,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="まとめ②emで交互に解く" class="slide level2" data-chapter="締め">
 <h2>まとめ②：EMで交互に解く</h2>
-<div id="5b080580" class="cell" data-execution_count="69">
+<div id="ca20f2fc" class="cell" data-execution_count="75">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png" class="quarto-figure quarto-figure-center" width="1003" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-76-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1003" height="295"></p>
 </figure>
 </div>
 </div>
@@ -1618,11 +1696,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="まとめ③k-meansはその極限" class="slide level2" data-chapter="締め">
 <h2>まとめ③：k-meansはその極限</h2>
-<div id="631eae3d" class="cell" data-execution_count="70">
+<div id="66ba6d28" class="cell" data-execution_count="76">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-71-output-1.png" class="quarto-figure quarto-figure-center" width="1004" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-77-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="1004" height="295"></p>
 </figure>
 </div>
 </div>
@@ -1631,11 +1709,11 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 </section>
 <section id="次回予告①ℓはkで上がる" class="slide level2" data-chapter="締め">
 <h2>次回予告①：ℓはKで上がる</h2>
-<div id="c3522cbe" class="cell" data-execution_count="71">
+<div id="8391c957" class="cell" data-execution_count="77">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png" class="quarto-figure quarto-figure-center" width="761" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-78-output-1.png?v=0c4b396f" class="quarto-figure quarto-figure-center" width="761" height="366"></p>
 </figure>
 </div>
 </div>
@@ -1649,6 +1727,30 @@ r_{iq}=\frac{\exp\bigl(-\lVert\tilde{\boldsymbol x}_i-\boldsymbol\mu_q\rVert_2^2
 <li>共分散を群ごとにするか共通にするかも、パラメータの数を変える同じ問題</li>
 </ul>
 <p>問い：<span class="math inline">k</span> をどう選ぶ？</p>
+</section></section>
+<section>
+<section id="発展" class="title-slide slide level1 part center">
+<h1>発展</h1>
+
+</section>
+<section id="発展群の数を決めない混合" class="slide level2" data-chapter="発展">
+<h2>発展：群の数を決めない混合</h2>
+<ul>
+<li>混合正規分布では、群の数 <span class="math inline">k</span> を先に決めて与えた</li>
+<li><span class="math inline">k</span> を決めずに、必要なだけ群を使う混合モデルがある</li>
+<li>群の数を無限まで許す。データが少なければ使う群は少なく、多ければ増える</li>
+</ul>
+</section>
+<section id="無限混合モデルの図" class="slide level2" data-chapter="発展">
+<h2>無限混合モデルの図</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>混合正規分布の図。箱 <span class="math inline">k=1,\dots,K</span> は群ごと、箱 <span class="math inline">i=1,\dots,n</span> は行ごと。</p>
+<p><span class="math inline">K\to\infty</span> で、群の数を決めない無限混合モデル（ディリクレ過程混合）。</p>
+<p><span class="credit">出典：Nicholls, Kirk &amp; Wallace (2024) Bayesian clustering with uncertain data. PLoS Comput. Biol. 20: e1012301, Fig. 1（CC BY 4.0）</span></p>
+</div><div class="column" style="width:55%;">
+<p><img data-src="papers/nicholls2024_fig1.png?v=0c4b396f" style="max-height:500px; width:auto;"></p>
+</div></div>
 
 </section></section>
     </div>
