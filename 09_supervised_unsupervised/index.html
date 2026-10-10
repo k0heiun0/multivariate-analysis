@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-1941e964fa3ab312ad1a6d8bf906c6f5.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-cb2dd3e547cb76b46b665cb07db7938a.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -146,7 +146,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">第9回 主成分分析①</h1>
-  <p class="subtitle">X を少数の軸で近似し、F と A を交互に解く</p>
+  <p class="subtitle">X を1回特異値分解し、上位 Q 本を残す</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -157,73 +157,8 @@
 <h1>第I部　理論</h1>
 
 </section>
-<section id="場面①1枚は64個の数" class="slide level2" data-chapter="I-1">
-<h2>場面①：1枚は64個の数</h2>
-<div id="e8d36d08" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1069" height="208"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>手書きの数字の画像。1枚は8×8＝64 マスの濃さ（0〜16）。</p>
-</section>
-<section id="場面②1枚がxの1行" class="slide level2" data-chapter="I-1">
-<h2>場面②：1枚がXの1行</h2>
-<div id="b02aac68" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="231" height="324"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>1,797 枚を1行ずつ並べると、<span class="math inline">n\times p=</span> 1,797 <span class="math inline">\times</span> 64 のデータ行列 <span class="math inline">\mathbf X</span>。2列の組は 2,016 通りで、散布図を全部は描けない。</p>
-</section>
-<section id="場面③赤い枠の2マス" class="slide level2" data-chapter="I-1">
-<h2>場面③：赤い枠の2マス</h2>
-<div id="cff12238" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="768" height="396"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>1段目の左から3マス目と、8段目の左から3マス目。この2列を、全部の画像で並べてみる。</p>
-</section>
-<section id="場面④一緒に動く2マス" class="slide level2" data-chapter="I-1">
-<h2>場面④：一緒に動く2マス</h2>
-<div id="0ae83323" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="768" height="396"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>1,797 枚の点は、ほぼ1本の線の上に乗る（相関 0.938）。</p>
-</section>
-<section id="場面⑤2つの数を1つで言う" class="slide level2" data-chapter="I-1">
-<h2>場面⑤：2つの数を1つで言う</h2>
-<div id="691b908c" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="768" height="396"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>赤い直線の上の位置を言えば、2マスの濃さがほぼわかる。2つの数を1つの数で言える。</p>
-</section>
-<section id="前回の目的関数" class="slide level2" data-chapter="I-1">
-<h2>前回の目的関数</h2>
+<section id="前回の問いxを少数の軸で" class="slide level2" data-chapter="I-1">
+<h2>前回の問い：Xを少数の軸で</h2>
 <p>第8回で、<span class="math inline">\mathbf X</span> 自身を少数の軸で近似する目的関数を書いた。</p>
 <p><span class="math display">
 \min_{\mathbf F,\mathbf A}\ \lVert\mathbf X-\mathbf F\mathbf A^\top\rVert_F^2
@@ -231,29 +166,93 @@
 </span></p>
 <p>書いただけで、まだ解いていない。</p>
 </section>
+<section id="場面①写真1枚" class="slide level2" data-chapter="I-1">
+<h2>場面①：写真1枚</h2>
+<div id="e5b54838" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="888" height="378"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>白黒の写真1枚。今回は、これをデータ行列として扱う。</p>
+</section>
+<section id="場面②写真は数の表" class="slide level2" data-chapter="I-1">
+<h2>場面②：写真は数の表</h2>
+<div id="a888bcef" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="888" height="378"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>マスは画素の明るさ（黒0〜白1）。写真1枚は 427 行 × 400 列の表 <span class="math inline">\mathbf X</span>。</p>
+</section>
+<section id="困りごと①数が多すぎる" class="slide level2" data-chapter="I-1">
+<h2>困りごと①：数が多すぎる</h2>
+<div id="32a412bd" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="231" height="324"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>写真1枚で 170,800 個の数。少ない数で、写真をほぼ言い表せないか？</p>
+</section>
+<section id="困りごと②未知が2つの積" class="slide level2" data-chapter="I-1">
+<h2>困りごと②：未知が2つの積</h2>
+<div id="2480cd5f" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="489" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>回帰なら、未知は <span class="math inline">\boldsymbol\beta</span> だけで、正規方程式を1回解けた。ここでは <span class="math inline">\mathbf F</span> も <span class="math inline">\mathbf A</span> も未知（薄い赤）で、積になっている。どう解く？</p>
+</section>
+<section id="困りごと③何を捨てるのか" class="slide level2" data-chapter="I-1">
+<h2>困りごと③：何を捨てるのか</h2>
+<div id="f0868d46" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="888" height="378"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>写真には、細かなざらつきもある。少数の軸で近似すると、何を残し、何を捨てたことになるのか？</p>
+</section>
 <section id="今回の問い" class="slide level2" data-chapter="I-1">
 <h2>今回の問い</h2>
-<p>X自身を少数の軸で近似するとき、FとAをどう求めるか？</p>
+<p>X自身を少数の軸で近似するとき、FとAをどう求めるか？（困りごと②。①③にも答える）</p>
 <p>今回覚える言葉</p>
 <ul>
-<li>主成分得点・主成分負荷量</li>
-<li>正規直交制約</li>
-<li>交互最小二乗法</li>
-<li>トレースと特異値分解</li>
-<li>直交プロクラステス問題</li>
+<li>主成分得点・主成分負荷量、正規直交制約、中心化</li>
+<li>データ行列の特異値分解、ランク</li>
+<li>低ランク近似、Eckart–Youngの定理</li>
+<li>寄与率・スクリープロット</li>
 </ul>
 </section>
 <section id="直感①点の雲" class="slide level2" data-chapter="I-2">
 <h2>直感①：点の雲</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p>もっと簡単な場面で考える。ここでは人工的なデータ。2列・40 点、列の平均は0。各点は <span class="math inline">\tilde{\boldsymbol x}_i=[x_{i1},x_{i2}]^\top</span>。</p>
+<p>もっと簡単な場面で考える。ここでは人工的なデータ。食パン 40 枚の焼き時間と焦げ目（列の平均を引いた値）。各点は <span class="math inline">\tilde{\boldsymbol x}_i=[x_{i1},x_{i2}]^\top</span>。</p>
 </div><div class="column" style="width:55%;">
-<div id="e14c0538" class="cell" data-execution_count="9">
+<div id="cd16389a" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" width="343" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png?v=ceba1419" width="343" height="342"></p>
 </figure>
 </div>
 </div>
@@ -266,11 +265,11 @@
 <div class="column" style="width:45%;">
 <p>赤は原点を通る直線。向きを長さ1のベクトル <span class="math inline">\boldsymbol a</span> で表す。</p>
 </div><div class="column" style="width:55%;">
-<div id="67c6bfdc" class="cell" data-execution_count="10">
+<div id="58c1fc01" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" width="343" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=ceba1419" width="343" height="342"></p>
 </figure>
 </div>
 </div>
@@ -283,11 +282,11 @@
 <div class="column" style="width:45%;">
 <p>各点を、直線の上の青い点 <span class="math inline">f_i\boldsymbol a</span> で近似する。<span class="math inline">f_i</span> は直線の上の位置。2つの数を1つの数 <span class="math inline">f_i</span> で言う。</p>
 </div><div class="column" style="width:55%;">
-<div id="26b77ce7" class="cell" data-execution_count="11">
+<div id="454c5c45" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png" width="343" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=ceba1419" width="343" height="342"></p>
 </figure>
 </div>
 </div>
@@ -300,11 +299,11 @@
 <div class="column" style="width:45%;">
 <p>誤差は灰色の線 <span class="math inline">\tilde{\boldsymbol x}_i-f_i\boldsymbol a</span>。直線への垂線になる。</p>
 </div><div class="column" style="width:55%;">
-<div id="9ed0e0d0" class="cell" data-execution_count="12">
+<div id="8458b75d" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" width="343" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=ceba1419" width="343" height="342"></p>
 </figure>
 </div>
 </div>
@@ -318,11 +317,11 @@
 <p>第1回の回帰（<span class="math inline">x_2</span> を <span class="math inline">x_1</span> で当てる）なら、誤差は縦の線。</p>
 <p>回帰は <span class="math inline">x_2</span> だけを近似した。ここでは2列を対等に近似する。</p>
 </div><div class="column" style="width:55%;">
-<div id="1c8d1faf" class="cell" data-execution_count="13">
+<div id="e851aea8" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png" width="343" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png?v=ceba1419" width="343" height="342"></p>
 </figure>
 </div>
 </div>
@@ -334,13 +333,13 @@
 <div class="columns">
 <div class="column" style="width:45%;">
 <p>向きを160度にすると、垂線が長くなる。</p>
-<p>誤差の二乗和は 11.6 から 73.1 へ。よい向きと悪い向きがある。</p>
+<p>誤差の二乗和は 7.0 から 54.4 へ。よい向きと悪い向きがある。</p>
 </div><div class="column" style="width:55%;">
-<div id="8eb875ff" class="cell" data-execution_count="14">
+<div id="2c6f3263" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png" width="343" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png?v=ceba1419" width="343" height="342"></p>
 </figure>
 </div>
 </div>
@@ -349,11 +348,11 @@
 </section>
 <section id="行列で見る①x-f" class="slide level2" data-chapter="I-2">
 <h2>行列で見る①：X ≈ F</h2>
-<div id="2526a6b9" class="cell" data-execution_count="15">
+<div id="0b72610a" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png" class="quarto-figure quarto-figure-center" width="539" height="324"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="539" height="324"></p>
 </figure>
 </div>
 </div>
@@ -362,16 +361,29 @@
 </section>
 <section id="行列で見る②x-faᵀ" class="slide level2" data-chapter="I-2">
 <h2>行列で見る②：X ≈ FAᵀ</h2>
-<div id="5dcc685d" class="cell" data-execution_count="16">
+<div id="216bafd2" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png" class="quarto-figure quarto-figure-center" width="539" height="324"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="539" height="324"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span class="math inline">\mathbf A</span>（<span class="math inline">p\times Q</span>）は軸の向き。<span class="math inline">Q</span> 本の向きを列に並べた。</p>
+</section>
+<section id="困りごと①に戻る" class="slide level2" data-chapter="I-2">
+<h2>困りごと①に戻る</h2>
+<div id="88d59dfb" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="489" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>写真の各行の 400 個の数を、<span class="math inline">Q</span> 個の得点 <span class="math inline">\tilde{\boldsymbol f}_i</span> と、共通の <span class="math inline">Q</span> 本の向き <span class="math inline">\mathbf A</span> で言う。要る数は <span class="math inline">(n+p)Q</span> 個。</p>
 </section>
 <section id="モデルデータモデル誤差" class="slide level2" data-chapter="I-2">
 <h2>モデル：データ＝モデル＋誤差</h2>
@@ -386,49 +398,131 @@
 <li>近似 <span class="math inline">\mathbf F\mathbf A^\top</span> と <span class="math inline">\mathbf X</span> のずれが、誤差 <span class="math inline">\mathbf E</span></li>
 <li>向きによって、誤差の大きさが変わった</li>
 </ul>
-<p><span class="math inline">\mathbf E</span> の大きさを、1マスずつの和から書く。</p>
+<p><span class="math inline">\mathbf E</span> の大きさを、1マスずつの和から書く。使いどころ：近似のよさを1つの数で比べる。</p>
 </section>
 <section id="目的関数①1軸1マスずつ" class="slide level2" data-chapter="I-3">
 <h2>目的関数①：1軸・1マスずつ</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 80%;">
 <p><span class="math display">
 J=\sum_{i=1}^{n}\sum_{j=1}^{p}\bigl(x_{ij}-f_i\,a_j\bigr)^2
 </span></p>
-<p>軸が1本（<span class="math inline">Q=1</span>）。マス <span class="math inline">x_{ij}</span> を、行の位置 <span class="math inline">f_i</span> と軸の向きの成分 <span class="math inline">a_j</span> の積で近似する。</p>
+</div>
+<p>軸が1本（<span class="math inline">Q=1</span>）。マス <span class="math inline">x_{ij}</span> を、行の位置 <span class="math inline">f_i</span> と軸の向きの成分 <span class="math inline">a_j</span> の積で近似する。灰色の線の長さの二乗の和。</p>
+</div><div class="column" style="width:55%;">
+<div id="7a125817" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png?v=ceba1419" width="343" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
 <section id="目的関数②軸がq本" class="slide level2" data-chapter="I-3">
 <h2>目的関数②：軸がQ本</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 70%;">
 <p><span class="math display">
 J=\sum_{i=1}^{n}\sum_{j=1}^{p}\Bigl(x_{ij}-\sum_{m=1}^{Q}f_{im}\,a_{jm}\Bigr)^2
 </span></p>
+</div>
 <p><span class="math inline">Q</span> 本の軸の組み合わせで近似する。<span class="math inline">Q=1</span> なら①に戻る。</p>
+</div><div class="column" style="width:55%;">
+<div id="9a192983" class="cell" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png?v=ceba1419" width="462" height="279"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
 <section id="目的関数③1行ずつまとめる" class="slide level2" data-chapter="I-3">
 <h2>目的関数③：1行ずつまとめる</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 80%;">
 <p><span class="math display">
 J=\sum_{i=1}^{n}\bigl\lVert\tilde{\boldsymbol x}_i-\mathbf A\tilde{\boldsymbol f}_i\bigr\rVert_2^2
 </span></p>
-<p><span class="math inline">\tilde{\boldsymbol f}_i\in\mathbb R^Q</span> は <span class="math inline">\mathbf F</span> の第 <span class="math inline">i</span> 行。<span class="math inline">\mathbf A\tilde{\boldsymbol f}_i</span> の第 <span class="math inline">j</span> 成分が <span class="math inline">\sum_m a_{jm}f_{im}</span>。</p>
+</div>
+<p><span class="math inline">\tilde{\boldsymbol f}_i</span> は <span class="math inline">\mathbf F</span> の第 <span class="math inline">i</span> 行。1点ずつ、近似 <span class="math inline">\mathbf A\tilde{\boldsymbol f}_i</span>（青）までの距離の二乗を足す。</p>
+</div><div class="column" style="width:55%;">
+<div id="214b58b5" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png?v=ceba1419" width="343" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
 <section id="目的関数④行列で書く" class="slide level2" data-chapter="I-3">
 <h2>目的関数④：行列で書く</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div style="font-size: 80%;">
 <p><span class="math display">
 J(\mathbf F,\mathbf A)=\lVert\mathbf X-\mathbf F\mathbf A^\top\rVert_F^2
 </span></p>
+</div>
 <p>第8回の目的関数⑤。フロベニウスノルムは全マスの二乗和。</p>
+</div><div class="column" style="width:55%;">
+<div id="55851307" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png?v=ceba1419" width="462" height="279"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
 <section id="制約①倍率が決まらない" class="slide level2" data-chapter="I-3">
 <h2>制約①：倍率が決まらない</h2>
+<div id="1b69c9a2" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="663" height="219"></p>
+</figure>
+</div>
+</div>
+</div>
 <p><span class="math display">
 f_i\,a_j=(c\,f_i)\Bigl(\frac{a_j}{c}\Bigr)
 </span></p>
-<p><span class="math inline">f_i</span> を <span class="math inline">c</span> 倍、<span class="math inline">a_j</span> を <span class="math inline">1/c</span> 倍しても、積も <span class="math inline">J</span> も変わらない。倍率を <span class="math inline">\mathbf F</span> と <span class="math inline">\mathbf A</span> で押し付け合える。</p>
+<p>矢印を長くしても、青い点（積）は同じ。倍率を <span class="math inline">\mathbf F</span> と <span class="math inline">\mathbf A</span> で押し付け合える。</p>
 </section>
 <section id="制約②軸は長さ1で直角" class="slide level2" data-chapter="I-3">
 <h2>制約②：軸は長さ1で直角</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
 <p><span class="math display">
 \mathbf A^\top\mathbf A=\mathbf I_Q
 </span></p>
-<p><span class="math inline">(m,r)</span> 成分は <span class="math inline">\boldsymbol a_m^\top\boldsymbol a_r</span>。対角が1で各軸の長さが1、対角の外が0で軸どうしが直角。<span class="math inline">Q=1</span> なら <span class="math inline">\lVert\boldsymbol a\rVert_2=1</span>。</p>
+<p><span class="math inline">(m,r)</span> 成分は <span class="math inline">\boldsymbol a_m^\top\boldsymbol a_r</span>。対角が1で各軸の長さが1、対角の外が0で軸どうしが直角。</p>
+</div><div class="column" style="width:55%;">
+<div id="4c8ace77" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png?v=ceba1419" width="342" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
 <section id="定義得点と負荷量" class="slide level2 smaller" data-chapter="I-3">
 <h2>定義：得点と負荷量</h2>
@@ -469,13 +563,61 @@ f_i\,a_j=(c\,f_i)\Bigl(\frac{a_j}{c}\Bigr)
 </tbody>
 </table>
 </section>
+<section id="次の問い原点を通る直線でよいか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：原点を通る直線でよいか</h2>
+<ul>
+<li>ここまでの直線は、いつも原点を通っていた</li>
+<li>点の雲の中心が原点から遠いと、どうなるか</li>
+</ul>
+<p>問い：平均を引かずに近似すると、何が起きるか？使いどころ：濃さ・温度・点数のように、0から離れた値をとる列。</p>
+</section>
+<section id="平均を引かないと" class="slide level2" data-chapter="I-7">
+<h2>平均を引かないと</h2>
+<div id="2f311050" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="864" height="396"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>雲の中心が原点から離れていると、原点を通る直線は雲の中心を向き、雲の伸びる向きをとらえない。</p>
+</section>
+<section id="平均を引く中心化" class="slide level2" data-chapter="I-4">
+<h2>平均を引く（中心化）</h2>
+<p><span class="math display">
+x_{ij}\ \to\ x_{ij}-\bar x_j,\qquad \bar x_j=\frac1n\sum_{i=1}^{n}x_{ij}
+</span></p>
+<p>列ごとに平均を引き、雲の中心を原点に移す。これを中心化と呼ぶ。行列では <span class="math inline">\mathbf X-\mathbf 1\bar{\boldsymbol x}^\top</span>。</p>
+</section>
+<section id="中心化してから近似する" class="slide level2" data-chapter="I-7">
+<h2>中心化してから近似する</h2>
+<div id="ab765e2e" class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="864" height="396"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>中心化すると、直線は雲の伸びる向きに沿う。誤差の二乗和は 68.2 から 7.0 へ。</p>
+</section>
+<section id="平均は別に持つ" class="slide level2" data-chapter="I-2">
+<h2>平均は別に持つ</h2>
+<p><span class="math display">
+\mathbf X\approx\mathbf 1\bar{\boldsymbol x}^\top+\mathbf F\mathbf A^\top
+</span></p>
+<p>平均の行 <span class="math inline">\bar{\boldsymbol x}^\top</span> は別に持ち、残りの散らばりを少数の軸で近似する。以下、<span class="math inline">\mathbf X</span> は中心化したものとする。</p>
+</section>
 <section id="次の問いどう解くか" class="slide level2" data-chapter="I-1">
 <h2>次の問い：どう解くか</h2>
 <ul>
 <li>回帰は、勾配を0とおいた正規方程式を1回解けば済んだ</li>
 <li>主成分分析の未知は <span class="math inline">\mathbf F</span> と <span class="math inline">\mathbf A</span> の2つ</li>
 </ul>
-<p>未知が2つの積なら、どう解くか。</p>
+<p>未知が2つの積なら、どう解くか。使いどころ：未知の行列の積を当てはめる問題（主成分分析、k-means、推薦の表の穴埋め）。</p>
 </section>
 <section id="解き方同時には解けない" class="slide level2" data-chapter="I-5">
 <h2>解き方：同時には解けない</h2>
@@ -506,87 +648,32 @@ f_i\,a_j=(c\,f_i)\Bigl(\frac{a_j}{c}\Bigr)
 <tr class="odd">
 <td>解き方</td>
 <td>勾配を0とおき、1回解く</td>
-<td>一度には解けない</td>
+<td>？</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="片方を固定する" class="slide level2" data-chapter="I-5">
-<h2>片方を固定する</h2>
+<section id="答えの見通しxそのものを分ける" class="slide level2" data-chapter="I-1">
+<h2>答えの見通し：Xそのものを分ける</h2>
+<p><span class="math inline">\mathbf X</span> を、どんな行列にも使える分解（特異値分解）で3つの行列の積に分ける。</p>
+<p>その上位の分を残すと、<span class="math inline">\mathbf F</span> と <span class="math inline">\mathbf A</span> が1回で出る。まず道具を用意する。</p>
+</section>
+<section id="次の問い何を用意するか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：何を用意するか</h2>
 <ul>
-<li><span class="math inline">\mathbf A</span> を既知として扱う（固定する）と、<span class="math inline">J</span> は <span class="math inline">\mathbf F</span> だけの関数</li>
-<li><span class="math inline">\mathbf F</span> を固定すると、<span class="math inline">J</span> は <span class="math inline">\mathbf A</span> だけの関数</li>
+<li>行列の二乗和を、行列の積で扱う道具（トレース）</li>
+<li>どんな行列も3つの行列の積に分ける道具（特異値分解）</li>
 </ul>
-<p>片方を固定すれば、残りの1つは解ける。</p>
+<p>使いどころ：行列の大きさを計算で扱う。データ行列を、向きと大きさに分けて読む。</p>
 </section>
-<section id="交互最小二乗法①fの更新" class="slide level2" data-chapter="I-5">
-<h2>交互最小二乗法①：Fの更新</h2>
-<div id="d2e67376" class="cell" data-execution_count="19">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" class="quarto-figure quarto-figure-center" width="864" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\mathbf A</span> の初期値を置き、<span class="math inline">\mathbf A</span> を固定して <span class="math inline">\mathbf F</span> を求める。</p>
-</section>
-<section id="交互最小二乗法②aの更新" class="slide level2" data-chapter="I-5">
-<h2>交互最小二乗法②：Aの更新</h2>
-<div id="6be84268" class="cell" data-execution_count="20">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="864" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>次に、今の <span class="math inline">\mathbf F</span> を固定して <span class="math inline">\mathbf A</span> を求める。</p>
-</section>
-<section id="交互最小二乗法③繰り返す" class="slide level2" data-chapter="I-5">
-<h2>交互最小二乗法③：繰り返す</h2>
-<div id="53b3dd9b" class="cell" data-execution_count="21">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="864" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>収束したと判断するまで、2つの更新を繰り返す（反復計算）。</p>
-</section>
-<section id="単調減少jは上がらない" class="slide level2" data-chapter="I-5">
-<h2>単調減少：Jは上がらない</h2>
-<div id="191cf940" class="cell" data-execution_count="22">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png" class="quarto-figure quarto-figure-center" width="864" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>どちらの更新も、固定した残りのもとで <span class="math inline">J</span> を最小にする。だから更新のたびに <span class="math inline">J</span> は下がるか変わらない。</p>
-</section>
-<section id="次の問い更新に何が要るか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：更新に何が要るか</h2>
-<ul>
-<li><span class="math inline">\mathbf F</span> の更新：行列のまま微分する道具（トレースとその偏微分）</li>
-<li><span class="math inline">\mathbf A</span> の更新：制約 <span class="math inline">\mathbf A^\top\mathbf A=\mathbf I_Q</span> があり、微分を0とおけない（特異値分解と部分正規直交行列）</li>
-</ul>
-<p>道具を先にそろえる。</p>
-</section>
-<section id="道具①トレース" class="slide level2" data-chapter="I-4">
-<h2>道具①：トレース</h2>
+<section id="道具①トレース第4回" class="slide level2" data-chapter="I-4">
+<h2>道具①：トレース（第4回）</h2>
 <p><span class="math display">
 \operatorname{tr}(\mathbf M)=\sum_{j=1}^{p}m_{jj},
 \qquad
 \operatorname{tr}\begin{bmatrix}1&amp;2\\3&amp;4\end{bmatrix}=1+4=5
 </span></p>
-<p>正方行列の対角成分の和。</p>
+<p>第4回の有効自由度で使った、正方行列の対角成分の和。</p>
 </section>
 <section id="道具②順番を回してよい" class="slide level2" data-chapter="I-4">
 <h2>道具②：順番を回してよい</h2>
@@ -603,340 +690,499 @@ f_i\,a_j=(c\,f_i)\Bigl(\frac{a_j}{c}\Bigr)
 </span></p>
 <p><span class="math inline">\mathbf M^\top\mathbf M</span> の第 <span class="math inline">j</span> 対角成分は、第 <span class="math inline">j</span> 列の二乗和。</p>
 </section>
-<section id="道具④成分ごとに偏微分" class="slide level2" data-chapter="I-4">
-<h2>道具④：成分ごとに偏微分</h2>
+<section id="道具④特異値分解" class="slide level2" data-chapter="I-4">
+<h2>道具④：特異値分解</h2>
 <p><span class="math display">
-\begin{aligned}
-\operatorname{tr}(\mathbf B^\top\mathbf C)&amp;=\sum_{i=1}^{n}\sum_{m=1}^{Q}b_{im}c_{im}\\
-\Longrightarrow\quad\frac{\partial}{\partial b_{im}}\operatorname{tr}(\mathbf B^\top\mathbf C)&amp;=c_{im}
-\end{aligned}
+\mathbf X=\mathbf K\boldsymbol\Delta\mathbf L^\top,\qquad
+\mathbf K^\top\mathbf K=\mathbf I_p,\quad
+\mathbf L^\top\mathbf L=\mathbf L\mathbf L^\top=\mathbf I_p
 </span></p>
-<p><span class="math inline">1\times1</span> なら <span class="math inline">\frac{d}{db}(bc)=c</span>。偏微分を <span class="math inline">\mathbf B</span> と同じ形に並べる。</p>
+<p><span class="math inline">n\times p</span>（<span class="math inline">p\le n</span>）のどんな行列も、この3つの積に書ける。<span class="math inline">\mathbf K</span> と <span class="math inline">\mathbf L</span> は列が長さ1で互いに直角。</p>
 </section>
-<section id="道具⑤トレースの偏微分" class="slide level2" data-chapter="I-4">
-<h2>道具⑤：トレースの偏微分</h2>
-<p><span class="math display">
-\frac{\partial\operatorname{tr}(\mathbf B^\top\mathbf C)}{\partial\mathbf B}=\mathbf C,\qquad
-\frac{\partial\operatorname{tr}(\mathbf B^\top\mathbf B)}{\partial\mathbf B}=2\mathbf B
-</span></p>
-<p>2つ目は <span class="math inline">\sum_{i,m}b_{im}^2</span> の偏微分が <span class="math inline">2b_{im}</span> だから。</p>
-</section>
-<section id="道具⑥特異値分解" class="slide level2" data-chapter="I-4">
-<h2>道具⑥：特異値分解</h2>
-<div id="205d5a56" class="cell" data-execution_count="24">
+<section id="道具④大きさを箱で見る" class="slide level2" data-chapter="I-4">
+<h2>道具④：大きさを箱で見る</h2>
+<div id="c0e5b360" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" class="quarto-figure quarto-figure-center" width="512" height="264"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="750" height="306"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math display">
-\mathbf M=\mathbf K\boldsymbol\Delta\mathbf L^\top,\qquad
-\mathbf K^\top\mathbf K=\mathbf L^\top\mathbf L=\mathbf L\mathbf L^\top=\mathbf I_Q
-</span></p>
-<p><span class="math inline">\boldsymbol\Delta</span> は対角に特異値 <span class="math inline">\delta_1\ge\dots\ge\delta_Q\ge0</span>。どんな行列もこの形に書ける。</p>
+<p><span class="math inline">\mathbf K</span> は <span class="math inline">n\times p</span> の縦長、<span class="math inline">\mathbf L</span> は <span class="math inline">p\times p</span> の正方。特異値は <span class="math inline">\delta_1\ge\dots\ge\delta_p\ge0</span>。</p>
 </section>
-<section id="道具⑦1列なら向きと長さ" class="slide level2" data-chapter="I-4">
-<h2>道具⑦：1列なら向きと長さ</h2>
-<p><span class="math display">
-\boldsymbol m=\frac{\boldsymbol m}{\lVert\boldsymbol m\rVert_2}\cdot\lVert\boldsymbol m\rVert_2\cdot 1
-</span></p>
-<p><span class="math inline">Q=1</span> の特異値分解。<span class="math inline">\mathbf K</span> は長さ1にそろえた <span class="math inline">\boldsymbol m</span>、特異値は長さ <span class="math inline">\lVert\boldsymbol m\rVert_2</span>、<span class="math inline">\mathbf L=1</span>。</p>
-</section>
-<section id="道具⑧部分正規直交行列" class="slide level2" data-chapter="I-4">
-<h2>道具⑧：部分正規直交行列</h2>
+<section id="次の問いxそのものを分解したら" class="slide level2" data-chapter="I-1">
+<h2>次の問い：Xそのものを分解したら</h2>
 <ul>
-<li>正規直交行列の一部を切り出した行列</li>
-<li><span class="math inline">\mathbf K</span> や <span class="math inline">\mathbf A</span> のように、列が長さ1で互いに直角な行列もそう</li>
+<li>特異値分解は、どんな行列も3つの積に分ける</li>
+<li>データ行列 <span class="math inline">\mathbf X</span> そのものを分解すると、何が出てくるか</li>
 </ul>
+<p>まず2列の食パンで見る。使いどころ：点の雲の向きと広がりを、1回の計算で取り出す。</p>
 </section>
-<section id="道具⑨積も部分正規直交" class="slide level2" data-chapter="I-4">
-<h2>道具⑨：積も部分正規直交</h2>
-<ul>
-<li>部分正規直交行列どうしの積も、部分正規直交行列</li>
-<li>どの成分も絶対値1以下（長さ1の列の一部だから）</li>
-</ul>
+<section id="列で見る①食パン40枚" class="slide level2" data-chapter="I-2">
+<h2>2列で見る①：食パン40枚</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>点の雲の節の食パン 40 枚に戻る。<span class="math inline">\mathbf X</span> は 40×2。</p>
+</div><div class="column" style="width:55%;">
+<div id="97446e7c" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=ceba1419" width="367" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
 </section>
-<section id="道具⑩トレースの上限" class="slide level2" data-chapter="I-4">
-<h2>道具⑩：トレースの上限</h2>
+<section id="列で見る②xを特異値分解する" class="slide level2" data-chapter="I-2">
+<h2>2列で見る②：Xを特異値分解する</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
 <p><span class="math display">
-\operatorname{tr}(\mathbf T\boldsymbol\Delta)=\sum_{m=1}^{Q}t_{mm}\,\delta_m\ \le\ \sum_{m=1}^{Q}\delta_m=\operatorname{tr}(\boldsymbol\Delta)
+\mathbf X=\mathbf K\boldsymbol\Delta\mathbf L^\top
 </span></p>
-<p><span class="math inline">\mathbf T</span> が部分正規直交行列なら <span class="math inline">t_{mm}\le1</span>。等号は <span class="math inline">\mathbf T=\mathbf I_Q</span> のとき。</p>
+<p>今度は、この40×2の表そのものを分解する。</p>
+</div><div class="column" style="width:55%;">
+<div id="6c603013" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png?v=ceba1419" width="367" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="列で見る③lは直角な2本の向き" class="slide level2" data-chapter="I-2">
+<h2>2列で見る③：Lは直角な2本の向き</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math inline">\mathbf L=[\boldsymbol l_1,\boldsymbol l_2]</span> は長さ1で互いに直角。<span class="math inline">\boldsymbol l_1</span> は点の雲の長い向き。</p>
+</div><div class="column" style="width:55%;">
+<div id="f3bfb3b1" class="cell" data-execution_count="33">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=ceba1419" width="367" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="列で見る④kδは測り直した座標" class="slide level2" data-chapter="I-2">
+<h2>2列で見る④：KΔは測り直した座標</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+\mathbf X\mathbf L=\mathbf K\boldsymbol\Delta
+</span></p>
+<p>各点の座標を、<span class="math inline">\boldsymbol l_1</span> と <span class="math inline">\boldsymbol l_2</span> の向きで測り直したもの。</p>
+</div><div class="column" style="width:55%;">
+<div id="2258596f" class="cell" data-execution_count="34">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=ceba1419" width="367" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="列で見る⑤上位1本を残す" class="slide level2" data-chapter="I-2">
+<h2>2列で見る⑤：上位1本を残す</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math inline">\boldsymbol l_1</span> の座標 <span class="math inline">\delta_1k_{i1}</span> だけを残す。青い点は、点の雲の節の直線の上の近似と同じ形。</p>
+</div><div class="column" style="width:55%;">
+<div id="d4035815" class="cell" data-execution_count="35">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=ceba1419" width="367" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="列で見る⑥捨てた1本が誤差" class="slide level2" data-chapter="I-2">
+<h2>2列で見る⑥：捨てた1本が誤差</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>捨てた <span class="math inline">\boldsymbol l_2</span> の座標 <span class="math inline">\delta_2k_{i2}</span> が、そのまま誤差（紫）になる。</p>
+</div><div class="column" style="width:55%;">
+<div id="e6392333" class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=ceba1419" width="367" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="列で見る⑦誤差の二乗和はδ₂²" class="slide level2" data-chapter="I-2">
+<h2>2列で見る⑦：誤差の二乗和はδ₂²</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+\sum_{i}(\delta_2k_{i2})^2=\delta_2^2
+</span></p>
+<p><span class="math inline">\mathbf K</span> の列は長さ1なので、紫の線の二乗和は <span class="math inline">\delta_2^2</span> = 6.98。</p>
+</div><div class="column" style="width:55%;">
+<div id="247748ae" class="cell" data-execution_count="37">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png?v=ceba1419" width="367" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="言葉を決める" class="slide level2" data-chapter="I-1">
+<h2>言葉を決める</h2>
+<ul>
+<li>2列では、分解して上位1本を残すと、1本の直線による近似になった</li>
+<li><span class="math inline">p</span> 列・<span class="math inline">Q</span> 本でも同じことが言えるかを確かめたい</li>
+</ul>
+<p>そのための道具を2つそろえる：「<span class="math inline">Q</span> 本で書ける」の言い方と、長さを変えない掛け算。</p>
+</section>
+<section id="道具⑤ランク" class="slide level2" data-chapter="I-4">
+<h2>道具⑤：ランク</h2>
+<p><span class="math display">
+\operatorname{rank}(\mathbf Y)=\#\{\,m:\ \delta_m&gt;0\,\}
+</span></p>
+<p><span class="math inline">n\times p</span> の行列 <span class="math inline">\mathbf Y</span> を特異値分解し、0でない特異値 <span class="math inline">\delta_m</span> の個数を数える。</p>
+</section>
+<section id="道具⑤ランク1の行列" class="slide level2" data-chapter="I-4">
+<h2>道具⑤：ランク1の行列</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>青い点を並べた40×2の行列は、どの行も <span class="math inline">\boldsymbol l_1</span> の定数倍。0でない特異値は1個で、ランク1。</p>
+</div><div class="column" style="width:55%;">
+<div id="99817dd5" class="cell" data-execution_count="39">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png?v=ceba1419" width="367" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="道具⑤ランクq以下faᵀ" class="slide level2" data-chapter="I-4">
+<h2>道具⑤：ランクQ以下＝FAᵀ</h2>
+<p><span class="math display">
+\operatorname{rank}(\mathbf Y)\le Q
+\quad\Longleftrightarrow\quad
+\mathbf Y=\mathbf F\mathbf A^\top,\quad \mathbf A^\top\mathbf A=\mathbf I_Q
+</span></p>
+<p><span class="math inline">\mathbf F</span> は <span class="math inline">n\times Q</span>、<span class="math inline">\mathbf A</span> は <span class="math inline">p\times Q</span>。すべての行が <span class="math inline">Q</span> 本の向きの組み合わせで書ける。</p>
+</section>
+<section id="道具⑥長さを変えない掛け算" class="slide level2" data-chapter="I-4">
+<h2>道具⑥：長さを変えない掛け算</h2>
+<p><span class="math display">
+\lVert\mathbf K\mathbf M\rVert_F^2=\operatorname{tr}(\mathbf M^\top\mathbf K^\top\mathbf K\mathbf M)=\lVert\mathbf M\rVert_F^2
+\qquad(\mathbf K^\top\mathbf K=\mathbf I)
+</span></p>
+<p>列が長さ1で互いに直角な行列を掛けても、フロベニウスノルムは変わらない。右から <span class="math inline">\mathbf L^\top</span> を掛けても同じ。</p>
+</section>
+<section id="道具⑥二乗和はδ²の和" class="slide level2" data-chapter="I-4">
+<h2>道具⑥：二乗和はδ²の和</h2>
+<p><span class="math display">
+\lVert\mathbf X\rVert_F^2=\lVert\mathbf K\boldsymbol\Delta\mathbf L^\top\rVert_F^2=\lVert\boldsymbol\Delta\rVert_F^2=\sum_{m=1}^{p}\delta_m^2
+</span></p>
+<p><span class="math inline">\mathbf K</span> と <span class="math inline">\mathbf L^\top</span> が両方消える。全マスの二乗和は、特異値の二乗和。</p>
 </section>
 <section id="道具がそろった" class="slide level2" data-chapter="I-1">
 <h2>道具がそろった</h2>
 <ul>
-<li><span class="math inline">\mathbf F</span> の更新：道具①〜⑤（トレースとその偏微分）</li>
-<li><span class="math inline">\mathbf A</span> の更新：道具⑥〜⑩（特異値分解とトレースの上限）</li>
+<li><span class="math inline">\mathbf X=\mathbf K\boldsymbol\Delta\mathbf L^\top</span>：<span class="math inline">\mathbf K</span> は <span class="math inline">n\times p</span>、<span class="math inline">\mathbf L</span> は <span class="math inline">p\times p</span>（道具④）</li>
+<li>ランク <span class="math inline">Q</span> 以下の行列は、<span class="math inline">\mathbf F\mathbf A^\top</span> の形に書ける</li>
+<li>直角な行列を掛けても、二乗和は変わらない</li>
 </ul>
-<p>どちらもスカラーから始め、ベクトル、行列の順に解く。</p>
+<p>では、<span class="math inline">\mathbf X</span> の分解を、上位 <span class="math inline">Q</span> 本と残りに分けてみる。</p>
 </section>
-<section id="fの更新①aを固定する" class="slide level2" data-chapter="I-5">
-<h2>Fの更新①：Aを固定する</h2>
+<section id="分解①1マスずつ" class="slide level2" data-chapter="I-5">
+<h2>分解①：1マスずつ</h2>
+<p><span class="math display">
+x_{ij}=\sum_{m=1}^{p}\delta_m\,k_{im}\,l_{jm}
+</span></p>
+<p>マス <span class="math inline">x_{ij}</span> は、<span class="math inline">p</span> 本の向きの寄与の和。目的関数①の <span class="math inline">f_ia_j</span> と同じ「行の位置 × 向きの成分」の形。</p>
+</section>
+<section id="分解②1枚ずつ重ねる" class="slide level2" data-chapter="I-5">
+<h2>分解②：1枚ずつ重ねる</h2>
+<p><span class="math display">
+\mathbf X=\sum_{m=1}^{p}\delta_m\,\boldsymbol k_m\boldsymbol l_m^\top
+</span></p>
+<p><span class="math inline">\boldsymbol k_m</span> と <span class="math inline">\boldsymbol l_m</span> は <span class="math inline">\mathbf K</span> と <span class="math inline">\mathbf L</span> の第 <span class="math inline">m</span> 列。<span class="math inline">\mathbf X</span> は、重み <span class="math inline">\delta_m</span> を付けた <span class="math inline">p</span> 枚の重ね合わせ。</p>
+</section>
+<section id="分解②1枚はランク1" class="slide level2" data-chapter="I-5">
+<h2>分解②：1枚はランク1</h2>
+<div id="2e18b70d" class="cell" data-execution_count="40">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="886" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\boldsymbol k_m\boldsymbol l_m^\top</span> は <span class="math inline">n\times p</span> のランク1の行列。全マスの二乗和は <span class="math inline">\lVert\boldsymbol k_m\rVert_2^2\lVert\boldsymbol l_m\rVert_2^2=1</span>。</p>
+</section>
+<section id="分解③上位q枚と残り" class="slide level2" data-chapter="I-5">
+<h2>分解③：上位Q枚と残り</h2>
+<p><span class="math display">
+\begin{aligned}
+\mathbf X&amp;=[\mathbf K_1,\mathbf K_2]
+\begin{bmatrix}\boldsymbol\Delta_1&amp;\\&amp;\boldsymbol\Delta_2\end{bmatrix}
+[\mathbf L_1,\mathbf L_2]^\top\\
+&amp;=\mathbf K_1\boldsymbol\Delta_1\mathbf L_1^\top+\mathbf K_2\boldsymbol\Delta_2\mathbf L_2^\top=\mathbf X_1+\mathbf X_2
+\end{aligned}
+</span></p>
+<p><span class="math inline">\mathbf K_1</span>・<span class="math inline">\mathbf L_1</span> は左から <span class="math inline">Q</span> 列、<span class="math inline">\boldsymbol\Delta_1</span> は上位 <span class="math inline">Q</span> 個の特異値。</p>
+</section>
+<section id="分解③箱で見る" class="slide level2" data-chapter="I-5">
+<h2>分解③：箱で見る</h2>
+<div id="275e5d83" class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1014" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\mathbf X_1</span> も <span class="math inline">\mathbf X_2</span> も <span class="math inline">n\times p</span>。<span class="math inline">\mathbf X_1</span> は <span class="math inline">n\times Q</span> と <span class="math inline">Q\times p</span> の積なので、<span class="math inline">(n+p)Q</span> 個の数で持てる。</p>
+</section>
+<section id="次の問い最も近いのはどれか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：最も近いのはどれか</h2>
+<ul>
+<li><span class="math inline">\mathbf X_1</span> は上位 <span class="math inline">Q</span> 枚を重ねた、ランク <span class="math inline">Q</span> 以下の行列</li>
+<li>ランク <span class="math inline">Q</span> 以下の行列は、ほかにも無数にある</li>
+</ul>
+<p>その中で、<span class="math inline">\mathbf X</span> に最も近いのはどれか。</p>
+</section>
+<section id="目的関数1マスずつ" class="slide level2" data-chapter="I-3">
+<h2>目的関数：1マスずつ</h2>
+<p><span class="math display">
+\sum_{i=1}^{n}\sum_{j=1}^{p}\bigl(x_{ij}-y_{ij}\bigr)^2
+</span></p>
+<p><span class="math inline">n\times p</span> の <span class="math inline">\mathbf Y</span> のマスを、<span class="math inline">\mathbf X</span> のマスに近づける。第1回からの最小二乗法の形。</p>
+</section>
+<section id="目的関数低ランク近似" class="slide level2" data-chapter="I-3">
+<h2>目的関数：低ランク近似</h2>
+<p><span class="math display">
+\min_{\mathbf Y}\ \lVert\mathbf X-\mathbf Y\rVert_F^2
+\qquad\text{ただし}\ \operatorname{rank}(\mathbf Y)\le Q
+</span></p>
+<p>大きさは <span class="math inline">n\times p</span> のまま、ランクだけを <span class="math inline">Q</span> 以下に落として <span class="math inline">\mathbf X</span> に最も近い <span class="math inline">\mathbf Y</span> を探す。</p>
+</section>
+<section id="eckartyoungの定理" class="slide level2" data-chapter="I-5">
+<h2>Eckart–Youngの定理</h2>
+<p><span class="math display">
+\hat{\mathbf Y}=\mathbf K_1\boldsymbol\Delta_1\mathbf L_1^\top
+</span></p>
+<p>答えは上位 <span class="math inline">Q</span> 枚を重ねただけの <span class="math inline">\mathbf X_1</span>。特異値分解1回で出る。</p>
+</section>
+<section id="faeとおく" class="slide level2" data-chapter="I-5">
+<h2>F・A・Eとおく</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\mathbf F=\mathbf K_1\boldsymbol\Delta_1,\qquad \mathbf A=\mathbf L_1,\qquad \mathbf E=\mathbf K_2\boldsymbol\Delta_2\mathbf L_2^\top\\
+&amp;\lVert\mathbf X-\mathbf K_1\boldsymbol\Delta_1\mathbf L_1^\top\rVert_F^2=\lVert\mathbf X-\mathbf F\mathbf A^\top\rVert_F^2=\lVert\mathbf E\rVert_F^2
+\end{aligned}
+</span></p>
+<p>答えを、主成分分析の記号で書き直す。</p>
+</section>
+<section id="主成分分析と同じ問題" class="slide level2" data-chapter="I-5">
+<h2>主成分分析と同じ問題</h2>
+<p><span class="math display">
+\mathbf A^\top\mathbf A=\mathbf L_1^\top\mathbf L_1=\mathbf I_Q
+</span></p>
+<p>主成分分析の制約を満たす。道具②で、ランク <span class="math inline">Q</span> 以下の <span class="math inline">\mathbf Y</span> は <span class="math inline">\mathbf F\mathbf A^\top</span> と同じもの。2つは同じ問題。</p>
+</section>
+<section id="jの最小値" class="slide level2" data-chapter="I-5">
+<h2>Jの最小値</h2>
+<p><span class="math display">
+\min J=\lVert\mathbf K_2\boldsymbol\Delta_2\mathbf L_2^\top\rVert_F^2=\lVert\boldsymbol\Delta_2\rVert_F^2=\sum_{m=Q+1}^{p}\delta_m^2
+</span></p>
+<p>道具③で <span class="math inline">\mathbf K_2</span> と <span class="math inline">\mathbf L_2^\top</span> が消える。捨てた特異値の二乗和。</p>
+</section>
+<section id="困りごと②に戻る" class="slide level2" data-chapter="I-5">
+<h2>困りごと②に戻る</h2>
+<div id="88b9fa94" class="cell" data-execution_count="43">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1014" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>未知が2つの積でも、<span class="math inline">\mathbf X</span> を1回特異値分解し、上位 <span class="math inline">Q</span> 本（青）を取るだけ。<span class="math inline">\hat{\mathbf F}=\mathbf K_1\boldsymbol\Delta_1</span>、<span class="math inline">\hat{\mathbf A}=\mathbf L_1</span>。</p>
+</section>
+<section id="列の例に戻る" class="slide level2" data-chapter="I-2">
+<h2>2列の例に戻る</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p>直感の点で <span class="math inline">Q=1</span>。向き <span class="math inline">\boldsymbol a</span> を固定し、各点の位置 <span class="math inline">f_i</span> を決める。</p>
-<p>行 <span class="math inline">i</span> の項 <span class="math inline">\sum_j(x_{ij}-f_ia_j)^2</span> は、<span class="math inline">f_i</span> だけの放物線。</p>
+<p><span class="math inline">p=2</span>、<span class="math inline">Q=1</span> なら、捨てるのは <span class="math inline">\delta_2</span> だけ。<span class="math inline">\min J=\delta_2^2</span> = 6.98 が、紫の線の二乗和だった。</p>
 </div><div class="column" style="width:55%;">
-<div id="b3c980f8" class="cell" data-execution_count="25">
+<div id="b680bb7b" class="cell" data-execution_count="44">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png" width="343" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png?v=ceba1419" width="367" height="366"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="fの更新②1軸なら微分" class="slide level2" data-chapter="I-5">
-<h2>Fの更新②：1軸なら微分</h2>
-<p><span class="math display">
-\begin{aligned}
-&amp;\frac{d}{df_i}\sum_{j=1}^{p}\bigl(x_{ij}-f_i a_j\bigr)^2=-2\sum_{j=1}^{p}a_j\bigl(x_{ij}-f_i a_j\bigr)=0\\
-\Longrightarrow\quad&amp;\hat f_i=\sum_{j=1}^{p}a_j\,x_{ij}\qquad\Bigl(\textstyle\sum_j a_j^2=1\Bigr)
-\end{aligned}
-</span></p>
-<p>第1回の単回帰の <span class="math inline">\hat\beta=\sum xy/\sum x^2</span> と同じ形。</p>
-</section>
-<section id="fの更新③垂線の足" class="slide level2" data-chapter="I-5">
-<h2>Fの更新③：垂線の足</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math inline">\hat f_i=\boldsymbol a^\top\tilde{\boldsymbol x}_i</span> の位置は、点から直線へ下ろした垂線の足（青）。</p>
-</div><div class="column" style="width:55%;">
-<div id="c0751b31" class="cell" data-execution_count="26">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" width="343" height="342"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="fの更新④勾配を0に" class="slide level2" data-chapter="I-5">
-<h2>Fの更新④：勾配を0に</h2>
-<p><span class="math display">
-\begin{aligned}
-&amp;\frac{\partial}{\partial\tilde{\boldsymbol f}_i}\bigl\lVert\tilde{\boldsymbol x}_i-\mathbf A\tilde{\boldsymbol f}_i\bigr\rVert_2^2
-=-2\mathbf A^\top\tilde{\boldsymbol x}_i+2\mathbf A^\top\mathbf A\,\tilde{\boldsymbol f}_i=\boldsymbol 0\\
-\Longrightarrow\quad&amp;\hat{\tilde{\boldsymbol f}}_i=\mathbf A^\top\tilde{\boldsymbol x}_i
-\end{aligned}
-</span></p>
-<p>第1回の正規方程式の <span class="math inline">\mathbf X</span> を <span class="math inline">\mathbf A</span> に替えた形。<span class="math inline">\mathbf A^\top\mathbf A=\mathbf I_Q</span> で逆行列が要らない。</p>
-</section>
-<section id="fの更新⑤トレースで展開" class="slide level2" data-chapter="I-5">
-<h2>Fの更新⑤：トレースで展開</h2>
-<p><span class="math display">
-\begin{aligned}
-J&amp;=\operatorname{tr}\bigl((\mathbf X-\mathbf F\mathbf A^\top)^\top(\mathbf X-\mathbf F\mathbf A^\top)\bigr)\\
-&amp;=\operatorname{tr}(\mathbf X^\top\mathbf X)-2\operatorname{tr}(\mathbf F^\top\mathbf X\mathbf A)+\operatorname{tr}(\mathbf F^\top\mathbf F)
-\end{aligned}
-</span></p>
-<p>道具②③を使った。最後の項は <span class="math inline">\operatorname{tr}(\mathbf A\mathbf F^\top\mathbf F\mathbf A^\top)=\operatorname{tr}(\mathbf F^\top\mathbf F\mathbf A^\top\mathbf A)</span> に <span class="math inline">\mathbf A^\top\mathbf A=\mathbf I_Q</span>。</p>
-</section>
-<section id="fの更新⑥f-xa" class="slide level2" data-chapter="I-5">
-<h2>Fの更新⑥：F̂ = XA</h2>
-<p><span class="math display">
-\frac{\partial J}{\partial\mathbf F}=-2\mathbf X\mathbf A+2\mathbf F=\mathbf O
-\qquad\Longrightarrow\qquad
-\hat{\mathbf F}=\mathbf X\mathbf A
-</span></p>
-<p>道具⑤。第 <span class="math inline">i</span> 行は <span class="math inline">\tilde{\boldsymbol x}_i^\top\mathbf A</span>、つまり④の <span class="math inline">\mathbf A^\top\tilde{\boldsymbol x}_i</span> を横にしたもの。行ごとの回帰を縦に積んだだけ。</p>
-</section>
-<section id="aの更新①1軸なら内積" class="slide level2" data-chapter="I-5">
-<h2>Aの更新①：1軸なら内積</h2>
-<p><span class="math display">
-J=\underbrace{\sum_{i,j}x_{ij}^2+\sum_i f_i^2}_{\boldsymbol a\ \text{によらない}}-2\sum_{j=1}^{p}a_j\,b_j,
-\qquad b_j=\sum_{i=1}^{n}f_i\,x_{ij}
-</span></p>
-<p>今度は <span class="math inline">\boldsymbol f</span> を固定し、<span class="math inline">\sum_ja_j^2=1</span> を使った。<span class="math inline">J</span> を最小にする ＝ 内積 <span class="math inline">\boldsymbol a^\top\boldsymbol b</span> を最大にする。</p>
-</section>
-<section id="aの更新②長さ1の候補" class="slide level2" data-chapter="I-5">
-<h2>Aの更新②：長さ1の候補</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math inline">\boldsymbol a</span> は長さ1の矢印（灰）の中から選ぶ。<span class="math inline">\boldsymbol b=\mathbf X^\top\boldsymbol f</span>（黒）との内積がいちばん大きいのはどれか。</p>
-</div><div class="column" style="width:55%;">
-<div id="75b34790" class="cell" data-execution_count="27">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" width="432" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="aの更新③向きをそろえる" class="slide level2" data-chapter="I-5">
-<h2>Aの更新③：向きをそろえる</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math inline">\boldsymbol a^\top\boldsymbol b=\lVert\boldsymbol b\rVert_2\cos\theta</span>。<span class="math inline">\boldsymbol b</span> と同じ向きのとき最大になる。</p>
-<p><span class="math display">
-\hat{\boldsymbol a}=\boldsymbol b/\lVert\boldsymbol b\rVert_2
-</span></p>
-</div><div class="column" style="width:55%;">
-<div id="d0f04b29" class="cell" data-execution_count="28">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png" width="432" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="aの更新④トレースの最大化" class="slide level2" data-chapter="I-5">
-<h2>Aの更新④：トレースの最大化</h2>
-<p><span class="math display">
-J(\mathbf A\mid\mathbf F)=\operatorname{const}_{\mathbf A}-2\operatorname{tr}(\mathbf X^\top\mathbf F\mathbf A^\top)
-</span></p>
-<p>Fの更新⑤と同じ展開。制約 <span class="math inline">\mathbf A^\top\mathbf A=\mathbf I_Q</span> があるので、微分して0とおく方法は使えない。トレースを最大にする。</p>
-</section>
-<section id="aの更新⑤pqのとき" class="slide level2" data-chapter="I-5">
-<h2>Aの更新⑤：p=Qのとき</h2>
-<p><span class="math display">
-\begin{aligned}
-&amp;\mathbf X^\top\mathbf F=\mathbf K\boldsymbol\Delta\mathbf L^\top,\qquad \mathbf T=\mathbf K^\top\mathbf A\mathbf L\\
-\Longrightarrow\quad&amp;\operatorname{tr}(\mathbf X^\top\mathbf F\mathbf A^\top)=\operatorname{tr}(\mathbf T\boldsymbol\Delta)\le\operatorname{tr}(\boldsymbol\Delta)
-\end{aligned}
-</span></p>
-<p>道具②で順番を回し、道具⑩で上から押さえた。</p>
-</section>
-<section id="aの更新⑥直交プロクラステス" class="slide level2" data-chapter="I-5">
-<h2>Aの更新⑥：直交プロクラステス</h2>
-<p><span class="math display">
-\mathbf T=\mathbf I_p
-\quad\Longleftrightarrow\quad
-\hat{\mathbf A}=\mathbf K\mathbf L^\top
-</span></p>
-<p>上限に届くのは <span class="math inline">\mathbf T=\mathbf I</span> のとき。<span class="math inline">p=Q</span> のこの問題を、直交プロクラステス問題と呼ぶ。</p>
-</section>
-<section id="aの更新⑦qpでも同じ式" class="slide level2" data-chapter="I-5">
-<h2>Aの更新⑦：Q&lt;pでも同じ式</h2>
-<p><span class="math display">
-\hat{\mathbf A}=\mathbf K\mathbf L^\top\qquad(\mathbf K:p\times Q,\ \ \mathbf L:Q\times Q)
-</span></p>
-<p>ten Bergeの定理。<span class="math inline">\mathbf T=\mathbf K^\top\mathbf A\mathbf L</span> は部分正規直交行列（道具⑨）で、<span class="math inline">\mathbf A=\mathbf K\mathbf L^\top</span> なら <span class="math inline">\mathbf T=\mathbf I_Q</span> で上限に届く。</p>
-</section>
-<section id="aの更新⑧1軸に戻る" class="slide level2" data-chapter="I-5">
-<h2>Aの更新⑧：1軸に戻る</h2>
-<p><span class="math display">
-\mathbf X^\top\boldsymbol f=\boldsymbol b=\frac{\boldsymbol b}{\lVert\boldsymbol b\rVert_2}\cdot\lVert\boldsymbol b\rVert_2\cdot 1
-\quad\Longrightarrow\quad
-\mathbf K\mathbf L^\top=\frac{\boldsymbol b}{\lVert\boldsymbol b\rVert_2}
-</span></p>
-<p><span class="math inline">Q=1</span> の特異値分解は長さ1にそろえるだけ（道具⑦）。③の答えと同じ。</p>
-</section>
-<section id="アルゴリズム交互最小二乗法" class="slide level2 smaller" data-chapter="I-6">
-<h2>アルゴリズム：交互最小二乗法</h2>
+<section id="アルゴリズム特異値分解1回" class="slide level2 smaller" data-chapter="I-6">
+<h2>アルゴリズム：特異値分解1回</h2>
 <ol type="1">
 <li>用意する：列の平均を0にしたデータ行列 <span class="math inline">\mathbf X</span>（<span class="math inline">n\times p</span>）と、軸の数 <span class="math inline">Q</span></li>
-<li>初期値：無作為に作った <span class="math inline">p\times Q</span> 行列を特異値分解し <span class="math inline">\mathbf K\boldsymbol\Delta\mathbf L^\top</span>、<span class="math inline">\mathbf A\leftarrow\mathbf K\mathbf L^\top</span>（<span class="math inline">\mathbf A^\top\mathbf A=\mathbf I_Q</span> を満たす）</li>
-<li>Fの更新：<span class="math inline">\mathbf F\leftarrow\mathbf X\mathbf A</span></li>
-<li>Aの更新：<span class="math inline">\mathbf X^\top\mathbf F=\mathbf K\boldsymbol\Delta\mathbf L^\top</span> と特異値分解し、<span class="math inline">\mathbf A\leftarrow\mathbf K\mathbf L^\top</span></li>
-<li>収束判定：<span class="math inline">J=\lVert\mathbf X-\mathbf F\mathbf A^\top\rVert_F^2</span> の下がり幅が十分小さければ止める。そうでなければ3へ</li>
+<li>特異値分解を1回：<span class="math inline">\mathbf X=\mathbf K\boldsymbol\Delta\mathbf L^\top</span></li>
+<li>上位 <span class="math inline">Q</span> 本を取る：<span class="math inline">\mathbf A\leftarrow\mathbf L_1</span>（<span class="math inline">\mathbf L</span> の左から <span class="math inline">Q</span> 列）、<span class="math inline">\mathbf F\leftarrow\mathbf X\mathbf A</span>（<span class="math inline">=\mathbf K_1\boldsymbol\Delta_1</span>）</li>
+<li>誤差を出す：<span class="math inline">J=\sum_{m&gt;Q}\delta_m^2</span></li>
 </ol>
 </section>
-<section id="回の反復でする計算" class="slide level2" data-chapter="I-6">
-<h2>1回の反復でする計算</h2>
+<section id="qを変えるとき" class="slide level2" data-chapter="I-6">
+<h2>Qを変えるとき</h2>
+<div id="43a9e038" class="cell" data-execution_count="45">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1014" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>分解は <span class="math inline">Q</span> によらない。<span class="math inline">Q</span> を変えるときは、同じ分解から取る列の数を変えるだけ。</p>
+</section>
+<section id="次の問い答えから何が言えるか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：答えから何が言えるか</h2>
 <ul>
-<li>行列の積：<span class="math inline">\mathbf X\mathbf A</span> と <span class="math inline">\mathbf X^\top\mathbf F</span></li>
-<li>特異値分解：<span class="math inline">p\times Q</span> の小さな行列を1回</li>
+<li><span class="math inline">J</span> は、捨てた特異値の二乗和だった</li>
+<li>捨てた小さい特異値の分は、何だったのか</li>
+<li>軸1・軸2の向きは、1つに決まるのか</li>
 </ul>
-<p>初期値も、無作為に作った行列を特異値分解して <span class="math inline">\mathbf K\mathbf L^\top</span> にする。そうすれば制約を満たす。</p>
+<p>使いどころ：近似した結果を人に報告する前に、何を捨て、何が決まったかを知る。（困りごと③）</p>
 </section>
-<section id="次の問い回すと何が起きるか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：回すと何が起きるか</h2>
-<ul>
-<li>更新のたびに <span class="math inline">J</span> は下がるはず</li>
-<li>着いた答えは、1つに決まるのか</li>
-</ul>
-<p>直感の点で、実際に回してみる。</p>
-</section>
-<section id="帰結①外れた向きから始める" class="slide level2" data-chapter="I-7">
-<h2>帰結①：外れた向きから始める</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>直感⑥の160度の向きを初期値にする。軸は1本。</p>
-</div><div class="column" style="width:55%;">
-<div id="2fc7144a" class="cell" data-execution_count="30">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png" width="576" height="420"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="帰結②直線が回っていく" class="slide level2" data-chapter="I-7">
-<h2>帰結②：直線が回っていく</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>更新のたびに、直線は点の雲の長い向きへ回る。4回目にはほとんど動かない。</p>
-</div><div class="column" style="width:55%;">
-<div id="59f7dbf3" class="cell" data-execution_count="31">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png" width="576" height="420"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="帰結③jは毎回下がる" class="slide level2" data-chapter="I-7">
-<h2>帰結③：Jは毎回下がる</h2>
-<div id="e89061d1" class="cell" data-execution_count="32">
+<section id="帰結①ホットケーキ60枚" class="slide level2" data-chapter="I-7">
+<h2>帰結①：ホットケーキ60枚</h2>
+<div id="39a5e031" class="cell" data-execution_count="46">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png" class="quarto-figure quarto-figure-center" width="821" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="533" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">J</span> は 73.1 から一度も上がらず、11.64 に落ち着く。どちらの更新でも下がる。</p>
+<p>ここでは人工的なデータ。ホットケーキ 60 枚の直径・厚さ・重さ（平均を引いた値）を分解した、特異値の二乗。</p>
 </section>
-<section id="帰結④初期値を変えて解く" class="slide level2" data-chapter="I-7">
-<h2>帰結④：初期値を変えて解く</h2>
-<div id="397d032d" class="cell" data-execution_count="33">
+<section id="帰結②jは捨てたδ²の和" class="slide level2" data-chapter="I-7">
+<h2>帰結②：Jは捨てたδ²の和</h2>
+<div id="85cb0b9c" class="cell" data-execution_count="47">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="360"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="533" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>ここでは人工的なデータ（3列・60点、<span class="math inline">Q=2</span>）。着いた <span class="math inline">\mathbf F</span> の2列を散布図にした。色の3点は目印。</p>
+<p><span class="math inline">Q=2</span> なら、灰の棒がそのまま <span class="math inline">J</span> = 1.27。軸を1本足すごとに、<span class="math inline">J</span> は次の <span class="math inline">\delta_m^2</span> だけ下がる。</p>
 </section>
-<section id="帰結⑤別の初期値の得点" class="slide level2" data-chapter="I-7">
-<h2>帰結⑤：別の初期値の得点</h2>
-<div id="90bb6f96" class="cell" data-execution_count="34">
+<section id="帰結③温度計10台" class="slide level2" data-chapter="I-7">
+<h2>帰結③：温度計10台</h2>
+<div id="5522bb57" class="cell" data-execution_count="48">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="360"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-49-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="824" height="295"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>初期値だけを変えた。<span class="math inline">J</span> は同じで、点の並びは約 83 度回っている。</p>
+<p>10台の温度計の100日分（人工データ）。本当は2つの模様と、温度計ごとの測りむら。特異値は2つだけが大きく、残り8つは小さく平ら。</p>
 </section>
-<section id="帰結⑥軸を回しても同じ近似" class="slide level2" data-chapter="I-7">
-<h2>帰結⑥：軸を回しても同じ近似</h2>
+<section id="帰結④小さい層はノイズ" class="slide level2" data-chapter="I-7">
+<h2>帰結④：小さい層はノイズ</h2>
+<div id="9c32b9d6" class="cell" data-execution_count="49">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="825" height="290"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">J</span> は <span class="math inline">Q</span> とともに下がり続ける。本当の信号との誤差は <span class="math inline">Q</span> = 2 で最小になり、それより多く残すと測りむらまで写して離れる。</p>
+</section>
+<section id="たとえ話を3行で要約する" class="slide level2" data-chapter="I-7">
+<h2>たとえ：話を3行で要約する</h2>
+<div id="370c6d17" class="cell" data-execution_count="50">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="828" height="264"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>大事な順に3行を残せば、話はほぼ伝わる。言いよどみまで書き写すと、かえって話の筋から離れる。小さい特異値の層を捨てるのも同じ。</p>
+</section>
+<section id="寄与率" class="slide level2" data-chapter="I-3">
+<h2>寄与率</h2>
+<p><span class="math display">
+\begin{aligned}
+\text{寄与率}_m&amp;=\frac{\delta_m^2}{\sum_{m'=1}^{p}\delta_{m'}^2}\\
+\text{累積寄与率}_Q&amp;=\frac{\sum_{m\le Q}\delta_m^2}{\sum_{m}\delta_m^2}=1-\frac{J}{\lVert\mathbf X\rVert_F^2}
+\end{aligned}
+</span></p>
+<p>全体の二乗和のうち、軸 <span class="math inline">m</span> が受け持つ割合。累積寄与率は、残した分の割合で、<span class="math inline">J</span> の割合の裏返し。</p>
+</section>
+<section id="スクリープロット" class="slide level2" data-chapter="I-7">
+<h2>スクリープロット</h2>
+<div id="ca65fea2" class="cell" data-execution_count="51">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="824" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>特異値の二乗を大きい順に並べ、線でつないだ図。温度計では2本の後で急に平らになる。</p>
+</section>
+<section id="肘で切る" class="slide level2" data-chapter="I-7">
+<h2>肘で切る</h2>
+<div id="ff7e5bf3" class="cell" data-execution_count="52">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="824" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>急に平らになる手前（肘）までを残す。温度計は2本で累積寄与率 84.2%。本当の信号に最も近かった <span class="math inline">Q</span> と同じ。</p>
+</section>
+<section id="帰結⑤軸を回しても同じ近似" class="slide level2" data-chapter="I-7">
+<h2>帰結⑤：軸を回しても同じ近似</h2>
 <p><span class="math display">
 \begin{aligned}
 (\mathbf F\mathbf R)(\mathbf A\mathbf R)^\top&amp;=\mathbf F\mathbf R\mathbf R^\top\mathbf A^\top=\mathbf F\mathbf A^\top\\
@@ -945,48 +1191,77 @@ J(\mathbf A\mid\mathbf F)=\operatorname{const}_{\mathbf A}-2\operatorname{tr}(\m
 </span></p>
 <p><span class="math inline">\mathbf R</span> は <span class="math inline">Q\times Q</span> の正規直交行列。<span class="math inline">\mathbf F</span> と <span class="math inline">\mathbf A</span> を同じ <span class="math inline">\mathbf R</span> で回すと、近似も制約も <span class="math inline">J</span> も変わらない。</p>
 </section>
-<section id="帰結⑦回すか裏返すか" class="slide level2" data-chapter="I-7">
-<h2>帰結⑦：回すか裏返すか</h2>
-<p><span class="math display">
-\mathbf R=\begin{bmatrix}\cos\theta&amp;-\sin\theta\\ \sin\theta&amp;\cos\theta\end{bmatrix}
-\quad\text{または}\quad
-\begin{bmatrix}\cos\theta&amp;\sin\theta\\ \sin\theta&amp;-\cos\theta\end{bmatrix}
-</span></p>
-<p><span class="math inline">Q=2</span> の <span class="math inline">\mathbf R</span> は、角 <span class="math inline">\theta</span> の回転か、裏返しを含む形。<span class="math inline">Q=1</span> なら <span class="math inline">\mathbf R=\pm1</span>、向きの反転。</p>
+<section id="帰結⑥回した得点" class="slide level2" data-chapter="I-7">
+<h2>帰結⑥：回した得点</h2>
+<div id="5e58a95a" class="cell" data-execution_count="53">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-54-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="888" height="360"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>40度回した得点（b）も同じ <span class="math inline">J</span>。色の3点は同じ行。軸1・軸2のそれぞれの向きは、目的関数だけでは決まらない。</p>
 </section>
-<section id="帰結⑧決まるのはどれか" class="slide level2 smaller" data-chapter="I-7">
-<h2>帰結⑧：決まるのはどれか</h2>
+<section id="帰結⑦特異値分解が選ぶ向き" class="slide level2" data-chapter="I-7">
+<h2>帰結⑦：特異値分解が選ぶ向き</h2>
+<p><span class="math display">
+\mathbf F^\top\mathbf F=\boldsymbol\Delta_1\mathbf K_1^\top\mathbf K_1\boldsymbol\Delta_1=\boldsymbol\Delta_1^2
+</span></p>
+<p>特異値分解の得点は、列どうしが直角（相関 0.00）で、得点1が最も広がる。回した得点は相関 -0.79。</p>
+</section>
+<section id="帰結⑧決まるもの" class="slide level2 smaller" data-chapter="I-7">
+<h2>帰結⑧：決まるもの</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
 <th></th>
-<th>初期値を変えると</th>
+<th>目的関数だけで</th>
+<th>特異値分解の答え</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">J</span> の値</td>
-<td>変わらない</td>
+<td><span class="math inline">J</span>・近似 <span class="math inline">\mathbf F\mathbf A^\top</span>・軸が張る面</td>
+<td>決まる</td>
+<td>決まる</td>
 </tr>
 <tr class="even">
-<td>近似 <span class="math inline">\mathbf F\mathbf A^\top</span>（各マスの近似値）</td>
-<td>変わらない</td>
+<td>軸1・軸2それぞれの向き</td>
+<td>回る・裏返る</td>
+<td><span class="math inline">\delta_m</span> の順に決まる（符号だけ残る）</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\mathbf A</span> の2列が張る面</td>
-<td>変わらない</td>
+<td>得点の列どうし</td>
+<td>相関が残りうる</td>
+<td>相関0</td>
 </tr>
 <tr class="even">
-<td>軸1・軸2それぞれの向き（<span class="math inline">\mathbf A</span> の列、<span class="math inline">\mathbf F</span> の列）</td>
-<td>回る・裏返る</td>
+<td>軸を1本足したとき</td>
+<td>—</td>
+<td>前の軸はそのまま</td>
 </tr>
 </tbody>
 </table>
-<p>交互最小二乗法の答えは、<span class="math inline">\mathbf R</span> の分だけ決まらない。</p>
+</section>
+<section id="困りごと③に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと③に戻る</h2>
+<div id="ab2f632f" class="cell" data-execution_count="54">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-55-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="825" height="290"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>捨てたのは、特異値の小さい層。データの中の小さな揺れ（ノイズ）とみなして捨て、大きな模様だけを残す。</p>
 </section>
 <section id="位置づけ地図のpcaの行" class="slide level2 smaller" data-chapter="I-1">
 <h2>位置づけ：地図のPCAの行</h2>
@@ -1019,7 +1294,7 @@ J(\mathbf A\mid\mathbf F)=\operatorname{const}_{\mathbf A}-2\operatorname{tr}(\m
 <td>主成分分析</td>
 <td style="text-align: center;"><span class="math inline">\mathbf X</span></td>
 <td><span class="math inline">\lVert\mathbf X-\mathbf F\mathbf A^\top\rVert_F^2</span></td>
-<td>交互に解く</td>
+<td>特異値分解を1回</td>
 <td style="text-align: center;">第9・10回</td>
 </tr>
 <tr class="odd">
@@ -1050,300 +1325,378 @@ J(\mathbf A\mid\mathbf F)=\operatorname{const}_{\mathbf A}-2\operatorname{tr}(\m
 <section id="理論の予想" class="slide level2" data-chapter="II-1">
 <h2>理論の予想</h2>
 <ul>
-<li>第I部：<span class="math inline">J</span> は更新のたびに下がる。答えは <span class="math inline">\mathbf R</span> の分だけ決まらない</li>
-<li>予想①：どの初期値でも <span class="math inline">J</span> は一度も上がらず、数回で落ち着くはず</li>
-<li>予想②：着いた <span class="math inline">J</span> と近似 <span class="math inline">\mathbf F\mathbf A^\top</span> は同じで、軸の向きだけが回る・裏返るはず</li>
+<li>第I部：<span class="math inline">J</span> は捨てた特異値の二乗和。小さい層はノイズとして捨てる</li>
+<li>予想①：写真も、数本の軸で累積寄与率がほぼ100%になり、肘が出るはず（ホットケーキは2本で 99.6%）</li>
+<li>予想②：1枚目から番号の順に、写真の大きな明暗を受け持つはず</li>
 </ul>
 </section>
-<section id="データ手書き数字" class="slide level2 smaller" data-chapter="II-1">
-<h2>データ：手書き数字</h2>
+<section id="データ写真1枚" class="slide level2 smaller" data-chapter="II-1">
+<h2>データ：写真1枚</h2>
 <table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <tbody>
 <tr class="odd">
-<td>行</td>
-<td>手書きの数字の画像 1,797 枚（0〜9がおよそ180枚ずつ）</td>
+<td>写真</td>
+<td>scikit-learnに付いている写真china.jpgを白黒にし、左の 400 列を切り出したもの</td>
+</tr>
+<tr class="even">
+<td>行・列</td>
+<td>画素の行 <span class="math inline">n</span> = 427、画素の列 <span class="math inline">p</span> = 400</td>
+</tr>
+<tr class="odd">
+<td>マス</td>
+<td>明るさ。黒が0、白が1</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\mathbf X</span></td>
-<td>8×8＝64 マスの濃さ（0〜16）</td>
-</tr>
-<tr class="odd">
-<td>数字のラベル</td>
-<td>計算には使わない。得点の図を塗るだけ</td>
+<td>各列から列の平均を引く。どの列も同じ明るさの目盛りなので標準化はしない</td>
 </tr>
 </tbody>
 </table>
-<p><span class="math inline">n\times p=</span> 1,797 <span class="math inline">\times</span> 64。</p>
-</section>
-<section id="前処理平均を引くだけ" class="slide level2" data-chapter="II-1">
-<h2>前処理：平均を引くだけ</h2>
-<ul>
-<li>64列は同じ単位の濃さなので、標準化しない</li>
-<li>どの画像でも0のマスが 3 つあり、標準化すると0で割ることになる</li>
-</ul>
-<p>列の平均を引いて、第I部と同じく列の平均を0にする。</p>
 </section>
 <section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
 <h2>手続き：何をどう計算したか</h2>
 <ol type="1">
-<li>用意する：64マスの列の平均を引いた <span class="math inline">\mathbf X</span>。軸の数は <span class="math inline">Q=2</span></li>
-<li>初期値を3通り：標準正規分布から無作為に作り直した3つの <span class="math inline">64\times2</span> 行列を、特異値分解で <span class="math inline">\mathbf A=\mathbf K\mathbf L^\top</span> にする</li>
-<li>交互に更新する：I-6の手順をNumPyの行列の積と特異値分解で。<span class="math inline">J</span> の下がり幅が <span class="math inline">\lVert\mathbf X\rVert_F^2</span> の <span class="math inline">10^{-12}</span> 倍を切ったら止める</li>
-<li>比べる：<span class="math inline">J</span> の推移、3通りの <span class="math inline">J</span>・近似 <span class="math inline">\mathbf F\mathbf A^\top</span>・<span class="math inline">\mathbf A</span> の回り方。第I部の3列60点も同じ止め方で回す</li>
+<li>用意する：写真から列の平均を引いた <span class="math inline">\mathbf X</span>（427×400）</li>
+<li>特異値分解を1回：NumPyの特異値分解で <span class="math inline">\mathbf X=\mathbf K\boldsymbol\Delta\mathbf L^\top</span>（特異値 400 個）</li>
+<li>写真に戻す：<span class="math inline">Q</span> = 1, 5, 20, 50で <span class="math inline">\mathbf F\mathbf A^\top</span> を作り、列の平均を足して写真として見る</li>
+<li>誤差と寄与率：<span class="math inline">Q</span> = 0〜100の <span class="math inline">J</span> と累積寄与率、スクリープロット</li>
+<li>平均を引かない：写真そのものも同じように分解する</li>
 </ol>
 </section>
-<section id="結果①初期値1のj" class="slide level2" data-chapter="II-3">
-<h2>結果①：初期値1のJ</h2>
-<div id="e27a3269" class="cell" data-execution_count="38">
+<section id="結果①q1の近似" class="slide level2" data-chapter="II-3">
+<h2>結果①：Q=1の近似</h2>
+<div id="120a8166" class="cell" data-execution_count="60">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1032" height="396"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">J</span> は一度も上がらず、79 回で止まった。点線は <span class="math inline">\mathbf F=\mathbf O</span> のときの <span class="math inline">J</span>。</p>
+<p>1枚だけ。横の縞と縦の縞の掛け算しか描けない。</p>
 </section>
-<section id="結果①どの初期値でも下がる" class="slide level2" data-chapter="II-3">
-<h2>結果①：どの初期値でも下がる</h2>
-<div id="5ed53cb2" class="cell" data-execution_count="39">
+<section id="結果①q1の誤差" class="slide level2" data-chapter="II-3">
+<h2>結果①：Q=1の誤差</h2>
+<div id="42af4cc7" class="cell" data-execution_count="61">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-62-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1032" height="396"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>3通りとも <span class="math inline">J</span> は一度も上がらなかった。ここは予想どおり。</p>
+<p>誤差 <span class="math inline">\mathbf X-\mathbf F\mathbf A^\top</span>。赤は明るすぎ、青は暗すぎ。写真のほとんどが残っている。</p>
 </section>
-<section id="結果①止まるまでが長い" class="slide level2" data-chapter="II-3">
-<h2>結果①：止まるまでが長い</h2>
-<div id="cf608b81" class="cell" data-execution_count="40">
+<section id="結果①q5" class="slide level2" data-chapter="II-3">
+<h2>結果①：Q=5</h2>
+<div id="1e7838bb" class="cell" data-execution_count="62">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-63-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1032" height="396"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>止まるまで 62〜84 回（第I部の3列60点は 10〜11 回）。予想は外れた。</p>
+<p>塔・空・水面の大きな明暗が出る。誤差は塔の細部に残る。</p>
 </section>
-<section id="なぜ長くかかったか" class="slide level2 smaller" data-chapter="II-5">
-<h2>なぜ長くかかったか</h2>
-<table class="caption-top" style="width:100%;">
+<section id="結果①q20" class="slide level2" data-chapter="II-3">
+<h2>結果①：Q=20</h2>
+<div id="661fee58" class="cell" data-execution_count="63">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-64-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1032" height="396"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>屋根の段が分かれる。誤差は木の葉と輪郭へ移る。</p>
+</section>
+<section id="結果①q50" class="slide level2" data-chapter="II-3">
+<h2>結果①：Q=50</h2>
+<div id="1cb48e75" class="cell" data-execution_count="64">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-65-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1032" height="396"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>ほぼ元の写真。誤差に残るのは細かな輪郭だけ。</p>
+</section>
+<section id="結果①少ない数で持てる" class="slide level2" data-chapter="II-3">
+<h2>結果①：少ない数で持てる</h2>
+<div id="1618a8b7" class="cell" data-execution_count="65">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-66-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1032" height="396"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>数は <span class="math inline">(n+p)Q</span> = 41,350 個で、元の 170,800 個の 24%。</p>
+</section>
+<section id="結果①jの減り方" class="slide level2" data-chapter="II-3">
+<h2>結果①：Jの減り方</h2>
+<div id="057f0256" class="cell" data-execution_count="66">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-67-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="794" height="389"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>線は <span class="math inline">\sum_{m&gt;Q}\delta_m^2</span>。はじめの数本で大きく下がり、あとはゆっくり下がる。</p>
+</section>
+<section id="結果①累積寄与率" class="slide level2" data-chapter="II-3">
+<h2>結果①：累積寄与率</h2>
+<div id="3fe4f367" class="cell" data-execution_count="67">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-68-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="795" height="389"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じ線を <span class="math inline">1-J/\lVert\mathbf X\rVert_F^2</span> で裏返したもの。2本で 70.4%。</p>
+</section>
+<section id="結果①スクリープロット" class="slide level2" data-chapter="II-3">
+<h2>結果①：スクリープロット</h2>
+<div id="a62b9abe" class="cell" data-execution_count="68">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="820" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>上位40本の <span class="math inline">\delta_m^2</span>。はじめの数本で急に下がるが、その後はゆっくり下がり続け、はっきりした肘が無い。</p>
+</section>
+<section id="結果①予想は外れた" class="slide level2" data-chapter="II-3">
+<h2>結果①：予想は外れた</h2>
+<div id="5002b55e" class="cell" data-execution_count="69">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="795" height="389"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>90%に届くのは <span class="math inline">Q</span> = 25、99%には <span class="math inline">Q</span> = 155。数本ではほぼ100%にならない。なぜか。</p>
+</section>
+<section id="なぜ数本で止まらないか" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜ数本で止まらないか</h2>
+<table class="caption-top">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 21%">
-<col style="width: 21%">
-<col style="width: 21%">
-<col style="width: 21%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
 <th></th>
-<th style="text-align: center;">1本目で下がる <span class="math inline">J</span></th>
-<th style="text-align: center;">2本目で下がる <span class="math inline">J</span></th>
-<th style="text-align: center;">3本目で下がる <span class="math inline">J</span></th>
-<th style="text-align: center;">反復の回数</th>
+<th>列の数</th>
+<th>上位2本の累積寄与率</th>
+<th>3本目以降の1本（最大）</th>
+<th>3本目以降の合計</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>第I部の3列60点</td>
-<td style="text-align: center;">90.9%</td>
-<td style="text-align: center;">7.5%</td>
-<td style="text-align: center;">1.6%</td>
-<td style="text-align: center;">10〜11</td>
+<td>ホットケーキ（第I部）</td>
+<td>3</td>
+<td>99.6%</td>
+<td>0.4%</td>
+<td>0.4%</td>
 </tr>
 <tr class="even">
-<td>手書き数字</td>
-<td style="text-align: center;">14.9%</td>
-<td style="text-align: center;">13.6%</td>
-<td style="text-align: center;">11.8%</td>
-<td style="text-align: center;">62〜84</td>
+<td>写真</td>
+<td>400</td>
+<td>70.4%</td>
+<td>3.4%</td>
+<td>29.6%</td>
 </tr>
 </tbody>
 </table>
-<p>軸を1本ずつ増やして解き、下がった <span class="math inline">J</span> を <span class="math inline">\lVert\mathbf X\rVert_F^2</span> に対する割合で並べた。手書き数字では、2本目と3本目の向きが <span class="math inline">J</span> をほぼ同じだけ下げる。どちらを面に入れても <span class="math inline">J</span> の差が小さく、更新のたびに面が少しずつしか回らない。</p>
+<p>3本目以降の <span class="math inline">\delta_m^2</span> は、1本ずつは小さい。だが写真には 398 本ある。<span class="math inline">J</span> はその和。</p>
 </section>
-<section id="結果②着いたjは同じ" class="slide level2" data-chapter="II-4">
-<h2>結果②：着いたJは同じ</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>初期値1</th>
-<th>初期値2</th>
-<th>初期値3</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>反復の回数</td>
-<td>79</td>
-<td>62</td>
-<td>84</td>
-</tr>
-<tr class="even">
-<td>最後の <span class="math inline">J</span></td>
-<td>1,543,523.8</td>
-<td>1,543,523.8</td>
-<td>1,543,523.8</td>
-</tr>
-</tbody>
-</table>
-<p>反復の回数は違っても、3通りの <span class="math inline">J</span> は同じ値に着いた。予想どおり。</p>
-</section>
-<section id="結果②aは回る裏返る" class="slide level2" data-chapter="II-4">
-<h2>結果②：Aは回る・裏返る</h2>
+<section id="なぜ細かな模様が散る" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜ：細かな模様が散る</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
 <th></th>
-<th>初期値1</th>
-<th>初期値2</th>
-<th>初期値3</th>
+<th>列の数</th>
+<th>上位2本の累積寄与率</th>
+<th>3本目以降の1本（最大）</th>
+<th>3本目以降の合計</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\mathbf F\mathbf A^\top</span> の初期値1との差（最大）</td>
-<td>0</td>
-<td>2.5e-04</td>
-<td>1.1e-05</td>
+<td>ホットケーキ（第I部）</td>
+<td>3</td>
+<td>99.6%</td>
+<td>0.4%</td>
+<td>0.4%</td>
 </tr>
 <tr class="even">
-<td>初期値1の <span class="math inline">\mathbf A</span> からの <span class="math inline">\mathbf R</span></td>
-<td>そのまま</td>
-<td>回転 64°</td>
-<td>裏返しを含む</td>
+<td>写真</td>
+<td>400</td>
+<td>70.4%</td>
+<td>3.4%</td>
+<td>29.6%</td>
 </tr>
 </tbody>
 </table>
-<p>近似 <span class="math inline">\mathbf F\mathbf A^\top</span> も3通りで同じ。<span class="math inline">\mathbf A</span> は回る・裏返る（帰結⑦の2つの形）。予想どおり。</p>
+<p>ホットケーキは、2本の向きに小さなずれを足して作った。写真の葉や輪郭は、小さな <span class="math inline">\delta_m^2</span> の多くの軸に散る。温度計の測りむらと同じ散り方。</p>
 </section>
-<section id="確認ライブラリと一致" class="slide level2" data-chapter="II-4">
-<h2>確認：ライブラリと一致</h2>
+<section id="結果②1枚ずつの模様" class="slide level2" data-chapter="II-4">
+<h2>結果②：1枚ずつの模様</h2>
+<div id="5d6c298c" class="cell" data-execution_count="76">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-77-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="877" height="262"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\delta_m\boldsymbol k_m\boldsymbol l_m^\top</span> の上位4枚。番号が進むほど細かい模様。予想どおり。</p>
+</section>
+<section id="落とし穴①平均を引かずに分解" class="slide level2" data-chapter="II-6">
+<h2>落とし穴①：平均を引かずに分解</h2>
+<p>手順の1段目は「列の平均を0にする」だった。</p>
+<p>写真の明るさは、どのマスも0以上。この1段目を省き、写真そのものを特異値分解する。</p>
+</section>
+<section id="落とし穴①1本目を平均が取る" class="slide level2" data-chapter="II-6">
+<h2>落とし穴①：1本目を平均が取る</h2>
+<div id="2a07f5b7" class="cell" data-execution_count="78">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-79-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="608" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\boldsymbol l_1</span> は、列の平均の明るさとほぼ同じ形（相関 0.997）。1本目が平均の情報に取られる。</p>
+</section>
+<section id="落とし穴②寄与率を比べる" class="slide level2" data-chapter="II-6">
+<h2>落とし穴②：寄与率を比べる</h2>
+<p>列の平均を引いた <span class="math inline">\mathbf X</span> と、写真そのもの。</p>
+<p>同じ <span class="math inline">Q</span> で、累積寄与率と <span class="math inline">J</span> を並べてみる。</p>
+</section>
+<section id="落とし穴②寄与率が高く見える" class="slide level2 smaller" data-chapter="II-6">
+<h2>落とし穴②：寄与率が高く見える</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th></th>
-<th>初期値1</th>
-<th>初期値2</th>
-<th>初期値3</th>
+<th>列の平均を引いた <span class="math inline">\mathbf X</span></th>
+<th>写真そのもの</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>ライブラリの <span class="math inline">J</span> との差</td>
-<td>6.4e-06</td>
-<td>6.4e-06</td>
-<td>5.3e-06</td>
+<td><span class="math inline">\lVert\mathbf X\rVert_F^2</span></td>
+<td>11,949</td>
+<td>61,868</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\mathbf A^\top\mathbf A</span> と <span class="math inline">\mathbf I</span> の差（最大）</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td><span class="math inline">Q=1</span> の累積寄与率</td>
+<td>52.3%</td>
+<td>89.8%</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">Q=1</span> の <span class="math inline">J</span></td>
+<td>5,699</td>
+<td>6,319</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">Q=5</span> の累積寄与率</td>
+<td>78.2%</td>
+<td>95.7%</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">Q=5</span> の <span class="math inline">J</span></td>
+<td>2,599</td>
+<td>2,663</td>
 </tr>
 </tbody>
 </table>
-<p>自分で回した <span class="math inline">J</span> は、ライブラリの <span class="math inline">J</span> と一致する。どの答えも制約 <span class="math inline">\mathbf A^\top\mathbf A=\mathbf I</span> を満たす。</p>
+<p>写真そのものは寄与率が高いのに、<span class="math inline">J</span> は大きい。</p>
 </section>
-<section id="結果②2本の軸の得点" class="slide level2" data-chapter="II-4">
-<h2>結果②：2本の軸の得点</h2>
-<div id="6bd0c748" class="cell" data-execution_count="46">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>1,797 枚を、64個の数から2つの数 <span class="math inline">\mathbf F</span> にした。黒い丸は場面①の0。色は数字（計算には使っていない）。</p>
-</section>
-<section id="結果②別の初期値の得点" class="slide level2" data-chapter="II-4">
-<h2>結果②：別の初期値の得点</h2>
-<div id="cdfa76ab" class="cell" data-execution_count="47">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>同じ <span class="math inline">J</span>。数字の並びごと 64 度回っている。第I部の3列60点と同じ。</p>
-</section>
-<section id="解釈①近似はぼやけた0" class="slide level2" data-chapter="II-5">
-<h2>解釈①：近似はぼやけた0</h2>
-<div id="310d08b2" class="cell" data-execution_count="50">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png" class="quarto-figure quarto-figure-center" width="864" height="361"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>得点2つから <span class="math inline">\mathbf A\tilde{\boldsymbol f}_i</span> を作り、列の平均を足し戻して画像にした。<span class="math inline">J</span> は <span class="math inline">\lVert\mathbf X\rVert_F^2</span> の 71%が残り、ぼやける。</p>
-</section>
-<section id="解釈②近似は同じ" class="slide level2" data-chapter="II-5">
-<h2>解釈②：近似は同じ</h2>
-<div id="8aa209d8" class="cell" data-execution_count="51">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png" class="quarto-figure quarto-figure-center" width="864" height="361"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>得点は違うのに、近似は同じ。回した分を <span class="math inline">\mathbf A</span> が打ち消す。</p>
-</section>
-<section id="落とし穴①軸1に名前を付ける" class="slide level2" data-chapter="II-6">
-<h2>落とし穴①：軸1に名前を付ける</h2>
-<div id="be27a3bf" class="cell" data-execution_count="52">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png" class="quarto-figure quarto-figure-center" width="984" height="396"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>軸1の負荷量 <span class="math inline">\boldsymbol a_1</span> を8×8に並べた（赤は正、青は負）。「軸1は0の形」と名付けたくなる。</p>
-</section>
-<section id="落とし穴②解き直すと別の模様" class="slide level2" data-chapter="II-6">
-<h2>落とし穴②：解き直すと別の模様</h2>
-<div id="ec18524f" class="cell" data-execution_count="53">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-54-output-1.png" class="quarto-figure quarto-figure-center" width="984" height="396"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>初期値を変えると、軸1の模様が変わる。決まるのは2本の軸が張る面までで、どれを軸1と呼ぶかは決まらない。</p>
+<section id="落とし穴②分母が違う" class="slide level2 smaller" data-chapter="II-6">
+<h2>落とし穴②：分母が違う</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>列の平均を引いた <span class="math inline">\mathbf X</span></th>
+<th>写真そのもの</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\lVert\mathbf X\rVert_F^2</span></td>
+<td>11,949</td>
+<td>61,868</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">Q=1</span> の累積寄与率</td>
+<td>52.3%</td>
+<td>89.8%</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">Q=1</span> の <span class="math inline">J</span></td>
+<td>5,699</td>
+<td>6,319</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">Q=5</span> の累積寄与率</td>
+<td>78.2%</td>
+<td>95.7%</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">Q=5</span> の <span class="math inline">J</span></td>
+<td>2,599</td>
+<td>2,663</td>
+</tr>
+</tbody>
+</table>
+<p>分母の <span class="math inline">\lVert\mathbf X\rVert_F^2</span> に平均の明るさが入る。違う <span class="math inline">\mathbf X</span> どうしは、同じ目盛りの <span class="math inline">J</span> で比べる。</p>
 </section>
 <section id="このデータでわかったこと" class="slide level2" data-chapter="II-6">
 <h2>このデータでわかったこと</h2>
 <ul>
-<li>予想どおり：<span class="math inline">J</span> は一度も上がらず、着いた <span class="math inline">J</span> と近似は初期値によらず同じ</li>
-<li>予想どおり：軸の向きは初期値しだいで回る・裏返る</li>
-<li>予想は外れた：止まるまで 62〜84 回かかった</li>
-<li>理由：2本目と3本目の向きが <span class="math inline">J</span> をほぼ同じだけ下げる</li>
+<li>予想は外れた：2本で 70.4%。90%に 25 本、99%に 155 本。肘も出ない</li>
+<li>理由：3本目以降の <span class="math inline">\delta_m^2</span> は1本ずつ小さいが、数が多い。<span class="math inline">J</span> はその和</li>
+<li>それでも <span class="math inline">Q=50</span> で見た目はほぼ戻り、数は元の 24%</li>
+<li>予想どおり：1枚目から順に、大きな明暗から細部へ</li>
+<li>平均を引かないと、1本目を平均の明るさに取られ、寄与率が高く見える</li>
 </ul>
 </section></section>
 <section>
@@ -1351,75 +1704,60 @@ J(\mathbf A\mid\mathbf F)=\operatorname{const}_{\mathbf A}-2\operatorname{tr}(\m
 <h1>締め</h1>
 
 </section>
-<section id="まとめ①片方ずつ交互に解く" class="slide level2" data-chapter="締め">
-<h2>まとめ①：片方ずつ交互に解く</h2>
-<div id="b40fd54e" class="cell" data-execution_count="56">
+<section id="まとめ①xを1回分解する" class="slide level2" data-chapter="締め">
+<h2>まとめ①：Xを1回分解する</h2>
+<div id="deb5411a" class="cell" data-execution_count="83">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png" class="quarto-figure quarto-figure-center" width="864" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-84-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="1014" height="306"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">\mathbf A</span> を固定して <span class="math inline">\hat{\mathbf F}=\mathbf X\mathbf A</span>。<span class="math inline">\mathbf F</span> を固定して <span class="math inline">\mathbf X^\top\mathbf F=\mathbf K\boldsymbol\Delta\mathbf L^\top</span> から <span class="math inline">\hat{\mathbf A}=\mathbf K\mathbf L^\top</span>。</p>
+<p>上位 <span class="math inline">Q</span> 本を残す：<span class="math inline">\hat{\mathbf F}=\mathbf K_1\boldsymbol\Delta_1</span>、<span class="math inline">\hat{\mathbf A}=\mathbf L_1</span>。低ランク近似と主成分分析は同じ問題。</p>
 </section>
-<section id="まとめ②jは毎回下がる" class="slide level2" data-chapter="締め">
-<h2>まとめ②：Jは毎回下がる</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>どちらの更新も、固定した残りのもとでの最小。だから <span class="math inline">J</span> は上がらず、直線は点の雲の向きへ回っていく。</p>
-</div><div class="column" style="width:55%;">
-<div id="2c309e65" class="cell" data-execution_count="57">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-58-output-1.png" width="576" height="420"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="まとめ③答えは回る" class="slide level2" data-chapter="締め">
-<h2>まとめ③：答えは回る</h2>
-<div id="a6b10f83" class="cell" data-execution_count="58">
+<section id="まとめ②捨てるのは小さい層" class="slide level2" data-chapter="締め">
+<h2>まとめ②：捨てるのは小さい層</h2>
+<div id="577951b3" class="cell" data-execution_count="84">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="360"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-85-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="820" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>答えは、軸を回す <span class="math inline">\mathbf R</span> の分だけ決まらない。決まるのは、<span class="math inline">J</span> と近似 <span class="math inline">\mathbf F\mathbf A^\top</span> と軸の張る面。</p>
+<p><span class="math inline">J</span> は捨てた特異値の二乗和。小さい層はノイズとみなして捨てる。</p>
 </section>
-<section id="次回予告①反復して着いたj" class="slide level2" data-chapter="締め">
-<h2>次回予告①：反復して着いたJ</h2>
-<div id="054d5380" class="cell" data-execution_count="59">
+<section id="まとめ③向きは回る" class="slide level2" data-chapter="締め">
+<h2>まとめ③：向きは回る</h2>
+<div id="c34eef5e" class="cell" data-execution_count="85">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-60-output-1.png" class="quarto-figure quarto-figure-center" width="888" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-86-output-1.png?v=ceba1419" class="quarto-figure quarto-figure-center" width="888" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>3通りの初期値が、62〜84 回の反復で同じ <span class="math inline">J</span> = 1,543,524 に着いた。</p>
+<p>目的関数だけでは軸は回る。特異値分解は <span class="math inline">\delta_m</span> の順に並べ、得点を無相関にする。</p>
 </section>
-<section id="次回予告②毎回分解していた" class="slide level2" data-chapter="締め">
-<h2>次回予告②：毎回分解していた</h2>
+<section id="次回予告①軸は何を表すか" class="slide level2" data-chapter="締め">
+<h2>次回予告①：軸は何を表すか</h2>
 <ul>
-<li>反復のたびに、<span class="math inline">\mathbf X^\top\mathbf F</span> を特異値分解していた</li>
-<li>着く先は、初期値によらず同じ <span class="math inline">J</span> だった</li>
+<li>答えの <span class="math inline">\mathbf A</span> の各列は、<span class="math inline">p</span> 個の列への重み</li>
+<li>得点 <span class="math inline">\mathbf F</span> は、各行の軸の上の位置</li>
 </ul>
+<p>この2つを、どう読めばよいか。</p>
 </section>
-<section id="次回予告③1回で解けないか" class="slide level2" data-chapter="締め">
-<h2>次回予告③：1回で解けないか</h2>
+<section id="次回予告②単位がまちまちなら" class="slide level2" data-chapter="締め">
+<h2>次回予告②：単位がまちまちなら</h2>
 <ul>
-<li>では、<span class="math inline">\mathbf X</span> そのものを特異値分解したら？</li>
+<li>写真の列は、どれも同じ明るさの目盛りだった</li>
+<li>g・mg・kcal のように単位がまちまちな列なら、どう扱うか</li>
 </ul>
-<p>問い：反復せず1回で解けないか？</p>
+<p>問い：残した軸は何を表し、どう読めばよいか？</p>
 
 </section></section>
     </div>
