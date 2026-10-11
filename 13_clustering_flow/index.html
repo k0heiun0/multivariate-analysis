@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-1941e964fa3ab312ad1a6d8bf906c6f5.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-cb2dd3e547cb76b46b665cb07db7938a.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -157,47 +157,65 @@
 <h1>第I部　理論</h1>
 
 </section>
-<section id="場面①272回の噴出" class="slide level2" data-chapter="I-1">
-<h2>場面①：272回の噴出</h2>
-<div id="0081028e" class="cell" data-execution_count="2">
+<section id="データ272回の噴出" class="slide level2" data-chapter="I-1">
+<h2>データ：272回の噴出</h2>
+<div id="39ef1bb4" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1176" height="372"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1176" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>間欠泉の 272 回の噴出。長く噴くと次まで長く待つ。塊は2つに見える。</p>
 </section>
-<section id="場面②ℓは上がり続ける" class="slide level2" data-chapter="I-1">
-<h2>場面②：ℓは上がり続ける</h2>
-<div id="a768c8d8" class="cell" data-execution_count="3">
+<section id="困りごと①ℓは上がり続ける" class="slide level2" data-chapter="I-1">
+<h2>困りごと①：ℓは上がり続ける</h2>
+<div id="98b8ddeb" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1176" height="372"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1176" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>混合正規分布を当てはめる。群を増やすと <span class="math inline">\hat\ell</span> は上がり続ける。2つの塊のところで止まらない。</p>
+<p>混合正規分布を当てはめる。群を増やすと <span class="math inline">\hat\ell</span> は上がり続ける。どこで止めればよい？</p>
 </section>
-<section id="場面③jも下がり続ける" class="slide level2" data-chapter="I-1">
-<h2>場面③：Jも下がり続ける</h2>
-<div id="9c0b551a" class="cell" data-execution_count="4">
+<section id="困りごと②jも下がり続ける" class="slide level2" data-chapter="I-1">
+<h2>困りごと②：Jも下がり続ける</h2>
+<div id="9b4e2523" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1176" height="372"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1176" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>同じ2列にk-means。<span class="math inline">J</span> は下がり続ける。どちらの目的関数も、<span class="math inline">k</span> が大きいほど「良い」値になる。</p>
+<p>同じ2列にk-means。<span class="math inline">J</span> も下がり続ける。しかもk-meansには確率のモデルが無く、尤度を使えない。</p>
 </section>
-<section id="場面④前にも見た" class="slide level2 smaller" data-chapter="I-1">
-<h2>場面④：前にも見た</h2>
+<section id="困りごと③列が多いと" class="slide level2" data-chapter="I-1">
+<h2>困りごと③：列が多いと</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>トースト90枚の、表面10か所の焼き色（人工データ）。</p>
+<p>群ごとの楕円で <span class="math inline">k=3</span> なら、推定する数は 197 個。行の数90を超える。</p>
+</div><div class="column" style="width:55%;">
+<div id="4f5731cc" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=6281ba11" width="412" height="378"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="前にも見た" class="slide level2 smaller" data-chapter="I-1">
+<h2>前にも見た</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 25%">
@@ -245,14 +263,14 @@
 <section id="今回の問い" class="slide level2" data-chapter="I-1">
 <h2>今回の問い</h2>
 <p>第12回の最後に、次の問いを残した。</p>
-<p>群の数 <span class="math inline">k</span> を、どう選ぶ？</p>
+<p>群の数 <span class="math inline">k</span> を、どう選ぶ？（困りごと①。②③にも答える）</p>
 <p>今回覚える言葉</p>
 <ul>
 <li>共分散の型</li>
 <li>パラメータの数 <span class="math inline">d</span></li>
 <li>BIC・AIC</li>
 <li>交差検証（クロスバリデーション、CV）の対数尤度</li>
-<li>V分割CV（V-fold CV）</li>
+<li>シルエット係数</li>
 </ul>
 </section>
 <section id="まず候補を並べる" class="slide level2" data-chapter="I-1">
@@ -271,11 +289,11 @@
 <p>3台のトースターで焼いたトースト120枚の、焼き時間と焼き色（標準化した値）。</p>
 <p>どの1枚がどの台で焼かれたかは、記録していない。</p>
 </div><div class="column" style="width:55%;">
-<div id="de56d9c6" class="cell" data-execution_count="6">
+<div id="8af0fec4" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png" width="378" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png?v=6281ba11" width="378" height="378"></p>
 </figure>
 </div>
 </div>
@@ -284,11 +302,11 @@
 </section>
 <section id="型①群ごとfull" class="slide level2" data-chapter="I-2">
 <h2>型①：群ごと（full）</h2>
-<div id="d673b2c5" class="cell" data-execution_count="7">
+<div id="652094a9" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
 </figure>
 </div>
 </div>
@@ -297,11 +315,11 @@
 </section>
 <section id="型②共通tied" class="slide level2" data-chapter="I-2">
 <h2>型②：共通（tied）</h2>
-<div id="567a7046" class="cell" data-execution_count="8">
+<div id="d4ce12b7" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
 </figure>
 </div>
 </div>
@@ -310,11 +328,11 @@
 </section>
 <section id="型③対角diag" class="slide level2" data-chapter="I-2">
 <h2>型③：対角（diag）</h2>
-<div id="4c0fbbde" class="cell" data-execution_count="9">
+<div id="76c6efb6" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
 </figure>
 </div>
 </div>
@@ -323,11 +341,11 @@
 </section>
 <section id="型④球spherical" class="slide level2" data-chapter="I-2">
 <h2>型④：球（spherical）</h2>
-<div id="d3d418e5" class="cell" data-execution_count="10">
+<div id="8f92f1a4" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
 </figure>
 </div>
 </div>
@@ -372,11 +390,11 @@
 </section>
 <section id="目的関数③上がる一方" class="slide level2" data-chapter="I-3">
 <h2>目的関数③：上がる一方</h2>
-<div id="f1925036" class="cell" data-execution_count="12">
+<div id="0dd6e6f1" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="701" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="701" height="378"></p>
 </figure>
 </div>
 </div>
@@ -516,6 +534,19 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </span></p>
 <p>小さいほど良い。<span class="math inline">k</span> を増やすと、前の項は下がり、後の項は上がる。</p>
 </section>
+<section id="たとえ荷物の超過料金" class="slide level2" data-chapter="I-5">
+<h2>たとえ：荷物の超過料金</h2>
+<div id="a9b00378" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="846" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>荷物を増やすほど旅先では困らないが、1個ごとに料金がかかる。合計が最小の数で止める。BICの罰は、パラメータ1つごとの料金。</p>
+</section>
 <section id="bic重みはlog-n" class="slide level2" data-chapter="I-5">
 <h2>BIC：重みはlog n</h2>
 <p><span class="math display">
@@ -581,6 +612,24 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </ul>
 <p>対数尤度も、推定に使わなかった行で測れないか。</p>
 </section>
+<section id="たとえ過去問だけ覚える" class="slide level2" data-chapter="I-5">
+<h2>たとえ：過去問だけ覚える</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>過去問の答えを丸暗記した生徒は、過去問なら満点。本番の新しい問題では点が取れない。</p>
+<p>力を測るなら、練習に使わなかった問題で測る。</p>
+</div><div class="column" style="width:55%;">
+<div id="322f68d8" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png?v=6281ba11" width="437" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
 <section id="外の行で測る" class="slide level2" data-chapter="I-5">
 <h2>外の行で測る</h2>
 <p><span class="math display">
@@ -597,11 +646,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="組を測る側に回す" class="slide level2" data-chapter="I-5">
 <h2>1組を測る側に回す</h2>
-<div id="bafd7220" class="cell" data-execution_count="16">
+<div id="f27c1618" class="cell" data-execution_count="20">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png" class="quarto-figure quarto-figure-center" width="943" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="943" height="295"></p>
 </figure>
 </div>
 </div>
@@ -610,11 +659,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="どの組も1度ずつ測る" class="slide level2" data-chapter="I-5">
 <h2>どの組も1度ずつ測る</h2>
-<div id="1bdf0403" class="cell" data-execution_count="17">
+<div id="592e4070" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="943" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="943" height="295"></p>
 </figure>
 </div>
 </div>
@@ -635,23 +684,192 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </span></p>
 <p>どちらも対数尤度を <span class="math inline">-2</span> 倍した単位で、小さいほど良い。同じ目盛りに並べて比べられる。</p>
 </section>
+<section id="次の問い尤度が無いと" class="slide level2" data-chapter="I-1">
+<h2>次の問い：尤度が無いと？</h2>
+<ul>
+<li>k-meansの <span class="math inline">J</span> は尤度ではない。BICの第1項にならない</li>
+<li>代表点を増やすほど、どの行にも近い代表点ができる。外の行で測っても <span class="math inline">J</span> は下がる</li>
+</ul>
+<p>距離だけで、群の分け方の良し悪しを測れないか。使いどころ：確率のモデルを持たない群分け（k-means）の <span class="math inline">k</span> を選ぶ。</p>
+</section>
+<section id="シルエット①自分の群" class="slide level2" data-chapter="I-5">
+<h2>シルエット①：自分の群</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+a_i=\frac{1}{n_q-1}\sum_{i'\in q,\,i'\ne i}d_{ii'}
+</span></p>
+<p><span class="math inline">d_{ii'}=\lVert\boldsymbol x_i-\boldsymbol x_{i'}\rVert_2</span> は行どうしの距離。<span class="math inline">a_i</span> は、同じ群 <span class="math inline">q</span> のほかの行までの距離の平均。小さいほど、自分の群にまとまっている。</p>
+</div><div class="column" style="width:55%;">
+<div id="01dcfa40" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png?v=6281ba11" width="390" height="390"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="シルエット②隣の群" class="slide level2" data-chapter="I-5">
+<h2>シルエット②：隣の群</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+b_i=\min_{q'\ne q}\ \frac{1}{n_{q'}}\sum_{i'\in q'}d_{ii'}
+</span></p>
+<p>ほかの群の行までの距離の平均を、群ごとに出す。そのうち、いちばん近い群の値。</p>
+</div><div class="column" style="width:55%;">
+<div id="25f3584f" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png?v=6281ba11" width="390" height="390"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="シルエット③比べる" class="slide level2" data-chapter="I-5">
+<h2>シルエット③：比べる</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+s_i=\frac{b_i-a_i}{\max(a_i,\ b_i)}
+</span></p>
+<p>1に近いほど、自分の群に近く隣から遠い。0なら境目、負なら隣の群の方が近い。</p>
+</div><div class="column" style="width:55%;">
+<div id="02472753" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png?v=6281ba11" width="390" height="390"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="シルエット④行列で" class="slide level2" data-chapter="I-5">
+<h2>シルエット④：行列で</h2>
+<p><span class="math display">
+\mathbf M=\mathbf D\,\mathbf G\,(\mathbf G^\top\mathbf G)^{-1}
+</span></p>
+<p><span class="math inline">\mathbf D</span> は行どうしの距離を並べた <span class="math inline">n\times n</span> 行列。<span class="math inline">m_{iq}</span> は行 <span class="math inline">i</span> から群 <span class="math inline">q</span> の行までの距離の平均（第11回と同じく、<span class="math inline">(\mathbf G^\top\mathbf G)^{-1}</span> で群の大きさで割る）。<span class="math inline">b_i</span> は自分の群以外の列の最小。</p>
+</section>
+<section id="シルエット⑤全行の平均" class="slide level2" data-chapter="I-5">
+<h2>シルエット⑤：全行の平均</h2>
+<div id="cb1451ec" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="894" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\bar s=\frac1n\sum_i s_i</span> をシルエット係数と呼ぶ。<span class="math inline">k</span> を変えて比べ、最大の <span class="math inline">k</span> を選ぶ。</p>
+</section>
+<section id="たとえ花見のシート" class="slide level2" data-chapter="I-5">
+<h2>たとえ：花見のシート</h2>
+<div id="f8ee4b65" class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="653" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>花見で、自分のシートの仲間までの平均の距離が <span class="math inline">a</span>、隣のシートまでが <span class="math inline">b</span>。<span class="math inline">a</span> が <span class="math inline">b</span> よりずっと小さければ、座る場所は合っている。</p>
+</section>
+<section id="次の問い列が多いと" class="slide level2" data-chapter="I-1">
+<h2>次の問い：列が多いと？</h2>
+<ul>
+<li>群ごとの型の <span class="math inline">d</span> は、列の数 <span class="math inline">p</span> の2乗で増える</li>
+<li>行が少ないと、群ごとの共分散行列を推定できない</li>
+</ul>
+<p>群に分ける前に、列を減らせないか。使いどころ：列の多いデータ（遺伝子の発現、画像の画素）を群に分ける。</p>
+</section>
+<section id="縮めてから分ける①得点" class="slide level2" data-chapter="I-5">
+<h2>縮めてから分ける①：得点</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+\mathbf F=\mathbf X\mathbf A\qquad(n\times Q)
+</span></p>
+<p>第9回・第10回の主成分分析で、<span class="math inline">n\times p</span> の <span class="math inline">\mathbf X</span> を <span class="math inline">Q</span> 列の得点 <span class="math inline">\mathbf F</span> に縮める。この <span class="math inline">\mathbf F</span> を混合正規分布で分ける。</p>
+</div><div class="column" style="width:55%;">
+<div id="d4e9f589" class="cell" data-execution_count="29">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png?v=6281ba11" width="414" height="315"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="縮めてから分ける②dが減る" class="slide level2" data-chapter="I-5">
+<h2>縮めてから分ける②：dが減る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+\begin{aligned}
+d&amp;=(k-1)+kQ\\
+&amp;\quad+k\,Q(Q+1)/2
+\end{aligned}
+</span></p>
+<p><span class="math inline">p</span> を <span class="math inline">Q</span> に替えるだけ。10列を2列に縮めると、<span class="math inline">k=3</span> で <span class="math inline">d</span> は 197 から 17 に減る。</p>
+</div><div class="column" style="width:55%;">
+<div id="6045323b" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png?v=6281ba11" width="412" height="378"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="縮めてから分ける③qも選ぶ" class="slide level2" data-chapter="I-5">
+<h2>縮めてから分ける③：Qも選ぶ</h2>
+<div id="e0ca630f" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="869" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>つまみが2つになる。<span class="math inline">Q</span> はスクリープロットの肘で（第9回）、<span class="math inline">k</span> と型はその <span class="math inline">\mathbf F</span> のBICで選ぶ。ここでは <span class="math inline">Q=2</span>（累積寄与率 84%）。</p>
+</section>
 <section id="道具がそろった" class="slide level2" data-chapter="I-1">
 <h2>道具がそろった</h2>
 <ul>
 <li>候補：群の数 <span class="math inline">k</span> と、4つの共分散の型</li>
 <li>罰を足す：<span class="math inline">d</span> を数えて <span class="math inline">\mathrm{BIC}=-2\hat\ell+d\log n</span></li>
 <li>外の行で測る：<span class="math inline">V</span> 分割の <span class="math inline">\ell_{\mathrm{CV}}</span></li>
+<li>k-meansなら：シルエット係数 <span class="math inline">\bar s</span></li>
+<li>列が多ければ：主成分得点 <span class="math inline">\mathbf F=\mathbf X\mathbf A</span> に縮める</li>
 </ul>
 <p>これを、計算する順に並べる。</p>
 </section>
 <section id="アルゴリズムkと型を選ぶ" class="slide level2 smaller" data-chapter="I-6">
 <h2>アルゴリズム：kと型を選ぶ</h2>
-<ol type="1">
+<ol start="0" type="1">
+<li>列が多ければ：<span class="math inline">\mathbf F=\mathbf X\mathbf A</span>（<span class="math inline">Q</span> はスクリープロット）に縮め、以下の <span class="math inline">\mathbf X</span> を <span class="math inline">\mathbf F</span> に替える</li>
 <li>候補を並べる：<span class="math inline">k=1,\dots,k_{\max}</span> と、4つの型</li>
 <li>当てはめる：候補ごとに全 <span class="math inline">n</span> 行でEM（第12回、ランダムスタート）→ <span class="math inline">\hat{\boldsymbol\Phi}</span>、<span class="math inline">\hat\ell=\mathbf 1_n^\top\log(\hat{\boldsymbol\Phi}\mathbf 1_k)</span></li>
 <li>数える：<span class="math inline">d(k,\text{型})</span> → <span class="math inline">\mathrm{BIC}=-2\hat\ell+d\log n</span> を <span class="math inline">k\times</span>型 の表 <span class="math inline">\mathbf B</span> に入れる</li>
 <li>CV：行を <span class="math inline">V</span> 組に分け、各 <span class="math inline">v</span> で <span class="math inline">\mathbf X_{(-v)}</span> にEM → <span class="math inline">\boldsymbol\Phi_v^{(-v)}</span>（<span class="math inline">n_v\times k</span>）→ <span class="math inline">\ell_{\mathrm{CV}}=\sum_v\mathbf 1^\top\log(\boldsymbol\Phi_v^{(-v)}\mathbf 1_k)</span> を表に</li>
 <li>選ぶ：<span class="math inline">\mathbf B</span> の最小、または <span class="math inline">\ell_{\mathrm{CV}}</span> の最大。CVで選んだ候補は全行で当てはめ直す</li>
+<li>k-meansなら：<span class="math inline">k</span> ごとに <span class="math inline">\mathbf M=\mathbf D\mathbf G(\mathbf G^\top\mathbf G)^{-1}</span> から <span class="math inline">\bar s</span> を求め、最大を選ぶ</li>
 </ol>
 </section>
 <section id="次の問い2つは何を選ぶか" class="slide level2" data-chapter="I-1">
@@ -664,11 +882,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="帰結①悪さは下がる一方" class="slide level2" data-chapter="I-7">
 <h2>帰結①：悪さは下がる一方</h2>
-<div id="ab7c020a" class="cell" data-execution_count="19">
+<div id="828efdee" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
@@ -677,11 +895,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="帰結②罰は上がる一方" class="slide level2" data-chapter="I-7">
 <h2>帰結②：罰は上がる一方</h2>
-<div id="f68614be" class="cell" data-execution_count="20">
+<div id="cb02e6a0" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
@@ -690,11 +908,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="帰結③和は谷を持つ" class="slide level2" data-chapter="I-7">
 <h2>帰結③：和は谷を持つ</h2>
-<div id="3d6a8fca" class="cell" data-execution_count="21">
+<div id="ed575fbb" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
@@ -703,11 +921,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="帰結④谷の位置" class="slide level2" data-chapter="I-7">
 <h2>帰結④：谷の位置</h2>
-<div id="3d500d40" class="cell" data-execution_count="22">
+<div id="8dbbf867" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
@@ -716,11 +934,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="帰結⑤外の行も同じ谷" class="slide level2" data-chapter="I-7">
 <h2>帰結⑤：外の行も同じ谷</h2>
-<div id="5713173a" class="cell" data-execution_count="23">
+<div id="3d305da9" class="cell" data-execution_count="37">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
@@ -729,112 +947,304 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="帰結⑥罰が軽いと" class="slide level2" data-chapter="I-7">
 <h2>帰結⑥：罰が軽いと</h2>
-<div id="e16b74f6" class="cell" data-execution_count="24">
+<div id="d01ca094" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>罰の重みを2にしたAICは <span class="math inline">k=</span> 6 を選ぶ。罰の重みで答えが変わる。</p>
 </section>
-<section id="帰結⑦作り直すと" class="slide level2 smaller" data-chapter="I-7">
-<h2>帰結⑦：作り直すと</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>データ（何通り目か）</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>BIC が選ぶ <span class="math inline">k</span></td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td>AIC が選ぶ <span class="math inline">k</span></td>
-<td>3</td>
-<td>3</td>
-<td>6</td>
-<td>5</td>
-<td>3</td>
-<td>6</td>
-<td>3</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-<p>同じ作り方で作り直した8通りのデータ。BICは 8 通り、AICは 5 通りで <span class="math inline">k=3</span>。AICは罰が軽い分、大きい側に振れやすい。</p>
-</section>
-<section id="帰結⑧型も同じ表で" class="slide level2" data-chapter="I-7">
-<h2>帰結⑧：型も同じ表で</h2>
-<div id="b48b4c6e" class="cell" data-execution_count="26">
+<section id="帰結⑦nを増やすとbic" class="slide level2" data-chapter="I-7">
+<h2>帰結⑦：nを増やすとBIC</h2>
+<div id="9424461f" class="cell" data-execution_count="39">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1152" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>行の数を変えて60通りずつ作り直した。BICは <span class="math inline">n</span> = 60 で 88%、その先はいつも3。<span class="math inline">n</span> が小さいと少なめに外れる。</p>
+</section>
+<section id="帰結⑧aicは多めに残る" class="slide level2" data-chapter="I-7">
+<h2>帰結⑧：AICは多めに残る</h2>
+<div id="3122807a" class="cell" data-execution_count="40">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1152" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>AICは多めに外れやすい。<span class="math inline">n</span> = 120 でも 68%が多め。罰の重みの差 <span class="math inline">\log n-2</span> は <span class="math inline">n</span> とともに広がる。</p>
+</section>
+<section id="帰結⑨型も同じ表で" class="slide level2" data-chapter="I-7">
+<h2>帰結⑨：型も同じ表で</h2>
+<div id="efed1963" class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>4つの型のBIC。最小は群ごとの型・<span class="math inline">k=</span> 3（斜めの帯を楕円で描ける型）。</p>
 </section>
-<section id="帰結⑨k-meansのjは" class="slide level2" data-chapter="I-7">
-<h2>帰結⑨：k-meansのJは？</h2>
-<div id="1d397a39" class="cell" data-execution_count="27">
+<section id="困りごと①に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと①に戻る</h2>
+<div id="5213bd74" class="cell" data-execution_count="42">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\hat\ell</span> は上がり続けても、罰 <span class="math inline">d\log n</span> を足したBICは谷を持つ。<span class="math inline">k</span> と型を同じ表に並べ、谷の底を選べばよい。</p>
+</section>
+<section id="帰結⑩k-meansのjは" class="slide level2" data-chapter="I-7">
+<h2>帰結⑩：k-meansのJは？</h2>
+<div id="b657aaa0" class="cell" data-execution_count="43">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span class="math inline">J</span> は尤度ではないので、BICの第1項にならない。では、外の行で測ったらどうか。</p>
 </section>
-<section id="帰結⑩jは外でも下がる" class="slide level2" data-chapter="I-7">
-<h2>帰結⑩：Jは外でも下がる</h2>
-<div id="408ca67b" class="cell" data-execution_count="28">
+<section id="帰結⑪jは外でも下がる" class="slide level2" data-chapter="I-7">
+<h2>帰結⑪：Jは外でも下がる</h2>
+<div id="d03ad520" class="cell" data-execution_count="44">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>外の行で測っても下がり続ける。代表点が増えれば、新しい行にも近い代表点がある。</p>
 </section>
-<section id="帰結⑪2つを並べる" class="slide level2 smaller" data-chapter="I-7">
-<h2>帰結⑪：2つを並べる</h2>
+<section id="帰結⑫シルエットは山を持つ" class="slide level2" data-chapter="I-7">
+<h2>帰結⑫：シルエットは山を持つ</h2>
+<div id="39c08320" class="cell" data-execution_count="45">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="869" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じk-meansの答えで <span class="math inline">\bar s</span> を求めた。<span class="math inline">k=</span> 3 で最大。塊を2つに割ると、隣の群がすぐそばになり <span class="math inline">b_i</span> が縮む。</p>
+</section>
+<section id="困りごと②に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと②に戻る</h2>
+<div id="ecfe47d9" class="cell" data-execution_count="46">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="869" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>k-meansには尤度が無くても、行どうしの距離から <span class="math inline">\bar s</span> は求まる。<span class="math inline">\bar s</span> の山の <span class="math inline">k</span> を選べばよい。</p>
+</section>
+<section id="帰結⑬罰では止まらない" class="slide level2 smaller" data-chapter="I-7">
+<h2>帰結⑬：罰では止まらない</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>対角に足す数</th>
+<th><span class="math inline">k=1</span></th>
+<th><span class="math inline">k=2</span></th>
+<th><span class="math inline">k=3</span></th>
+<th><span class="math inline">k=4</span></th>
+<th><span class="math inline">k=5</span></th>
+<th>選ぶ <span class="math inline">k</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">10^{-2}</span></td>
+<td>3,298</td>
+<td>3,334</td>
+<td>3,454</td>
+<td>3,591</td>
+<td>3,705</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">10^{-4}</span></td>
+<td>3,298</td>
+<td>3,334</td>
+<td>3,454</td>
+<td>3,540</td>
+<td>3,474</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">10^{-6}</span></td>
+<td>3,298</td>
+<td>3,334</td>
+<td>3,454</td>
+<td>3,494</td>
+<td>3,216</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">10^{-8}</span></td>
+<td>3,298</td>
+<td>3,334</td>
+<td>3,454</td>
+<td>3,448</td>
+<td>2,958</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">10^{-10}</span></td>
+<td>3,298</td>
+<td>3,334</td>
+<td>3,454</td>
+<td>3,401</td>
+<td>2,700</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>困りごと③の10列のトースト。群ごとの型のBIC。足す数を小さくすると、潰れた群の <span class="math inline">\hat\ell</span> はいくらでも上がる。3 行目から下は <span class="math inline">k=</span> 5。</p>
+</section>
+<section id="帰結⑭外の行でも分けない" class="slide level2 smaller" data-chapter="I-7">
+<h2>帰結⑭：外の行でも分けない</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>対角に足す数</th>
+<th><span class="math inline">k=1</span></th>
+<th><span class="math inline">k=2</span></th>
+<th><span class="math inline">k=3</span></th>
+<th><span class="math inline">k=4</span></th>
+<th><span class="math inline">k=5</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">10^{-6}</span></td>
+<td>-1,582</td>
+<td>-1,656</td>
+<td>-1,770</td>
+<td>-1,956</td>
+<td>-2,997</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">10^{-10}</span></td>
+<td>-1,582</td>
+<td>-1,656</td>
+<td>-1,712</td>
+<td>-1,956</td>
+<td>-2,997</td>
+</tr>
+</tbody>
+</table>
+<p>同じデータの <span class="math inline">\ell_{\mathrm{CV}}</span>。最大は <span class="math inline">k=</span> 1。潰れた群は外の行を出せない。ただし作った群は3つ。</p>
+</section>
+<section id="帰結⑮型を小さくする" class="slide level2 smaller" data-chapter="I-7">
+<h2>帰結⑮：型を小さくする</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>対角の型</th>
+<th><span class="math inline">k=1</span></th>
+<th><span class="math inline">k=2</span></th>
+<th><span class="math inline">k=3</span></th>
+<th><span class="math inline">k=4</span></th>
+<th><span class="math inline">k=5</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">d</span></td>
+<td>20</td>
+<td>41</td>
+<td>62</td>
+<td>83</td>
+<td>104</td>
+</tr>
+<tr class="even">
+<td>BIC</td>
+<td>3,870</td>
+<td>3,317</td>
+<td>2,993</td>
+<td>3,043</td>
+<td>3,093</td>
+</tr>
+</tbody>
+</table>
+<p>対角の型なら、BICは <span class="math inline">k=</span> 3 を選び、作った3台を 100%の行で言い当てた。</p>
+</section>
+<section id="帰結⑯縮めてから分ける" class="slide level2" data-chapter="I-7">
+<h2>帰結⑯：縮めてから分ける</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>主成分得点2列に縮めてから、群ごとの型で分けた。</p>
+<p>BICは <span class="math inline">k=</span> 3 を選び、作った3台を 100%の行で言い当てた。</p>
+</div><div class="column" style="width:55%;">
+<div id="a51cac8b" class="cell" data-execution_count="50">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=6281ba11" width="414" height="319"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="困りごと③に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと③に戻る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>列が多いと、群ごとの楕円の数 <span class="math inline">d</span> が行の数を超え、罰でも外の行でも選べなかった。</p>
+<p>先に主成分得点に縮めれば、<span class="math inline">d</span> は 17 に減り、BICが働く。</p>
+</div><div class="column" style="width:55%;">
+<div id="65606490" class="cell" data-execution_count="51">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png?v=6281ba11" width="414" height="319"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="帰結⑰3つを並べる" class="slide level2 smaller" data-chapter="I-7">
+<h2>帰結⑰：3つを並べる</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
 <th></th>
 <th>罰を足す（BIC）</th>
 <th>外の行で測る（CV）</th>
+<th>距離で測る（シルエット）</th>
 </tr>
 </thead>
 <tbody>
@@ -842,33 +1252,38 @@ p=10,\ k=3:\qquad d=2+30+165=197
 <td>測るもの</td>
 <td>手元の行の <span class="math inline">-2\hat\ell</span> ＋ <span class="math inline">d\log n</span></td>
 <td>外の行の <span class="math inline">-2\ell_{\mathrm{CV}}</span></td>
+<td>自分の群への近さ、隣からの遠さ</td>
 </tr>
 <tr class="even">
 <td>要るもの</td>
 <td>尤度と、パラメータの数 <span class="math inline">d</span></td>
 <td>尤度（新しい行の出やすさ）</td>
+<td>行どうしの距離</td>
 </tr>
 <tr class="odd">
 <td>当てはめの回数</td>
 <td>候補ごとに1回</td>
 <td>候補ごとに <span class="math inline">V</span> 回</td>
+<td>候補ごとに1回</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="帰結⑫目指すもの" class="slide level2 smaller" data-chapter="I-7">
-<h2>帰結⑫：目指すもの</h2>
+<section id="帰結⑱目指すもの" class="slide level2 smaller" data-chapter="I-7">
+<h2>帰結⑱：目指すもの</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
 <th></th>
 <th>罰を足す（BIC）</th>
 <th>外の行で測る（CV）</th>
+<th>距離で測る（シルエット）</th>
 </tr>
 </thead>
 <tbody>
@@ -876,30 +1291,35 @@ p=10,\ k=3:\qquad d=2+30+165=197
 <td>測るもの</td>
 <td>手元の行の <span class="math inline">-2\hat\ell</span> ＋ <span class="math inline">d\log n</span></td>
 <td>外の行の <span class="math inline">-2\ell_{\mathrm{CV}}</span></td>
+<td>自分の群への近さ、隣からの遠さ</td>
 </tr>
 <tr class="even">
 <td>要るもの</td>
 <td>尤度と、パラメータの数 <span class="math inline">d</span></td>
 <td>尤度（新しい行の出やすさ）</td>
+<td>行どうしの距離</td>
 </tr>
 <tr class="odd">
 <td>当てはめの回数</td>
 <td>候補ごとに1回</td>
 <td>候補ごとに <span class="math inline">V</span> 回</td>
+<td>候補ごとに1回</td>
 </tr>
 <tr class="even">
 <td>目指すもの</td>
 <td>データを作ったモデル</td>
 <td>新しい行をよく出すモデル</td>
+<td>よく離れた群</td>
 </tr>
 <tr class="odd">
-<td>k-meansの <span class="math inline">J</span></td>
+<td>k-meansに</td>
 <td>尤度が無いので使えない</td>
-<td>下がり続けるので使えない</td>
+<td><span class="math inline">J</span> が下がり続けるので使えない</td>
+<td>使える</td>
 </tr>
 </tbody>
 </table>
-<p>BICは「データを作ったモデル」を、AICとCVは「新しい行をよく出すモデル」を目指す。</p>
+<p>BICは作ったモデル、AICとCVは新しい行、シルエットは離れた群を目指す。</p>
 </section>
 <section id="位置づけ推定の外側" class="slide level2 smaller" data-chapter="I-1">
 <h2>位置づけ：推定の外側</h2>
@@ -943,14 +1363,15 @@ p=10,\ k=3:\qquad d=2+30+165=197
 <section id="理論の予想" class="slide level2" data-chapter="II-1">
 <h2>理論の予想</h2>
 <ul>
-<li>第I部：<span class="math inline">\hat\ell</span> は上がる一方。BICとCVは谷を持ち、トーストでは作った群の数を選んだ</li>
+<li>第I部：<span class="math inline">\hat\ell</span> は上がる一方。BIC・CVは谷を、シルエットは山を持ち、トーストでは作った群の数を選んだ</li>
 <li>予想①：どの型でも、<span class="math inline">\hat\ell</span> は <span class="math inline">k</span> とともに上がり続けるはず</li>
 <li>予想②：BICは、目で見た2つの塊（斜めの楕円2つ）を選ぶはず</li>
 <li>予想③：CVも、BICと同じ答えを選ぶはず</li>
+<li>予想④：k-meansのシルエット係数も、2つの塊を選ぶはず</li>
 </ul>
 </section>
-<section id="データ272回の噴出" class="slide level2 smaller" data-chapter="II-1">
-<h2>データ：272回の噴出</h2>
+<section id="データ噴出の2列" class="slide level2 smaller" data-chapter="II-1">
+<h2>データ：噴出の2列</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -976,8 +1397,8 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </tbody>
 </table>
 </section>
-<section id="場面の数字" class="slide level2 smaller" data-chapter="II-1">
-<h2>場面の数字</h2>
+<section id="困りごとの数字" class="slide level2 smaller" data-chapter="II-1">
+<h2>困りごとの数字</h2>
 <table class="caption-top" style="width:100%;">
 <colgroup>
 <col style="width: 11%">
@@ -1028,7 +1449,7 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </tr>
 </tbody>
 </table>
-<p>場面①〜③で見た数字（混合正規分布の <span class="math inline">\hat\ell</span>、k-meansの <span class="math inline">J</span>）。<span class="math inline">\hat\ell</span> は上がり、<span class="math inline">J</span> は下がり続けた。この2列に、推定の外の物差しを当てる。</p>
+<p>困りごと①②で見た数字（混合正規分布の <span class="math inline">\hat\ell</span>、k-meansの <span class="math inline">J</span>）。<span class="math inline">\hat\ell</span> は上がり、<span class="math inline">J</span> は下がり続けた。この2列に、推定の外の物差しを当てる。</p>
 </section>
 <section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
 <h2>手続き：何をどう計算したか</h2>
@@ -1036,6 +1457,7 @@ p=10,\ k=3:\qquad d=2+30+165=197
 <li>当てはめる：24通りの候補ごとに、ライブラリのGaussianMixtureでEM（初期値20通り、共分散の対角に <span class="math inline">10^{-6}</span>）</li>
 <li>BIC：<span class="math inline">d(k,\text{型})</span> を自分で数え、<span class="math inline">\mathrm{BIC}=-2\hat\ell+d\log n</span> を計算する</li>
 <li>交差検証（クロスバリデーション、CV）：行を無作為に5組に分け、残りの4組でEM、測る組で <span class="math inline">\ell</span> を足す</li>
+<li>シルエット：k-means（初期値20通り）で <span class="math inline">k=2,\dots,6</span> に分け、<span class="math inline">\bar s</span> を求める</li>
 <li>読む：選んだ群を、分の単位に戻して並べる</li>
 <li>揺らす：5組への分け方を10通りに変えて、CVを回し直す</li>
 </ol>
@@ -1152,11 +1574,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="結果②bicの答え" class="slide level2" data-chapter="II-3">
 <h2>結果②：BICの答え</h2>
-<div id="01120c39" class="cell" data-execution_count="36">
+<div id="2840ee15" class="cell" data-execution_count="63">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png" class="quarto-figure quarto-figure-center" width="1032" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-64-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1032" height="390"></p>
 </figure>
 </div>
 </div>
@@ -1317,11 +1739,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="結果③cvの答え" class="slide level2" data-chapter="II-3">
 <h2>結果③：CVの答え</h2>
-<div id="6c83f020" class="cell" data-execution_count="44">
+<div id="e906511a" class="cell" data-execution_count="71">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png" class="quarto-figure quarto-figure-center" width="1032" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1032" height="390"></p>
 </figure>
 </div>
 </div>
@@ -1397,201 +1819,56 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </table>
 <p>5組への分け方だけを変えると、選ばれる候補が変わる。1位と2位の差（最初の分け方で 1.0）が、分け方による揺れより小さい。</p>
 </section>
-<section id="確認dとbicの計算" class="slide level2 smaller" data-chapter="II-3">
-<h2>確認：dとBICの計算</h2>
+<section id="結果④シルエット" class="slide level2" data-chapter="II-3">
+<h2>結果④：シルエット</h2>
+<div id="722cf1bd" class="cell" data-execution_count="76">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-77-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1056" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>k-meansのシルエット係数。<span class="math inline">k=</span> 2 で最大（0.75）。<span class="math inline">k=3</span> では 0.49 に下がる。</p>
+</section>
+<section id="結果④k-meansの答え" class="slide level2" data-chapter="II-3">
+<h2>結果④：k-meansの答え</h2>
+<div id="147d731b" class="cell" data-execution_count="77">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-78-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1056" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>短い噴出と長い噴出の2つの塊を、そのまま2つの群にした。予想どおり。</p>
+</section>
+<section id="なぜシルエットは2か" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜシルエットは2か</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>型</th>
-<th><span class="math inline">k=1</span></th>
+<th>長い噴出の行の平均</th>
 <th><span class="math inline">k=2</span></th>
 <th><span class="math inline">k=3</span></th>
-<th><span class="math inline">k=4</span></th>
-<th><span class="math inline">k=5</span></th>
-<th><span class="math inline">k=6</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>群ごと</td>
-<td>5</td>
-<td>11</td>
-<td>17</td>
-<td>23</td>
-<td>29</td>
-<td>35</td>
+<td><span class="math inline">a_i</span>（自分の群まで）</td>
+<td>0.70</td>
+<td>0.54</td>
 </tr>
 <tr class="even">
-<td>共通</td>
-<td>5</td>
-<td>8</td>
-<td>11</td>
-<td>14</td>
-<td>17</td>
-<td>20</td>
-</tr>
-<tr class="odd">
-<td>対角</td>
-<td>4</td>
-<td>9</td>
-<td>14</td>
-<td>19</td>
-<td>24</td>
-<td>29</td>
-</tr>
-<tr class="even">
-<td>球</td>
-<td>3</td>
-<td>7</td>
-<td>11</td>
-<td>15</td>
-<td>19</td>
-<td>23</td>
+<td><span class="math inline">b_i</span>（隣の群まで）</td>
+<td>2.75</td>
+<td>0.86</td>
 </tr>
 </tbody>
 </table>
-<p>型ごとの式で数えた <span class="math inline">d</span>（<span class="math inline">p=2</span>）。このBICはライブラリのBICと一致（差は最大 0.0e+00）。第12回の手順で書いたEMの <span class="math inline">\hat\ell</span> とも一致（差 6.1e-06）。</p>
-</section>
-<section id="落とし穴①dが行の数を超える" class="slide level2" data-chapter="II-6">
-<h2>落とし穴①：dが行の数を超える</h2>
-<ul>
-<li>ここでは人工的なデータを使う。作った群は3つと知っているので、選び方が壊れたことがはっきり見える</li>
-<li>3台のトースターで30枚ずつ焼いた 90 枚の、表面 10 か所の焼き色（人工データ、90 行・10 列）</li>
-<li>群ごとの型・<span class="math inline">k=3</span> で <span class="math inline">d=</span> 197。行の数 90 を超える</li>
-</ul>
-<p>群の行が列の数より少ないと、共分散行列が特異になり、楕円が潰れる（第12回）。</p>
-</section>
-<section id="落とし穴②罰では止まらない" class="slide level2 smaller" data-chapter="II-6">
-<h2>落とし穴②：罰では止まらない</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>対角に足す数</th>
-<th><span class="math inline">k=1</span></th>
-<th><span class="math inline">k=2</span></th>
-<th><span class="math inline">k=3</span></th>
-<th><span class="math inline">k=4</span></th>
-<th><span class="math inline">k=5</span></th>
-<th>選ぶ <span class="math inline">k</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">10^{-2}</span></td>
-<td>3,298</td>
-<td>3,334</td>
-<td>3,454</td>
-<td>3,591</td>
-<td>3,705</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">10^{-4}</span></td>
-<td>3,298</td>
-<td>3,334</td>
-<td>3,454</td>
-<td>3,540</td>
-<td>3,474</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">10^{-6}</span></td>
-<td>3,298</td>
-<td>3,334</td>
-<td>3,454</td>
-<td>3,494</td>
-<td>3,216</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">10^{-8}</span></td>
-<td>3,298</td>
-<td>3,334</td>
-<td>3,454</td>
-<td>3,448</td>
-<td>2,958</td>
-<td>5</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">10^{-10}</span></td>
-<td>3,298</td>
-<td>3,334</td>
-<td>3,454</td>
-<td>3,401</td>
-<td>2,700</td>
-<td>5</td>
-</tr>
-</tbody>
-</table>
-<p>群ごとの型のBIC。足す数を小さくすると、潰れた群の <span class="math inline">\hat\ell</span> はいくらでも上がる。罰は決まった数なので、3 行目から下は <span class="math inline">k=</span> 5。</p>
-</section>
-<section id="落とし穴③外の行なら" class="slide level2 smaller" data-chapter="II-6">
-<h2>落とし穴③：外の行なら</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>対角に足す数</th>
-<th><span class="math inline">k=1</span></th>
-<th><span class="math inline">k=2</span></th>
-<th><span class="math inline">k=3</span></th>
-<th><span class="math inline">k=4</span></th>
-<th><span class="math inline">k=5</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">10^{-6}</span></td>
-<td>-1,582</td>
-<td>-1,656</td>
-<td>-1,770</td>
-<td>-1,956</td>
-<td>-2,997</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">10^{-10}</span></td>
-<td>-1,582</td>
-<td>-1,656</td>
-<td>-1,712</td>
-<td>-1,956</td>
-<td>-2,997</td>
-</tr>
-</tbody>
-</table>
-<p>同じデータの <span class="math inline">\ell_{\mathrm{CV}}</span>。最大は <span class="math inline">k=</span> 1。潰れた群は外の行を出せない。ただし作った群は3つ。</p>
-</section>
-<section id="落とし穴④型を小さくする" class="slide level2 smaller" data-chapter="II-6">
-<h2>落とし穴④：型を小さくする</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>対角の型</th>
-<th><span class="math inline">k=1</span></th>
-<th><span class="math inline">k=2</span></th>
-<th><span class="math inline">k=3</span></th>
-<th><span class="math inline">k=4</span></th>
-<th><span class="math inline">k=5</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">d</span></td>
-<td>20</td>
-<td>41</td>
-<td>62</td>
-<td>83</td>
-<td>104</td>
-</tr>
-<tr class="even">
-<td>BIC</td>
-<td>3,870</td>
-<td>3,317</td>
-<td>2,993</td>
-<td>3,043</td>
-<td>3,093</td>
-</tr>
-</tbody>
-</table>
-<p>対角の型なら、BICは <span class="math inline">k=</span> 3 を選び、作った3台を 100%の行で言い当てた。列が多いときは、<span class="math inline">k</span> と同時に型を小さくする。</p>
+<p>長い噴出の塊を2つに割ると、<span class="math inline">a_i</span> は縮むが、<span class="math inline">b_i</span> はもっと縮む。シルエットは塊どうしの離れ方を見るので、塊の形のずれを群で埋めない。</p>
 </section>
 <section id="このデータでわかったこと" class="slide level2" data-chapter="II-6">
 <h2>このデータでわかったこと</h2>
@@ -1599,7 +1876,7 @@ p=10,\ k=3:\qquad d=2+30+165=197
 <li>予想どおり：どの型でも、<span class="math inline">\hat\ell</span> は <span class="math inline">k</span> とともに上がり続けた</li>
 <li>半分外れた：BICは群ごとの型では <span class="math inline">k=</span> 2、型をまたぐと共通の型・<span class="math inline">k=</span> 3。長い噴出の塊が楕円1つに収まらない</li>
 <li>外れた：CVは対角の型・<span class="math inline">k=</span> 4。新しい行を出す側へ振れ、分け方でも揺れた</li>
-<li>列が多く行が少ないと、BICもCVも働かない。型を小さくする</li>
+<li>予想どおり：k-meansのシルエット係数は <span class="math inline">k=</span> 2。塊どうしの離れ方だけを見る</li>
 </ul>
 </section></section>
 <section>
@@ -1609,11 +1886,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="まとめ①良くなる一方" class="slide level2" data-chapter="締め">
 <h2>まとめ①：良くなる一方</h2>
-<div id="99964b77" class="cell" data-execution_count="56">
+<div id="283fbb56" class="cell" data-execution_count="80">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-81-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
@@ -1622,11 +1899,11 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="まとめ②罰か外の行か" class="slide level2" data-chapter="締め">
 <h2>まとめ②：罰か、外の行か</h2>
-<div id="6365cc2c" class="cell" data-execution_count="57">
+<div id="62c7332c" class="cell" data-execution_count="81">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-58-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-82-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
@@ -1635,55 +1912,16 @@ p=10,\ k=3:\qquad d=2+30+165=197
 </section>
 <section id="まとめ③基準で答えが違う" class="slide level2" data-chapter="締め">
 <h2>まとめ③：基準で答えが違う</h2>
-<div id="8d1f3019" class="cell" data-execution_count="58">
+<div id="29e0f15a" class="cell" data-execution_count="82">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-83-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="868" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>置いた基準が違えば答えも違う。列が多いと罰は止まらず、CVは分け方で揺れる。</p>
-</section>
-<section id="発展外に置く物差し" class="slide level2 smaller" data-chapter="締め">
-<h2>発展：外に置く物差し</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>外に置くもの</th>
-<th>例</th>
-<th>一言</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>罰</td>
-<td>BIC・AIC（今回）</td>
-<td>パラメータの数で割り引く</td>
-</tr>
-<tr class="even">
-<td>外の行</td>
-<td>CV（今回）</td>
-<td>新しい行の出やすさ</td>
-</tr>
-<tr class="odd">
-<td>構造の無いデータ</td>
-<td>Gap統計</td>
-<td>一様に散らばるデータの <span class="math inline">J</span> と比べる</td>
-</tr>
-<tr class="even">
-<td>別の目的関数</td>
-<td>シルエット係数</td>
-<td>自分の群に近く、隣の群から遠いか</td>
-</tr>
-<tr class="odd">
-<td>再現性</td>
-<td>安定性</td>
-<td>行を取り直しても同じ群になるか</td>
-</tr>
-</tbody>
-</table>
+<p>置いた基準が違えば答えも違う。k-meansには距離で測るシルエット、列が多ければ縮めてから分ける。</p>
 </section>
 <section id="次回予告①数の表" class="slide level2" data-chapter="締め">
 <h2>次回予告①：数の表</h2>
@@ -1699,6 +1937,134 @@ p=10,\ k=3:\qquad d=2+30+165=197
 <li>行と列が独立なら、どの度数になるはずか。そこからのずれを読みたい</li>
 </ul>
 <p>問い：行と列が両方カテゴリなら？</p>
+</section></section>
+<section>
+<section id="発展" class="title-slide slide level1 part center">
+<h1>発展</h1>
+
+</section>
+<section id="発展1つの値を2つに分ける" class="slide level2" data-chapter="発展">
+<h2>発展：1つの値を2つに分ける</h2>
+<div id="0080d50d" class="cell" data-execution_count="83">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-84-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1063" height="279"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>来客1人ずつコインで2つの表に振り分ける。足すと元に戻り、2つは独立。data thinning（数なら count splitting）。CVは行を、これは値を分ける。</p>
+</section>
+<section id="行を分けるか値を分けるか" class="slide level2" data-chapter="発展">
+<h2>行を分けるか、値を分けるか</h2>
+<div id="4852689b" class="cell" data-execution_count="84">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-85-output-1.png?v=6281ba11" class="quarto-figure quarto-figure-center" width="1135" height="308"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>第2回からのtrain-test split（CVも同じ）は、行ごとにどちらかへ回す。data thinningは、どの行も両方に残し、値を割合 <span class="math inline">\varepsilon</span> と <span class="math inline">1-\varepsilon</span> で分ける。</p>
+</section>
+<section id="分け方を比べる" class="slide level2 smaller" data-chapter="発展">
+<h2>分け方を比べる</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>行を分ける（train-test split・CV）</th>
+<th>値を分ける（data thinning）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>分けるもの</td>
+<td>行</td>
+<td>1つ1つの値</td>
+</tr>
+<tr class="even">
+<td>確かめ側の行</td>
+<td>一部の行だけ</td>
+<td>すべての行</td>
+</tr>
+<tr class="odd">
+<td>学習の割合</td>
+<td>学習に回す行の割合</td>
+<td>値の割合 <span class="math inline">\varepsilon</span></td>
+</tr>
+<tr class="even">
+<td>何度も分ける</td>
+<td><span class="math inline">V</span> 分割CV</td>
+<td><span class="math inline">M</span> 組に薄めて順に確かめる</td>
+</tr>
+<tr class="odd">
+<td>前提</td>
+<td>行どうしが独立</td>
+<td>値の分布の型（ポアソンなど）がわかる</td>
+</tr>
+<tr class="even">
+<td>k-meansの <span class="math inline">J</span></td>
+<td>外の行が自分で近い代表点を選び、下がり続ける</td>
+<td>学習側で決めた所属のまま測るので、谷ができる</td>
+</tr>
+</tbody>
+</table>
+<p>行を分けると、確かめる行の所属は確かめる行自身が決める。値を分ければ、同じ行の「学習側で決めた所属」を、独立な残りで確かめられる。</p>
+</section>
+<section id="薄めると谷ができる" class="slide level2" data-chapter="発展">
+<h2>薄めると谷ができる</h2>
+
+<img data-src="papers/neufeld2024_fig4.png?v=6281ba11" class="quarto-figure quarto-figure-center r-stretch" style="width:82.0%"><p><span class="credit">出典：Neufeld, Dharamshi, Gao &amp; Witten (2024) Data thinning for convolution-closed distributions. J. Mach. Learn. Res. 25(57): 1–35, Fig. 4（CC BY 4.0）</span></p>
+<p>中と右がk-means。紫（薄めずに同じデータで測る）は下がり続ける。薄めて測ると、作った群の数（縦線）で谷になる。</p>
+</section>
+<section id="論文誌の地図の次元" class="slide level2" data-chapter="発展">
+<h2>論文誌の地図の次元</h2>
+
+<img data-src="papers/chen2025_fig3.png?v=6281ba11" class="quarto-figure quarto-figure-center r-stretch" style="width:82.0%"><p><span class="credit">出典：Chen, Roch, Rohe &amp; Yu, Estimating graph dimension with cross-validated eigenvalues. arXiv:2108.03336, Fig. 3（CC BY 4.0）</span></p>
+<p>2万2688誌の引用のネットワーク。ふつうのスクリープロット（黒）には肘が無い。引用を2つに分けて測る（青、右）と、上位150本すべてに信号がある。</p>
+</section>
+<section id="広がる応用" class="slide level2 smaller" data-chapter="発展">
+<h2>広がる応用</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>分野</th>
+<th>2つに分けるもの</th>
+<th>論文</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>細胞の遺伝子発現</td>
+<td>読み取った数</td>
+<td>Neufeld ほか (2024) Biostatistics</td>
+</tr>
+<tr class="even">
+<td>森の木の配置</td>
+<td>地図の上の点</td>
+<td>Cronie ほか (2024) Biometrika</td>
+</tr>
+<tr class="odd">
+<td>光子計数CT</td>
+<td>数えた光子</td>
+<td>Proc. SPIE 12463 (2023)</td>
+</tr>
+<tr class="even">
+<td>論文誌の引用</td>
+<td>引用（辺）</td>
+<td>Chen ほか（arXiv）</td>
+</tr>
+</tbody>
+</table>
+<p>数えたデータなら、行を分けなくても、値を分けて外で測れる。</p>
 
 </section></section>
     </div>
