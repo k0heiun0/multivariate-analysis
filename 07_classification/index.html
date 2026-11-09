@@ -9,7 +9,7 @@
 <link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
-  <title>第7回 決定理論と評価</title>
+  <title>第7回 k-means</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-7e20e3de5639de3bbe77c197722293ab.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-8a767225a46d1c0e9037b85e1e5b22fd.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -145,8 +145,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">第7回 決定理論と評価</h1>
-  <p class="subtitle">損失を決めると、切る場所と測る量が決まる</p>
+  <h1 class="title">第7回 k-means</h1>
+  <p class="subtitle">交互最小二乗法で局所解を得る</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -157,1296 +157,1185 @@
 <h1>第I部　理論</h1>
 
 </section>
-<section id="前回の残り確率が出た" class="slide level2" data-chapter="I-1">
-<h2>前回の残り：確率が出た</h2>
+<section id="前回の残りldaは群を見て数えた" class="slide level2" data-chapter="I-1">
+<h2>前回の残り：LDAは群を見て数えた</h2>
 <ul>
-<li>第6回で、ロジスティック回帰とLDAが、0と1の間の確率を出すようになった</li>
-<li>ここまでは、その確率を0.5で切り、一致率を数えてきた</li>
-<li>0.5で切ってよいのか。一致率で比べてよいのか</li>
+<li>第6回のLDAは、正解の群 <span class="math inline">y</span> を見て、群ごとの割合と平均を数えた</li>
+<li>群の列が無いと、平均を数えられない</li>
+<li>平均を数えるには群が要り、群を決めるには平均が要る</li>
 </ul>
+<p>問い：群のラベルが無いとき、行をどう群に分けるか？</p>
 </section>
-<section id="新しい場面雨の確率" class="slide level2" data-chapter="I-1">
-<h2>新しい場面：雨の確率</h2>
-<div id="ad3f172f" class="cell" data-execution_count="2">
+<section id="場面①ワイン178本" class="slide level2" data-chapter="I-1">
+<h2>場面①：ワイン178本</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>ワイン 178 本。化学成分を 13 列測ってある。描いたのはそのうち2列。</p>
+</div><div class="column" style="width:55%;">
+<div id="d3027844" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1004" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=7fad8c8f" width="389" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>毎朝の湿度と、その日に雨が降ったか（人工的な 360 日）。第6回のLDAで「今日、雨が降る確率」を出した。</p>
+</div></div>
 </section>
-<section id="で切って傘を持つ" class="slide level2" data-chapter="I-1">
-<h2>0.5で切って傘を持つ</h2>
-<div id="aa6dd71b" class="cell" data-execution_count="3">
+<section id="場面②1点が1本のワイン" class="slide level2" data-chapter="I-1">
+<h2>場面②：1点が1本のワイン</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>1点がデータ行列の1行。このワインはフラバノイドが 2.03、色の濃さが 4.60。</p>
+</div><div class="column" style="width:55%;">
+<div id="b5bd5ba6" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1004" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=7fad8c8f" width="389" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>0.5以上なら傘を持って出ると決める。当たった日は 84.2%。</p>
+</div></div>
 </section>
-<section id="外れた日は2種類" class="slide level2" data-chapter="I-1">
-<h2>外れた日は2種類</h2>
-<div id="6449cddf" class="cell" data-execution_count="4">
+<section id="場面③成分の似たワイン" class="slide level2" data-chapter="I-1">
+<h2>場面③：成分の似たワイン</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>どのワインがどの群かの記録は無いとする。近い点どうしは成分が似ている。似たワインを群にまとめたい。</p>
+</div><div class="column" style="width:55%;">
+<div id="97adada9" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1004" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=7fad8c8f" width="389" height="378"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>線の左の赤は、降ったのに傘を持たなかった日（見逃し）。右の青は、降らないのに持った日（誤検出）。</p>
+</div></div>
 </section>
-<section id="線を動かすと入れ替わる" class="slide level2" data-chapter="I-1">
-<h2>線を動かすと入れ替わる</h2>
-<div id="7bbc59a0" class="cell" data-execution_count="5">
+<section id="困りごと①0か1しかとれない" class="slide level2" data-chapter="I-1">
+<h2>困りごと①：0か1しかとれない</h2>
+<div id="a773e215" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1004" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="945" height="284"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>0.2 で切ると、見逃しは 36 → 10 日、誤検出は 21 → 66 日。片方を減らすと、もう片方が増える。</p>
+<p>回帰は、微分して傾きを0とおけば解けた。所属 <span class="math inline">g_{iq}</span> は0か1の2点しかとれず、傾きが無い。どう解く？</p>
 </section>
-<section id="困りごと①どこで切るか" class="slide level2" data-chapter="I-1">
-<h2>困りごと①：どこで切るか</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>しきい値</th>
-<th style="text-align: center;">見逃し（濡れた）</th>
-<th style="text-align: center;">誤検出（荷物）</th>
-<th style="text-align: center;">当たった日</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0.5</td>
-<td style="text-align: center;">36</td>
-<td style="text-align: center;">21</td>
-<td style="text-align: center;">84.2%</td>
-</tr>
-<tr class="even">
-<td>0.2</td>
-<td style="text-align: center;">10</td>
-<td style="text-align: center;">66</td>
-<td style="text-align: center;">78.9%</td>
-</tr>
-</tbody>
-</table>
-<p>当たりの割合なら0.5がよい。濡れるのが何より嫌なら 0.2 がよい。どちらの線を選ぶか？</p>
-</section>
-<section id="困りごと②95当たる予報" class="slide level2" data-chapter="I-1">
-<h2>困りごと②：95%当たる予報</h2>
-<div id="b18b2867" class="cell" data-execution_count="6">
+<section id="困りごと②分け方が多すぎる" class="slide level2" data-chapter="I-1">
+<h2>困りごと②：分け方が多すぎる</h2>
+<div id="ab623c18" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1008" height="217"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="825" height="291"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>雨が5%の日にしか降らない季節。毎日「降らない」と言うだけの予報が、95%当たる。この予報は役に立つか？</p>
+<p><span class="math inline">n</span> 行を <span class="math inline">k</span> 群に分ける分け方は <span class="math inline">k^n</span> 通り。ワイン 178 本を2つに分けるだけで、すべては試せない。</p>
 </section>
-<section id="困りごと③3つから選ぶ" class="slide level2" data-chapter="I-1">
-<h2>困りごと③：3つから選ぶ</h2>
-<div id="640b004e" class="cell" data-execution_count="7">
+<section id="困りごと③始め方で答えが変わる" class="slide level2" data-chapter="I-1">
+<h2>困りごと③：始め方で答えが変わる</h2>
+<div id="f927eeb3" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1044" height="300"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="747" height="330"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>降らない・小雨・大雨の確率が出た。確率が最大の「降らない」に合わせて、傘を持たずに出てよいか？</p>
+<p>同じワインを、同じ手順で3群に分けた。始め方を変えただけで、分け方が違う。どちらを信じればよい？</p>
 </section>
 <section id="今回の問い" class="slide level2" data-chapter="I-1">
 <h2>今回の問い</h2>
-<p>確率が出た。どこで切り、どう測るか？（困りごと①。②③にも答える）</p>
+<p>行を群に分けるとき、0/1のGと代表点Cをどう求めるか？（困りごと①②。③にも答える）</p>
 <p>今回覚える言葉</p>
 <ul>
-<li>混同行列（真陽性率・偽陽性率・適合率）</li>
-<li>損失行列と期待損失</li>
-<li>最適なしきい値と、3群以上の決定</li>
-<li>ROC曲線とAUC</li>
-<li>PR曲線</li>
-<li>較正</li>
+<li>教師あり学習・教師なし学習</li>
+<li>メンバーシップ関数・メンバーシップ行列</li>
+<li>セントロイド（代表点）、フロベニウスノルム</li>
+<li>交互最小二乗法、トレースの偏微分</li>
+<li>局所解・ランダムスタート、k-means++</li>
+<li>平方和の分解（群内・群間）</li>
 </ul>
 </section>
-<section id="答えの見通し誤りに重さを付ける" class="slide level2" data-chapter="I-1">
-<h2>答えの見通し：誤りに重さを付ける</h2>
-<p>2種類の誤りに重さ（損失）を付ける。</p>
-<p>重さを決めると、切る場所も、測る量も決まる。</p>
-</section>
-<section id="段で確かめる" class="slide level2" data-chapter="I-1">
-<h2>4段で確かめる</h2>
+<section id="答えの見通し交互に解く" class="slide level2" data-chapter="I-1">
+<h2>答えの見通し：交互に解く</h2>
 <ol type="1">
-<li>切った結果を、4つのマスで数える</li>
-<li>誤りに重さを付け、損失の平均を書く</li>
-<li>損失の平均を最小にするしきい値を導き、3群以上に広げる</li>
-<li>同じ損失で測る。損失が決まらないときは、しきい値を全部並べる</li>
+<li><span class="math inline">\mathbf C</span> を固定：各行を最も近い代表点の群に入れる</li>
+<li><span class="math inline">\mathbf G</span> を固定：<span class="math inline">\hat{\mathbf C}=(\mathbf G^\top\mathbf G)^{-1}\mathbf G^\top\mathbf X</span>、つまり群ごとの平均</li>
+<li>交互に繰り返す。着く先は初期値しだいなので、やり直して最良を採る</li>
 </ol>
 </section>
-<section id="言葉を決める" class="slide level2" data-chapter="I-1">
-<h2>言葉を決める</h2>
+<section id="進め方" class="slide level2" data-chapter="I-1">
+<h2>進め方</h2>
+<ol type="1">
+<li>モデル：<span class="math inline">\mathbf X</span> を <span class="math inline">\mathbf G\mathbf C</span> で近似する</li>
+<li>解き方：交互に解く。2つの更新はその場で導く</li>
+<li>回すと止まる → <span class="math inline">J</span> は何を測るか → どこに止まるか</li>
+</ol>
+</section>
+<section id="次の問い何で近似するか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：何で近似するか</h2>
 <ul>
-<li>切った結果を数えたい</li>
-<li>外れは2種類あった。種類ごとに数える道具が要る</li>
+<li>ワインは178点・13列。分けた結果を目で追うには多い</li>
+<li>手で追える小さな例で、群に分けて近似する意味を見る</li>
+<li>ここでは人工的なデータを使う（アイスクリーム120個）</li>
 </ul>
-<p>道具を先にそろえる。使いどころ：判定の結果を人に伝えるとき、見逃しと誤検出を分けて報告する。</p>
+<p>群に分けて近似するとは、どういうことか。使いどころ：似たものをまとめて、少数の代表で語る（客の分け方、商品の棚割り、色の数を減らす）。</p>
 </section>
-<section id="道具①陽性と陰性" class="slide level2" data-chapter="I-4">
-<h2>道具①：陽性と陰性</h2>
-<div id="3d1540a0" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>同じ日を朝の湿度で並べた。見つけたいほう（雨の日）を陽性、もう一方を陰性と呼ぶ。良い悪いではなく、役割の名前。</p>
-</section>
-<section id="道具②確率を判定に変える" class="slide level2" data-chapter="I-2">
-<h2>道具②：確率を判定に変える</h2>
-<div id="97e58fd2" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>確率をしきい値 <span class="math inline">t</span> で切る。<span class="math inline">\theta_i\ge t</span> なら <span class="math inline">\hat y_i=1</span>、<span class="math inline">\theta_i&lt;t</span> なら <span class="math inline">\hat y_i=0</span>。<span class="math inline">t=0.5</span> は湿度 65.7%の縦線にあたる。</p>
-</section>
-<section id="道具③4つのマス" class="slide level2" data-chapter="I-4">
-<h2>道具③：4つのマス</h2>
-<div id="9ce3e185" class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>本当の群が2通り、判定が2通り。組み合わせは4通り。T・Fは当たったか、P・Nは判定が陽性か陰性か。</p>
-</section>
-<section id="道具④混同行列" class="slide level2 smaller" data-chapter="I-4">
-<h2>道具④：混同行列</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: center;">陰性と判定（<span class="math inline">\hat y=0</span>）</th>
-<th style="text-align: center;">陽性と判定（<span class="math inline">\hat y=1</span>）</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>本当は陰性（<span class="math inline">y=0</span>）</td>
-<td style="text-align: center;">TN（真陰性）219</td>
-<td style="text-align: center;">FP（誤検出）21</td>
-</tr>
-<tr class="even">
-<td>本当は陽性（<span class="math inline">y=1</span>）</td>
-<td style="text-align: center;">FN（見逃し）36</td>
-<td style="text-align: center;">TP（真陽性）84</td>
-</tr>
-</tbody>
-</table>
-<p>本当の群（行）× 判定（列）の4通りを数えた2行2列の表を、混同行列と呼ぶ。</p>
-</section>
-<section id="道具⑤陽性の中で数える" class="slide level2" data-chapter="I-4">
-<h2>道具⑤：陽性の中で数える</h2>
-<div id="fedd4569" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\mathrm{TPR}=TP/(TP+FN)</span>：本物の陽性のうち拾えた割合（真陽性率・再現率）＝ 84/120 ＝ 0.700。</p>
-</section>
-<section id="道具⑥陰性の中で数える" class="slide level2" data-chapter="I-4">
-<h2>道具⑥：陰性の中で数える</h2>
-<div id="238abbc7" class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\mathrm{FPR}=FP/(FP+TN)</span>：本物の陰性のうち、誤って陽性と言った割合（偽陽性率）＝ 21/240 ＝ 0.087。</p>
-</section>
-<section id="道具⑦陽性と言った中で数える" class="slide level2" data-chapter="I-4">
-<h2>道具⑦：陽性と言った中で数える</h2>
-<div id="9d503824" class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\text{適合率}=TP/(TP+FP)</span>：陽性と言ったうち当たった割合 ＝ 84/105 ＝ 0.800。分母に2つの群が混ざる。</p>
-</section>
-<section id="次の問いどちらが重いか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：どちらが重いか</h2>
-<ul>
-<li>4つのマスで、2種類の誤りを数えられるようになった</li>
-<li>しきい値を動かすと、2つの誤りは入れ替わる</li>
-<li>入れ替えの損得を比べるには、誤りの重さが要る</li>
-</ul>
-<p>使いどころ：迷惑メールの仕分け、傘、融資の審査。2種類の誤りの重さが違う場面。</p>
-</section>
-<section id="損失誤りに重さを付ける" class="slide level2 smaller" data-chapter="I-2">
-<h2>損失：誤りに重さを付ける</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: center;">陰性と判定（傘を持たない）</th>
-<th style="text-align: center;">陽性と判定（傘を持つ）</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>本当は陰性（降らない）</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><span class="math inline">c_{\mathrm{FP}}</span>（荷物になる）</td>
-</tr>
-<tr class="even">
-<td>本当は陽性（降る）</td>
-<td style="text-align: center;"><span class="math inline">c_{\mathrm{FN}}</span>（濡れる）</td>
-<td style="text-align: center;">0</td>
-</tr>
-</tbody>
-</table>
-<p>誤検出1件の重さを <span class="math inline">c_{\mathrm{FP}}</span>、見逃し1件の重さを <span class="math inline">c_{\mathrm{FN}}</span> と書き、損失と呼ぶ。当たりは0。この表を損失行列と呼ぶ。</p>
-</section>
-<section id="傘なら1対5" class="slide level2" data-chapter="I-2">
-<h2>傘なら1対5</h2>
-<ul>
-<li>荷物になるのも困る：<span class="math inline">c_{\mathrm{FP}}=1</span></li>
-<li>濡れるのは、その5倍困る：<span class="math inline">c_{\mathrm{FN}}=5</span></li>
-</ul>
-<p>どちらがどれだけ困るかは人による。天気のデータからは決まらない。</p>
-</section>
-<section id="目的関数①1日の損失" class="slide level2" data-chapter="I-3">
-<h2>目的関数①：1日の損失</h2>
-<div id="35d5b7e5" class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1010" height="171"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math display">
-\ell_i(t)=c_{\mathrm{FN}}\,y_i(1-\hat y_i)+c_{\mathrm{FP}}\,(1-y_i)\,\hat y_i
-</span></p>
-<p>見逃しの日（赤）は5、誤検出の日（青）は1、当たりの日は0（0.5で切り、損失の比1:5）。</p>
-</section>
-<section id="目的関数②損失の平均" class="slide level2" data-chapter="I-3">
-<h2>目的関数②：損失の平均</h2>
-<div id="5b7cabda" class="cell" data-execution_count="18">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1010" height="171"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math display">
-R(t)=\frac1n\sum_{i=1}^{n}\ell_i(t)
-</span></p>
-<p>損失の平均（破線）を期待損失と呼ぶ。判定 <span class="math inline">\hat y_i</span> は <span class="math inline">t</span> で決まるので、<span class="math inline">R</span> は <span class="math inline">t</span> の関数。</p>
-</section>
-<section id="ベクトルで" class="slide level2" data-chapter="I-3">
-<h2>ベクトルで</h2>
-<p><span class="math display">
-R(t)=\frac1n\Bigl[c_{\mathrm{FN}}\,\boldsymbol y^\top(\mathbf 1-\hat{\boldsymbol y})+c_{\mathrm{FP}}\,(\mathbf 1-\boldsymbol y)^\top\hat{\boldsymbol y}\Bigr]
-</span></p>
-<p><span class="math inline">\boldsymbol y^\top(\mathbf 1-\hat{\boldsymbol y})</span> は見逃しの個数、<span class="math inline">(\mathbf 1-\boldsymbol y)^\top\hat{\boldsymbol y}</span> は誤検出の個数。<span class="math inline">y_i(1-\hat y_i)</span> は見逃しの日だけ1になる。</p>
-</section>
-<section id="行列で" class="slide level2" data-chapter="I-3">
-<h2>行列で</h2>
-<p><span class="math display">
-\begin{aligned}
-R(t)&amp;=\frac1n\operatorname{tr}\bigl(\mathbf C^\top\mathbf M\bigr)\\
-\mathbf M&amp;=\mathbf Y^\top\hat{\mathbf Y},\qquad
-\mathbf C=\begin{pmatrix}0&amp;c_{\mathrm{FP}}\\c_{\mathrm{FN}}&amp;0\end{pmatrix}
-\end{aligned}
-</span></p>
-<p><span class="math inline">\mathbf Y=[\mathbf 1-\boldsymbol y,\ \boldsymbol y]</span> と <span class="math inline">\hat{\mathbf Y}</span> は <span class="math inline">n\times2</span>。<span class="math inline">\mathbf M</span> が混同行列。<span class="math inline">n=1</span> で1日の損失に戻る。</p>
-</section>
-<section id="率で書き直す" class="slide level2" data-chapter="I-3">
-<h2>率で書き直す</h2>
+<section id="モデル①アイス120個" class="slide level2" data-chapter="I-2">
+<h2>モデル①：アイス120個</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div style="font-size: 75%;">
-<p><span class="math display">
-\begin{aligned}
-R(t)&amp;=c_{\mathrm{FN}}\frac{FN}{n}+c_{\mathrm{FP}}\frac{FP}{n}\\
-&amp;=c_{\mathrm{FN}}\,\pi\bigl(1-\mathrm{TPR}\bigr)\\
-&amp;\quad+c_{\mathrm{FP}}\,(1-\pi)\,\mathrm{FPR}
-\end{aligned}
-</span></p>
-</div>
-<p><span class="math inline">\pi=n_1/n</span> は陽性の割合。横幅が群の割合、高さが群の中の率。塗った面積が誤りの割合。</p>
+<p>ここでは人工的なデータ。アイスクリーム120個の甘さと固さ（10点満点）。1点が1個（データ行列の1行）。</p>
 </div><div class="column" style="width:55%;">
-<div id="34fe9c66" class="cell" data-execution_count="19">
+<div id="4b050781" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png?v=9b4297c5" width="386" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=7fad8c8f" width="424" height="414"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="次の問い谷底はどこか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：谷底はどこか</h2>
-<ul>
-<li>期待損失 <span class="math inline">R(t)</span> は、しきい値 <span class="math inline">t</span> の関数になった</li>
-<li>それを最小にする <span class="math inline">t</span> は、どこにあるか</li>
-</ul>
-<p>まず描いてみる。使いどころ：確率を受け取り、行動を1つ決めるとき。</p>
-</section>
-<section id="描く①同じ重さの-rt" class="slide level2" data-chapter="I-7">
-<h2>描く①：同じ重さの R(t)</h2>
-<div id="2887eba3" class="cell" data-execution_count="20">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="390"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>雨の日の人工データに正規分布のモデルを当て、そのモデルで <span class="math inline">R(t)</span> を計算した。同じ重さなら、谷底は 0.50。</p>
-</section>
-<section id="描く②見逃しを5倍にする" class="slide level2" data-chapter="I-7">
-<h2>描く②：見逃しを5倍にする</h2>
-<div id="6e6a003e" class="cell" data-execution_count="21">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="390"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>見逃しを5倍重くすると、谷底は 0.17 へ左に動く。この位置は、式で書けるか。</p>
-</section>
-<section id="導出①傘を持つと" class="slide level2" data-chapter="I-5">
-<h2>導出①：傘を持つと</h2>
-<div id="d0bccd4c" class="cell" data-execution_count="22">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="999" height="219"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>雨の確率が <span class="math inline">\theta</span> の日に傘を持つ。外れるのは降らないとき（確率 <span class="math inline">1-\theta</span>）。損失の見込みは <span class="math inline">c_{\mathrm{FP}}\,(1-\theta)</span>。</p>
-</section>
-<section id="導出②持たないと" class="slide level2" data-chapter="I-5">
-<h2>導出②：持たないと</h2>
-<div id="9e6d9f99" class="cell" data-execution_count="23">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="999" height="219"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>同じ日に傘を持たない。外れるのは降ったとき（確率 <span class="math inline">\theta</span>）。損失の見込みは <span class="math inline">c_{\mathrm{FN}}\,\theta</span>。</p>
-</section>
-<section id="導出③小さいほうを選ぶ" class="slide level2" data-chapter="I-5">
-<h2>導出③：小さいほうを選ぶ</h2>
-<div id="f8094294" class="cell" data-execution_count="24">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="999" height="219"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math display">
-c_{\mathrm{FN}}\,\theta&gt;c_{\mathrm{FP}}\,(1-\theta)
-\iff
-\theta&gt;\frac{c_{\mathrm{FP}}}{c_{\mathrm{FP}}+c_{\mathrm{FN}}}=t^\star
-</span></p>
-<p>見込みの小さいほう（灰の太線）を選ぶ。入れかわる点が <span class="math inline">t^\star</span>。データもモデルも入らない。</p>
-</section>
-<section id="導出④傘なら16" class="slide level2" data-chapter="I-5">
-<h2>導出④：傘なら1/6</h2>
-<p><span class="math display">
-t^\star=\frac{1}{1+5}=\frac16
-</span></p>
-<p>雨の確率がおよそ17%を超えたら、傘を持って出る。</p>
-</section>
-<section id="谷底と一致する" class="slide level2" data-chapter="I-7">
-<h2>谷底と一致する</h2>
-<div id="bacca30d" class="cell" data-execution_count="25">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="390"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>谷底（0.50、0.17）は、点線の <span class="math inline">t^\star</span> に一致する。</p>
-</section>
-<section id="導出⑤対数オッズで見る" class="slide level2" data-chapter="I-5">
-<h2>導出⑤：対数オッズで見る</h2>
-<p><span class="math display">
-\theta\ge t^\star
-\iff a(x)\ge\log\frac{t^\star}{1-t^\star}=\log\frac{c_{\mathrm{FP}}}{c_{\mathrm{FN}}}
-</span></p>
-<p><span class="math inline">a(x)</span> は第6回のLDAの対数オッズ。<span class="math inline">\theta=\operatorname{sig}(a)</span> だった。</p>
-</section>
-<section id="導出⑥人数の比と同じ形" class="slide level2" data-chapter="I-5">
-<h2>導出⑥：人数の比と同じ形</h2>
-<p><span class="math display">
-w\Bigl(x-\frac{\mu_0+\mu_1}{2}\Bigr)\ge\log\frac{\pi_0}{\pi_1}+\log\frac{c_{\mathrm{FP}}}{c_{\mathrm{FN}}}
-</span></p>
-<p>第6回では、人数の比が境界を中点からずらした。損失の比も、同じ形で境界をずらす。</p>
-</section>
-<section id="境界が左へずれる" class="slide level2" data-chapter="I-7">
-<h2>境界が左へずれる</h2>
-<div id="5ea48e44" class="cell" data-execution_count="26">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="988" height="295"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">a(x)</span> を切る高さが <span class="math inline">\log(1/5)</span> だけ下がり、境界は湿度 65.7%から 59.1%へ動く。</p>
-</section>
-<section id="は同じ重さの表明" class="slide level2" data-chapter="I-5">
-<h2>0.5は「同じ重さ」の表明</h2>
-<div id="183d7883" class="cell" data-execution_count="27">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="383"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">c_{\mathrm{FP}}=c_{\mathrm{FN}}</span> のときに限り <span class="math inline">t^\star=1/2</span>。0.5は中立な既定値ではない。</p>
-</section>
-<section id="見逃しが重いほど下がる" class="slide level2" data-chapter="I-5">
-<h2>見逃しが重いほど下がる</h2>
-<div id="0001c91c" class="cell" data-execution_count="28">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="383"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>見逃しが重いほど <span class="math inline">t^\star</span> は下がり、迷ったら陽性と判定するようになる。</p>
-</section>
-<section id="次の問いどう測るか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：どう測るか</h2>
-<ul>
-<li>損失を決めると、切る場所 <span class="math inline">t^\star</span> が決まった</li>
-<li>では、切った結果の良し悪しは、何で測るか</li>
-</ul>
-<p>使いどころ：いくつかのモデルを比べ、1つを選ぶとき。（困りごと②）</p>
-</section>
-<section id="測り方①決めた損失で測る" class="slide level2" data-chapter="I-5">
-<h2>測り方①：決めた損失で測る</h2>
-<p><span class="math display">
-R(t^\star)=\frac{1}{n_{\mathrm{test}}}\operatorname{tr}\bigl(\mathbf C^\top\mathbf M_{\mathrm{test}}\bigr)
-</span></p>
-<p>しきい値を選んだのと同じ損失を、テストの行の混同行列で数える（第2回）。</p>
-</section>
-<section id="測り方②精度" class="slide level2" data-chapter="I-5">
-<h2>測り方②：精度</h2>
+<section id="モデル②k4の代表点" class="slide level2" data-chapter="I-2">
+<h2>モデル②：k=4の代表点</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p><span class="math display">
-\text{精度}=\frac{TP+TN}{n}
-</span></p>
-<p>判定が当たった割合（緑のマス）。第6回の一致率のこと。よく使われる指標。</p>
+<p><span class="math inline">k=4</span> 個の代表点（■）を置く。代表点はセントロイドとも呼ぶ。ここではデータから4個を選んだ。</p>
 </div><div class="column" style="width:55%;">
-<div id="a7e04d93" class="cell" data-execution_count="31">
+<div id="049f98e6" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=9b4297c5" width="400" height="333"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=7fad8c8f" width="424" height="414"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="測り方③精度同じ重さ" class="slide level2" data-chapter="I-5">
-<h2>測り方③：精度＝同じ重さ</h2>
+<section id="モデル③各個体を1つの群に" class="slide level2" data-chapter="I-2">
+<h2>モデル③：各個体を1つの群に</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div style="font-size: 75%;">
-<p><span class="math display">
-\begin{aligned}
-1-\text{精度}&amp;=\frac{FN+FP}{n}\\
-&amp;=R(t)\Big|_{c_{\mathrm{FP}}=c_{\mathrm{FN}}=1}
-\end{aligned}
-</span></p>
-</div>
-<p>精度で比べる ＝ 2種類の誤りを同じ重さと決めること。0.5で切るのと同じ仮定。</p>
+<p>各個体を、どれか1つの群（クラスター）に入れる。色が入れた群。</p>
 </div><div class="column" style="width:55%;">
-<div id="cfc92b8f" class="cell" data-execution_count="32">
+<div id="73e54abb" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png?v=9b4297c5" width="400" height="333"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png?v=7fad8c8f" width="424" height="414"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="精度の罠①全部を陰性と言う" class="slide level2" data-chapter="I-5">
-<h2>精度の罠①：全部を陰性と言う</h2>
-<p>何も見分けず、すべての行を陰性と判定すると</p>
-<p><span class="math display">
-FP=0,\quad FN=n\pi\quad\Longrightarrow\quad \text{精度}=1-\pi
-</span></p>
-</section>
-<section id="困りごと②に戻る陽性が5なら" class="slide level2" data-chapter="I-7">
-<h2>困りごと②に戻る：陽性が5%なら</h2>
-<div id="4d221eca" class="cell" data-execution_count="33">
+<section id="モデル④群ので近似する" class="slide level2" data-chapter="I-2">
+<h2>モデル④：群の■で近似する</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>各個体を、入れた群の■で近似する。誤差は点から■への線。</p>
+</div><div class="column" style="width:55%;">
+<div id="17a4950d" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1008" height="217"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png?v=7fad8c8f" width="424" height="414"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math display">
-\text{精度}=1-0.05=0.95
-</span></p>
-<p>何も見分けなくても0.95。少ない陽性を全部見逃しても、同じ重さなら損が小さく出る。</p>
+</div></div>
 </section>
-<section id="測り方④f1値" class="slide level2" data-chapter="I-5">
-<h2>測り方④：F1値</h2>
-<p><span class="math display">
-F_1=\frac{2\cdot\text{適合率}\cdot\text{再現率}}{\text{適合率}+\text{再現率}}
-</span></p>
-<p>適合率と再現率の調和平均。2つを入れ替えても同じ値で、損失の比を使わない。</p>
-</section>
-<section id="f1の山頂はどこか" class="slide level2" data-chapter="I-7">
-<h2>F1の山頂はどこか</h2>
-<div id="52f583ff" class="cell" data-execution_count="34">
+<section id="行列で見る①xとg" class="slide level2" data-chapter="I-2">
+<h2>行列で見る①：XとG</h2>
+<div id="94f4ef14" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1005" height="274"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="863" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>F1を最大にするしきい値は 0.38。どちらの損失の比とも違う位置を、黙って選ぶ。</p>
+<p><span class="math inline">\mathbf X</span> は <span class="math inline">n\times p</span>。<span class="math inline">\mathbf G</span>（<span class="math inline">n\times k</span>）は各個体の所属で、各行に1が1つだけ立つ。</p>
 </section>
-<section id="次の問い損失が決まらないとき" class="slide level2" data-chapter="I-1">
-<h2>次の問い：損失が決まらないとき</h2>
-<ul>
-<li>損失の比は、使う人が決める</li>
-<li>決まる前に、モデルの良し悪しだけを見たいこともある</li>
-</ul>
-<p>しきい値を1つに決めずに、全部並べる。使いどころ：使う人ごとに損失が違うとき、モデルだけを先に比べる。</p>
-</section>
-<section id="roc①1つのしきい値は1点" class="slide level2" data-chapter="I-5">
-<h2>ROC①：1つのしきい値は1点</h2>
-<div id="efe9b0ad" class="cell" data-execution_count="35">
+<section id="行列で見る②代表点c" class="slide level2" data-chapter="I-2">
+<h2>行列で見る②：代表点C</h2>
+<div id="2129780e" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="853" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="863" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">t=0.5</span> で切ると (FPR, TPR) = (0.10, 0.71)。平面の上の1点になる。</p>
+<p><span class="math inline">\mathbf C</span>（<span class="math inline">k\times p</span>）は代表点を行に並べたもの。<span class="math inline">\mathbf G</span> の列と <span class="math inline">\mathbf C</span> の行が <span class="math inline">k</span> でそろう（赤）。</p>
 </section>
-<section id="roc②tを動かすと曲線" class="slide level2" data-chapter="I-5">
-<h2>ROC②：tを動かすと曲線</h2>
-<div id="42ac6e0c" class="cell" data-execution_count="36">
+<section id="行列で見る③gcの1行" class="slide level2" data-chapter="I-2">
+<h2>行列で見る③：GCの1行</h2>
+<div id="fe4ace2f" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="853" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="863" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">t</span> を1から0へ下げると、点は原点から右上へ進む。その軌跡をROC曲線と呼ぶ。</p>
+<p><span class="math inline">\mathbf G</span> の第 <span class="math inline">i</span> 行は、1が立った列だけで <span class="math inline">\mathbf C</span> の1行を拾う。<span class="math inline">\mathbf G\mathbf C</span> の第 <span class="math inline">i</span> 行は、個体 <span class="math inline">i</span> の群の代表点。</p>
 </section>
-<section id="roc③左上の角ほどよい" class="slide level2" data-chapter="I-5">
-<h2>ROC③：左上の角ほどよい</h2>
-<div id="f56dfd4a" class="cell" data-execution_count="37">
+<section id="モデルxgce" class="slide level2" data-chapter="I-2">
+<h2>モデル：X＝GC＋E</h2>
+<div id="97dcb4d5" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="853" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="863" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>左上の角は、誤検出なしで陽性を全部拾う点。灰の対角線は、確率を使わず無作為に判定したとき。</p>
+<p>誤差 <span class="math inline">\mathbf E</span> を足すと等号。第1回の「データ＝モデル＋誤差」と同じ形。</p>
 </section>
-<section id="たとえ感知器の感度つまみ" class="slide level2" data-chapter="I-7">
-<h2>たとえ：感知器の感度つまみ</h2>
-<div id="ef21d67e" class="cell" data-execution_count="38">
+<section id="ldaとの違いgも未知" class="slide level2" data-chapter="I-2">
+<h2>LDAとの違い：Gも未知</h2>
+<div id="9eb45248" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="382" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="570" height="251"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>煙の感知器の感度つまみを上げると、煙を逃さないが、トーストでも鳴る。つまみの目盛り1つが、曲線の1点。</p>
+<p><span class="math inline">\mathbf G</span> は第5回の指示行列 <span class="math inline">\mathbf Y</span> と同じ形。LDAでは手元にあり、群の平均を数えるだけだった。今回は <span class="math inline">\mathbf G</span> も推定する。</p>
 </section>
-<section id="roc④損失の等しい直線" class="slide level2" data-chapter="I-5">
-<h2>ROC④：損失の等しい直線</h2>
-<div id="af4f77c3" class="cell" data-execution_count="39">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="853" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">R</span> が等しい点は、傾き <span class="math inline">c_{\mathrm{FP}}(1-\pi)/(c_{\mathrm{FN}}\pi)</span> の直線に並ぶ（1:5で 0.4）。左上の直線ほど <span class="math inline">R</span> は小さい。</p>
-</section>
-<section id="roc⑤接点が-t" class="slide level2" data-chapter="I-5">
-<h2>ROC⑤：接点が t*</h2>
-<div id="6b727dee" class="cell" data-execution_count="40">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="853" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>直線が曲線に接する点が <span class="math inline">t^\star=1/6</span>。損失を決めることは、ROC曲線の上の1点を選ぶこと。</p>
-</section>
-<section id="auc①曲線の下の面積" class="slide level2" data-chapter="I-5">
-<h2>AUC①：曲線の下の面積</h2>
-<div id="f8a19d39" class="cell" data-execution_count="41">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="853" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>曲線の下の面積をAUCと呼ぶ。しきい値を1つに決めず、曲線全体を1つの数にまとめる。</p>
-</section>
-<section id="auc②順位だけを見る" class="slide level2" data-chapter="I-5">
-<h2>AUC②：順位だけを見る</h2>
-<div id="9fb56f11" class="cell" data-execution_count="42">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1010" height="253"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math display">
-\mathrm{AUC}=\Pr\bigl(\theta_i&gt;\theta_{i'}\ \big|\ y_i=1,\ y_{i'}=0\bigr)
-</span></p>
-<p>陽性と陰性を1つずつ選び、陽性のほうが高い割合（20組では緑の 18 組）。順位だけを見る。</p>
-</section>
-<section id="pr①適合率と再現率" class="slide level2" data-chapter="I-5">
-<h2>PR①：適合率と再現率</h2>
-<div id="39669a3b" class="cell" data-execution_count="43">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="863" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>横軸に再現率、縦軸に適合率をとって、しきい値を動かす。この曲線をPR曲線と呼ぶ。</p>
-</section>
-<section id="pr②適合率はπを含む" class="slide level2" data-chapter="I-5">
-<h2>PR②：適合率はπを含む</h2>
-<p><span class="math display">
-\text{適合率}=\frac{\pi\,\mathrm{TPR}}{\pi\,\mathrm{TPR}+(1-\pi)\,\mathrm{FPR}}
-</span></p>
-<p>TPR・FPRは群の中の率なので、陽性の割合 <span class="math inline">\pi</span> を含まない。適合率は判定の列で割るので、<span class="math inline">\pi</span> を含む。</p>
-</section>
-<section id="pr③πを変える" class="slide level2" data-chapter="I-5">
-<h2>PR③：πを変える</h2>
-<div id="2ae18423" class="cell" data-execution_count="44">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="863" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\pi</span> を 0.05 に下げても、ROC曲線は1本のまま。PR曲線は大きく下がる。</p>
-</section>
-<section id="次の問い3群以上なら" class="slide level2" data-chapter="I-1">
-<h2>次の問い：3群以上なら</h2>
-<ul>
-<li>ここまでは、陽性と陰性の2群だった</li>
-<li>天気は、降らない・小雨・大雨の3つに分かれることもある</li>
-<li>支度も、持たない・折りたたみ傘・長傘の3つ</li>
-</ul>
-<p>同じ考え方で選べるか？（困りごと③）使いどころ：3つ以上の行動から1つを選ぶとき。</p>
-</section>
-<section id="人工データ降らない小雨大雨" class="slide level2" data-chapter="I-2">
-<h2>人工データ：降らない・小雨・大雨</h2>
-<div id="ea4ba140" class="cell" data-execution_count="47">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1044" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>降った日を小雨と大雨に分けた人工的な360日。3つの群が、湿度の上で重なり合う。</p>
-</section>
-<section id="つの確率" class="slide level2" data-chapter="I-2">
-<h2>3つの確率</h2>
-<div id="c28d05f0" class="cell" data-execution_count="48">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-49-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1044" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>第6回の3群のLDA（ソフトマックス関数）で、朝の湿度から3つの確率を出した。どの湿度でも、和は1。</p>
-</section>
-<section id="の損失行列" class="slide level2 smaller" data-chapter="I-2">
-<h2>3×3の損失行列</h2>
+<section id="言葉教師あり教師なし" class="slide level2 smaller" data-chapter="I-4">
+<h2>言葉：教師あり・教師なし</h2>
 <table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
 <th></th>
-<th style="text-align: center;">持たない</th>
-<th style="text-align: center;">折りたたみ傘</th>
-<th style="text-align: center;">長傘</th>
+<th>近似する相手</th>
+<th>目的関数</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>本当は降らない</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">1（少し荷物）</td>
-<td style="text-align: center;">2（重い荷物）</td>
+<td>第1〜6回</td>
+<td>正解 <span class="math inline">\boldsymbol y</span></td>
+<td><span class="math inline">\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_2^2</span> など</td>
 </tr>
 <tr class="even">
-<td>本当は小雨</td>
-<td style="text-align: center;">4（濡れる）</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">1（大げさ）</td>
-</tr>
-<tr class="odd">
-<td>本当は大雨</td>
-<td style="text-align: center;">10（ずぶ濡れ）</td>
-<td style="text-align: center;">3（足元が濡れる）</td>
-<td style="text-align: center;">0</td>
+<td>今回</td>
+<td>データ行列 <span class="math inline">\mathbf X</span> そのもの</td>
+<td><span class="math inline">\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2</span></td>
 </tr>
 </tbody>
 </table>
-<p>本当の群 <span class="math inline">q</span>（行）で支度 <span class="math inline">l</span>（列）を選んだ損失を <span class="math inline">C_{ql}</span> と書く。2群の <span class="math inline">\mathbf C</span> と同じ置き方。</p>
+<p>正解 <span class="math inline">\boldsymbol y</span> と比べて当てはめるやり方を教師あり学習、<span class="math inline">\boldsymbol y</span> を使わず <span class="math inline">\mathbf X</span> だけを近似するやり方を教師なし学習と呼ぶ。</p>
 </section>
-<section id="導出①支度ごとの見込み" class="slide level2" data-chapter="I-5">
-<h2>導出①：支度ごとの見込み</h2>
-<div id="d8ff8078" class="cell" data-execution_count="49">
+<section id="次の問い誤差をどう足すか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：誤差をどう足すか</h2>
+<ul>
+<li>近似 <span class="math inline">\mathbf G\mathbf C</span> の形は決まった</li>
+<li>誤差は、点から自分の群の■への線</li>
+<li>「どの群に入ったか」を、式の中でどう書くか</li>
+</ul>
+<p>所属を数で表し、誤差の二乗和を書く。</p>
+</section>
+<section id="メンバーシップ関数" class="slide level2" data-chapter="I-3">
+<h2>メンバーシップ関数</h2>
+<p><span class="math display">
+g_{iq}=\begin{cases}1 &amp; \text{個体 } i \text{ がクラスター } q \text{ に所属する}\\ 0 &amp; \text{所属しない}\end{cases}
+</span></p>
+<p>所属を表す関数。個体 <span class="math inline">i</span> が入った群の番号を <span class="math inline">q(i)</span> と書けば、<span class="math inline">g_{iq(i)}=1</span> で、ほかは0。</p>
+</section>
+<section id="制約1つの群にだけ" class="slide level2" data-chapter="I-3">
+<h2>制約：1つの群にだけ</h2>
+<p><span class="math display">
+\sum_{q=1}^{k}g_{iq}=1\qquad(i=1,\dots,n)
+</span></p>
+<p>1つの個体が複数の群に所属することは許さない。各行で1になる <span class="math inline">q</span> はちょうど1つ。</p>
+</section>
+<section id="目的関数①1マスずつ" class="slide level2" data-chapter="I-3">
+<h2>目的関数①：1マスずつ</h2>
+<p><span class="math display">
+J=\sum_{i=1}^{n}\sum_{q=1}^{k}g_{iq}\sum_{j=1}^{p}\bigl(x_{ij}-c_{qj}\bigr)^2
+</span></p>
+<p>1マス <span class="math inline">x_{ij}</span> を、所属する群の代表点の成分 <span class="math inline">c_{qj}</span> で近似した誤差の二乗。</p>
+</section>
+<section id="目的関数②ベクトルで" class="slide level2" data-chapter="I-3">
+<h2>目的関数②：ベクトルで</h2>
+<p><span class="math display">
+J=\sum_{i=1}^{n}\sum_{q=1}^{k}g_{iq}\,\lVert\tilde{\boldsymbol x}_i-\boldsymbol c_q\rVert_2^2
+</span></p>
+<p>内側の <span class="math inline">j</span> の和は、個体 <span class="math inline">i</span> と代表点 <span class="math inline">q</span> のユークリッド距離の二乗（第1回）。<span class="math inline">p=1</span> なら①に戻る。</p>
+</section>
+<section id="道具フロベニウスノルム" class="slide level2" data-chapter="I-4">
+<h2>道具：フロベニウスノルム</h2>
+<p><span class="math display">
+\lVert\mathbf A\rVert_F^2=\sum_{i}\sum_{j}a_{ij}^2
+</span></p>
+<p>行列の全マスの二乗和。その平方根 <span class="math inline">\lVert\mathbf A\rVert_F</span> をフロベニウスノルムと呼ぶ。1列の行列なら <span class="math inline">\ell_2</span> ノルムと同じ。</p>
+</section>
+<section id="目的関数③行列で" class="slide level2" data-chapter="I-3">
+<h2>目的関数③：行列で</h2>
+<p><span class="math display">
+J(\mathbf G,\mathbf C)=\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2
+</span></p>
+<p><span class="math inline">(\mathbf G\mathbf C)_{ij}=\sum_qg_{iq}c_{qj}</span> では、1が立った <span class="math inline">q</span> の <span class="math inline">c_{qj}</span> だけが残る。全マスの誤差の二乗和。</p>
+</section>
+<section id="制約を行列でg11" class="slide level2 smaller" data-chapter="I-3">
+<h2>制約を行列で：G1＝1</h2>
+<p><span class="math display">
+\mathbf G=\begin{bmatrix}1&amp;0&amp;0\\1&amp;0&amp;0\\1&amp;0&amp;0\\0&amp;1&amp;0\\0&amp;1&amp;0\\0&amp;0&amp;1\\0&amp;0&amp;1\end{bmatrix},
+\qquad
+\mathbf G\mathbf 1_k=\mathbf 1_n
+</span></p>
+<p>制約は各行の和が1。<span class="math inline">\mathbf 1_k</span> は1を <span class="math inline">k</span> 個並べたベクトル。</p>
+</section>
+<section id="次の問いどう解くか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：どう解くか</h2>
+<ul>
+<li>目的関数 <span class="math inline">\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2</span> は決まった</li>
+<li>未知は <span class="math inline">\mathbf G</span> と <span class="math inline">\mathbf C</span> の2つ</li>
+<li>回帰のように、微分して0とおけば1回で解けるか</li>
+</ul>
+<p>使いどころ：0/1の未知と連続な未知が混ざった問題を、片方ずつ解く。</p>
+</section>
+<section id="解き方①未知は2つの積" class="slide level2 smaller" data-chapter="I-5">
+<h2>解き方①：未知は2つの積</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>線形回帰（第1回）</th>
+<th>k-means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>未知</td>
+<td><span class="math inline">\boldsymbol\beta</span> の1つ</td>
+<td><span class="math inline">\mathbf G</span> と <span class="math inline">\mathbf C</span> の2つ</td>
+</tr>
+<tr class="even">
+<td>値の取り方</td>
+<td>連続な値</td>
+<td><span class="math inline">\mathbf G</span> は0/1、<span class="math inline">\mathbf C</span> は連続な値</td>
+</tr>
+</tbody>
+</table>
+<p>回帰は、微分して0とおけば正規方程式1回で解けた。k-meansの未知は2つの行列の積で、しかも <span class="math inline">\mathbf G</span> が0/1。</p>
+</section>
+<section id="交互最小二乗法①gの更新" class="slide level2" data-chapter="I-5">
+<h2>交互最小二乗法①：Gの更新</h2>
+<div id="4aced8fa" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1044" height="300"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="750" height="390"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>支度ごとに、その列の損失を天気の確率で平均する。持たないなら <span class="math inline">0.3\times4+0.2\times10=3.2</span>。</p>
+<p>初期値の <span class="math inline">\mathbf C</span> を決め、<span class="math inline">\mathbf C</span> を固定して <span class="math inline">\mathbf G</span> を更新する。</p>
 </section>
-<section id="導出②最小の支度を選ぶ" class="slide level2" data-chapter="I-5">
-<h2>導出②：最小の支度を選ぶ</h2>
+<section id="交互最小二乗法②cの更新" class="slide level2" data-chapter="I-5">
+<h2>交互最小二乗法②：Cの更新</h2>
+<div id="ff32a61c" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="750" height="390"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>次に、いま決めた <span class="math inline">\mathbf G</span> を固定して <span class="math inline">\mathbf C</span> を更新する。</p>
+</section>
+<section id="交互最小二乗法③繰り返す" class="slide level2" data-chapter="I-5">
+<h2>交互最小二乗法③：繰り返す</h2>
+<div id="41b03614" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="750" height="390"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>片方を固定すれば、残りは解ける。交互に解き、動かなくなったら止める。これを交互最小二乗法と呼ぶ。</p>
+</section>
+<section id="gは最も近いへ" class="slide level2" data-chapter="I-5">
+<h2>Gは最も近い■へ</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math inline">\mathbf C</span> を固定したときの最良の <span class="math inline">\mathbf G</span>：各個体を、最も近い代表点の群に入れる。</p>
+</div><div class="column" style="width:55%;">
+<div id="fa180f25" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=7fad8c8f" width="424" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="道筋gの更新" class="slide level2 smaller" data-chapter="I-5">
+<h2>道筋：Gの更新</h2>
+<p><span class="math display">
+\hat g_{iq}=\begin{cases}1 &amp; \bigl(q=\operatorname*{argmin}_{l}\lVert\tilde{\boldsymbol x}_i-\boldsymbol c_l\rVert_2^2\bigr)\\ 0 &amp; (\text{それ以外})\end{cases}
+</span></p>
+<p>終着駅はこの更新式。</p>
+<ol type="1">
+<li>1個の個体の項だけを見る</li>
+<li>1を置く列を、場合分けで選ぶ。行ごとに別々に選べばよい</li>
+<li>距離を行列で計算する</li>
+</ol>
+</section>
+<section id="gの更新①1個の項" class="slide level2" data-chapter="I-5">
+<h2>Gの更新①：1個の項</h2>
+<p><span class="crumb"><span class="now">1個の項</span> → 1を置く列 → 行列で</span></p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math inline">\mathbf C</span> を固定する。個体 104（橙）の項だけを見る。4つの■との距離の二乗では、クラスター 1 が最も近い。</p>
+</div><div class="column" style="width:55%;">
+<div id="7d67cec4" class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png?v=7fad8c8f" width="360" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="gの更新②1を置く列を選ぶ" class="slide level2 smaller" data-chapter="I-5">
+<h2>Gの更新②：1を置く列を選ぶ</h2>
+<p><span class="crumb">1個の項 → <span class="now">1を置く列</span> → 行列で</span></p>
 <p><span class="math display">
 \begin{aligned}
-\rho_l(\boldsymbol x)&amp;=\sum_{q=1}^{k}C_{ql}\,\theta_q(\boldsymbol x),\qquad \theta_q(\boldsymbol x)=\Pr(y=q\mid\boldsymbol x)\\
-\boldsymbol\rho(\boldsymbol x)&amp;=\mathbf C^\top\boldsymbol\theta(\boldsymbol x),\qquad
-\hat y(\boldsymbol x)=\operatorname*{arg\,min}_{l}\ \rho_l(\boldsymbol x)
+&amp;\sum_{q=1}^{k}g_{iq}\,\lVert\tilde{\boldsymbol x}_{i}-\boldsymbol c_q\rVert_2^2=\lVert\tilde{\boldsymbol x}_{i}-\boldsymbol c_{q^\ast}\rVert_2^2\qquad(g_{iq^\ast}=1)\\
+\Longrightarrow\quad&amp;\hat g_{iq}=\begin{cases}1 &amp; \bigl(q=\operatorname*{argmin}_{l}\lVert\tilde{\boldsymbol x}_i-\boldsymbol c_l\rVert_2^2\bigr)\\ 0 &amp; (\text{それ以外})\end{cases}
 \end{aligned}
 </span></p>
-<p><span class="math inline">\rho_l</span> は支度 <span class="math inline">l</span> の損失の見込み。ベクトルでは <span class="math inline">\mathbf C^\top</span> を確率に掛け、いちばん小さい成分の支度を選ぶ。</p>
+<p>選べるのは1を置く列 <span class="math inline">q^\ast</span> だけ。微分は使えず、場合分けで最も小さい距離の列を選ぶ。<span class="math inline">J</span> は行ごとの和なので、行ごとに別々に選べばよい。</p>
+</section>
+<section id="gの更新③距離を行列で" class="slide level2" data-chapter="I-5">
+<h2>Gの更新③：距離を行列で</h2>
+<p><span class="crumb">1個の項 → 1を置く列 → <span class="now">行列で</span></span></p>
+<p><span class="math display">
+\begin{aligned}
+\mathbf D&amp;=\boldsymbol a\mathbf 1_k^\top-2\mathbf X\mathbf C^\top+\mathbf 1_n\boldsymbol b^\top\\
+a_i&amp;=\lVert\tilde{\boldsymbol x}_i\rVert_2^2,\ \ b_q=\lVert\boldsymbol c_q\rVert_2^2
+\end{aligned}
+</span></p>
+<p><span class="math inline">d_{iq}=\lVert\tilde{\boldsymbol x}_i\rVert_2^2-2\tilde{\boldsymbol x}_i^\top\boldsymbol c_q+\lVert\boldsymbol c_q\rVert_2^2</span> を <span class="math inline">n\times k</span> に並べた。主な計算は行列の積 <span class="math inline">\mathbf X\mathbf C^\top</span>。<span class="math inline">\mathbf D</span> の各行で最小の列に1。</p>
+</section>
+<section id="困りごと①に戻る" class="slide level2" data-chapter="I-5">
+<h2>困りごと①に戻る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>0か1しかとれない <span class="math inline">\mathbf G</span> は、微分しない。<span class="math inline">\mathbf C</span> を固定すれば、行ごとに最も近い代表点を選ぶ場合分けで、最良の <span class="math inline">\mathbf G</span> が決まる。</p>
+</div><div class="column" style="width:55%;">
+<div id="4abb0370" class="cell" data-execution_count="28">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png?v=7fad8c8f" width="424" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="クイズ①はどこへ動くか" class="slide level2" data-chapter="I-7">
+<h2>クイズ①：■はどこへ動くか</h2>
+<p>色（<span class="math inline">\mathbf G</span>）を固定して、<span class="math inline">J</span> が最も小さくなるように各群の■（<span class="math inline">\mathbf C</span>）を置き直す。■はどこへ動く？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>中心に近い個体の上</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>群の点の平均</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>全体の平均</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>そのまま動かない</p>
+</div>
+</div>
+</section>
+<section id="クイズ①の答えb" class="slide level2" data-chapter="I-7">
+<h2>クイズ①の答え：B</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>中心に近い個体の上</p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span>群の点の平均</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>全体の平均</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>そのまま動かない</p>
+</div>
+</div>
+<p>群 <span class="math inline">q</span> の誤差の二乗和は <span class="math inline">\boldsymbol c_q</span> の放物線で、谷底は群の点の平均。中心に近い「個体の上」に置くより、平均のほうが二乗和は小さい。</p>
+</section>
+<section id="cは群の平均へ" class="slide level2" data-chapter="I-5">
+<h2>Cは群の平均へ</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+\hat{\mathbf C}=(\mathbf G^\top\mathbf G)^{-1}\mathbf G^\top\mathbf X
+</span></p>
+<p><span class="math inline">\mathbf G</span> を固定したときの最良の <span class="math inline">\mathbf C</span>：群ごとの平均。白丸が更新の前の■。</p>
+</div><div class="column" style="width:55%;">
+<div id="4d8eae7e" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png?v=7fad8c8f" width="424" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="道筋cの更新" class="slide level2 smaller" data-chapter="I-5">
+<h2>道筋：Cの更新</h2>
+<p><span class="math display">
+\hat{\mathbf C}=(\mathbf G^\top\mathbf G)^{-1}\mathbf G^\top\mathbf X=\operatorname{diag}\Bigl(\frac1{n_1},\dots,\frac1{n_k}\Bigr)\mathbf G^\top\mathbf X
+</span></p>
+<p>終着駅はこの更新式。</p>
+<ol type="1">
+<li><span class="math inline">\mathbf G</span> を固定すると、<span class="math inline">J</span> は群ごとの和に分かれる</li>
+<li>ベクトル <span class="math inline">\boldsymbol c_q</span> で微分して0とおく：群の平均</li>
+<li>行列のまま：トレースで展開して微分する（正規方程式）</li>
+<li>解くと、2と同じ群の平均</li>
+</ol>
+</section>
+<section id="導出の道具①ベクトルの微分" class="slide level2" data-chapter="I-4">
+<h2>導出の道具①：ベクトルの微分</h2>
+<p><span class="math display">
+\begin{gathered}
+\frac{\partial f}{\partial\boldsymbol c}=\begin{bmatrix}\partial f/\partial c_1\\ \vdots\\ \partial f/\partial c_p\end{bmatrix}\\
+\frac{\partial(\boldsymbol a^\top\boldsymbol c)}{\partial\boldsymbol c}=\boldsymbol a,\qquad
+\frac{\partial(\boldsymbol c^\top\boldsymbol c)}{\partial\boldsymbol c}=2\boldsymbol c
+\end{gathered}
+</span></p>
+<p>成分ごとに偏微分し、縦に並べる。<span class="math inline">\boldsymbol a^\top\boldsymbol c=\sum_ja_jc_j</span> なら <span class="math inline">a_j</span>、<span class="math inline">\boldsymbol c^\top\boldsymbol c=\sum_jc_j^2</span> なら <span class="math inline">2c_j</span>。1変数の <span class="math inline">ac</span> と <span class="math inline">c^2</span> と同じ形。</p>
+</section>
+<section id="導出の道具②gᵀgとgᵀx" class="slide level2" data-chapter="I-4">
+<h2>導出の道具②：GᵀGとGᵀX</h2>
+<p><span class="math display">
+\mathbf G^\top\mathbf G=\operatorname{diag}(n_1,\dots,n_k),\quad
+(\mathbf G^\top\mathbf X)_{qj}=\sum_{i=1}^{n}g_{iq}\,x_{ij}
+</span></p>
+<p>1つの行に1は1つなので、<span class="math inline">\mathbf G^\top\mathbf G</span> は群の人数 <span class="math inline">n_q</span> を対角に並べたもの。逆行列は対角の逆数（空の群が無ければ）。<span class="math inline">\mathbf G^\top\mathbf X</span> の第 <span class="math inline">q</span> 行は群 <span class="math inline">q</span> の行の和。</p>
+</section>
+<section id="導出の道具③トレースの微分" class="slide level2" data-chapter="I-4">
+<h2>導出の道具③：トレースの微分</h2>
+<p><span class="math display">
+\begin{gathered}
+\operatorname{tr}(\mathbf E^\top\mathbf E)=\lVert\mathbf E\rVert_F^2\\
+\frac{\partial\operatorname{tr}(\mathbf B^\top\mathbf M)}{\partial\mathbf B}=\mathbf M,\qquad
+\frac{\partial\operatorname{tr}(\mathbf B^\top\mathbf S\mathbf B)}{\partial\mathbf B}=2\mathbf S\mathbf B
+\end{gathered}
+</span></p>
+<p>トレースは対角の和（第3回）。行列での偏微分は、各マスで偏微分して同じ形に並べたもの。<span class="math inline">\mathbf S</span> は対称。<span class="math inline">1\times1</span> なら <span class="math inline">bm\to m</span>、<span class="math inline">sb^2\to2sb</span>。</p>
+</section>
+<section id="cの更新①gを固定する" class="slide level2" data-chapter="I-5">
+<h2>Cの更新①：Gを固定する</h2>
+<p><span class="crumb"><span class="now">群ごとに</span> → ベクトルで微分 → 群の平均 → 行列のまま → 同じ平均</span></p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>色（<span class="math inline">\mathbf G</span>）を固定する。<span class="math inline">J=\sum_q\sum_ig_{iq}\lVert\tilde{\boldsymbol x}_i-\boldsymbol c_q\rVert_2^2</span> は群ごとの和で、群 <span class="math inline">q</span> の項は <span class="math inline">\boldsymbol c_q</span> だけを含む。</p>
+</div><div class="column" style="width:55%;">
+<div id="1adfd750" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=7fad8c8f" width="360" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="cの更新②ベクトルで微分" class="slide level2 smaller" data-chapter="I-5">
+<h2>Cの更新②：ベクトルで微分</h2>
+<p><span class="crumb">群ごとに → <span class="now">ベクトルで微分</span> → 群の平均 → 行列のまま → 同じ平均</span></p>
+<p><span class="math display">
+\begin{aligned}
+&amp;\frac{\partial}{\partial\boldsymbol c_q}\sum_{i=1}^{n}g_{iq}\lVert\tilde{\boldsymbol x}_i-\boldsymbol c_q\rVert_2^2\\
+&amp;\quad=\frac{\partial}{\partial\boldsymbol c_q}\sum_{i=1}^{n}g_{iq}\bigl(\tilde{\boldsymbol x}_i^\top\tilde{\boldsymbol x}_i-2\tilde{\boldsymbol x}_i^\top\boldsymbol c_q+\boldsymbol c_q^\top\boldsymbol c_q\bigr)\\
+&amp;\quad=\sum_{i=1}^{n}g_{iq}\bigl(-2\tilde{\boldsymbol x}_i+2\boldsymbol c_q\bigr)
+\end{aligned}
+</span></p>
+<p>距離の二乗を内積で展開し、道具①を使う。第1項は <span class="math inline">\boldsymbol c_q</span> を含まないので消える。</p>
+</section>
+<section id="cの更新③群の平均ベクトル" class="slide level2" data-chapter="I-5">
+<h2>Cの更新③：群の平均ベクトル</h2>
+<p><span class="crumb">群ごとに → ベクトルで微分 → <span class="now">群の平均</span> → 行列のまま → 同じ平均</span></p>
+<p><span class="math display">
+\begin{aligned}
+&amp;-2\sum_{i=1}^{n}g_{iq}\tilde{\boldsymbol x}_i+2n_q\boldsymbol c_q=\boldsymbol 0_p\\
+\Longrightarrow\quad&amp;\hat{\boldsymbol c}_q=\frac{1}{n_q}\sum_{i=1}^{n}g_{iq}\tilde{\boldsymbol x}_i
+\end{aligned}
+</span></p>
+<p>勾配を0とおいた。<span class="math inline">n_q=\sum_ig_{iq}</span> は群 <span class="math inline">q</span> の人数。答えは群 <span class="math inline">q</span> の平均ベクトル。<span class="math inline">k</span> 個を縦に積めば <span class="math inline">\hat{\mathbf C}</span>。</p>
+</section>
+<section id="cの更新④行列のまま" class="slide level2 smaller" data-chapter="I-5">
+<h2>Cの更新④：行列のまま</h2>
+<p><span class="crumb">群ごとに → ベクトルで微分 → 群の平均 → <span class="now">行列のまま</span> → 同じ平均</span></p>
+<p><span class="math display">
+\begin{aligned}
+J(\mathbf C\mid\mathbf G)&amp;=\operatorname{tr}(\mathbf X^\top\mathbf X)-2\operatorname{tr}(\mathbf C^\top\mathbf G^\top\mathbf X)+\operatorname{tr}(\mathbf C^\top\mathbf G^\top\mathbf G\mathbf C)\\
+\frac{\partial J}{\partial\mathbf C}&amp;=-2\mathbf G^\top\mathbf X+2\mathbf G^\top\mathbf G\,\mathbf C=\mathbf O
+\quad\Longrightarrow\quad\mathbf G^\top\mathbf G\,\mathbf C=\mathbf G^\top\mathbf X
+\end{aligned}
+</span></p>
+<p>二乗和をトレースで展開し（道具③）、第2項・第3項を偏微分した（<span class="math inline">\mathbf S=\mathbf G^\top\mathbf G</span>）。第1回の <span class="math inline">\mathbf X^\top\mathbf X\boldsymbol\beta=\mathbf X^\top\boldsymbol y</span> の <span class="math inline">\mathbf X</span> を <span class="math inline">\mathbf G</span> に、<span class="math inline">\boldsymbol y</span> を <span class="math inline">\mathbf X</span> に替えた形。</p>
+</section>
+<section id="cの更新⑤同じ群の平均" class="slide level2" data-chapter="I-5">
+<h2>Cの更新⑤：同じ群の平均</h2>
+<p><span class="crumb">群ごとに → ベクトルで微分 → 群の平均 → 行列のまま → <span class="now">同じ平均</span></span></p>
+<p><span class="math display">
+\hat{\mathbf C}=(\mathbf G^\top\mathbf G)^{-1}\mathbf G^\top\mathbf X
+=\operatorname{diag}\Bigl(\frac1{n_1},\dots,\frac1{n_k}\Bigr)\mathbf G^\top\mathbf X
+</span></p>
+<p>道具②。第 <span class="math inline">q</span> 行は群 <span class="math inline">q</span> の和を <span class="math inline">n_q</span> で割ったもの。③の <span class="math inline">\hat{\boldsymbol c}_q^\top</span> を縦に積んだものと同じ。</p>
+</section>
+<section id="アルゴリズム交互最小二乗法" class="slide level2 smaller" data-chapter="I-6">
+<h2>アルゴリズム：交互最小二乗法</h2>
+<ol type="1">
+<li>用意する：データ行列 <span class="math inline">\mathbf X</span>（<span class="math inline">n\times p</span>、列の目盛りをそろえたもの）と、群の数 <span class="math inline">k</span></li>
+<li>初期値：<span class="math inline">\mathbf X</span> の行から <span class="math inline">k</span> 行を選び、<span class="math inline">\mathbf C</span>（<span class="math inline">k\times p</span>）とする（無作為に、または k-means++ で）</li>
+<li>Gの更新：<span class="math inline">\mathbf D=\boldsymbol a\mathbf 1_k^\top-2\mathbf X\mathbf C^\top+\mathbf 1_n\boldsymbol b^\top</span>。各行で最小の列に1、残りは0</li>
+<li>Cの更新：<span class="math inline">\mathbf C\leftarrow(\mathbf G^\top\mathbf G)^{-1}\mathbf G^\top\mathbf X</span>（群ごとの平均）</li>
+<li>収束判定：<span class="math inline">\mathbf G</span> が前回と同じなら止める。そうでなければ3へ</li>
+<li>ランダムスタート：2〜5を <span class="math inline">R</span> 通りの初期値で行い、<span class="math inline">J=\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2</span> が最も小さい答えを採る</li>
+</ol>
+</section>
+<section id="次の問い回すと何が起きるか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：回すと何が起きるか</h2>
+<ul>
+<li>2つの更新式と、計算の手順がそろった</li>
+<li>アイス 120 個の人工データで、実際に回してみる</li>
+<li>初期値は、はじめに置いた4個</li>
+</ul>
+<p><span class="math inline">J</span> はどう動き、どこで止まるか。</p>
+</section>
+<section id="jは毎回下がる" class="slide level2" data-chapter="I-7">
+<h2>Jは毎回下がる</h2>
+<div id="fc8ad65f" class="cell" data-execution_count="33">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="701" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>丸は <span class="math inline">\mathbf G</span> の更新の後、四角は <span class="math inline">\mathbf C</span> の更新の後。どちらの更新でも <span class="math inline">J</span> は上がらない。</p>
+</section>
+<section id="が動いて止まる" class="slide level2" data-chapter="I-7">
+<h2>■が動いて止まる</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>黒い線が■の道筋（白丸が初期値）。9 回で <span class="math inline">\mathbf G</span> が変わらなくなり、止まった。<span class="math inline">J</span> = 410.4。</p>
+</div><div class="column" style="width:55%;">
+<div id="70e6ae5d" class="cell" data-execution_count="34">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=7fad8c8f" width="424" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="有限回で止まる" class="slide level2" data-chapter="I-7">
+<h2>有限回で止まる</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>分け方は高々 <span class="math inline">k^n</span> 通りで有限。<span class="math inline">J</span> が下がり続ける限り、同じ <span class="math inline">\mathbf G</span> には戻らない。だから必ず止まる。</p>
+</div><div class="column" style="width:55%;">
+<div id="f92f2608" class="cell" data-execution_count="35">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=7fad8c8f" width="424" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="困りごと②に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと②に戻る</h2>
+<div id="c4a18772" class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="701" height="354"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">k^n</span> 通りを全部は試さない。片方ずつ最良に替えるので <span class="math inline">J</span> は下がり続け、9 回の反復で止まった。</p>
+</section>
+<section id="境目は直線" class="slide level2" data-chapter="I-7">
+<h2>境目は直線</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">
+\begin{aligned}
+&amp;\lVert\tilde{\boldsymbol x}-\boldsymbol c_1\rVert_2^2\\
+&amp;=\lVert\tilde{\boldsymbol x}-\boldsymbol c_2\rVert_2^2
+\end{aligned}
+</span></p>
+<p>は <span class="math inline">\tilde{\boldsymbol x}</span> の1次式。境目は垂直二等分線。</p>
+</div><div class="column" style="width:55%;">
+<div id="908c36ac" class="cell" data-execution_count="37">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png?v=7fad8c8f" width="424" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="次の問いjは何を測るか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：Jは何を測るか</h2>
+<ul>
+<li><span class="math inline">J</span> は、各個体と自分の群の■との距離の二乗和</li>
+<li>何をどれだけ重く足しているのか。群と群の離れ方とはどう関係するか</li>
+<li>この章では <span class="math inline">\mathbf X</span> の各列の平均を0にしておく（個体どうしの距離は変わらない）</li>
+</ul>
+</section>
+<section id="jは群内の平方和" class="slide level2" data-chapter="I-7">
+<h2>Jは群内の平方和</h2>
+<p><span class="math display">
+J=\lVert\mathbf X-\mathbf G\hat{\mathbf C}\rVert_F^2=\sum_{q=1}^{k}\ \sum_{i:\,g_{iq}=1}\lVert\tilde{\boldsymbol x}_i-\hat{\boldsymbol c}_q\rVert_2^2
+</span></p>
+<p>代表点を群の平均 <span class="math inline">\hat{\boldsymbol c}_q</span> に置けば、<span class="math inline">J</span> は各個体と自分の群の平均との距離の二乗和。つまり群内の平方和。k-meansは、群内の平方和を最小にする分け方を探している。</p>
+</section>
+<section id="全体群内群間" class="slide level2" data-chapter="I-7">
+<h2>全体＝群内＋群間</h2>
+<p><span class="math display">
+\underbrace{\mathbf X^\top\mathbf X}_{\text{全体の平方和}}
+=\underbrace{(\mathbf X-\mathbf G\hat{\mathbf C})^\top(\mathbf X-\mathbf G\hat{\mathbf C})}_{\text{群内の平方和}}
++\underbrace{\hat{\mathbf C}^\top\mathbf G^\top\mathbf G\hat{\mathbf C}}_{\text{群間の平方和}}
+</span></p>
+<p><span class="math inline">\mathbf X</span> は列の平均が0、<span class="math inline">\hat{\mathbf C}</span> は群の平均。<span class="math inline">n</span> で割ると、第5回の <span class="math inline">\mathbf S_{\mathrm T}=\mathbf S_{\mathrm W}+\mathbf S_{\mathrm B}</span>（全体・群内・群間の共分散行列）。どの <span class="math inline">\mathbf G</span> でも成り立つ。導き方は次の枚から。</p>
+</section>
+<section id="道筋平方和の分解" class="slide level2 smaller" data-chapter="I-5">
+<h2>道筋：平方和の分解</h2>
+<p><span class="math display">
+\mathbf X^\top\mathbf X=\mathbf E^\top\mathbf E+\hat{\mathbf C}^\top\mathbf G^\top\mathbf G\hat{\mathbf C},\qquad\mathbf E=\mathbf X-\mathbf G\hat{\mathbf C}
+</span></p>
+<p>終着駅はこの分解。</p>
+<ol type="1">
+<li><span class="math inline">\mathbf X</span> を、群の平均の部分 <span class="math inline">\mathbf G\hat{\mathbf C}</span> と残差 <span class="math inline">\mathbf E</span> に分ける</li>
+<li>正規方程式から、<span class="math inline">\mathbf E</span> は <span class="math inline">\mathbf G</span> の列と直交する</li>
+<li><span class="math inline">\mathbf X^\top\mathbf X</span> を展開し、交差項が消える</li>
+</ol>
+</section>
+<section id="導出の道具転置とトレース" class="slide level2" data-chapter="I-4">
+<h2>導出の道具：転置とトレース</h2>
+<p><span class="math display">
+(\mathbf A\mathbf B)^\top=\mathbf B^\top\mathbf A^\top,\qquad
+\operatorname{tr}(\mathbf A+\mathbf B)=\operatorname{tr}(\mathbf A)+\operatorname{tr}(\mathbf B)
+</span></p>
+<p>転置すると積の順が入れ替わる。トレースは対角の和なので、足し算に分けられる。</p>
+</section>
+<section id="平方和①xを2つに分ける" class="slide level2" data-chapter="I-5">
+<h2>平方和①：Xを2つに分ける</h2>
+<p><span class="crumb"><span class="now">分ける</span> → 直交 → 展開 → 交差項</span></p>
+<p><span class="math display">
+\mathbf X=\mathbf G\hat{\mathbf C}+\mathbf E,\qquad\mathbf E=\mathbf X-\mathbf G\hat{\mathbf C}
+</span></p>
+<p><span class="math inline">\mathbf G\hat{\mathbf C}</span> は、各行を自分の群の平均に置き換えた行列。<span class="math inline">\mathbf E</span> はその残りで、群の中のずれ。</p>
+</section>
+<section id="平方和②残差はgと直交" class="slide level2" data-chapter="I-5">
+<h2>平方和②：残差はGと直交</h2>
+<p><span class="crumb">分ける → <span class="now">直交</span> → 展開 → 交差項</span></p>
+<p><span class="math display">
+\mathbf G^\top\mathbf E=\mathbf G^\top\mathbf X-\mathbf G^\top\mathbf G\hat{\mathbf C}=\mathbf O
+</span></p>
+<p>Cの更新の正規方程式 <span class="math inline">\mathbf G^\top\mathbf G\hat{\mathbf C}=\mathbf G^\top\mathbf X</span> を使った。どの群でも、平均からのずれの和は0。</p>
+</section>
+<section id="平方和③展開する" class="slide level2" data-chapter="I-5">
+<h2>平方和③：展開する</h2>
+<p><span class="crumb">分ける → 直交 → <span class="now">展開</span> → 交差項</span></p>
+<p><span class="math display">
+\begin{aligned}
+\mathbf X^\top\mathbf X&amp;=(\mathbf G\hat{\mathbf C}+\mathbf E)^\top(\mathbf G\hat{\mathbf C}+\mathbf E)\\
+&amp;=\hat{\mathbf C}^\top\mathbf G^\top\mathbf G\hat{\mathbf C}+\hat{\mathbf C}^\top\mathbf G^\top\mathbf E+\mathbf E^\top\mathbf G\hat{\mathbf C}+\mathbf E^\top\mathbf E
+\end{aligned}
+</span></p>
+<p>道具で <span class="math inline">(\mathbf G\hat{\mathbf C})^\top=\hat{\mathbf C}^\top\mathbf G^\top</span>。真ん中の2つが交差項。</p>
+</section>
+<section id="平方和④交差項は0" class="slide level2" data-chapter="I-5">
+<h2>平方和④：交差項は0</h2>
+<p><span class="crumb">分ける → 直交 → 展開 → <span class="now">交差項</span></span></p>
+<p><span class="math display">
+\begin{aligned}
+\hat{\mathbf C}^\top\mathbf G^\top\mathbf E&amp;=\hat{\mathbf C}^\top\mathbf O=\mathbf O\\
+\mathbf E^\top\mathbf G\hat{\mathbf C}&amp;=(\mathbf G^\top\mathbf E)^\top\hat{\mathbf C}=\mathbf O\\
+\Longrightarrow\quad\mathbf X^\top\mathbf X&amp;=\mathbf E^\top\mathbf E+\hat{\mathbf C}^\top\mathbf G^\top\mathbf G\hat{\mathbf C}
+\end{aligned}
+</span></p>
+<p>②の直交を使った。回帰で、当てはめた値と残差が直交したのと同じ三平方の定理。</p>
+</section>
+<section id="トレースをとる" class="slide level2" data-chapter="I-7">
+<h2>トレースをとる</h2>
+<div id="b7e30578" class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="825" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\lVert\mathbf X\rVert_F^2=J+\sum_qn_q\lVert\hat{\boldsymbol c}_q\rVert_2^2</span>。トレースは和に分けられ、<span class="math inline">\mathbf G^\top\mathbf G=\operatorname{diag}(n_q)</span>。一定なのは破線の全体だけ。群内（灰）と群間（緑）の配分は、分け方で変わる。</p>
+</section>
+<section id="jの最小は群間の最大" class="slide level2" data-chapter="I-7">
+<h2>Jの最小は群間の最大</h2>
+<div id="1e9441ed" class="cell" data-execution_count="42">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="825" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>全体が一定なので、群内の平方和 <span class="math inline">J</span> を下げた分だけ、群間の平方和が増える。k-meansは、群の平均を全体の平均からできるだけ離す分け方を探している。</p>
+</section>
+<section id="群で説明できた割合" class="slide level2" data-chapter="I-7">
+<h2>群で説明できた割合</h2>
+<p><span class="math display">
+\frac{\sum_qn_q\lVert\hat{\boldsymbol c}_q\rVert_2^2}{\lVert\mathbf X\rVert_F^2}=1-\frac{J}{\lVert\mathbf X\rVert_F^2}
+</span></p>
+<p>全体のばらつきのうち、群で説明できた割合。決定係数と同じ形。アイスの <span class="math inline">k=4</span> では 0.89。<span class="math inline">k</span> を増やすほど1に近づく。</p>
+</section>
+<section id="群を増やせばjは下がる" class="slide level2" data-chapter="I-7">
+<h2>群を増やせばJは下がる</h2>
+<div id="9cfe2128" class="cell" data-execution_count="43">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="825" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">k</span> を増やすと <span class="math inline">J</span> は下がり続ける。<span class="math inline">k=n</span> なら全員が自分の代表点になり <span class="math inline">J=0</span>。<span class="math inline">J</span> だけでは <span class="math inline">k</span> を決められない。</p>
+</section>
+<section id="群を分けるとjは下がる" class="slide level2" data-chapter="I-5">
+<h2>群を分けるとJは下がる</h2>
+<ul>
+<li><span class="math inline">k</span> 群で <span class="math inline">J</span> が最小の答えから、1つの群を2つに分ける</li>
+<li>2つの■を元の平均に置いたままなら、<span class="math inline">J</span> は同じ</li>
+<li>そこから■を各群の平均へ動かすと、<span class="math inline">J</span> は下がるか変わらない（Cの更新）</li>
+</ul>
+<p>だから最小の <span class="math inline">J</span> は <span class="math inline">k</span> とともに下がり、群で説明できた割合は上がる。</p>
+</section>
+<section id="jは列ごとの和" class="slide level2" data-chapter="I-7">
+<h2>Jは列ごとの和</h2>
+<p><span class="math display">
+J=\sum_{j=1}^{p}\ \sum_{i=1}^{n}\bigl(x_{ij}-c_{q(i)j}\bigr)^2
+</span></p>
+<p>足す順を入れ替えると、列ごとの誤差の和。列 <span class="math inline">j</span> を <span class="math inline">a</span> 倍すると、その列の項は <span class="math inline">a^2</span> 倍になる。</p>
+</section>
+<section id="クイズ②目盛りを変えると" class="slide level2" data-chapter="I-7">
+<h2>クイズ②：目盛りを変えると</h2>
+<p>アイスの固さだけを、10点満点から50点満点に付け直して（5倍にして）分け直す。答えはどうなる？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>変わらない</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>固さで切る答えになる</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>甘さで切る答えになる</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>群の数が変わる</p>
+</div>
+</div>
+</section>
+<section id="クイズ②の答えb" class="slide level2" data-chapter="I-7">
+<h2>クイズ②の答え：B</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>変わらない</p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span>固さで切る答えになる</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>甘さで切る答えになる</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>群の数が変わる</p>
+</div>
+</div>
+<p><span class="math inline">J</span> は列ごとの誤差の和。固さの列を5倍にすると、その列の誤差は25倍に数えられ、固さの差を減らす分け方が選ばれる。</p>
+</section>
+<section id="列を5倍にすると" class="slide level2" data-chapter="I-7">
+<h2>1列を5倍にすると</h2>
+<div id="4f4c10d9" class="cell" data-execution_count="44">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="888" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じアイスでも、固さを50点満点で付け直すと、固さで切る答えになる。目盛りの大きい列が <span class="math inline">J</span> を占める。</p>
+</section>
+<section id="ldaと裏返し" class="slide level2 smaller" data-chapter="I-7">
+<h2>LDAと裏返し</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>LDA（第5回）</th>
+<th>k-means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>群</td>
+<td>与えられている（<span class="math inline">y</span>）</td>
+<td>探す（<span class="math inline">\mathbf G</span>）</td>
+</tr>
+<tr class="even">
+<td>探すもの</td>
+<td>映す向き <span class="math inline">\boldsymbol w</span></td>
+<td>群の分け方</td>
+</tr>
+<tr class="odd">
+<td>基準</td>
+<td><span class="math inline">\boldsymbol w</span> に映した群間分散 ÷ 群内分散を最大</td>
+<td>群内の平方和 <span class="math inline">J</span> を最小（＝群間の平方和を最大）</td>
+</tr>
+</tbody>
+</table>
+<p>同じ「全体＝群内＋群間」を、逆の側から使う。</p>
+</section>
+<section id="次の問いどこに止まるか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：どこに止まるか</h2>
+<ul>
+<li><span class="math inline">J</span> は毎回下がって止まる。では、止まった先は最良か</li>
+<li>始め方を変えて確かめる（困りごと③）</li>
+</ul>
+</section>
+<section id="別の初期値から" class="slide level2" data-chapter="I-7">
+<h2>別の初期値から</h2>
+<div id="50d0edda" class="cell" data-execution_count="48">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-49-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="888" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>左の (a) は、はじめの4個から着いた答え。同じデータを、別の初期値（<span class="math inline">\mathbf X</span> の行から4行）から回す。</p>
+</section>
+<section id="着く先が変わる" class="slide level2" data-chapter="I-7">
+<h2>着く先が変わる</h2>
+<div id="ad76d047" class="cell" data-execution_count="49">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="888" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>どちらもそこから動かない（更新しても <span class="math inline">\mathbf G</span> が変わらない）。しかし <span class="math inline">J</span> は (b) のほうが小さい。</p>
+</section>
+<section id="局所解" class="slide level2" data-chapter="I-7">
+<h2>局所解</h2>
+<div id="9e09a363" class="cell" data-execution_count="50">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="888" height="384"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>左の (a) のように、どちらの更新でも動かないのに最小ではない点を局所解と呼ぶ。</p>
+</section>
+<section id="通りの初期値" class="slide level2" data-chapter="I-7">
+<h2>300通りの初期値</h2>
+<div id="68b89342" class="cell" data-execution_count="51">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="701" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\mathbf X</span> の行から4行を選ぶ初期値を 300 通り。最小の <span class="math inline">J</span> に着いたのは 244 回。</p>
+</section>
+<section id="ランダムスタート" class="slide level2" data-chapter="I-7">
+<h2>ランダムスタート</h2>
+<div id="19d781a3" class="cell" data-execution_count="52">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="701" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>何通りかの初期値から解き、<span class="math inline">J</span> が最も小さい答えを採る。これをランダムスタートと呼ぶ。</p>
+</section>
+<section id="何回やり直すか" class="slide level2" data-chapter="I-7">
+<h2>何回やり直すか</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>初期値の数 <span class="math inline">R</span></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>最小に1回は着く見込み</td>
+<td>81.3%</td>
+<td>96.5%</td>
+<td>99.3%</td>
+<td>100.0%</td>
+</tr>
+</tbody>
+</table>
+<p>1回で最小に着く割合を <span class="math inline">\theta</span> とすると、<span class="math inline">R</span> 回のうち1回は着く見込みは <span class="math inline">1-(1-\theta)^R</span>。この例では <span class="math inline">\theta</span> = 0.81。</p>
+</section>
+<section id="k-means①遠い行を選ぶ" class="slide level2" data-chapter="I-7">
+<h2>k-means++①：遠い行を選ぶ</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<ol type="1">
+<li>1つ目の■は、行から無作為に選ぶ</li>
+<li>各行から最も近い■までの距離の二乗 <span class="math inline">D_i^2</span> を測る</li>
+<li>次の■は、確率 <span class="math inline">D_i^2/\sum_lD_l^2</span> で選ぶ。<span class="math inline">k</span> 個まで繰り返す</li>
+</ol>
+</div><div class="column" style="width:55%;">
+<div id="effa3bdd" class="cell" data-execution_count="54">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-55-output-1.png?v=7fad8c8f" width="408" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="k-means②保証がある" class="slide level2" data-chapter="I-7">
+<h2>k-means++②：保証がある</h2>
+<p><span class="math display">
+\mathbb E\bigl[J(\mathbf C_0)\bigr]\le8(\ln k+2)\,J_{\min}
+</span></p>
+<p><span class="credit">出典：Arthur &amp; Vassilvitskii (2007) k-means++: The advantages of careful seeding. Proc. 18th ACM-SIAM SODA: 1027–1035</span></p>
+<p><span class="math inline">\mathbf C_0</span> は k-means++ で選んだ初期値（回す前）。<span class="math inline">J</span> は回すと下がるだけなので、止まった答えにも同じ上限が付く。<span class="math inline">k=4</span> なら約27倍。ゆるい、最悪の場合の目安。</p>
+</section>
+<section id="k-means③アイスで試す" class="slide level2 smaller" data-chapter="I-7">
+<h2>k-means++③：アイスで試す</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>初期値の選び方</th>
+<th>回す前の <span class="math inline">J</span> ÷ 最小の <span class="math inline">J</span>（平均）</th>
+<th>最小に着く割合 <span class="math inline">\theta</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>行から無作為に</td>
+<td>5.08</td>
+<td>0.81</td>
+</tr>
+<tr class="even">
+<td>k-means++</td>
+<td>2.76</td>
+<td>0.89</td>
+</tr>
+</tbody>
+</table>
+<p>初期値300通りずつ。回す前の <span class="math inline">J</span> は小さくなり、<span class="math inline">\theta</span> も上がる。それでも局所解は残るので、やり直しは要る。</p>
 </section>
 <section id="困りごと③に戻る" class="slide level2" data-chapter="I-7">
 <h2>困りごと③に戻る</h2>
-<div id="f2323ed2" class="cell" data-execution_count="50">
+<div id="328f1db5" class="cell" data-execution_count="56">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1044" height="300"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="701" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>見込みが最小なのは折りたたみ傘（1.1）。確率が最大の「降らない」に合わせて持たないと 3.2。</p>
-</section>
-<section id="境目①確率最大で選ぶ" class="slide level2" data-chapter="I-7">
-<h2>境目①：確率最大で選ぶ</h2>
-<div id="d7f1218e" class="cell" data-execution_count="51">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1044" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>確率が最大の天気に合わせると、支度の境目は湿度 62.2%と 74.6%。</p>
-</section>
-<section id="境目②損失で選ぶ" class="slide level2" data-chapter="I-7">
-<h2>境目②：損失で選ぶ</h2>
-<div id="3f36d57d" class="cell" data-execution_count="52">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1044" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>損失で選ぶと、境目は 58.5%と 70.6%へ下がる。濡れるのが重いので、早めに傘を持つ。</p>
-</section>
-<section id="の混同行列" class="slide level2 smaller" data-chapter="I-4">
-<h2>3×3の混同行列</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>損失で選ぶ</th>
-<th>持たない</th>
-<th>折りたたみ傘</th>
-<th>長傘</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>本当は降らない</td>
-<td>207</td>
-<td>33</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>本当は小雨</td>
-<td>8</td>
-<td>50</td>
-<td>22</td>
-</tr>
-<tr class="odd">
-<td>本当は大雨</td>
-<td>0</td>
-<td>8</td>
-<td>32</td>
-</tr>
-</tbody>
-</table>
-<p><span class="math inline">\mathbf Y</span> を第5回の指示行列（<span class="math inline">n\times3</span>）にすれば、<span class="math inline">\mathbf M=\mathbf Y^\top\hat{\mathbf Y}</span> がそのまま <span class="math inline">3\times3</span> の混同行列。当たりは対角。</p>
-</section>
-<section id="精度は下がり損失は下がる" class="slide level2 smaller" data-chapter="I-7">
-<h2>精度は下がり、損失は下がる</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>選び方</th>
-<th>精度（対角の割合）</th>
-<th>期待損失 <span class="math inline">\operatorname{tr}(\mathbf C^\top\mathbf M)/n</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>確率最大で選ぶ</td>
-<td>0.828</td>
-<td>0.450</td>
-</tr>
-<tr class="even">
-<td>損失で選ぶ</td>
-<td>0.803</td>
-<td>0.308</td>
-</tr>
-</tbody>
-</table>
-<p>期待損失の式は2群と同じ。損失で選ぶと、当たりの割合は少し下がり、損失は大きく下がる。</p>
-</section>
-<section id="の損失なら確率最大" class="slide level2" data-chapter="I-5">
-<h2>0-1の損失なら確率最大</h2>
-<p><span class="math display">
-C_{ql}=\begin{cases}0&amp;(q=l)\\1&amp;(q\ne l)\end{cases}
-\quad\Longrightarrow\quad
-\rho_l=\sum_{q\ne l}\theta_q=1-\theta_l
-</span></p>
-<p>誤りがどれも同じ重さなら、確率が最大の群を選ぶ。精度で測るのと同じ仮定。</p>
-</section>
-<section id="群なら-t-に戻る" class="slide level2" data-chapter="I-5">
-<h2>2群なら t* に戻る</h2>
-<p><span class="math display">
-\begin{aligned}
-\rho_0&amp;=c_{\mathrm{FN}}\,\theta,\qquad \rho_1=c_{\mathrm{FP}}\,(1-\theta)\\
-\rho_1&lt;\rho_0&amp;\iff\theta&gt;t^\star
-\end{aligned}
-</span></p>
-<p><span class="math inline">k=2</span> で、<span class="math inline">\theta</span> を陽性の確率とする。1件ごとの天秤（導出③）と同じ式になる。</p>
-</section>
-<section id="道具がそろった" class="slide level2" data-chapter="I-1">
-<h2>道具がそろった</h2>
-<ul>
-<li>数える：混同行列 <span class="math inline">\mathbf M=\mathbf Y^\top\hat{\mathbf Y}</span> と、3つの率</li>
-<li>切る：損失行列 <span class="math inline">\mathbf C</span> から <span class="math inline">t^\star</span>。3群以上なら <span class="math inline">\mathbf C^\top\boldsymbol\theta</span> が最小の判定</li>
-<li>測る：期待損失。損失が決まらないときはROC曲線</li>
-</ul>
-<p>これを、確率から判定までの手順にまとめる。</p>
-</section>
-<section id="アルゴリズム確率から判定まで" class="slide level2 smaller" data-chapter="I-6">
-<h2>アルゴリズム：確率から判定まで</h2>
-<ol type="1">
-<li>訓練の行で確率のモデルを当てはめる（第6回）。テストの行のデータ行列 <span class="math inline">\mathbf X</span> から <span class="math inline">\boldsymbol\theta=\operatorname{sig}(\mathbf X\hat{\boldsymbol\beta})</span></li>
-<li>損失行列 <span class="math inline">\mathbf C=\begin{pmatrix}0&amp;c_{\mathrm{FP}}\\c_{\mathrm{FN}}&amp;0\end{pmatrix}</span> を決め、<span class="math inline">t^\star=c_{\mathrm{FP}}/(c_{\mathrm{FP}}+c_{\mathrm{FN}})</span></li>
-<li><span class="math inline">\theta_i\ge t^\star</span> の行を1、ほかを0とした（3群以上なら <span class="math inline">\mathbf C^\top\boldsymbol\theta_i</span> が最小の列を1とした）<span class="math inline">\hat{\boldsymbol y}</span> から <span class="math inline">\hat{\mathbf Y}=[\mathbf 1-\hat{\boldsymbol y},\ \hat{\boldsymbol y}]</span>、<span class="math inline">\mathbf Y=[\mathbf 1-\boldsymbol y,\ \boldsymbol y]</span>、<span class="math inline">\mathbf M=\mathbf Y^\top\hat{\mathbf Y}</span></li>
-<li><span class="math inline">R=\operatorname{tr}(\mathbf C^\top\mathbf M)/n</span> と <span class="math inline">\mathbf M</span> を報告する</li>
-<li>損失が決まらないときは、<span class="math inline">t</span> を <span class="math inline">\boldsymbol\theta</span> の値ごとに動かして <span class="math inline">\mathbf M</span> を数え、(FPR, TPR) を並べる</li>
-</ol>
-<p>反復はない。確率を1回出せば、あとは数えるだけ。</p>
-</section>
-<section id="最後の問いt-の裏側" class="slide level2" data-chapter="I-1">
-<h2>最後の問い：t* の裏側</h2>
-<ul>
-<li><span class="math inline">t^\star</span> は、損失の比だけで決まった</li>
-<li>その裏に、どんな性質と前提があるか</li>
-<li>指標はそれぞれ、何を黙って決めているか</li>
-</ul>
-<p>使いどころ：0.5で切る、重みを付ける、水増しする。いつものやり方の裏の仮定を読む。</p>
-</section>
-<section id="帰結①動くのは定数だけ" class="slide level2" data-chapter="I-7">
-<h2>帰結①：動くのは定数だけ</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math display">
-\boldsymbol w^\top\boldsymbol x+w_0=\log\frac{t}{1-t}
-</span></p>
-<p><span class="math inline">t</span> が変えるのは、右辺の定数だけ。</p>
-</div><div class="column" style="width:55%;">
-<div id="32517026" class="cell" data-execution_count="56">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png?v=9b4297c5" width="367" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="帰結①境界は平行に動く" class="slide level2" data-chapter="I-7">
-<h2>帰結①：境界は平行に動く</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>境界は平行に動くだけ。2種類の誤りは入れ替わる。</p>
-<p>両方を減らすには、向き <span class="math inline">\boldsymbol w</span> を良くする。</p>
-</div><div class="column" style="width:55%;">
-<div id="118050b3" class="cell" data-execution_count="57">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-58-output-1.png?v=9b4297c5" width="367" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="帰結②陽性の行に重み" class="slide level2" data-chapter="I-7">
-<h2>帰結②：陽性の行に重み</h2>
-<div id="a0d0411a" class="cell" data-execution_count="58">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1002" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>当てはめのとき、陽性の行の対数尤度に重み <span class="math inline">w=c_{\mathrm{FN}}/c_{\mathrm{FP}}=5</span> を掛ける。LDAでは、陽性の割合が <span class="math inline">w</span> 倍に数え直される。</p>
-</section>
-<section id="帰結②重みしきい値の移動" class="slide level2" data-chapter="I-7">
-<h2>帰結②：重み＝しきい値の移動</h2>
-<div id="65535bd2" class="cell" data-execution_count="59">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-60-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1002" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>対数オッズに <span class="math inline">\log w</span> が足される。重みを付けて0.5で切る ≈ 重みなしで <span class="math inline">t^\star</span> で切る（灰の線）。</p>
-</section>
-<section id="帰結③水増しも重みと同じ" class="slide level2" data-chapter="I-7">
-<h2>帰結③：水増しも重みと同じ</h2>
-<div id="303e0e1a" class="cell" data-execution_count="60">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1014" height="141"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>陽性の行を <span class="math inline">r</span> 倍に複製すると、陽性の割合が書き換わり、オッズが <span class="math inline">r</span> 倍になる。</p>
-<div style="font-size: 85%;">
-<p><span class="math display">
-\frac{\theta_{\mathrm{os}}}{1-\theta_{\mathrm{os}}}\approx r\,\frac{\theta}{1-\theta}
-\quad\Longrightarrow\quad
-\theta_{\mathrm{os}}\ge\frac12\iff \theta\ge\frac{1}{1+r}
-</span></p>
-</div>
-<p>水増しして0.5で切る ＝ 損失の比 <span class="math inline">r</span> を黙って選ぶこと。</p>
-</section>
-<section id="たとえ降水確率30の日" class="slide level2" data-chapter="I-7">
-<h2>たとえ：降水確率30%の日</h2>
-<div id="0253b785" class="cell" data-execution_count="61">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-62-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="198"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>予報が「30%」と言った日を集めると、10日に3日降る。言った確率と、実際に起きた割合がそろっている。</p>
-</section>
-<section id="帰結④確率が正しいこと" class="slide level2" data-chapter="I-7">
-<h2>帰結④：確率が正しいこと</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math inline">t^\star</span> は「確率 <span class="math inline">\theta</span> の行の中で、陽性が割合 <span class="math inline">\theta</span>」を前提にする（較正）。</p>
-<p>確率の近い行を集め、陽性の割合を打って確かめる（較正曲線）。</p>
-</div><div class="column" style="width:55%;">
-<div id="a1848b70" class="cell" data-execution_count="63">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-64-output-1.png?v=9b4297c5" width="382" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="帰結④寄せすぎた確率" class="slide level2" data-chapter="I-7">
-<h2>帰結④：寄せすぎた確率</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>赤は、対数オッズを本当の2倍に出したモデル。確率が0と1に寄りすぎる。</p>
-<p>モデルの仮定が外れると、こうずれうる。</p>
-</div><div class="column" style="width:55%;">
-<div id="37ec8f8c" class="cell" data-execution_count="64">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-65-output-1.png?v=9b4297c5" width="382" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="帰結④切る所がずれる" class="slide level2" data-chapter="I-7">
-<h2>帰結④：切る所がずれる</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>1/6で切ると、実際の割合が 0.31 の所で切る（赤の点）。</p>
-<p>本来は、モデルの確率 0.038 で切るべき（橙の点）。</p>
-</div><div class="column" style="width:55%;">
-<div id="c78ad410" class="cell" data-execution_count="65">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-66-output-1.png?v=9b4297c5" width="382" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="帰結⑤指標が置く仮定" class="slide level2 smaller" data-chapter="I-7">
-<h2>帰結⑤：指標が置く仮定</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>指標</th>
-<th>見ているもの</th>
-<th>黙って置いている仮定</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>精度</td>
-<td>誤りの件数</td>
-<td><span class="math inline">c_{\mathrm{FP}}=c_{\mathrm{FN}}</span>（0.5で切るのと同じ）</td>
-</tr>
-<tr class="even">
-<td>F1</td>
-<td>適合率と再現率の調和平均</td>
-<td>2つを対称に扱い、損失の比を使わない</td>
-</tr>
-<tr class="odd">
-<td>ROC・AUC</td>
-<td>群の中の率・順位</td>
-<td>しきい値を決めない。<span class="math inline">\pi</span> を見ない</td>
-</tr>
-<tr class="even">
-<td>PR・平均適合率</td>
-<td>陽性と言った中の当たり</td>
-<td><span class="math inline">\pi</span> に依存する</td>
-</tr>
-<tr class="odd">
-<td>期待損失</td>
-<td>損失の合計</td>
-<td>仮定を自分で書く</td>
-</tr>
-</tbody>
-</table>
-<p>損失はデータからは決まらない。決めるのは使う人。</p>
-</section>
-<section id="次の問い確率が怪しいなら" class="slide level2" data-chapter="I-1">
-<h2>次の問い：確率が怪しいなら</h2>
-<ul>
-<li><span class="math inline">t^\star</span> が谷底になるのは、確率が較正されているときだけ</li>
-<li>確率がずれているなら、谷底をデータで探すしかない</li>
-</ul>
-<p>どの行で探すか。使いどころ：モデルの仮定が怪しく、確率をそのまま信じられないとき。</p>
-</section>
-<section id="分割に戻る" class="slide level2" data-chapter="I-6">
-<h2>3分割に戻る</h2>
-<div id="07a3eb38" class="cell" data-execution_count="69">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1009" height="253"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>第4回で罰の強さを選んだのと同じ。しきい値も、テストとは別の行で選ぶ。</p>
-</section>
-<section id="検証の行で数える" class="slide level2" data-chapter="I-7">
-<h2>検証の行で数える</h2>
-<div id="219a6482" class="cell" data-execution_count="70">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-71-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1007" height="295"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>寄せすぎた確率で、検証の1000日の期待損失を数えた。谷底は 0.025。1/6で切ると 0.38、谷底なら 0.32。</p>
-</section>
-<section id="検証の谷底も揺れる" class="slide level2" data-chapter="I-7">
-<h2>検証の谷底も揺れる</h2>
-<div id="0be71082" class="cell" data-execution_count="71">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1005" height="274"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>確率が正しくても、検証の谷底は 0.10〜0.23（10〜90%）と揺れる。確率が正しいなら、揺れない <span class="math inline">t^\star</span> がよい。</p>
-</section>
-<section id="位置づけ推定の後ろに決定" class="slide level2 smaller" data-chapter="I-1">
-<h2>位置づけ：推定の後ろに決定</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>第6回</th>
-<th>第7回（今回）</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>決めるもの</td>
-<td>係数 <span class="math inline">\boldsymbol\beta</span></td>
-<td>しきい値 <span class="math inline">t</span></td>
-</tr>
-<tr class="even">
-<td>目的関数</td>
-<td>対数尤度（最大に）</td>
-<td>期待損失（最小に）</td>
-</tr>
-<tr class="odd">
-<td>答え</td>
-<td>確率 <span class="math inline">\theta</span></td>
-<td>判定 <span class="math inline">\hat y</span> と、その測り方</td>
-</tr>
-</tbody>
-</table>
-<p>モデルも推定法も第6回のまま。「モデル × 推定法」の地図の後ろに、決定の層が加わる。</p>
+<p>どれを信じるかは <span class="math inline">J</span> で決める。k-means++ で何通りか始め、<span class="math inline">J</span> が最小の答えを採る。</p>
 </section></section>
 <section>
 <section id="第ii部-実データ解析" class="title-slide slide level1 part center">
@@ -1465,14 +1354,14 @@ C_{ql}=\begin{cases}0&amp;(q=l)\\1&amp;(q\ne l)\end{cases}
 <section id="理論の予想" class="slide level2" data-chapter="II-1">
 <h2>理論の予想</h2>
 <ul>
-<li>予想①：期待損失の谷底は <span class="math inline">t^\star</span> に来る（1:1なら0.5、1:5なら1/6）</li>
-<li>予想②：<span class="math inline">t^\star</span> で切ると、0.5で切るより期待損失は小さく、精度は下がる</li>
-<li>予想③：見逃しの行に重み5を付けて0.5で切ると、<span class="math inline">t^\star</span> で切るのと同じ判定になる</li>
-<li>予想④：確率が較正されていれば、検証の行で選んだしきい値は <span class="math inline">t^\star</span> に勝てない</li>
+<li>第I部：<span class="math inline">J</span> は毎回下がって止まる。止まる先は初期値しだい。<span class="math inline">J</span> は列ごとの和</li>
+<li>予想①：初期値を変えると、着く先が変わるはず</li>
+<li>予想②：成分に群の違いがあれば、3群は品種と重なるはず</li>
+<li>予想③：標準化しないと、目盛りの大きい列が群を決めるはず</li>
 </ul>
 </section>
-<section id="データ与信データ" class="slide level2 smaller" data-chapter="II-1">
-<h2>データ：与信データ</h2>
+<section id="データワイン178本" class="slide level2 smaller" data-chapter="II-1">
+<h2>データ：ワイン178本</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -1481,547 +1370,254 @@ C_{ql}=\begin{cases}0&amp;(q=l)\\1&amp;(q\ne l)\end{cases}
 <tbody>
 <tr class="odd">
 <td>行</td>
-<td>融資の申込者 1,000 人（ドイツの銀行、Statlog German Credit Data）</td>
+<td>イタリアの同じ地方のワイン 178 本</td>
 </tr>
 <tr class="even">
-<td>説明変数</td>
-<td>数値7列（融資期間・融資額・年齢など）＋カテゴリ13列（預金の区分・返済の履歴・目的など）</td>
+<td><span class="math inline">\mathbf X</span></td>
+<td>アルコール・フラバノイド・色の濃さ・プロリンなど、化学成分 13 列</td>
 </tr>
 <tr class="odd">
-<td>陽性</td>
-<td>返済の信用が悪い（bad） 300 人。陰性はgood 700 人</td>
+<td>品種</td>
+<td>3品種（59・71・48 本）。<span class="math inline">\mathbf G</span> と <span class="math inline">\mathbf C</span> を求めるのには使わない</td>
 </tr>
 </tbody>
 </table>
-<p>銀行が、申込者に貸すか断るかを決める場面。</p>
+<p>品種は、答え合わせにだけ使う。</p>
 </section>
-<section id="損失がデータに付いている" class="slide level2 smaller" data-chapter="II-1">
-<h2>損失がデータに付いている</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: center;">goodと判定（貸す）</th>
-<th style="text-align: center;">badと判定（断る）</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>本当はgood</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><span class="math inline">c_{\mathrm{FP}}=1</span>（良い客を逃す）</td>
-</tr>
-<tr class="even">
-<td>本当はbad</td>
-<td style="text-align: center;"><span class="math inline">c_{\mathrm{FN}}=5</span>（返ってこない）</td>
-<td style="text-align: center;">0</td>
-</tr>
-</tbody>
-</table>
-<p>提供者が付けた損失の表。<span class="math inline">t^\star=1/(1+5)=1/6</span> は、データを見る前に決まる。</p>
+<section id="前処理列ごとに標準化" class="slide level2" data-chapter="II-1">
+<h2>前処理：列ごとに標準化</h2>
+<div id="21893fa4" class="cell" data-execution_count="60">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="934" height="341"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>そのままでは、<span class="math inline">\lVert\mathbf X\rVert_F^2</span> の 99.8%をプロリンが占める。標準化すると、どの列も同じ割合になる。</p>
 </section>
-<section id="これまでのやり方の数字" class="slide level2" data-chapter="II-1">
-<h2>これまでのやり方の数字</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>0.5で切る（これまでのやり方）</th>
-<th style="text-align: center;">値</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>精度（一致率）</td>
-<td style="text-align: center;">0.783</td>
-</tr>
-<tr class="even">
-<td>期待損失（損失の比1:5）</td>
-<td style="text-align: center;">0.777</td>
-</tr>
-</tbody>
-</table>
-<p>これを <span class="math inline">t^\star</span> で切り直し、同じ損失で測り直す。</p>
-</section>
-<section id="手続き①確率を出す" class="slide level2 smaller" data-chapter="II-2">
-<h2>手続き①：確率を出す</h2>
+<section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
+<h2>手続き：何をどう計算したか</h2>
 <ol type="1">
-<li>データ行列：数値7列を標準化、カテゴリ13列を0/1の列に展開して 61 列（どちらも訓練の行で学ぶ）</li>
-<li>確率：層化して訓練 700 人・テスト 300 人に分け、ロジスティック回帰（罰 <span class="math inline">\lambda=1</span>）でテストの確率 <span class="math inline">\boldsymbol\theta</span> を出して固定する</li>
-</ol>
-<p>以後、モデルは変えずに、しきい値だけを動かす。</p>
-</section>
-<section id="手続き②数えて比べる" class="slide level2 smaller" data-chapter="II-2">
-<h2>手続き②：数えて比べる</h2>
-<ol start="3" type="1">
-<li>期待損失：<span class="math inline">t</span> を0.01刻みで動かし、<span class="math inline">\mathbf M=\mathbf Y^\top\hat{\mathbf Y}</span> から <span class="math inline">\operatorname{tr}(\mathbf C^\top\mathbf M)/n</span> を数える。谷底を <span class="math inline">t^\star</span> と比べる</li>
-<li>判定：0.5と <span class="math inline">t^\star</span> で切った4つのマス、ROC曲線、精度と期待損失を比べる</li>
-<li>重み：badの行の尤度に重み5を付けて当てはめ直し、0.5で切る</li>
-<li>検証：訓練の行の中で5分割の交差検証をし、当てはめに使わなかった確率で谷底を探す</li>
+<li>用意する：13列を列ごとに標準化した <span class="math inline">\mathbf X</span></li>
+<li>手順を自分で回す：I-6の手順をNumPyの行列計算で書く</li>
+<li>ランダムスタート：<span class="math inline">k=3</span> で、初期値を 100 通り（<span class="math inline">\mathbf X</span> の行から3行）</li>
+<li>突き合わせる：<span class="math inline">J</span> が最小の答えと品種</li>
+<li>確かめる：初期値3通りで、<span class="math inline">J</span> の推移とscikit-learnのKMeansの答え</li>
+<li>目盛りを変える：標準化しない <span class="math inline">\mathbf X</span> でも回す</li>
 </ol>
 </section>
-<section id="結果①同じ重さの谷底" class="slide level2" data-chapter="II-3">
-<h2>結果①：同じ重さの谷底</h2>
-<div id="72c12356" class="cell" data-execution_count="74">
+<section id="結果①k3で100回" class="slide level2" data-chapter="II-3">
+<h2>結果①：k=3で100回</h2>
+<div id="8e164663" class="cell" data-execution_count="63">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-75-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-64-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="758" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>テスト 300 人の確率を固定し、<span class="math inline">t</span> を0.01刻みで動かして数えた。1:1の谷底は 0.49。予想どおり、0.5に来た。</p>
+<p>初期値を 100 通り変えて回した。着いた <span class="math inline">J</span> は 9 通り。予想①のとおり、着く先は初期値しだい。</p>
 </section>
-<section id="結果①15の谷底はずれる" class="slide level2" data-chapter="II-3">
-<h2>結果①：1:5の谷底はずれる</h2>
-<div id="138fa23f" class="cell" data-execution_count="75">
+<section id="結果①谷は2か所に集まる" class="slide level2" data-chapter="II-3">
+<h2>結果①：谷は2か所に集まる</h2>
+<div id="bae7c81c" class="cell" data-execution_count="64">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-76-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-65-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="758" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>1:5の谷底は 0.24 で、<span class="math inline">t^\star</span> = 0.17 からずれた。ここは予想が外れた。ずれはどこから来たか。</p>
+<p>96%は最小から1%以内（所属の違いは 7 本以内）。残り 4 回は、<span class="math inline">J</span> が 24%大きい谷に止まった。</p>
 </section>
-<section id="ずれの理由①較正ではない" class="slide level2" data-chapter="II-5">
-<h2>ずれの理由①：較正ではない</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math inline">t^\star</span> が谷底になるのは、確率が正しいとき。</p>
-<p>区間ごとに、平均の確率と実際のbadの割合を打った。点はおおむね対角線に沿う。</p>
-</div><div class="column" style="width:55%;">
-<div id="331a54bb" class="cell" data-execution_count="77">
+<section id="結果①遠い谷の答え" class="slide level2" data-chapter="II-4">
+<h2>結果①：遠い谷の答え</h2>
+<div id="869d9386" class="cell" data-execution_count="65">
 <div class="cell-output cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-78-output-1.png?v=9b4297c5" width="382" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-66-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="984" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+<p>左が最小、右が最も悪い答え。78 本の所属が違う。群で説明できた割合は 0.45 と 0.31。</p>
 </section>
-<section id="ずれの理由②谷底は分割で揺れる" class="slide level2" data-chapter="II-5">
-<h2>ずれの理由②：谷底は分割で揺れる</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>分割を 100 通り変え、そのたびに当てはめ直して谷底の位置を数えた。</p>
-<p>谷底は 0.07〜0.22（10〜90%）と揺れ、<span class="math inline">t^\star</span> はその中にある。今回の 0.24 以上は 6 通りだけ。</p>
-</div><div class="column" style="width:55%;">
-<div id="b95b8cbe" class="cell" data-execution_count="78">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-79-output-1.png?v=9b4297c5" width="380" height="366"></p>
-</figure>
+<section id="クイズ③品種と重なるか" class="slide level2" data-chapter="II-5">
+<h2>クイズ③：品種と重なるか</h2>
+<p>品種を使わずに、13列だけで3群に分けた（<span class="math inline">J</span> が最小の答え）。品種と同じ群に入ったワインは何割？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>4割ほど</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>6割ほど</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>8割ほど</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>9割以上</p>
 </div>
 </div>
-</div>
-</div></div>
 </section>
-<section id="結果②0.5で切った4つのマス" class="slide level2 smaller" data-chapter="II-4">
-<h2>結果②：0.5で切った4つのマス</h2>
+<section id="クイズ③の答えd" class="slide level2" data-chapter="II-5">
+<h2>クイズ③の答え：D</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>4割ほど</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>6割ほど</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>8割ほど</p>
+</div>
+<div class="c ok">
+<p><span class="k">D</span>9割以上</p>
+</div>
+</div>
+<p>178 本のうち 172 本（96.6%）。品種のラベルは一度も使っていない。</p>
+</section>
+<section id="結果②品種と群の表" class="slide level2 smaller" data-chapter="II-5">
+<h2>結果②：品種と群の表</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>0.5 で切る</th>
-<th>good と判定（貸す）</th>
-<th>bad と判定（断る）</th>
+<th>品種＼群</th>
+<th>群1</th>
+<th>群2</th>
+<th>群3</th>
+<th>計</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>本当は good</td>
-<td>TN 187</td>
-<td>FP（断る）23</td>
-</tr>
-<tr class="even">
-<td>本当は bad</td>
-<td>FN（貸す）42</td>
-<td>TP 48</td>
-</tr>
-</tbody>
-</table>
-<p>これまでのやり方。bad 90 人のうち 42 人に貸してしまう。</p>
-</section>
-<section id="結果②t-で切った4つのマス" class="slide level2 smaller" data-chapter="II-4">
-<h2>結果②：t* で切った4つのマス</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th><span class="math inline">t^\star=1/6</span> で切る</th>
-<th>good と判定（貸す）</th>
-<th>bad と判定（断る）</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>本当は good</td>
-<td>TN 111</td>
-<td>FP（断る）99</td>
-</tr>
-<tr class="even">
-<td>本当は bad</td>
-<td>FN（貸す）11</td>
-<td>TP 79</td>
-</tr>
-</tbody>
-</table>
-<p>badに貸すのは 11 人に減る。代わりにgoodの 99 人を断る。TPR 0.878、FPR 0.471、適合率 0.444。</p>
-</section>
-<section id="結果②rocの上の0.5" class="slide level2" data-chapter="II-4">
-<h2>結果②：ROCの上の0.5</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>テストのROC曲線。AUCは 0.801。</p>
-<p>0.5で切った点（黒）は左下に寄る。誤検出は少ないが、badの多くを見逃す。</p>
-</div><div class="column" style="width:55%;">
-<div id="161544ed" class="cell" data-execution_count="82">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-83-output-1.png?v=9b4297c5" width="383" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="結果②rocの上のt" class="slide level2" data-chapter="II-4">
-<h2>結果②：ROCの上のt*</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>損失1:5の等損失線（傾き 0.47）は、<span class="math inline">t^\star</span> の点（橙）のそばで曲線に触れる。</p>
-<p>AUCには、この点の選び方が表れない。</p>
-</div><div class="column" style="width:55%;">
-<div id="c8da7ebc" class="cell" data-execution_count="83">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-84-output-1.png?v=9b4297c5" width="383" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="結果②精度は下がる" class="slide level2 smaller" data-chapter="II-4">
-<h2>結果②：精度は下がる</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>やり方</th>
-<th>精度</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>全員に貸す</td>
-<td>0.700</td>
-</tr>
-<tr class="even">
-<td>しきい値 0.5</td>
-<td>0.783</td>
-</tr>
-<tr class="odd">
-<td>しきい値 <span class="math inline">t^\star</span> = 1/6</td>
-<td>0.633</td>
-</tr>
-</tbody>
-</table>
-<p>精度で比べると、0.5で切るのが最もよい。<span class="math inline">t^\star</span> では全員に貸すより低い。予想どおり、精度は下がった。</p>
-</section>
-<section id="結果②期待損失は下がる" class="slide level2 smaller" data-chapter="II-4">
-<h2>結果②：期待損失は下がる</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>やり方</th>
-<th>精度</th>
-<th>見逃し（貸す）</th>
-<th>誤検出（断る）</th>
-<th>期待損失（1:5）</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>全員に貸す</td>
-<td>0.700</td>
-<td>90</td>
+<td>品種1</td>
+<td>59</td>
 <td>0</td>
-<td>1.500</td>
+<td>0</td>
+<td>59</td>
 </tr>
 <tr class="even">
-<td>しきい値 0.5</td>
-<td>0.783</td>
-<td>42</td>
-<td>23</td>
-<td>0.777</td>
+<td>品種2</td>
+<td>3</td>
+<td>65</td>
+<td>3</td>
+<td>71</td>
 </tr>
 <tr class="odd">
-<td>しきい値 <span class="math inline">t^\star</span> = 1/6</td>
-<td>0.633</td>
-<td>11</td>
-<td>99</td>
-<td>0.513</td>
+<td>品種3</td>
+<td>0</td>
+<td>0</td>
+<td>48</td>
+<td>48</td>
 </tr>
 </tbody>
 </table>
-<p>提供者の損失で比べると、順位が入れ替わる。<span class="math inline">t^\star</span> の期待損失が最も小さい。ここも予想どおり。</p>
+<p>群の番号は、品種と最も重なる付け方にそろえた。外れたのは 6 本で、すべて品種2。予想②のとおり。</p>
 </section>
-<section id="結果③重みで当てはめ直す" class="slide level2" data-chapter="II-4">
-<h2>結果③：重みで当てはめ直す</h2>
-<ul>
-<li>badの行の尤度に重み5を付けて当てはめ直し、0.5で切る</li>
-<li>予想③：重みなしのモデルを <span class="math inline">t^\star=1/6</span> で切るのと同じ判定になるはず</li>
-</ul>
-</section>
-<section id="結果③同じ4つのマス" class="slide level2 smaller" data-chapter="II-4">
-<h2>結果③：同じ4つのマス</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>TN</th>
-<th>FP（断る）</th>
-<th>FN（貸す）</th>
-<th>TP</th>
-<th>期待損失</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>重み5で当てはめて 0.5 で切る</td>
-<td>116</td>
-<td>94</td>
-<td>12</td>
-<td>78</td>
-<td>0.513</td>
-</tr>
-<tr class="even">
-<td>重みなしで <span class="math inline">t^\star=1/6</span> で切る</td>
-<td>111</td>
-<td>99</td>
-<td>11</td>
-<td>79</td>
-<td>0.513</td>
-</tr>
-</tbody>
-</table>
-<p>別の設定なのに、ほぼ同じ4つのマス。予想どおり、重みもしきい値も同じ損失の比を表している。</p>
-</section>
-<section id="結果④検証の行で選ぶ" class="slide level2" data-chapter="II-4">
-<h2>結果④：検証の行で選ぶ</h2>
-<div id="3e09732b" class="cell" data-execution_count="91">
+<section id="結果②外れた本を図で見る" class="slide level2" data-chapter="II-5">
+<h2>結果②：外れた本を図で見る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math inline">J</span> が最小の答え。×が、品種と違う群に入った 6 本。</p>
+<p>どれも、群と群の境目のそばにある。</p>
+</div><div class="column" style="width:55%;">
+<div id="8d378d85" class="cell" data-execution_count="71">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-92-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="996" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png?v=7fad8c8f" width="495" height="510"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>訓練の行の交差検証で探した谷底は 0.21。テストで測ると 0.553（<span class="math inline">t^\star</span> は 0.513）。</p>
+</div></div>
 </section>
-<section id="結果④100通りで比べる" class="slide level2 smaller" data-chapter="II-4">
-<h2>結果④：100通りで比べる</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>しきい値の選び方</th>
-<th>テストの期待損失（100通りの平均）</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">t^\star=1/6</span>（損失の表から）</td>
-<td>0.558</td>
-</tr>
-<tr class="even">
-<td>検証の行で選ぶ</td>
-<td>0.569</td>
-</tr>
-<tr class="odd">
-<td>テストの谷底（テストを覗いて選ぶ）</td>
-<td>0.518</td>
-</tr>
-</tbody>
-</table>
-<p>検証で選ぶと、<span class="math inline">t^\star</span> よりわずかに悪い（勝ったのは 38 通り）。予想どおり。テストの谷底は覗いた分だけ甘い。</p>
-</section>
-<section id="ずれの理由③検証も揺れる" class="slide level2" data-chapter="II-5">
-<h2>ずれの理由③：検証も揺れる</h2>
+<section id="なぜ境目のそばの数本" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜ：境目のそばの数本</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>近い代表点2つへの距離の二乗の比。1に近いほど境目のそば。</p>
 <ul>
-<li>検証で選んだしきい値は 0.09〜0.19（10〜90%）と揺れた</li>
-<li>このデータの確率はおおむね較正されていた（ずれの理由①）</li>
-<li>較正された確率なら、揺れない <span class="math inline">t^\star</span> のほうが得をする</li>
+<li>外れた本：0.47〜0.95</li>
+<li>当たった本：中央値 0.28</li>
+</ul>
+<p><span class="math inline">\mathbf G</span> は0か1。境目のそばの本も、どちらかに100%入る。</p>
+</div><div class="column" style="width:55%;">
+<div id="ed1773d8" class="cell" data-execution_count="72">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-73-output-1.png?v=7fad8c8f" width="495" height="510"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="落とし穴標準化しない" class="slide level2" data-chapter="II-6">
+<h2>落とし穴：標準化しない</h2>
+<ul>
+<li>標準化せず、平均を引いただけの化学成分を <span class="math inline">\mathbf X</span> にする</li>
+<li><span class="math inline">k=3</span>、初期値50通りで <span class="math inline">J</span> が最小の答え</li>
+<li><span class="math inline">\lVert\mathbf X\rVert_F^2</span> の 99.8%はプロリンの1列</li>
 </ul>
 </section>
-<section id="落とし穴①badを間引く" class="slide level2" data-chapter="II-6">
-<h2>落とし穴①：badを間引く</h2>
-<ul>
-<li>badの少ない客層に、同じモデルを使うとする</li>
-<li>テストのgood 210 人は全部残し、bad 90 人から 15 人だけを無作為に残す</li>
-<li>これを200通り作り、確率はそのまま <span class="math inline">t^\star</span> で切って平均する</li>
-</ul>
-</section>
-<section id="落とし穴①動かない率" class="slide level2 smaller" data-chapter="II-6">
-<h2>落とし穴①：動かない率</h2>
+<section id="落とし穴プロリンだけで切る" class="slide level2 smaller" data-chapter="II-6">
+<h2>落とし穴：プロリンだけで切る</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th></th>
-<th>元のテスト（bad 90人）</th>
-<th>間引いたテスト（bad 15人）</th>
+<th>群（プロリンの小さい順）</th>
+<th>本数</th>
+<th>プロリンの範囲</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>陽性の割合 <span class="math inline">\pi</span></td>
-<td>0.300</td>
-<td>0.067</td>
+<td>群1</td>
+<td>69</td>
+<td>278〜590</td>
 </tr>
 <tr class="even">
-<td>TPR（再現率）</td>
-<td>0.878</td>
-<td>0.876</td>
+<td>群2</td>
+<td>62</td>
+<td>600〜937</td>
 </tr>
 <tr class="odd">
-<td>FPR</td>
-<td>0.471</td>
-<td>0.471</td>
-</tr>
-<tr class="even">
-<td>AUC</td>
-<td>0.801</td>
-<td>0.800</td>
+<td>群3</td>
+<td>47</td>
+<td>970〜1,680</td>
 </tr>
 </tbody>
 </table>
-<p>陽性の割合は下がった。TPR・FPR・AUCは、群の中の率か順位なので動かない。</p>
+<p>3群のプロリンの範囲は重ならない。群はプロリンの値だけで切られた。群で説明できた割合は 0.87 と高いが、ほぼプロリン1列の話。</p>
 </section>
-<section id="落とし穴①動く率" class="slide level2 smaller" data-chapter="II-6">
-<h2>落とし穴①：動く率</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>元のテスト（bad 90人）</th>
-<th>間引いたテスト（bad 15人）</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>陽性の割合 <span class="math inline">\pi</span></td>
-<td>0.300</td>
-<td>0.067</td>
-</tr>
-<tr class="even">
-<td>全員に貸すときの精度</td>
-<td>0.700</td>
-<td>0.933</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">t^\star</span> で切った精度</td>
-<td>0.633</td>
-<td>0.552</td>
-</tr>
-<tr class="even">
-<td>適合率</td>
-<td>0.444</td>
-<td>0.117</td>
-</tr>
-</tbody>
-</table>
-<p>全員に貸す精度は上がり、<span class="math inline">t^\star</span> で切った精度を上回る。適合率は下がる。AUCが同じでも、断った中の本当のbadは減る。</p>
-</section>
-<section id="落とし穴②badを水増しする" class="slide level2" data-chapter="II-6">
-<h2>落とし穴②：badを水増しする</h2>
-<ul>
-<li>陽性が少ないとき、よく使われるのが水増し（オーバーサンプリング）</li>
-<li>訓練のbad 210 人を、goodと同じ 490 人まで復元抽出で複製する</li>
-<li>当てはめ直し、これまでのとおり0.5で切る</li>
-</ul>
-</section>
-<section id="落とし穴②0.5で切ると" class="slide level2 smaller" data-chapter="II-6">
-<h2>落とし穴②：0.5で切ると</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>平均の確率</th>
-<th>しきい値</th>
-<th>期待損失</th>
-<th>AUC</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>元のモデル</td>
-<td>0.303</td>
-<td>1/6</td>
-<td>0.513</td>
-<td>0.801</td>
-</tr>
-<tr class="even">
-<td>水増し</td>
-<td>0.423</td>
-<td>0.5</td>
-<td>0.603</td>
-<td>0.806</td>
-</tr>
-</tbody>
-</table>
-<p>確率が上へずれる。オッズは約 2.33 倍で、0.5で切ると黙って損失の比 2.33 を選んだことになる。</p>
-</section>
-<section id="落とし穴②尺度を直す" class="slide level2 smaller" data-chapter="II-6">
-<h2>落とし穴②：尺度を直す</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>平均の確率</th>
-<th>しきい値</th>
-<th>期待損失</th>
-<th>AUC</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>元のモデル</td>
-<td>0.303</td>
-<td>1/6</td>
-<td>0.513</td>
-<td>0.801</td>
-</tr>
-<tr class="even">
-<td>水増し</td>
-<td>0.423</td>
-<td>0.5</td>
-<td>0.603</td>
-<td>0.806</td>
-</tr>
-<tr class="odd">
-<td>水増し（尺度を直す）</td>
-<td>0.423</td>
-<td>0.318</td>
-<td>0.527</td>
-<td>0.806</td>
-</tr>
-</tbody>
-</table>
-<p>オッズの倍率で <span class="math inline">t^\star</span> を直して 0.318 で切れば、期待損失は元に近づく。AUCはどれもほぼ同じ。</p>
+<section id="落とし穴品種と重ならない" class="slide level2" data-chapter="II-6">
+<h2>落とし穴：品種と重ならない</h2>
+<div id="7f76cf62" class="cell" data-execution_count="76">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-77-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="984" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じ2列で描いた。(b) では、成分の似たワインが別々の群に散らばる。予想③のとおり。</p>
 </section>
 <section id="このデータでわかったこと" class="slide level2" data-chapter="II-6">
 <h2>このデータでわかったこと</h2>
 <ul>
-<li>予想どおり：1:1の谷底は 0.49。0.5に来た</li>
-<li>外れた：1:5の谷底は 0.24。確率は較正されており、ずれは300人の標本の揺れ</li>
-<li>予想どおり：<span class="math inline">t^\star</span> で切ると、精度は下がり、期待損失は下がった</li>
-<li>予想どおり：重み5で当てはめ直すと、<span class="math inline">t^\star</span> で切るのとほぼ同じ判定になった</li>
-<li>予想どおり：検証の行で選んだしきい値は、揺れの分だけ <span class="math inline">t^\star</span> にわずかに負けた</li>
+<li>予想どおり：着く先は 9 通り。ただし 96%は最小のそば。数回のやり直しで足りる</li>
+<li>予想どおり：品種を使わずに、97%が品種と同じ群。外れた数本は境目のそば</li>
+<li>予想どおり：標準化しないと、プロリン1列で群が決まる</li>
 </ul>
 </section></section>
 <section>
@@ -2029,69 +1625,277 @@ C_{ql}=\begin{cases}0&amp;(q=l)\\1&amp;(q\ne l)\end{cases}
 <h1>締め</h1>
 
 </section>
-<section id="まとめ①損失で切る場所が決まる" class="slide level2" data-chapter="締め">
-<h2>まとめ①：損失で切る場所が決まる</h2>
-<div id="ff7905a9" class="cell" data-execution_count="101">
+<section id="まとめ①交互に解く" class="slide level2" data-chapter="締め">
+<h2>まとめ①：交互に解く</h2>
+<div id="38eebc36" class="cell" data-execution_count="79">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-102-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="1001" height="330"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-80-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="750" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>期待損失 <span class="math inline">R(t)=\operatorname{tr}(\mathbf C^\top\mathbf M)/n</span> を最小にするのは <span class="math inline">t^\star=c_{\mathrm{FP}}/(c_{\mathrm{FP}}+c_{\mathrm{FN}})</span>。0.5は「同じ重さ」の表明。</p>
+<p><span class="math inline">\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2</span> を、最も近い代表点（<span class="math inline">\mathbf G</span>）と群の平均（<span class="math inline">\mathbf C</span>）で交互に下げる。</p>
 </section>
-<section id="まとめ②同じ損失で測る" class="slide level2" data-chapter="締め">
-<h2>まとめ②：同じ損失で測る</h2>
-<div id="1138f375" class="cell" data-execution_count="102">
+<section id="まとめ②jは群内のばらつき" class="slide level2" data-chapter="締め">
+<h2>まとめ②：Jは群内のばらつき</h2>
+<div id="6b799be3" class="cell" data-execution_count="80">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-103-output-1.png?v=9b4297c5" class="quarto-figure quarto-figure-center" width="853" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-81-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="820" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>損失が決まらないならROC曲線。損失を決めることは、その上の1点を選ぶこと。</p>
+<p>全体の平方和は一定。<span class="math inline">J</span>（群内）の最小は群間の最大。<span class="math inline">J</span> は列ごとの和なので、目盛りは用意する側が決める。</p>
 </section>
-<section id="まとめ③指標の仮定を読む" class="slide level2" data-chapter="締め">
-<h2>まとめ③：指標の仮定を読む</h2>
+<section id="まとめ③着く先は初期値しだい" class="slide level2" data-chapter="締め">
+<h2>まとめ③：着く先は初期値しだい</h2>
+<div id="7a25ec7a" class="cell" data-execution_count="81">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-82-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="701" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">J</span> は毎回下がるが、局所解に止まることがある。k-means++ で始め、やり直して <span class="math inline">J</span> 最小を採る。</p>
+</section>
+<section id="次回予告①0か1で切る" class="slide level2" data-chapter="締め">
+<h2>次回予告①：0か1で切る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
 <ul>
-<li>精度は、2種類の誤りを同じ重さとみなす</li>
-<li>AUCは、しきい値も <span class="math inline">\pi</span> も見ない。適合率は <span class="math inline">\pi</span> で動く</li>
-<li><span class="math inline">t^\star</span> が最適なのは、確率が較正されているとき。怪しければ検証の行で選ぶ</li>
-<li>3群以上でも、損失の見込み <span class="math inline">\mathbf C^\top\boldsymbol\theta</span> が最小の判定を選ぶ</li>
+<li><span class="math inline">\mathbf G</span> の各行は0か1：境目のすぐそばの個体も、100%どちらか</li>
+<li>境目は代表点の垂直二等分線：群の形や広がりは見ていない</li>
+</ul>
+</div><div class="column" style="width:55%;">
+<div id="4eeb04e6" class="cell" data-execution_count="82">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-83-output-1.png?v=7fad8c8f" width="424" height="414"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="次回予告②最尤法で" class="slide level2" data-chapter="締め">
+<h2>次回予告②：最尤法で</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>最小二乗法</th>
+<th>最尤法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">y</span> を近似する</td>
+<td>第1回（線形回帰）・第5回（0/1回帰）</td>
+<td>第6回（LDA・ロジスティック回帰）</td>
+</tr>
+<tr class="even">
+<td>行を群に分ける</td>
+<td>第7回（k-means）</td>
+<td>？</td>
+</tr>
+</tbody>
+</table>
+<p>問い：同じ群を最尤法で推定すると？</p>
+</section></section>
+<section>
+<section id="発展" class="title-slide slide level1 part center">
+<h1>発展</h1>
+
+</section>
+<section id="発展データが増えると" class="slide level2" data-chapter="発展">
+<h2>発展：データが増えると</h2>
+<ul>
+<li>ここまでの <span class="math inline">J</span> は、手元の <span class="math inline">n</span> 行の和だった</li>
+<li>同じ分布から行を増やしたら、最良の代表点は何かに近づくか</li>
+<li>Pollard (1981)：近づく。鍵は経験過程</li>
 </ul>
 </section>
-<section id="次回予告①二乗誤差と尤度" class="slide level2" data-chapter="締め">
-<h2>次回予告①：二乗誤差と尤度</h2>
+<section id="母集団の目的関数" class="slide level2 smaller" data-chapter="発展">
+<h2>母集団の目的関数</h2>
+<p><span class="math display">
+\frac1nJ(\mathbf C)=\frac1n\sum_{i=1}^{n}\min_{q}\lVert\tilde{\boldsymbol x}_i-\boldsymbol c_q\rVert_2^2
+\ \longrightarrow\
+\bar J(\mathbf C)=\mathbb E\Bigl[\min_{q}\lVert\boldsymbol x-\boldsymbol c_q\rVert_2^2\Bigr]
+</span></p>
+<p><span class="credit">出典：Pollard (1981) Strong consistency of k-means clustering. Ann. Statist. 9: 135–140（定理を本講義の記号で書いた）</span></p>
+<p><span class="math inline">\mathbb E\lVert\boldsymbol x\rVert_2^2&lt;\infty</span> で、<span class="math inline">\bar J</span> を最小にする <span class="math inline">\mathbf C^\ast</span> がただ1つなら、<span class="math inline">J</span> を最小にする <span class="math inline">\hat{\mathbf C}</span> は <span class="math inline">n\to\infty</span> で <span class="math inline">\mathbf C^\ast</span> に近づく（番号の付け替えを除いて）。</p>
+</section>
+<section id="選んだ点は楽観的" class="slide level2" data-chapter="発展">
+<h2>選んだ点は楽観的</h2>
+<div id="b02e7ec7" class="cell" data-execution_count="84">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-85-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="776" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\hat{\mathbf C}</span> は手元で <span class="math inline">J</span> が最小になるよう選んだ点。手元で測ると（赤）、母集団で測る（黒）より小さく出る。第2回の訓練誤差と同じ。</p>
+</section>
+<section id="差を3つに分ける" class="slide level2 smaller" data-chapter="発展">
+<h2>差を3つに分ける</h2>
 <p><span class="math display">
 \begin{aligned}
-&amp;\text{第1回：}\ \lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_2^2\\
-&amp;\text{第6回：}\ \textstyle\sum_i\bigl[y_i\log \theta_i+(1-y_i)\log(1-\theta_i)\bigr]
+\bar J(\hat{\mathbf C})-\bar J(\mathbf C^\ast)
+&amp;=\underbrace{\Bigl[\bar J(\hat{\mathbf C})-\tfrac1nJ(\hat{\mathbf C})\Bigr]}_{\text{(ア)}}
++\underbrace{\Bigl[\tfrac1nJ(\hat{\mathbf C})-\tfrac1nJ(\mathbf C^\ast)\Bigr]}_{\text{(イ)}\ \le\ 0}\\
+&amp;\quad+\underbrace{\Bigl[\tfrac1nJ(\mathbf C^\ast)-\bar J(\mathbf C^\ast)\Bigr]}_{\text{(ウ)}}
 \end{aligned}
 </span></p>
-<p>二乗誤差も尤度も、正解 <span class="math inline">y</span> と比べていた。</p>
-</section>
-<section id="次回予告②期待損失も" class="slide level2" data-chapter="締め">
-<h2>次回予告②：期待損失も</h2>
-<p><span class="math display">
-\begin{aligned}
-&amp;\text{第1回：}\ \lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_2^2\\
-&amp;\text{第6回：}\ \textstyle\sum_i\bigl[y_i\log \theta_i+(1-y_i)\log(1-\theta_i)\bigr]\\
-&amp;\text{今回：}\ \textstyle\frac1n\sum_i\bigl[c_{\mathrm{FN}}\,y_i(1-\hat y_i)+c_{\mathrm{FP}}\,(1-y_i)\,\hat y_i\bigr]
-\end{aligned}
-</span></p>
-<p>今回の期待損失も、正解 <span class="math inline">y</span> と比べて誤りを数えていた。</p>
-</section>
-<section id="次回予告③ラベルが無いとき" class="slide level2" data-chapter="締め">
-<h2>次回予告③：ラベルが無いとき</h2>
 <ul>
-<li>手元に <span class="math inline">\mathbf X</span> だけがあり、<span class="math inline">y</span> が無いこともある</li>
-<li>何を誤りと呼べばよいのか。損失を定義できるのか</li>
+<li>(イ)：<span class="math inline">\hat{\mathbf C}</span> は手元の <span class="math inline">J</span> の最小なので0以下</li>
+<li>(ウ)：<span class="math inline">\mathbf C^\ast</span> はデータによらない点。大数の法則で0へ</li>
+<li>(ア)：データで選んだ点。大数の法則は使えない。ここが問題</li>
 </ul>
-<p>問い：ラベルが無いとき、何を最小化するか？</p>
+</section>
+<section id="経験過程どこでも小さく" class="slide level2" data-chapter="発展">
+<h2>経験過程：どこでも小さく</h2>
+<p><span class="math display">
+\text{(ア)}\le\sup_{\mathbf C}\Bigl|\frac1nJ(\mathbf C)-\bar J(\mathbf C)\Bigr|\longrightarrow0
+</span></p>
+<p><span class="math inline">\mathbf C</span> を動かしたときのゆらぎ <span class="math inline">J(\mathbf C)/n-\bar J(\mathbf C)</span> を、関数として丸ごと見たものを経験過程と呼ぶ。どの点で選んでもゆらぎが小さいと言えれば、(ア) も0に近づく（一様な大数の法則）。</p>
+</section>
+<section id="点ずつでは足りない" class="slide level2" data-chapter="発展">
+<h2>1点ずつでは足りない</h2>
+<div id="cdc4b9a6" class="cell" data-execution_count="85">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-86-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="942" height="305"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>左：1点ずつは近くても、手元だけの下向きのゆらぎが残れば、最小の位置はそこに選ばれる。右：どこでも近ければ、選ばれる点は母集団の最小の近くにある。</p>
+</section>
+<section id="保証されるのは最小の答え" class="slide level2 smaller" data-chapter="発展">
+<h2>保証されるのは最小の答え</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>問題</th>
+<th>中身</th>
+<th>答え</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>関数のずれ</td>
+<td>手元の <span class="math inline">J/n</span> が <span class="math inline">\bar J</span> からずれ、最小の位置が動く</td>
+<td>経験過程が一様に小さい（Pollard）</td>
+</tr>
+<tr class="even">
+<td>手順の止まり方</td>
+<td>交互最小二乗法が、最小でない場所（局所解）で止まる</td>
+<td>未解決（Pollard 自身が書いた）。ランダムスタート・k-means++ で補う</td>
+</tr>
+</tbody>
+</table>
+<p>定理が言うのは、<span class="math inline">J</span> を本当に最小にする <span class="math inline">\hat{\mathbf C}</span> について。手順が止まる場所の話ではない。</p>
+</section>
+<section id="発展列を選びながら分ける" class="slide level2" data-chapter="発展">
+<h2>発展：列を選びながら分ける</h2>
+<ul>
+<li>列が数千あっても、群を分けるのに効く列は一部だけのことが多い（遺伝子、タンパク質）</li>
+<li>k-meansの <span class="math inline">J</span> は、すべての列の誤差を同じ重みで足す</li>
+<li>効かない列を外しながら、群に分けられないか</li>
+</ul>
+</section>
+<section id="group-lasso-を付けたk-means" class="slide level2" data-chapter="発展">
+<h2>group lasso を付けたk-means</h2>
+<div id="8059c1eb" class="cell" data-execution_count="88">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-89-output-1.png?v=7fad8c8f" class="quarto-figure quarto-figure-center" width="367" height="165"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">
+\min_{\mathbf G,\mathbf C}\ \frac1n\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2+\sum_{j=1}^{p}\lambda_j\lVert\boldsymbol c_{(j)}\rVert_2
+</span></p>
+<p><span class="credit">出典：Sun, Wang &amp; Fang (2012) Regularized k-means clustering of high-dimensional data and its asymptotic consistency. Electron. J. Stat. 6: 148–167（式(2)を本講義の記号で書いた）</span></p>
+<p><span class="math inline">\boldsymbol c_{(j)}</span> は <span class="math inline">\mathbf C</span> の第 <span class="math inline">j</span> 列。効かない列は、どの群でも0になる。</p>
+</section>
+<section id="遺伝子データの例" class="slide level2 smaller" data-chapter="発展">
+<h2>遺伝子データの例</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>データ</th>
+<th>方法</th>
+<th>群の数</th>
+<th>使った遺伝子</th>
+<th>腫瘍の型と違った数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>白血病（72人）</td>
+<td>k-means</td>
+<td>2</td>
+<td>3571</td>
+<td>2/72</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>罰則付きk-means</td>
+<td>2</td>
+<td>211</td>
+<td>2/72</td>
+</tr>
+<tr class="odd">
+<td>リンパ腫（62個）</td>
+<td>k-means</td>
+<td>2</td>
+<td>4026</td>
+<td>4/62</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>罰則付きk-means</td>
+<td>3</td>
+<td>66</td>
+<td>1/62</td>
+</tr>
+</tbody>
+</table>
+<p><span class="credit">出典：Sun, Wang &amp; Fang (2012) Electron. J. Stat. 6: 148–167, Table 5（一部を日本語にした。CC BY 4.0）</span></p>
+<p>群の数も罰則の強さも、データから選んだ。使う遺伝子は数千から数十〜数百に減った。</p>
+</section>
+<section id="選ばれた66個の遺伝子" class="slide level2" data-chapter="発展">
+<h2>選ばれた66個の遺伝子</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="papers/sun2012_fig2.png" class="quarto-figure quarto-figure-center" height="360"></p>
+</figure>
+</div>
+<p><span class="credit">出典：Sun, Wang &amp; Fang (2012) Electron. J. Stat. 6: 148–167, Fig. 2（CC BY 4.0）</span></p>
+<p>リンパ腫の腫瘍62個（行）× 選ばれた66遺伝子（列）。右の文字が腫瘍の型。3つの型が、色の塊で分かれる。</p>
 
 </section></section>
     </div>

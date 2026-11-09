@@ -14,7 +14,7 @@
 | 4 | 罰則付き最小二乗法（[読み物 PDF](04_regression_flow/reading.pdf)） |
 | 5 | 分類①：最小二乗法（[読み物 PDF](05_regression_limits/reading.pdf)） |
 | 6 | 分類②：最尤法（[読み物 PDF](06_regularization/reading.pdf)） |
-| 7 | 決定理論と評価（[読み物 PDF](07_classification/reading.pdf)） |
+| 7 | k-means（[読み物 PDF](07_classification/reading.pdf)） |
 | 8 | 教師あり学習と教師なし学習（[読み物 PDF](08_classification_flow/reading.pdf)） |
 | 9 | 主成分分析①（[読み物 PDF](09_supervised_unsupervised/reading.pdf)） |
 | 10 | 主成分分析②（[読み物 PDF](10_pca/reading.pdf)） |
