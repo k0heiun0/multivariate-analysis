@@ -9,7 +9,7 @@
 <link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
-  <title>第14回 対応分析</title>
+  <title>第14回 ネットワーク分析①</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-7e20e3de5639de3bbe77c197722293ab.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-8a767225a46d1c0e9037b85e1e5b22fd.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -145,8 +145,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">第14回 対応分析</h1>
-  <p class="subtitle">独立の表からのずれを、重みを付けて低ランク近似する</p>
+  <h1 class="title">第14回 ネットワーク分析①</h1>
+  <p class="subtitle">つながりの表から、まとまりを固有ベクトルで見つけて描く</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -157,969 +157,825 @@
 <h1>第I部　理論</h1>
 
 </section>
-<section id="これまでの表" class="slide level2" data-chapter="I-1">
-<h2>これまでの表</h2>
+<section id="前回の答え何で割った数字か" class="slide level2" data-chapter="I-1">
+<h2>前回の答え：何で割った数字か</h2>
+<p><span class="math display">
+d_{ij}=\frac{o_{ij}-e_{ij}}{\sqrt{e_{ij}\,(1-r_i)(1-c_j)}}
+</span></p>
+<p>残差は、推定に使われた分だけ縮む。縮んだ分で割り戻して、1マスのずれを ±2と比べた。</p>
+</section>
+<section id="前回の問い行も列も同じ" class="slide level2" data-chapter="I-1">
+<h2>前回の問い：行も列も同じ</h2>
 <ul>
-<li>第1〜13回のデータ行列 <span class="math inline">\mathbf X</span>：1行が1個体、1列が測った量</li>
-<li>マスの中身は、測った値そのもの（数）</li>
+<li>ここまでの表は、行と列が別のもの：飲み物 × 季節、個体 × 変数</li>
+<li>行も列も同じものの表もある：駅 × 駅の乗り換えの人数、店 × 店の同じ日に寄った客の数</li>
 </ul>
-<p>別の表もある。数えた表である。</p>
+<p>問い：つながりの表から、何を読み、どう描くか？</p>
 </section>
-<section id="データ注文の数の表" class="slide level2" data-chapter="I-1">
-<h2>データ：注文の数の表</h2>
-<div id="d0f7adb1" class="cell" data-execution_count="2">
+<section id="データ13点のつながり" class="slide level2" data-chapter="I-1">
+<h2>データ：13点のつながり</h2>
+<div id="b8e6e2bf" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>ラーメン屋の1か月の注文 1,210 杯を、メニュー × 時間帯で数えた（人工データ）。行も列もカテゴリ。</p>
+<p>13個の点と 24 本の線（人工データ）。例：店と店、同じ日に両方に寄った客がいれば線を引く。</p>
 </section>
-<section id="知りたいのは組み合わせ" class="slide level2" data-chapter="I-1">
-<h2>知りたいのは組み合わせ</h2>
-<div id="f407943f" class="cell" data-execution_count="3">
+<section id="隣接行列" class="slide level2" data-chapter="I-1">
+<h2>隣接行列</h2>
+<div id="e8ebe23b" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>豚骨は深夜によく出るのか。つけ麺は昼か。知りたいのは、どの時間帯にどのメニューが出るかという関連の形。</p>
+<p><span class="math inline">a_{ij}=1</span>（<span class="math inline">i</span> と <span class="math inline">j</span> に線）、0（線が無い）。行も列も同じ13点。<span class="math inline">\mathbf A=\mathbf A^\top</span>、対角は0。</p>
 </section>
-<section id="第10回のように分解する" class="slide level2" data-chapter="I-1">
-<h2>第10回のように分解する</h2>
-<div id="dfec9196" class="cell" data-execution_count="4">
+<section id="困りごと①並べ方で見えない" class="slide level2" data-chapter="I-1">
+<h2>困りごと①：並べ方で見えない</h2>
+<div id="07dfa1d4" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>表をデータ行列とみてそのまま特異値分解（第10回）。1本目で 75.2%。</p>
+<p>表を眺めても、図を描いても、まとまりがあるのかどうか分からない。</p>
 </section>
-<section id="困りごと①1本目は量" class="slide level2" data-chapter="I-1">
-<h2>困りごと①：1本目は「量」</h2>
-<div id="c812e734" class="cell" data-execution_count="5">
+<section id="困りごと②線の数では" class="slide level2" data-chapter="I-1">
+<h2>困りごと②：線の数では</h2>
+<div id="b0139c26" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="945" height="285"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>(b) は (c) とほぼ同じ（差は最大 17.1 杯）。(c) は行の合計と列の合計だけから作った表。</p>
+<p>点ごとに線の数を数えた。13以外はどれも3〜5本。線の数からは、どの点とどの点が同じまとまりか分からない。</p>
 </section>
-<section id="量しか見ていない" class="slide level2" data-chapter="I-1">
-<h2>量しか見ていない</h2>
-<div id="d0f79716" class="cell" data-execution_count="6">
+<section id="困りごと③少なく切ると1点" class="slide level2" data-chapter="I-1">
+<h2>困りごと③：少なく切ると1点</h2>
+<div id="e22b44dd" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="340" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>(c) が表すのは「醤油はよく出る」「夜は客が多い」だけ。どの時間帯にどのメニューか、には答えていない。</p>
-</section>
-<section id="困りごと②同じ5杯のずれ" class="slide level2 smaller" data-chapter="I-1">
-<h2>困りごと②：同じ5杯のずれ</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>マス</th>
-<th style="text-align: center;">期待度数 <span class="math inline">e</span></th>
-<th style="text-align: center;">観測 <span class="math inline">o</span></th>
-<th style="text-align: center;">差 <span class="math inline">o-e</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>少ないマス</td>
-<td style="text-align: center;">10杯</td>
-<td style="text-align: center;">15杯</td>
-<td style="text-align: center;">5杯</td>
-</tr>
-<tr class="even">
-<td>多いマス</td>
-<td style="text-align: center;">100杯</td>
-<td style="text-align: center;">105杯</td>
-<td style="text-align: center;">5杯</td>
-</tr>
-</tbody>
-</table>
-<p>独立なら10杯のはずのマスと、100杯のはずのマス。差はどちらも5杯。同じ重さで足してよいか。</p>
-</section>
-<section id="困りごと③1枚に描けるか" class="slide level2" data-chapter="I-1">
-<h2>困りごと③：1枚に描けるか</h2>
-<div id="d1352fc0" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1106" height="342"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>メニューは時間帯4つの割合で、時間帯はメニュー5つの割合で表す。中身の違う2種類の点を、1枚の地図に置けるか。</p>
+<p>2つに分けるとき、切る線（赤）の数を最も少なくすると、13だけが1本で切り離される。</p>
 </section>
 <section id="今回の問い" class="slide level2" data-chapter="I-1">
 <h2>今回の問い</h2>
-<p>第13回の最後に、問いを1つ残した。</p>
-<p>行と列が両方カテゴリなら？（困りごと①。②③にも答える）</p>
+<p>つながりの表から、まとまりをどう見つけて描くか？（困りごと①。②③にも答える）</p>
 <p>今回覚える言葉</p>
 <ul>
-<li>分割表と行プロファイル</li>
-<li>独立のモデル・期待度数</li>
-<li>重み付き最小二乗法</li>
-<li>χ²距離・総慣性</li>
-<li>対応分析（行の点・列の点）・補助点</li>
+<li>隣接行列・次数・グラフラプラシアン</li>
+<li>カット・レシオカット・正規化カット</li>
+<li>スペクトルクラスタリング</li>
 </ul>
 </section>
-<section id="答えの見通しずれを近似" class="slide level2" data-chapter="I-1">
-<h2>答えの見通し：ずれを近似</h2>
+<section id="今回の道筋" class="slide level2" data-chapter="I-1">
+<h2>今回の道筋</h2>
 <ol type="1">
-<li>独立なら期待される表（(c) の表）を先に引く</li>
-<li>残ったずれを、期待度数で割った二乗で測る（重み付き最小二乗法）</li>
-<li>第10回の特異値分解を1回：上位 <span class="math inline">Q</span> 本が最良 → 行と列を1枚の地図に</li>
+<li>隣どうしで値が違うほど大きくなる量を、行列で書く</li>
+<li>2つに切る線の数を、その量で書く。1点だけ切らないよう、大きさで割る</li>
+<li>0/1をあきらめて、固有ベクトルで解く</li>
+<li>k個に分ける。描く</li>
+<li>次数で割ると、第12回の対応分析とつながる</li>
 </ol>
 </section>
-<section id="位置づけ重み付きの行" class="slide level2 smaller" data-chapter="I-1">
-<h2>位置づけ：重み付きの行</h2>
+<section id="位置づけ固有値で分ける" class="slide level2 smaller" data-chapter="I-1">
+<h2>位置づけ：固有値で分ける</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 15%">
-<col style="width: 26%">
-<col style="width: 15%">
-<col style="width: 15%">
-<col style="width: 26%">
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>モデル</th>
-<th style="text-align: center;">近似する相手</th>
-<th>目的関数</th>
-<th>解き方</th>
+<th style="text-align: center;">手元の行列</th>
+<th style="text-align: center;">解き方</th>
 <th style="text-align: center;">回</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>主成分分析</td>
-<td style="text-align: center;"><span class="math inline">\mathbf X</span></td>
-<td><span class="math inline">\lVert\mathbf X-\mathbf F\mathbf A^\top\rVert_F^2</span></td>
-<td>特異値分解を1回</td>
-<td style="text-align: center;">第10回</td>
+<td>k-means</td>
+<td style="text-align: center;">データ行列 <span class="math inline">\mathbf X</span></td>
+<td style="text-align: center;">交互に解く</td>
+<td style="text-align: center;">第7回</td>
 </tr>
 <tr class="even">
-<td>k-means</td>
-<td style="text-align: center;"><span class="math inline">\mathbf X</span></td>
-<td><span class="math inline">\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2</span></td>
-<td>交互に解く</td>
-<td style="text-align: center;">第11回</td>
+<td>主成分分析</td>
+<td style="text-align: center;">データ行列 <span class="math inline">\mathbf X</span></td>
+<td style="text-align: center;">特異値分解</td>
+<td style="text-align: center;">第10回</td>
 </tr>
 <tr class="odd">
 <td>対応分析</td>
-<td style="text-align: center;">比率の表 <span class="math inline">\mathbf P</span></td>
-<td><span class="math inline">\sum_{i,j}(p_{ij}-\hat p_{ij})^2/(r_ic_j)</span></td>
-<td>特異値分解を1回</td>
-<td style="text-align: center;">第14回</td>
-</tr>
-</tbody>
-</table>
-<p>推定法に重み付き最小二乗法が加わる。</p>
-</section>
-<section id="次の問い表を記号で書く" class="slide level2" data-chapter="I-1">
-<h2>次の問い：表を記号で書く</h2>
-<ul>
-<li>度数は、総数 <span class="math inline">n</span> が変わると全部が変わる</li>
-<li>行の大きさ（よく出るメニュー）と、行の中の形（いつ出るか）を分けたい</li>
-</ul>
-<p>問い：表を、どの記号で書けばよいか？</p>
-</section>
-<section id="道具①比率の表" class="slide level2" data-chapter="I-4">
-<h2>道具①：比率の表</h2>
-<div id="f5bcdf2b" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="816" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>各マスを総数で割る：<span class="math inline">p_{ij}=o_{ij}/n</span>。全マスを足すと1。</p>
-</section>
-<section id="道具①行の周辺" class="slide level2" data-chapter="I-4">
-<h2>道具①：行の周辺</h2>
-<div id="d2169ac4" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="816" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>行ごとに足す：<span class="math inline">r_i=\sum_{j}p_{ij}</span>。豚骨は 240/1,210 = 0.198。</p>
-</section>
-<section id="道具①列の周辺" class="slide level2" data-chapter="I-4">
-<h2>道具①：列の周辺</h2>
-<div id="5b25f24d" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="816" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>列ごとに足す：<span class="math inline">c_j=\sum_{i}p_{ij}</span>。深夜は 0.190。</p>
-</section>
-<section id="道具①ベクトルで" class="slide level2" data-chapter="I-4">
-<h2>道具①：ベクトルで</h2>
-<p><span class="math display">
-\boldsymbol r=\mathbf P\mathbf 1_J,\qquad \boldsymbol c=\mathbf P^\top\mathbf 1_I,\qquad \mathbf 1_I^\top\boldsymbol r=\mathbf 1_J^\top\boldsymbol c=1
-</span></p>
-<p><span class="math inline">\mathbf 1_J</span> は1を <span class="math inline">J</span> 個並べた縦ベクトル。1を掛けて足すと、行の和・列の和になる。</p>
-</section>
-<section id="道具②周辺を対角に" class="slide level2" data-chapter="I-4">
-<h2>道具②：周辺を対角に</h2>
-<p><span class="math display">
-\mathbf D_r=\operatorname{diag}(r_1,\dots,r_I),\qquad
-\mathbf D_c=\operatorname{diag}(c_1,\dots,c_J)
-</span></p>
-<p>周辺を対角に並べ、ほかは0の行列。</p>
-</section>
-<section id="道具②対角行列で割る" class="slide level2" data-chapter="I-4">
-<h2>道具②：対角行列で割る</h2>
-<p><span class="math display">
-\bigl(\mathbf D_r^{-1}\mathbf P\bigr)_{ij}=\frac{p_{ij}}{r_i},\qquad
-\bigl(\mathbf D_r^{-1/2}\mathbf A\,\mathbf D_c^{-1/2}\bigr)_{ij}=\frac{a_{ij}}{\sqrt{r_ic_j}}
-</span></p>
-<p>左から掛けると行ごと、右から掛けると列ごとに割る。マスごとの割り算を、行列の積で書ける。</p>
-</section>
-<section id="道具③行プロファイル" class="slide level2" data-chapter="I-4">
-<h2>道具③：行プロファイル</h2>
-<div id="caa80bbd" class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="822" height="342"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>行 <span class="math inline">i</span> を <span class="math inline">r_i</span> で割った形 <span class="math inline">\boldsymbol a_i</span>（<span class="math inline">\mathbf D_r^{-1}\mathbf P</span> の行）。足すと1。豚骨は深夜が多い。</p>
-</section>
-<section id="道具③平均の形" class="slide level2" data-chapter="I-4">
-<h2>道具③：平均の形</h2>
-<div id="f52b0a02" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="822" height="342"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>行の形を <span class="math inline">r_i</span> で重み付けして平均すると <span class="math inline">\sum_ir_i\boldsymbol a_i=\boldsymbol c</span>。列の周辺が平均の形。</p>
-</section>
-<section id="道具④第10回の答え" class="slide level2" data-chapter="I-4">
-<h2>道具④：第10回の答え</h2>
-<p><span class="math display">
-\begin{aligned}
-&amp;\min_{\operatorname{rank}(\mathbf Y)\le Q}\lVert\mathbf S-\mathbf Y\rVert_F^2\\
-&amp;\Longrightarrow\
-\hat{\mathbf Y}=\mathbf K_1\boldsymbol\Delta_1\mathbf L_1^\top,\quad
-\min=\sum_{m&gt;Q}\delta_m^2
-\end{aligned}
-</span></p>
-<p><span class="math inline">\mathbf S=\mathbf K\boldsymbol\Delta\mathbf L^\top</span>。どの行列でも、特異値分解して上位 <span class="math inline">Q</span> 本を残すのが最良（Eckart–Young）。</p>
-</section>
-<section id="道具がそろった" class="slide level2" data-chapter="I-4">
-<h2>道具がそろった</h2>
-<ul>
-<li>比率の表 <span class="math inline">\mathbf P</span> と、行の周辺 <span class="math inline">\boldsymbol r</span>・列の周辺 <span class="math inline">\boldsymbol c</span></li>
-<li>対角行列 <span class="math inline">\mathbf D_r,\mathbf D_c</span>：行ごと・列ごとに割る</li>
-<li>行プロファイル <span class="math inline">\boldsymbol a_i</span>（行の形）と、平均の形 <span class="math inline">\boldsymbol c</span></li>
-<li>Eckart–Young：特異値分解の上位 <span class="math inline">Q</span> 本が最良</li>
-</ul>
-<p>これで「関連が無い表」を書ける。</p>
-</section>
-<section id="次の問い関連が無い表とは" class="slide level2" data-chapter="I-1">
-<h2>次の問い：関連が無い表とは</h2>
-<ul>
-<li>関連の形を見るには、まず「関連が無い」表を決めておく</li>
-<li>行の形が、どの行も同じだったら？</li>
-</ul>
-<p>問い：関連が無い表は、どんな表か？</p>
-</section>
-<section id="モデル①独立なら" class="slide level2" data-chapter="I-2">
-<h2>モデル①：独立なら</h2>
-<div id="353e0a8d" class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1110" height="342"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>どのメニューも、店全体と同じ割合で各時間帯に出る：<span class="math inline">\boldsymbol a_i=\boldsymbol c</span>（すべての行）。</p>
-</section>
-<section id="モデル①1マスで書く" class="slide level2" data-chapter="I-2">
-<h2>モデル①：1マスで書く</h2>
-<p><span class="math display">
-p_{ij}=r_i\,c_j\qquad\Longleftrightarrow\qquad \boldsymbol a_i=\boldsymbol c\quad(\text{すべての行})
-</span></p>
-<p><span class="math inline">a_{ij}=p_{ij}/r_i</span> なので。度数に直した <span class="math inline">e_{ij}=nr_ic_j</span> を期待度数と呼ぶ。</p>
-</section>
-<section id="モデル②独立はランク1" class="slide level2" data-chapter="I-2">
-<h2>モデル②：独立はランク1</h2>
-<div id="55b30bb2" class="cell" data-execution_count="16">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="528" height="274"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\mathbf P=\boldsymbol r\boldsymbol c^\top</span>：縦ベクトルと横ベクトルの積。ランク1の行列。</p>
-</section>
-<section id="モデル②冒頭の-c" class="slide level2" data-chapter="I-2">
-<h2>モデル②：冒頭の (c)</h2>
-<div id="6af34435" class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>(c) はこの <span class="math inline">n\boldsymbol r\boldsymbol c^\top</span>。周辺は表から決まるので、推定するものはほかに無い。</p>
-</section>
-<section id="モデル③実際はずれる" class="slide level2" data-chapter="I-2">
-<h2>モデル③：実際はずれる</h2>
-<div id="db9484c2" class="cell" data-execution_count="18">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>豚骨×深夜は、期待度数 45.6 杯に対して、実際は 120 杯。</p>
-</section>
-<section id="モデル③期待の何倍か" class="slide level2" data-chapter="I-2">
-<h2>モデル③：期待の何倍か</h2>
-<div id="839f91db" class="cell" data-execution_count="19">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">b_{ij}</span> は「期待の何倍か」から1を引いたもの。豚骨×深夜は +1.63。正なら多く、負なら少ない。</p>
-</section>
-<section id="モデル③ずれを掛ける" class="slide level2" data-chapter="I-2">
-<h2>モデル③：ずれを掛ける</h2>
-<p><span class="math display">
-p_{ij}=r_ic_j\,(1+b_{ij}),\qquad b_{ij}=\frac{o_{ij}}{e_{ij}}-1
-</span></p>
-<p>独立のときの比率に <span class="math inline">(1+b_{ij})</span> を掛ける。<span class="math inline">b_{ij}=0</span> なら独立。</p>
-</section>
-<section id="モデル④1行ずつ" class="slide level2" data-chapter="I-2">
-<h2>モデル④：1行ずつ</h2>
-<p><span class="math display">
-\boldsymbol a_i=\boldsymbol c+\mathbf D_c\,\boldsymbol b_i
-</span></p>
-<p>両辺を <span class="math inline">r_i</span> で割り、行 <span class="math inline">i</span> を縦に並べた。行の形 ＝ 平均の形 ＋ ずれ。<span class="math inline">\boldsymbol b_i=\boldsymbol 0</span> なら独立。</p>
-</section>
-<section id="モデル⑤行列で" class="slide level2" data-chapter="I-2">
-<h2>モデル⑤：行列で</h2>
-<div id="2b71a60e" class="cell" data-execution_count="20">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1113" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\mathbf P=\boldsymbol r\boldsymbol c^\top+\mathbf D_r\mathbf B\mathbf D_c</span>。<span class="math inline">\mathbf D_r\mathbf B\mathbf D_c</span> のマスは <span class="math inline">r_ib_{ij}c_j</span>。</p>
-</section>
-<section id="モデル⑥ずれを低ランクで" class="slide level2" data-chapter="I-2">
-<h2>モデル⑥：ずれを低ランクで</h2>
-<div id="8eba1799" class="cell" data-execution_count="21">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1113" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>このままではどの表にも当てはまる。ずれ <span class="math inline">\mathbf B</span> のランクを <span class="math inline">Q</span> 以下に制限する。<span class="math inline">Q=0</span> で独立のモデル。</p>
-</section>
-<section id="次の問いずれをどう測るか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：ずれをどう測るか</h2>
-<ul>
-<li>モデルの値 <span class="math inline">\hat p_{ij}</span> と観測 <span class="math inline">p_{ij}</span> の差を、全マスで足したい</li>
-<li>第1回は、差の二乗をそのまま足した</li>
-</ul>
-<p>問い：どのマスの差も、同じ重さで足してよいか？（困りごと②）使いどころ：店ごと・品ごとに量が大きく違う表。</p>
-</section>
-<section id="たとえ電車の5人" class="slide level2" data-chapter="I-3">
-<h2>たとえ：電車の5人</h2>
-<div id="854da8cf" class="cell" data-execution_count="23">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1013" height="330"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>いつも100人の車両に5人増えても気づかない。いつも10人の車両に5人増えると、すぐわかる。目立ち方は、いつもの人数で決まる。</p>
-</section>
-<section id="目的関数①1マスの誤差" class="slide level2" data-chapter="I-3">
-<h2>目的関数①：1マスの誤差</h2>
-<p><span class="math display">
-\frac{(p_{ij}-\hat p_{ij})^2}{r_i\,c_j}
-</span></p>
-<p>二乗誤差を、独立のときの比率 <span class="math inline">r_ic_j</span> で割る。<span class="math inline">\hat p_{ij}=r_ic_j(1+b_{ij})</span> はモデルの値。</p>
-</section>
-<section id="目的関数②全マスで" class="slide level2" data-chapter="I-3">
-<h2>目的関数②：全マスで</h2>
-<p><span class="math display">
-\mathcal E(\mathbf B)=\sum_{i=1}^{I}\sum_{j=1}^{J}\frac{(p_{ij}-\hat p_{ij})^2}{r_ic_j}
-</span></p>
-<p>全部のマスで足す。これが本章の目的関数。</p>
-</section>
-<section id="目的関数③重み付き最小二乗" class="slide level2" data-chapter="I-3">
-<h2>目的関数③：重み付き最小二乗</h2>
-<p><span class="math display">
-\mathcal E(\mathbf B)=\sum_{i,j}w_{ij}\,(p_{ij}-\hat p_{ij})^2,\qquad w_{ij}=\frac{1}{r_ic_j}
-</span></p>
-<p>第1回の <span class="math inline">\sum(y-\hat y)^2</span> に、マスごとの重みを付けたもの。重み付き最小二乗法と呼ぶ。</p>
-</section>
-<section id="困りごと②に戻る" class="slide level2 smaller" data-chapter="I-3">
-<h2>困りごと②に戻る</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>マス</th>
-<th style="text-align: center;">期待度数 <span class="math inline">e</span></th>
-<th style="text-align: center;">観測 <span class="math inline">o</span></th>
-<th style="text-align: center;">差 <span class="math inline">o-e</span></th>
-<th style="text-align: center;">何倍か</th>
-<th style="text-align: center;"><span class="math inline">(o-e)^2/e</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>少ないマス</td>
-<td style="text-align: center;">10杯</td>
-<td style="text-align: center;">15杯</td>
-<td style="text-align: center;">5杯</td>
-<td style="text-align: center;">1.5倍</td>
-<td style="text-align: center;">2.5</td>
+<td style="text-align: center;">分割表 <span class="math inline">\mathbf O</span></td>
+<td style="text-align: center;">特異値分解</td>
+<td style="text-align: center;">第12回</td>
 </tr>
 <tr class="even">
-<td>多いマス</td>
-<td style="text-align: center;">100杯</td>
-<td style="text-align: center;">105杯</td>
-<td style="text-align: center;">5杯</td>
-<td style="text-align: center;">1.05倍</td>
-<td style="text-align: center;">0.25</td>
+<td>スペクトルクラスタリング</td>
+<td style="text-align: center;">隣接行列 <span class="math inline">\mathbf A</span></td>
+<td style="text-align: center;">固有値分解 ＋k-means</td>
+<td style="text-align: center;">今回</td>
 </tr>
 </tbody>
 </table>
-<p>重み <span class="math inline">1/(r_ic_j)</span> は、期待度数で割ること。同じ5杯でも、少ないマスのずれが10倍重く数えられる。</p>
 </section>
-<section id="目的関数④1行ずつχ²距離" class="slide level2" data-chapter="I-3">
-<h2>目的関数④：1行ずつ（χ²距離）</h2>
+<section id="言葉を決める" class="slide level2" data-chapter="I-1">
+<h2>言葉を決める</h2>
+<ul>
+<li>点のまとまりを、線の数と固有値で測りたい</li>
+<li>使うのは、線を数える行列と、対称行列の固有値分解</li>
+</ul>
+<p>道具を4つそろえる：次数、固有値分解、2次形式の最小、<span class="math inline">k</span> 本の和の最小。</p>
+</section>
+<section id="道具①次数" class="slide level2" data-chapter="I-4">
+<h2>道具①：次数</h2>
 <p><span class="math display">
-\sum_{j=1}^{J}\frac{(p_{ij}-\hat p_{ij})^2}{r_ic_j}
-=r_i\sum_{j=1}^{J}\frac{(a_{ij}-\hat a_{ij})^2}{c_j}
-=r_i\,d_\chi^2(\boldsymbol a_i,\hat{\boldsymbol a}_i)
+\boldsymbol d=\mathbf A\mathbf 1_n,\qquad \mathbf D=\operatorname{diag}(\boldsymbol d),\qquad \mathbf 1_n^\top\boldsymbol d=2m
 </span></p>
-<p>分子と分母を <span class="math inline">r_i^2</span> で割ると、行の形どうしの比べ方になる。</p>
+<p>点 <span class="math inline">i</span> の線の数 <span class="math inline">d_i</span> を次数と呼ぶ。<span class="math inline">m</span> は線の本数。1本の線は両端で2回数える。</p>
 </section>
-<section id="目的関数④χ²距離とは" class="slide level2" data-chapter="I-3">
-<h2>目的関数④：χ²距離とは</h2>
-<p><span class="math display">
-d_\chi^2(\boldsymbol x,\boldsymbol y)=\sum_{j=1}^{J}\frac{(x_j-y_j)^2}{c_j}
-</span></p>
-<p>2つの形の差を、列ごとに平均の割合 <span class="math inline">c_j</span> で割って二乗和。目的関数は、行の重み <span class="math inline">r_i</span> を付けたその和。</p>
-</section>
-<section id="目的関数⑤行列で" class="slide level2" data-chapter="I-3">
-<h2>目的関数⑤：行列で</h2>
+<section id="道具②固有値分解" class="slide level2" data-chapter="I-4">
+<h2>道具②：固有値分解</h2>
 <p><span class="math display">
 \begin{aligned}
-&amp;\mathcal E(\mathbf B)=\bigl\lVert\mathbf D_r^{-1/2}\bigl(\mathbf P-\hat{\mathbf P}\bigr)\mathbf D_c^{-1/2}\bigr\rVert_F^2\\
-&amp;\hat{\mathbf P}=\boldsymbol r\boldsymbol c^\top+\mathbf D_r\mathbf B\mathbf D_c
+&amp;\mathbf M=\mathbf U\boldsymbol\Lambda\mathbf U^\top,\qquad \mathbf U^\top\mathbf U=\mathbf I\\
+&amp;\lambda_1\le\lambda_2\le\cdots\le\lambda_n
 \end{aligned}
 </span></p>
-<p>道具②：マスごとに <span class="math inline">\sqrt{r_ic_j}</span> で割ってから、全マスの二乗和。</p>
+<p>対称行列は、直交する固有ベクトル <span class="math inline">\boldsymbol u_m</span> で分解できる（第11回）。今回は小さい順に並べる。</p>
 </section>
-<section id="目的関数⑥q0の値" class="slide level2" data-chapter="I-3">
-<h2>目的関数⑥：Q＝0の値</h2>
+<section id="道具③2次形式の最小" class="slide level2" data-chapter="I-4">
+<h2>道具③：2次形式の最小</h2>
 <p><span class="math display">
-\mathcal E_0=\sum_{i,j}\frac{(p_{ij}-r_ic_j)^2}{r_ic_j}
-=\frac1n\sum_{i,j}\frac{(o_{ij}-e_{ij})^2}{e_{ij}}=\frac{\chi^2}{n}
+\begin{aligned}
+\boldsymbol x^\top\mathbf M\boldsymbol x&amp;=\textstyle\sum_m\lambda_m c_m^2,\qquad \boldsymbol c=\mathbf U^\top\boldsymbol x\\
+\min_{\lVert\boldsymbol x\rVert_2=1}\boldsymbol x^\top\mathbf M\boldsymbol x&amp;=\lambda_1\quad(\boldsymbol x=\boldsymbol u_1)
+\end{aligned}
 </span></p>
-<p>独立のモデルで残る誤差。<span class="math inline">n</span> 倍したものがピアソンのχ²統計量。</p>
+<p><span class="math inline">\sum_mc_m^2=1</span> なので、固有値の重み付き平均。いちばん小さい <span class="math inline">\lambda_1</span> にすべての重みを置く。</p>
 </section>
-<section id="目的関数⑥総慣性" class="slide level2" data-chapter="I-3">
-<h2>目的関数⑥：総慣性</h2>
+<section id="道具③直交なら2番目" class="slide level2" data-chapter="I-4">
+<h2>道具③：直交なら2番目</h2>
 <p><span class="math display">
-\mathcal E_0=\sum_{i=1}^{I}r_i\,d_\chi^2(\boldsymbol a_i,\boldsymbol c)
+\min_{\lVert\boldsymbol x\rVert_2=1,\ \boldsymbol x\perp\boldsymbol u_1}\boldsymbol x^\top\mathbf M\boldsymbol x=\lambda_2\quad(\boldsymbol x=\boldsymbol u_2)
 </span></p>
-<p>行の形が平均の形のまわりにどれだけ散らばるか。総慣性と呼ぶ。人工データで 0.4121（χ² = 498.6）。</p>
+<p><span class="math inline">\boldsymbol x\perp\boldsymbol u_1</span> なら <span class="math inline">c_1=0</span>。重みは <span class="math inline">\lambda_2</span> 以降にしか置けない。</p>
 </section>
-<section id="次の問い重みをどう消すか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：重みをどう消すか</h2>
+<section id="道具④k本の和の最小" class="slide level2" data-chapter="I-4">
+<h2>道具④：k本の和の最小</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\operatorname{tr}(\mathbf H^\top\mathbf M\mathbf H)=\textstyle\sum_m\lambda_m w_m,\qquad w_m=\lVert\boldsymbol u_m^\top\mathbf H\rVert_2^2\\
+&amp;0\le w_m\le1,\qquad \textstyle\sum_mw_m=\operatorname{tr}(\mathbf H^\top\mathbf H)=k
+\end{aligned}
+</span></p>
+<p><span class="math inline">\mathbf H</span> は <span class="math inline">n\times k</span> で <span class="math inline">\mathbf H^\top\mathbf H=\mathbf I_k</span>。重みは1本あたり1以下、合計 <span class="math inline">k</span>（第10回と同じ）。</p>
+</section>
+<section id="道具④小さい方からk本" class="slide level2" data-chapter="I-4">
+<h2>道具④：小さい方からk本</h2>
+<p><span class="math display">
+\min_{\mathbf H^\top\mathbf H=\mathbf I_k}\operatorname{tr}(\mathbf H^\top\mathbf M\mathbf H)=\lambda_1+\cdots+\lambda_k\quad(\mathbf H=\mathbf U_k)
+</span></p>
+<p>小さい方の <span class="math inline">k</span> 本に重み1ずつを配るのが最もよい。第10回は大きい方から <span class="math inline">Q</span> 本に配った。</p>
+</section>
+<section id="道具がそろった" class="slide level2" data-chapter="I-1">
+<h2>道具がそろった</h2>
 <ul>
-<li>目的関数は、マスごとに重みの付いた二乗誤差</li>
-<li>道具④（Eckart–Young）が解くのは、重みの無い <span class="math inline">\lVert\mathbf S-\mathbf Y\rVert_F^2</span></li>
+<li>次数 <span class="math inline">\boldsymbol d=\mathbf A\mathbf 1</span> は、点ごとの線の数</li>
+<li>2次形式の最小は、いちばん小さい固有値。直交させれば2番目</li>
+<li><span class="math inline">\mathbf H^\top\mathbf H=\mathbf I</span> のもとでのトレースの最小は、小さい方から <span class="math inline">k</span> 本の和</li>
 </ul>
-<p>問い：重みを消して、道具④の形に持ち込めるか？</p>
+<p>では、まとまりを何の量で測るか。</p>
 </section>
-<section id="導出①標準化残差行列" class="slide level2" data-chapter="I-5">
-<h2>導出①：標準化残差行列</h2>
+<section id="モデル①群を01で" class="slide level2" data-chapter="I-2">
+<h2>モデル①：群を0/1で</h2>
 <p><span class="math display">
-s_{ij}=\frac{p_{ij}-r_ic_j}{\sqrt{r_ic_j}},\qquad
-\mathbf S=\mathbf D_r^{-1/2}\bigl(\mathbf P-\boldsymbol r\boldsymbol c^\top\bigr)\mathbf D_c^{-1/2}
+\mathbf G\in\{0,1\}^{n\times k},\qquad \mathbf G\mathbf 1_k=\mathbf 1_n
 </span></p>
-<p>独立のモデルからのずれを、マスごとに <span class="math inline">\sqrt{r_ic_j}</span> で割った行列。二乗和は <span class="math inline">\lVert\mathbf S\rVert_F^2=\mathcal E_0</span>。</p>
+<p>点 <span class="math inline">i</span> が群 <span class="math inline">q</span> なら <span class="math inline">g_{iq}=1</span>。第7回の所属行列と同じ形。違うのは、点の座標 <span class="math inline">\mathbf X</span> が無く、<span class="math inline">\mathbf A</span> しか無いこと。</p>
 </section>
-<section id="導出①sの中身" class="slide level2" data-chapter="I-5">
-<h2>導出①：Sの中身</h2>
-<div id="18c02374" class="cell" data-execution_count="24">
+<section id="モデル②2群なら1" class="slide level2" data-chapter="I-2">
+<h2>モデル②：2群なら±1</h2>
+<p><span class="math display">
+x_i=\begin{cases}+1 &amp; (i\in S)\\-1 &amp; (i\in\bar S)\end{cases}
+</span></p>
+<p><span class="math inline">k=2</span> なら、群 <span class="math inline">S</span> とその残り <span class="math inline">\bar S</span> を、1本のベクトル <span class="math inline">\boldsymbol x</span> で表せる。</p>
+</section>
+<section id="モデル③まとまりとは" class="slide level2" data-chapter="I-2">
+<h2>モデル③：まとまりとは</h2>
+<p><span class="math display">
+\operatorname{cut}(S,\bar S)=\sum_{i\in S}\sum_{j\in\bar S}a_{ij}
+</span></p>
+<p>群の中に線が多く、群をまたぐ線が少ない。またぐ線の数をカットと呼ぶ。</p>
+</section>
+<section id="目的関数①1本の線の違い" class="slide level2" data-chapter="I-3">
+<h2>目的関数①：1本の線の違い</h2>
+<p><span class="math display">
+a_{ij}(x_i-x_j)^2=\begin{cases}0 &amp; (\text{同じ群})\\4 &amp; (\text{違う群、線あり})\end{cases}
+</span></p>
+<p>線の両端で値が違うほど大きい。線が無ければ <span class="math inline">a_{ij}=0</span> で数えない。</p>
+</section>
+<section id="目的関数②全部の線で" class="slide level2" data-chapter="I-3">
+<h2>目的関数②：全部の線で</h2>
+<p><span class="math display">
+\frac12\sum_{i=1}^{n}\sum_{j=1}^{n}a_{ij}(x_i-x_j)^2=4\operatorname{cut}(S,\bar S)
+</span></p>
+<p><span class="math inline">i,j</span> を両方の順で足すので、1本を2回数える。<span class="math inline">\frac12</span> で1回に戻す。</p>
+</section>
+<section id="目的関数③展開する" class="slide level2" data-chapter="I-3">
+<h2>目的関数③：展開する</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\tfrac12\textstyle\sum_{i,j}a_{ij}(x_i-x_j)^2\\
+&amp;=\tfrac12\textstyle\sum_{i,j}a_{ij}\bigl(x_i^2+x_j^2\bigr)-\sum_{i,j}a_{ij}x_ix_j\\
+&amp;=\textstyle\sum_id_ix_i^2-\sum_{i,j}a_{ij}x_ix_j
+\end{aligned}
+</span></p>
+<p>2行目：<span class="math inline">\sum_ja_{ij}=d_i</span>（道具①）。<span class="math inline">x_j^2</span> の項も、<span class="math inline">\mathbf A</span> が対称なので同じ <span class="math inline">\sum_jd_jx_j^2</span>。</p>
+</section>
+<section id="目的関数④行列で" class="slide level2" data-chapter="I-3">
+<h2>目的関数④：行列で</h2>
+<p><span class="math display">
+\begin{aligned}
+\tfrac12\textstyle\sum_{i,j}a_{ij}(x_i-x_j)^2&amp;=\boldsymbol x^\top\mathbf D\boldsymbol x-\boldsymbol x^\top\mathbf A\boldsymbol x=\boldsymbol x^\top\mathbf L\boldsymbol x\\
+\mathbf L&amp;=\mathbf D-\mathbf A
+\end{aligned}
+</span></p>
+<p><span class="math inline">\mathbf L</span> をグラフラプラシアンと呼ぶ。隣どうしの値の違いを測る行列。</p>
+</section>
+<section id="クイズ①違いの合計" class="slide level2" data-chapter="I-3">
+<h2>クイズ①：違いの合計</h2>
+<p>4点が1列につながる（1−2−3−4、線は3本）。<span class="math inline">\boldsymbol x=(2,1,1,-1)^\top</span> のとき、<span class="math inline">\boldsymbol x^\top\mathbf L\boldsymbol x</span> は？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span><span class="math inline">3</span></p>
+</div>
+<div class="c">
+<p><span class="k">B</span><span class="math inline">5</span></p>
+</div>
+<div class="c">
+<p><span class="k">C</span><span class="math inline">7</span></p>
+</div>
+<div class="c">
+<p><span class="k">D</span><span class="math inline">10</span></p>
+</div>
+</div>
+</section>
+<section id="クイズ①の答えb" class="slide level2" data-chapter="I-3">
+<h2>クイズ①の答え：B</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span><span class="math inline">3</span></p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span><span class="math inline">5</span></p>
+</div>
+<div class="c">
+<p><span class="k">C</span><span class="math inline">7</span></p>
+</div>
+<div class="c">
+<p><span class="k">D</span><span class="math inline">10</span></p>
+</div>
+</div>
+<p>線ごとに <span class="math inline">(x_i-x_j)^2</span>：1−2で1、2−3で0、3−4で4。足して5。両方の順で数えて <span class="math inline">\frac12</span> を忘れると10（D）。</p>
+</section>
+<section id="目的関数⑤大きさで割る" class="slide level2" data-chapter="I-3">
+<h2>目的関数⑤：大きさで割る</h2>
+<div id="0179ba52" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="608" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="804" height="330"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">\sqrt n</span> 倍すると <span class="math inline">(o-e)/\sqrt e</span>。赤は期待より多く、青は少ない。豚骨×深夜が最も大きい。</p>
+<p><span class="math inline">\operatorname{RatioCut}(S)=\operatorname{cut}(S,\bar S)\bigl(1/|S|+1/|\bar S|\bigr)</span>。1点だけの群は <span class="math inline">1/|S|=1</span> で重くなる。</p>
 </section>
-<section id="導出②s-yの形に" class="slide level2" data-chapter="I-5">
-<h2>導出②：S − Yの形に</h2>
+<section id="目的関数⑥値の付け方" class="slide level2" data-chapter="I-3">
+<h2>目的関数⑥：値の付け方</h2>
+<p><span class="math display">
+x_i=\begin{cases}\sqrt{|\bar S|/|S|} &amp; (i\in S)\\-\sqrt{|S|/|\bar S|} &amp; (i\in\bar S)\end{cases}
+</span></p>
+<p>±1の代わりに、群の大きさで値を決める。小さい群ほど値の絶対値が大きい。</p>
+</section>
+<section id="目的関数⑦2次形式で書く" class="slide level2" data-chapter="I-3">
+<h2>目的関数⑦：2次形式で書く</h2>
 <p><span class="math display">
 \begin{aligned}
-\mathcal E(\mathbf B)
-&amp;=\bigl\lVert\mathbf D_r^{-1/2}\bigl(\mathbf P-\boldsymbol r\boldsymbol c^\top-\mathbf D_r\mathbf B\mathbf D_c\bigr)\mathbf D_c^{-1/2}\bigr\rVert_F^2\\
-&amp;=\lVert\mathbf S-\mathbf Y\rVert_F^2,\qquad \mathbf Y=\mathbf D_r^{1/2}\mathbf B\mathbf D_c^{1/2}
+&amp;\boldsymbol x^\top\mathbf L\boldsymbol x=n\operatorname{RatioCut}(S)\\
+&amp;\mathbf 1_n^\top\boldsymbol x=0,\qquad \lVert\boldsymbol x\rVert_2^2=n
 \end{aligned}
 </span></p>
-<p>括弧を2つに分けた。前は <span class="math inline">\mathbf S</span>、後ろは <span class="math inline">\mathbf D_r^{-1/2}\mathbf D_r=\mathbf D_r^{1/2}</span> から <span class="math inline">\mathbf Y</span>。</p>
+<p>またぐ線1本で <span class="math inline">(x_i-x_j)^2=|\bar S|/|S|+|S|/|\bar S|+2=n^2/(|S||\bar S|)=n(1/|S|+1/|\bar S|)</span>。</p>
 </section>
-<section id="導出②ランクは変わらない" class="slide level2" data-chapter="I-5">
-<h2>導出②：ランクは変わらない</h2>
-<p><span class="math display">
-\operatorname{rank}(\mathbf Y)=\operatorname{rank}\bigl(\mathbf D_r^{1/2}\mathbf B\mathbf D_c^{1/2}\bigr)=\operatorname{rank}(\mathbf B)\le Q
-</span></p>
-<p>正の対角行列を掛けてもランクは同じ。重みは、相手を <span class="math inline">\mathbf S</span> に替えることで消えた。</p>
-</section>
-<section id="導出③eckartyoung" class="slide level2" data-chapter="I-5">
-<h2>導出③：Eckart–Young</h2>
+<section id="目的関数⑧k群なら" class="slide level2" data-chapter="I-3">
+<h2>目的関数⑧：k群なら</h2>
 <p><span class="math display">
 \begin{aligned}
-\mathbf S&amp;=\mathbf K\boldsymbol\Delta\mathbf L^\top\\
-\hat{\mathbf Y}&amp;=\mathbf K_1\boldsymbol\Delta_1\mathbf L_1^\top\\
-\min\mathcal E&amp;=\sum_{m&gt;Q}\delta_m^2
+&amp;\mathbf H=\mathbf G(\mathbf G^\top\mathbf G)^{-1/2},\qquad \mathbf H^\top\mathbf H=\mathbf I_k\\
+&amp;\operatorname{tr}(\mathbf H^\top\mathbf L\mathbf H)=\sum_{q=1}^{k}\frac{\operatorname{cut}(C_q,\bar C_q)}{|C_q|}
 \end{aligned}
 </span></p>
-<p>道具④をそのまま当てる。反復も初期値も要らない。</p>
+<p>所属行列の列を <span class="math inline">\sqrt{|C_q|}</span> で割った。列 <span class="math inline">q</span> ごとに目的関数④を当てる。<span class="math inline">k=2</span> ならレシオカット。</p>
 </section>
-<section id="導出④bに戻す" class="slide level2" data-chapter="I-5">
-<h2>導出④：Bに戻す</h2>
-<p><span class="math display">
-\hat{\mathbf B}=\mathbf D_r^{-1/2}\,\hat{\mathbf Y}\,\mathbf D_c^{-1/2}=\mathbf D_r^{-1/2}\mathbf K_1\boldsymbol\Delta_1\mathbf L_1^\top\mathbf D_c^{-1/2}
-</span></p>
-<p><span class="math inline">\mathbf Y=\mathbf D_r^{1/2}\mathbf B\mathbf D_c^{1/2}</span> を逆にたどる。</p>
-</section>
-<section id="導出④行の点と列の点" class="slide level2" data-chapter="I-5">
-<h2>導出④：行の点と列の点</h2>
-<p><span class="math display">
-\begin{aligned}
-\hat{\mathbf B}&amp;=\mathbf F\boldsymbol\Delta_1^{-1}\mathbf G^\top\\
-\mathbf F&amp;=\mathbf D_r^{-1/2}\mathbf K_1\boldsymbol\Delta_1,\quad \mathbf G=\mathbf D_c^{-1/2}\mathbf L_1\boldsymbol\Delta_1
-\end{aligned}
-</span></p>
-<p><span class="math inline">\mathbf F</span>（<span class="math inline">I\times Q</span>）の各行が行の点、<span class="math inline">\mathbf G</span>（<span class="math inline">J\times Q</span>）の各行が列の点。主座標と呼ぶ。</p>
-</section>
-<section id="導出⑤1マスで読む" class="slide level2" data-chapter="I-5">
-<h2>導出⑤：1マスで読む</h2>
-<p><span class="math display">
-\frac{\hat o_{ij}}{e_{ij}}=1+\hat b_{ij}=1+\sum_{m=1}^{Q}\frac{f_{im}\,g_{jm}}{\delta_m}
-</span></p>
-<p>「期待の何倍か」を、行の点と列の点の積の和で近似する。<span class="math inline">Q=0</span> なら1（独立）。</p>
-</section>
-<section id="アルゴリズム特異値分解1回" class="slide level2 smaller" data-chapter="I-6">
-<h2>アルゴリズム：特異値分解1回</h2>
+<section id="導出の道筋" class="slide level2" data-chapter="I-5">
+<h2>導出の道筋</h2>
+<p>ゴール：<span class="math inline">\boldsymbol x=\sqrt n\,\boldsymbol u_2</span>（2群）、<span class="math inline">\mathbf H=\mathbf U_k</span>（<span class="math inline">k</span> 群）</p>
 <ol type="1">
-<li>比率と周辺：<span class="math inline">\mathbf P=\mathbf O/n</span>、<span class="math inline">\boldsymbol r=\mathbf P\mathbf 1_J</span>、<span class="math inline">\boldsymbol c=\mathbf P^\top\mathbf 1_I</span>、<span class="math inline">\mathbf D_r</span>、<span class="math inline">\mathbf D_c</span></li>
-<li>ずれを割る：<span class="math inline">\mathbf S=\mathbf D_r^{-1/2}(\mathbf P-\boldsymbol r\boldsymbol c^\top)\mathbf D_c^{-1/2}</span></li>
-<li>特異値分解を1回：<span class="math inline">\mathbf S=\mathbf K\boldsymbol\Delta\mathbf L^\top</span></li>
-<li>点を作る：<span class="math inline">\mathbf F\leftarrow\mathbf D_r^{-1/2}\mathbf K_1\boldsymbol\Delta_1</span>、<span class="math inline">\mathbf G\leftarrow\mathbf D_c^{-1/2}\mathbf L_1\boldsymbol\Delta_1</span> を同じ平面に描く</li>
-<li>慣性を出す：軸 <span class="math inline">m</span> の慣性 <span class="math inline">\delta_m^2</span>、寄与率 <span class="math inline">\delta_m^2/\sum_{m'}\delta_{m'}^2</span>、<span class="math inline">\chi^2=n\sum_m\delta_m^2</span></li>
+<li>Lは0以上：固有値はどれも0以上、いちばん小さいのは0</li>
+<li>緩める：値を2つに限るのをやめ、実数にする</li>
+<li>2番目：道具③で、2番目に小さい固有ベクトル</li>
+<li>符号で切る：実数の答えを2群に戻す</li>
+<li>k群：<span class="math inline">\mathbf H^\top\mathbf H=\mathbf I</span> だけを残す</li>
+<li>k本：道具④で、小さい方から <span class="math inline">k</span> 本 7.k-means：行を第7回のk-meansで分ける</li>
 </ol>
 </section>
-<section id="第10回の手順との違い" class="slide level2" data-chapter="I-6">
-<h2>第10回の手順との違い</h2>
-<ul>
-<li>第10回と同じく、初期値も反復も無い。特異値分解を1回</li>
-<li>違い①：手順2で、独立の表を引いて <span class="math inline">\sqrt{r_ic_j}</span> で割る</li>
-<li>違い②：手順4で、特異ベクトルに <span class="math inline">\mathbf D_r^{-1/2}</span>・<span class="math inline">\mathbf D_c^{-1/2}</span> を掛けて重みを戻す</li>
-</ul>
-<p>手順2を飛ばすと、困りごと①のとおり1本目が量に取られる。</p>
-</section>
-<section id="次の問い解から何が読めるか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：解から何が読めるか</h2>
-<ul>
-<li>手順から、特異値 <span class="math inline">\delta_m</span> と、行の点 <span class="math inline">\mathbf F</span>・列の点 <span class="math inline">\mathbf G</span> が出た</li>
-<li>まず、特異値の側から読む</li>
-</ul>
-<p>問い：<span class="math inline">\delta_m</span> からは、何がわかるか？</p>
-</section>
-<section id="帰結①慣性を軸に分ける" class="slide level2" data-chapter="I-7">
-<h2>帰結①：慣性を軸に分ける</h2>
-<div id="b67d0f57" class="cell" data-execution_count="26">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="701" height="342"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>総慣性 0.4121 ＝ <span class="math inline">\lVert\mathbf S\rVert_F^2=\sum_m\delta_m^2</span>。軸 <span class="math inline">m</span> が受け持つ分が <span class="math inline">\delta_m^2</span>。</p>
-</section>
-<section id="帰結①寄与率" class="slide level2" data-chapter="I-7">
-<h2>帰結①：寄与率</h2>
-<div id="0b670383" class="cell" data-execution_count="27">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="701" height="342"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>2本で 82.1%。残りの <span class="math inline">\sum_{m&gt;2}\delta_m^2</span> が重み付き誤差の最小値（第10回の寄与率と同じ読み方）。</p>
-</section>
-<section id="帰結②マスごとの内訳" class="slide level2" data-chapter="I-7">
-<h2>帰結②：マスごとの内訳</h2>
-<div id="1aecf1a1" class="cell" data-execution_count="28">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="608" height="342"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>二乗して全マスで足すとχ² = 498.6。豚骨×深夜の1マスだけで 24%。</p>
-</section>
-<section id="帰結③軸はj1本まで" class="slide level2" data-chapter="I-7">
-<h2>帰結③：軸はJ−1本まで</h2>
+<section id="導出①lは0以上" class="slide level2" data-chapter="I-5">
+<h2>導出①：Lは0以上</h2>
+<p><span class="crumb"><span class="now">①Lは0以上</span> ②緩める ③2番目 ④符号で切る ⑤k群 ⑥k本 ⑦k-means</span></p>
 <p><span class="math display">
-\mathbf S\,\mathbf D_c^{1/2}\mathbf 1_J=\mathbf D_r^{-1/2}\bigl(\boldsymbol r-\boldsymbol r\,\boldsymbol c^\top\mathbf 1_J\bigr)=\mathbf 0
+\begin{aligned}
+&amp;\boldsymbol x^\top\mathbf L\boldsymbol x=\tfrac12\textstyle\sum_{i,j}a_{ij}(x_i-x_j)^2\ge0\\
+&amp;\mathbf L\mathbf 1_n=\boldsymbol d-\mathbf A\mathbf 1_n=\boldsymbol 0
+\end{aligned}
 </span></p>
-<p>行の形は足すと1なので、自由は <span class="math inline">J-1</span>。4列なら軸は3本（4本目の <span class="math inline">\delta</span> は 5e-17）。</p>
+<p>二乗の和なので固有値は0以上。<span class="math inline">\lambda_1=0</span>、<span class="math inline">\boldsymbol u_1=\mathbf 1_n/\sqrt n</span>（道具①）。</p>
 </section>
-<section id="帰結④冒頭の1本目の正体" class="slide level2" data-chapter="I-7">
-<h2>帰結④：冒頭の1本目の正体</h2>
+<section id="導出②緩める" class="slide level2" data-chapter="I-5">
+<h2>導出②：緩める</h2>
+<p><span class="crumb">①Lは0以上 <span class="now">②緩める</span> ③2番目 ④符号で切る ⑤k群 ⑥k本 ⑦k-means</span></p>
 <p><span class="math display">
-\mathbf D_r^{-1/2}\mathbf P\,\mathbf D_c^{-1/2}
-=\underbrace{\bigl(\mathbf D_r^{1/2}\mathbf 1_I\bigr)\bigl(\mathbf D_c^{1/2}\mathbf 1_J\bigr)^\top}_{\text{独立の表：特異値 }1}+\ \mathbf S
+\begin{aligned}
+&amp;\min_S\ n\operatorname{RatioCut}(S)\\
+&amp;\longrightarrow\ \min_{\boldsymbol x\in\mathbb R^n}\boldsymbol x^\top\mathbf L\boldsymbol x\quad
+\text{s.t.}\ \mathbf 1_n^\top\boldsymbol x=0,\ \lVert\boldsymbol x\rVert_2^2=n
+\end{aligned}
 </span></p>
-<p>割っただけの表を分解すると、1本目は独立の表。2つの項は互いに直角な向きを使う。</p>
+<p>2つの値しかとらない <span class="math inline">\boldsymbol x</span> に限るのをやめる。分け方は <span class="math inline">2^n</span> 通りあり、全部は試せない。</p>
+</section>
+<section id="導出③2番目の固有ベクトル" class="slide level2" data-chapter="I-5">
+<h2>導出③：2番目の固有ベクトル</h2>
+<p><span class="crumb">①Lは0以上 ②緩める <span class="now">③2番目</span> ④符号で切る ⑤k群 ⑥k本 ⑦k-means</span></p>
+<p><span class="math display">
+\begin{aligned}
+&amp;\mathbf 1_n^\top\boldsymbol x=0\iff\boldsymbol x\perp\boldsymbol u_1\\
+&amp;\hat{\boldsymbol x}=\sqrt n\,\boldsymbol u_2,\qquad \min=n\lambda_2
+\end{aligned}
+</span></p>
+<p>道具③。<span class="math inline">\boldsymbol u_2</span> をフィードラーベクトルと呼ぶ。人工データでは <span class="math inline">\lambda_2</span> = 0.358。</p>
+</section>
+<section id="導出④符号で切る" class="slide level2" data-chapter="I-5">
+<h2>導出④：符号で切る</h2>
+<p><span class="crumb">①Lは0以上 ②緩める ③2番目 <span class="now">④符号で切る</span> ⑤k群 ⑥k本 ⑦k-means</span></p>
+<div id="803aaada" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="930" height="285"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>負（青）と正（橙）で2つに分ける。1〜4と13が青。目的関数⑤の (b) と同じ分け方。</p>
+</section>
+<section id="導出⑤k群に緩める" class="slide level2" data-chapter="I-5">
+<h2>導出⑤：k群に緩める</h2>
+<p><span class="crumb">①Lは0以上 ②緩める ③2番目 ④符号で切る <span class="now">⑤k群</span> ⑥k本 ⑦k-means</span></p>
+<p><span class="math display">
+\begin{aligned}
+&amp;\min_{\mathbf G}\ \operatorname{tr}(\mathbf H^\top\mathbf L\mathbf H)\\
+&amp;\longrightarrow\ \min_{\mathbf H\in\mathbb R^{n\times k}}\operatorname{tr}(\mathbf H^\top\mathbf L\mathbf H)\quad\text{s.t.}\ \mathbf H^\top\mathbf H=\mathbf I_k
+\end{aligned}
+</span></p>
+<p><span class="math inline">\mathbf H=\mathbf G(\mathbf G^\top\mathbf G)^{-1/2}</span> の形に限るのをやめ、<span class="math inline">\mathbf H^\top\mathbf H=\mathbf I_k</span> だけを残す。</p>
+</section>
+<section id="導出⑥小さい方からk本" class="slide level2" data-chapter="I-5">
+<h2>導出⑥：小さい方からk本</h2>
+<p><span class="crumb">①Lは0以上 ②緩める ③2番目 ④符号で切る ⑤k群 <span class="now">⑥k本</span> ⑦k-means</span></p>
+<p><span class="math display">
+\hat{\mathbf H}=\mathbf U_k=[\boldsymbol u_1\ \cdots\ \boldsymbol u_k],\qquad \min=\lambda_1+\cdots+\lambda_k
+</span></p>
+<p>道具④。<span class="math inline">k=2</span> なら <span class="math inline">\boldsymbol u_1</span> は定数なので、分け方を決めるのは <span class="math inline">\boldsymbol u_2</span> だけ（導出③）。</p>
+</section>
+<section id="導出⑦行をk-meansで" class="slide level2" data-chapter="I-5">
+<h2>導出⑦：行をk-meansで</h2>
+<p><span class="crumb">①Lは0以上 ②緩める ③2番目 ④符号で切る ⑤k群 ⑥k本 <span class="now">⑦k-means</span></span></p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math inline">\mathbf G(\mathbf G^\top\mathbf G)^{-1/2}</span> なら、同じ群の行は同じ値。</p>
+<p><span class="math inline">\mathbf U_k</span> の行もそれに近いはず。行を第7回のk-meansで <span class="math inline">k</span> 群に分ける。図は <span class="math inline">k=4</span>。</p>
+</div><div class="column" style="width:55%;">
+<div id="b13f981e" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=49241bde" width="415" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="アルゴリズム固有値分解1回" class="slide level2 smaller" data-chapter="I-6">
+<h2>アルゴリズム：固有値分解1回</h2>
+<ol type="1">
+<li>次数とラプラシアン：<span class="math inline">\boldsymbol d=\mathbf A\mathbf 1_n</span>、<span class="math inline">\mathbf D=\operatorname{diag}(\boldsymbol d)</span>、<span class="math inline">\mathbf L=\mathbf D-\mathbf A</span></li>
+<li>固有値分解を1回：<span class="math inline">\mathbf L=\mathbf U\boldsymbol\Lambda\mathbf U^\top</span>（小さい順）</li>
+<li>群の数を決める：小さい固有値の並びを見る</li>
+<li>分ける：<span class="math inline">\mathbf U_k</span> の行をk-meansで <span class="math inline">k</span> 群に（2群ならフィードラーベクトルの符号）</li>
+<li>描く：<span class="math inline">(\sqrt n\,u_{i2},\sqrt n\,u_{i3})</span> を点 <span class="math inline">i</span> の位置にする。群の順に <span class="math inline">\mathbf A</span> を並べ替える</li>
+</ol>
+</section>
+<section id="第7回の手順との違い" class="slide level2" data-chapter="I-6">
+<h2>第7回の手順との違い</h2>
+<ul>
+<li>第7回は、データ行列 <span class="math inline">\mathbf X</span> の行をそのままk-meansで分けた</li>
+<li>今回は、<span class="math inline">\mathbf X</span> が無い。<span class="math inline">\mathbf L</span> の固有ベクトルの行を、点の座標の代わりにする</li>
+</ul>
+<p>線のつながりから座標を作ってから、第7回の手順を当てる。</p>
+</section>
+<section id="次の問い何が見えるか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：何が見えるか</h2>
+<ul>
+<li>固有ベクトルで、点に座標と群が付いた</li>
+<li>並べ方・線の数・1点を切る答え、の3つの困りごとに答えられるか</li>
+</ul>
+<p>使いどころ：つながりのデータ（タンパク質の相互作用、乗り換え、共著）を、まとまりごとに描いて報告する。</p>
+</section>
+<section id="帰結①並べ替えると塊" class="slide level2" data-chapter="I-7">
+<h2>帰結①：並べ替えると塊</h2>
+<div id="c04f8111" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じ <span class="math inline">\mathbf A</span> を、<span class="math inline">\sqrt n\,u_{i2}</span> の小さい順に並べ替えた。対角に3つの塊が現れる。</p>
 </section>
 <section id="困りごと①に戻る" class="slide level2" data-chapter="I-7">
 <h2>困りごと①に戻る</h2>
-<div id="5fb470b5" class="cell" data-execution_count="29">
+<div id="86ee47dc" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>(b) の1本目も、ほぼ独立の表 (c) を拾っていた。対応分析は、この量だけの1本を先に引いてから分解する。</p>
+<p>並べ方を <span class="math inline">13!</span> 通り試さなくても、固有値分解1回で、まとまりの見える順と置き方が決まる。</p>
 </section>
-<section id="次の問い地図をどう読むか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：地図をどう読むか</h2>
-<ul>
-<li>行の点 <span class="math inline">\mathbf F</span> と列の点 <span class="math inline">\mathbf G</span> を、軸1・軸2の平面に描く</li>
-<li>点どうしの近さ、点の向きは、表の何を表すのか</li>
-</ul>
-<p>問い：地図の上の距離と向きは、何を表すか？（困りごと③）使いどころ：商品 × 店舗のような表を、1枚の図で見せる。</p>
-</section>
-<section id="帰結⑤行の点" class="slide level2" data-chapter="I-7">
-<h2>帰結⑤：行の点</h2>
-<div id="3fe2e6fb" class="cell" data-execution_count="31">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="484" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>5つのメニューを、行の点 <span class="math inline">\boldsymbol f_i</span> として軸1・軸2の平面に置いた。原点は平均の形。</p>
-</section>
-<section id="帰結⑤距離はχ²距離" class="slide level2" data-chapter="I-7">
-<h2>帰結⑤：距離はχ²距離</h2>
-<div id="7f381578" class="cell" data-execution_count="32">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="484" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>すべての軸を使えば、行の点どうしの距離 ＝ 行の形のχ²距離。味噌と豚骨は 0.988。</p>
-</section>
-<section id="帰結⑤2本では縮む" class="slide level2" data-chapter="I-7">
-<h2>帰結⑤：2本では縮む</h2>
-<div id="bab5f761" class="cell" data-execution_count="33">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="484" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>2本だけの地図の上では 0.399。捨てた軸の分だけ、距離は縮む。</p>
-</section>
-<section id="帰結⑥2本で表す割合" class="slide level2 smaller" data-chapter="I-7">
-<h2>帰結⑥：2本で表す割合</h2>
+<section id="帰結②塊の数は固有値0の数" class="slide level2" data-chapter="I-7">
+<h2>帰結②：塊の数は固有値0の数</h2>
 <p><span class="math display">
-\frac{f_{i1}^2+f_{i2}^2}{\lVert\boldsymbol f_i\rVert_2^2}
+\boldsymbol x^\top\mathbf L\boldsymbol x=0\iff x_i=x_j\quad(a_{ij}=1\ \text{のすべての組})
 </span></p>
+<p>二乗の和が0なら、どの線でも両端が等しい。だから <span class="math inline">\boldsymbol x</span> は、つながった塊ごとに一定。</p>
+</section>
+<section id="帰結②塊の01が固有ベクトル" class="slide level2" data-chapter="I-7">
+<h2>帰結②：塊の0/1が固有ベクトル</h2>
+<p><span class="math display">
+\mathbf L\boldsymbol x=\boldsymbol 0\iff\boldsymbol x=\textstyle\sum_{q}c_q\boldsymbol g_q
+</span></p>
+<p><span class="math inline">\boldsymbol g_q</span> は塊 <span class="math inline">q</span> の0/1。塊が <span class="math inline">k</span> 個なら、固有値0の固有ベクトルは <span class="math inline">k</span> 本（<span class="math inline">\mathbf L\boldsymbol x=\boldsymbol 0</span> なら <span class="math inline">\boldsymbol x^\top\mathbf L\boldsymbol x=0</span>）。</p>
+</section>
+<section id="帰結②線を抜くと" class="slide level2" data-chapter="I-7">
+<h2>帰結②：線を抜くと</h2>
+<div id="6078e0e4" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1063" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>塊の間の5本を抜くと (a)、固有値0がちょうど3個。線を戻すと (b)、そのうち2個が0に近い小さな値になる。</p>
+</section>
+<section id="クイズ②塊はいくつ" class="slide level2" data-chapter="I-7">
+<h2>クイズ②：塊はいくつ</h2>
+<p>あるグラフのラプラシアンの固有値が、小さい順に <span class="math inline">0,\ 0,\ 0,\ 0.8,\ 2.1,\ \dots</span> だった。線でつながった塊はいくつか？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>1個</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>2個</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>3個</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>分からない</p>
+</div>
+</div>
+</section>
+<section id="クイズ②の答えc" class="slide level2" data-chapter="I-7">
+<h2>クイズ②の答え：C</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>1個</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>2個</p>
+</div>
+<div class="c ok">
+<p><span class="k">C</span>3個</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>分からない</p>
+</div>
+</div>
+<p>固有値0の数が、つながった塊の数。いちばん小さい0は、どのグラフにも必ずある（<span class="math inline">\mathbf L\mathbf 1=\boldsymbol 0</span>）。</p>
+</section>
+<section id="帰結③固有値の隙間でkを選ぶ" class="slide level2" data-chapter="I-7">
+<h2>帰結③：固有値の隙間でkを選ぶ</h2>
+<div id="5f3d43bb" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1063" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>元のグラフは、小さな固有値が4個（1.71 以下）、その後 4.00 に跳ぶ。跳ぶ手前までの数を <span class="math inline">k</span> にする（<span class="math inline">k=4</span>）。</p>
+</section>
+<section id="帰結④線の数は対角だけ" class="slide level2" data-chapter="I-7">
+<h2>帰結④：線の数は対角だけ</h2>
+<p><span class="math display">
+\mathbf L=\mathbf D-\mathbf A,\qquad [\mathbf L]_{ii}=d_i
+</span></p>
+<p>次数は <span class="math inline">\mathbf L</span> の対角にしか入っていない。誰とつながるかは、対角でない <span class="math inline">-\mathbf A</span> が持つ。</p>
+</section>
+<section id="困りごと②に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと②に戻る</h2>
+<div id="7f4603a8" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1063" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>次数がほぼ同じでも、フィードラーベクトルは塊ごとにそろう。まとまりは、誰とつながるかで決まる。</p>
+</section>
+<section id="帰結⑤レシオカットは1点を嫌う" class="slide level2" data-chapter="I-7">
+<h2>帰結⑤：レシオカットは1点を嫌う</h2>
+<p><span class="math display">
+\frac1{|S|}+\frac1{|\bar S|}=
+\begin{cases}1+\dfrac1{n-1} &amp; (|S|=1)\\[6pt] \dfrac4n &amp; (|S|=n/2)\end{cases}
+</span></p>
+<p>カットに掛かる数。1点の群がいちばん大きく、大きさがそろうほど小さい。</p>
+</section>
+<section id="クイズ③どちらを切るか" class="slide level2" data-chapter="I-7">
+<h2>クイズ③：どちらを切るか</h2>
+<p>12点のグラフ。(a) 1点だけを線1本で切り離す、(b) 6点ずつに線3本で切る。レシオカットが小さいのは？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>(a)</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>(b)</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>同じ</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>線の少ない方</p>
+</div>
+</div>
+</section>
+<section id="クイズ③の答えb" class="slide level2" data-chapter="I-7">
+<h2>クイズ③の答え：B</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>(a)</p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span>(b)</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>同じ</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>線の少ない方</p>
+</div>
+</div>
+<p>レシオカットは (a) <span class="math inline">1\times(1/1+1/11)=1.09</span>、(b) <span class="math inline">3\times(1/6+1/6)=1.00</span>。線は3倍でも、そろった分け方の方が小さい。</p>
+</section>
+<section id="困りごと③に戻る" class="slide level2 smaller" data-chapter="I-7">
+<h2>困りごと③に戻る</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>メニュー</th>
-<th>醤油</th>
-<th>塩</th>
-<th>味噌</th>
-<th>豚骨</th>
-<th>つけ麺</th>
+<th>分け方</th>
+<th style="text-align: center;">カット</th>
+<th style="text-align: center;">レシオカット</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>2本で表す割合</td>
-<td>0.95</td>
-<td>0.99</td>
-<td>0.38</td>
-<td>0.88</td>
-<td>0.99</td>
+<td>13だけ</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.08</td>
+</tr>
+<tr class="even">
+<td>1〜4と13（フィードラーベクトルの符号）</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0.65</td>
+</tr>
+<tr class="odd">
+<td>緩めた最小 <span class="math inline">\lambda_2</span></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">0.36</td>
 </tr>
 </tbody>
 </table>
-<p>行の点の長さの二乗のうち、2本が表す割合。味噌だけが 0.38。その形の違いの多くは、描かない3本目に入っている。</p>
+<p>線の数だけなら13を切る。大きさで割れば塊で切る。<span class="math inline">\lambda_2</span> は、どの分け方のレシオカットも下回る。</p>
 </section>
-<section id="帰結⑦列の点を重ねる" class="slide level2" data-chapter="I-7">
-<h2>帰結⑦：列の点を重ねる</h2>
-<div id="e6fb7fe9" class="cell" data-execution_count="35">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="484" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>時間帯の点 <span class="math inline">\boldsymbol g_j</span>（赤の三角）を同じ平面に重ねる。</p>
-</section>
-<section id="帰結⑦遷移公式" class="slide level2" data-chapter="I-7">
-<h2>帰結⑦：遷移公式</h2>
-<div id="a80be52c" class="cell" data-execution_count="36">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="484" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\mathbf F=\mathbf D_r^{-1}\mathbf P\,\mathbf G\,\boldsymbol\Delta_1^{-1}</span>：行の点は、その行の形で列の点を平均し、<span class="math inline">1/\delta_m</span> 倍に広げた位置。</p>
-</section>
-<section id="たとえ重りを吊るした天秤" class="slide level2" data-chapter="I-7">
-<h2>たとえ：重りを吊るした天秤</h2>
-<div id="a39f0448" class="cell" data-execution_count="37">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1014" height="318"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>時間帯の点に、豚骨の割合だけ重りを吊るす。釣り合う場所（0.377）を <span class="math inline">1/\delta_1</span> 倍に広げると、豚骨の点（0.773）。</p>
-</section>
-<section id="帰結⑧行と列は向きで読む" class="slide level2" data-chapter="I-7">
-<h2>帰結⑧：行と列は向きで読む</h2>
-<div id="7d9296be" class="cell" data-execution_count="38">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="484" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">o/e-1\approx\sum_m f_{im}g_{jm}/\delta_m</span>：原点から同じ向きに遠いほど、期待より多い。</p>
-</section>
-<section id="帰結⑧距離は読まない" class="slide level2" data-chapter="I-7">
-<h2>帰結⑧：距離は読まない</h2>
-<div id="27bdce41" class="cell" data-execution_count="39">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="484" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>豚骨と深夜は同じ向きに遠い：期待の 2.63 倍。行の点と列の点の距離には意味が無い。</p>
-</section>
-<section id="困りごと③に戻る" class="slide level2" data-chapter="I-7">
-<h2>困りごと③に戻る</h2>
-<div id="d1c53fa7" class="cell" data-execution_count="40">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="484" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>中身の違う行と列も、遷移公式で互いの重み付き平均として結ばれる。だから1枚に置ける。読むのは向きだけ。</p>
-</section>
-<section id="帰結⑨まれな列は重い" class="slide level2" data-chapter="I-7">
-<h2>帰結⑨：まれな列は重い</h2>
+<section id="帰結⑥λ₂は切りにくさ" class="slide level2" data-chapter="I-7">
+<h2>帰結⑥：λ₂は切りにくさ</h2>
 <p><span class="math display">
-d_\chi^2(\boldsymbol a_i,\boldsymbol a_{i'})=\sum_{j=1}^{J}\frac{(a_{ij}-a_{i'j})^2}{c_j}
+\lambda_2\le\min_S\operatorname{RatioCut}(S)
 </span></p>
-<p><span class="math inline">c_j</span> が小さい列ほど、同じ割合の差が重く効く。深夜（<span class="math inline">c</span> = 0.190）は昼（0.273）の 1.4 倍。</p>
+<p>緩めた問題は、元の分け方をすべて候補に含む。だから最小値は元の最小以下。<span class="math inline">\lambda_2</span> が大きければ、どう切っても多くの線をまたぐ。</p>
 </section>
-<section id="次の問い後から来た行は" class="slide level2" data-chapter="I-1">
-<h2>次の問い：後から来た行は？</h2>
+<section id="次の問い1点の群が残る" class="slide level2" data-chapter="I-1">
+<h2>次の問い：1点の群が残る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
 <ul>
-<li>地図を作ったあとで、新メニューの担々麺を始めた</li>
-<li>表に足して作り直すと、ほかの点まで動いてしまう</li>
+<li><span class="math inline">k=3</span> にすると、13だけで1群。残りは1〜5と6〜12に分かれ、塊がくずれた</li>
+<li>線1本でしかつながらない点を、1つの群として数えてよいか</li>
 </ul>
-<p>問い：地図を動かさずに、新しい行を置けるか？ 使いどころ：新メニュー・新店舗を、作った地図に後から置く。</p>
-</section>
-<section id="帰結⑩遷移公式で置く" class="slide level2" data-chapter="I-7">
-<h2>帰結⑩：遷移公式で置く</h2>
-<div id="4a8bf4f5" class="cell" data-execution_count="42">
+<p>次数の小さい点を、軽く数えられないか。</p>
+</div><div class="column" style="width:55%;">
+<div id="95383587" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png?v=49241bde" width="415" height="295"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">\boldsymbol f_{\text{new}}=\boldsymbol\Delta_1^{-1}\mathbf G^\top\boldsymbol a_{\text{new}}</span>：新しい行の形で列の点を平均し、<span class="math inline">1/\delta_m</span> 倍に広げる。</p>
+</div></div>
 </section>
-<section id="帰結⑩補助点" class="slide level2" data-chapter="I-7">
-<h2>帰結⑩：補助点</h2>
-<div id="42634f7c" class="cell" data-execution_count="43">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>推定に使わず、後から置いた点を補助点と呼ぶ。担々麺は深夜の割合が 0.64 で、豚骨（0.50）より外に出る。</p>
-</section>
-<section id="帰結⑩足して作り直すと" class="slide level2" data-chapter="I-7">
-<h2>帰結⑩：足して作り直すと</h2>
-<div id="01884b22" class="cell" data-execution_count="44">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>表に足して作り直すと、軸そのものが変わる。味噌は 0.37 動く。補助点なら、前の地図と同じ物差しで比べられる。</p>
-</section>
-<section id="次の問い似た2行は" class="slide level2" data-chapter="I-1">
-<h2>次の問い：似た2行は？</h2>
-<ul>
-<li>醤油を、並と大盛りの2行に分けて数えてもよかった</li>
-<li>分けるか、まとめるかで、地図は変わるのか</li>
-</ul>
-<p>問い：形が同じ2行を分けると、地図はどうなるか？ 使いどころ：カテゴリを細かく分けるか、まとめるか迷うとき。</p>
-</section>
-<section id="帰結⑪形が同じ2行" class="slide level2" data-chapter="I-7">
-<h2>帰結⑪：形が同じ2行</h2>
-<div id="9211d39f" class="cell" data-execution_count="45">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>醤油 360 杯を、並と大盛りに2:1で分けた。2行の時間帯の割合は同じ。</p>
-</section>
-<section id="帰結⑪分けても地図は同じ" class="slide level2" data-chapter="I-7">
-<h2>帰結⑪：分けても地図は同じ</h2>
-<div id="1e44c381" class="cell" data-execution_count="46">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>並と大盛りは同じ点に重なり、ほかの点も特異値も元の地図と同じ（差は最大 2e-16）。</p>
-</section>
-<section id="帰結⑪分布の等価性" class="slide level2" data-chapter="I-7">
-<h2>帰結⑪：分布の等価性</h2>
+<section id="帰結⑦次数の和で割る" class="slide level2" data-chapter="I-7">
+<h2>帰結⑦：次数の和で割る</h2>
 <p><span class="math display">
 \begin{aligned}
-&amp;\boldsymbol a_i=\boldsymbol a_{i'}\ \Longrightarrow\
-\frac{r_i\boldsymbol a_i+r_{i'}\boldsymbol a_{i'}}{r_i+r_{i'}}=\boldsymbol a_i\\
-&amp;\boldsymbol c=\textstyle\sum_i r_i\boldsymbol a_i\ \text{も変わらない}
+&amp;\operatorname{Ncut}(S)=\operatorname{cut}(S,\bar S)\Bigl(\frac1{\operatorname{vol}(S)}+\frac1{\operatorname{vol}(\bar S)}\Bigr)\\
+&amp;\operatorname{vol}(S)=\textstyle\sum_{i\in S}d_i
 \end{aligned}
 </span></p>
-<p>χ²距離は行の形と <span class="math inline">\boldsymbol c</span> だけで決まる。形が同じ行は、分けてもまとめても地図を変えない。</p>
+<p>点の数の代わりに、次数の和で割る（正規化カット）。線の少ない点は、軽く数える。</p>
+</section>
+<section id="帰結⑦値の付け方" class="slide level2" data-chapter="I-7">
+<h2>帰結⑦：値の付け方</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;x_i=\sqrt{\operatorname{vol}(\bar S)/\operatorname{vol}(S)}\ (i\in S)\\
+&amp;x_i=-\sqrt{\operatorname{vol}(S)/\operatorname{vol}(\bar S)}\ (i\in\bar S)\\
+&amp;\boldsymbol x^\top\mathbf L\boldsymbol x=2m\operatorname{Ncut}(S)\\
+&amp;\boldsymbol x^\top\mathbf D\boldsymbol x=2m,\quad \mathbf 1_n^\top\mathbf D\boldsymbol x=0
+\end{aligned}
+</span></p>
+<p>目的関数⑥⑦の <span class="math inline">|S|</span> を <span class="math inline">\operatorname{vol}(S)</span> に、<span class="math inline">n</span> を <span class="math inline">\operatorname{vol}</span> の合計 <span class="math inline">2m</span> に替えた同じ計算。</p>
+</section>
+<section id="帰結⑦緩めて解く" class="slide level2" data-chapter="I-7">
+<h2>帰結⑦：緩めて解く</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\boldsymbol v=\mathbf D^{1/2}\boldsymbol x:\ \min\ \boldsymbol v^\top\mathbf L_{\mathrm{sym}}\boldsymbol v\\
+&amp;\text{s.t.}\ \boldsymbol v\perp\mathbf D^{1/2}\mathbf 1_n,\ \lVert\boldsymbol v\rVert_2^2=2m\\
+&amp;\mathbf L_{\mathrm{sym}}=\mathbf D^{-1/2}\mathbf L\mathbf D^{-1/2}=\mathbf I-\mathbf D^{-1/2}\mathbf A\mathbf D^{-1/2}
+\end{aligned}
+</span></p>
+<p><span class="math inline">\mathbf D^{1/2}\mathbf 1_n</span> は固有値0の向き。道具③で2番目の固有ベクトル <span class="math inline">\boldsymbol v_2</span>、<span class="math inline">\boldsymbol x=\mathbf D^{-1/2}\boldsymbol v_2</span>。</p>
+</section>
+<section id="帰結⑦3つの塊に戻る" class="slide level2" data-chapter="I-7">
+<h2>帰結⑦：3つの塊に戻る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math inline">\boldsymbol y_m=\mathbf D^{-1/2}\boldsymbol v_m</span> を座標にして、<span class="math inline">k=3</span> でk-means。</p>
+<p>13は1〜4と同じ群に入り、1〜4・5〜8・9〜12の3つに分かれる。</p>
+</div><div class="column" style="width:55%;">
+<div id="e573d2ae" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png?v=49241bde" width="415" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="帰結⑧aを分割表とみる" class="slide level2" data-chapter="I-7">
+<h2>帰結⑧：Aを分割表とみる</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\mathbf P=\mathbf A/(2m),\qquad \boldsymbol r=\boldsymbol c=\boldsymbol d/(2m)\\
+&amp;\mathbf S=\mathbf D_r^{-1/2}\bigl(\mathbf P-\boldsymbol r\boldsymbol r^\top\bigr)\mathbf D_r^{-1/2}\\
+&amp;\phantom{\mathbf S}=\mathbf D^{-1/2}\mathbf A\mathbf D^{-1/2}-\sqrt{\boldsymbol r}\sqrt{\boldsymbol r}^\top
+\end{aligned}
+</span></p>
+<p>第12回の標準化残差行列。行の周辺も列の周辺も、次数の割合。</p>
+</section>
+<section id="帰結⑧同じ向きの組" class="slide level2" data-chapter="I-7">
+<h2>帰結⑧：同じ向きの組</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\mathbf D^{-1/2}\mathbf A\mathbf D^{-1/2}=\mathbf I-\mathbf L_{\mathrm{sym}}\\
+&amp;\delta=|1-\mu_m|,\qquad \mathbf D_r^{-1/2}\boldsymbol k\propto\mathbf D^{-1/2}\boldsymbol v_m
+\end{aligned}
+</span></p>
+<p>固有ベクトルは同じ。<span class="math inline">\mu_1=0</span> の向き <span class="math inline">\sqrt{\boldsymbol r}</span> は、<span class="math inline">-\sqrt{\boldsymbol r}\sqrt{\boldsymbol r}^\top</span> が消す（第12回の帰結④）。</p>
+</section>
+<section id="帰結⑧並べ方が違う" class="slide level2 smaller" data-chapter="I-7">
+<h2>帰結⑧：並べ方が違う</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>向き</th>
+<th style="text-align: center;"><span class="math inline">\mu_m</span></th>
+<th style="text-align: center;"><span class="math inline">1-\mu_m</span></th>
+<th style="text-align: center;">正規化カット</th>
+<th style="text-align: center;">対応分析</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">m=2</span></td>
+<td style="text-align: center;">0.117</td>
+<td style="text-align: center;">+0.883</td>
+<td style="text-align: center;">1番目</td>
+<td style="text-align: center;">軸1（<span class="math inline">\delta_1</span> = 0.883）</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">m=3</span></td>
+<td style="text-align: center;">0.412</td>
+<td style="text-align: center;">+0.588</td>
+<td style="text-align: center;">2番目</td>
+<td style="text-align: center;">軸3（<span class="math inline">\delta_3</span> = 0.588）</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">m=n</span></td>
+<td style="text-align: center;">1.606</td>
+<td style="text-align: center;">-0.606</td>
+<td style="text-align: center;">使わない</td>
+<td style="text-align: center;">軸2（<span class="math inline">\delta_2</span> = 0.606）</td>
+</tr>
+</tbody>
+</table>
+<p>正規化カットは <span class="math inline">1-\mu</span> の大きい順、対応分析は絶対値の大きい順。負の向きは、群をまたいで線が多い形。</p>
+</section>
+<section id="帰結⑨隣の平均" class="slide level2" data-chapter="I-7">
+<h2>帰結⑨：隣の平均</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\mathbf L\boldsymbol y=\mu\mathbf D\boldsymbol y\iff\mathbf D^{-1}\mathbf A\boldsymbol y=(1-\mu)\,\boldsymbol y\\
+&amp;y_i=\frac{1}{1-\mu}\cdot\frac1{d_i}\sum_ja_{ij}y_j
+\end{aligned}
+</span></p>
+<p>点の値は、隣の点の値の平均を <span class="math inline">1/(1-\mu)</span> 倍したもの。第12回の遷移公式と同じ形。</p>
+</section>
+<section id="帰結⑨13は1の隣" class="slide level2" data-chapter="I-7">
+<h2>帰結⑨：13は1の隣</h2>
+<p><span class="math display">
+y_{13}=\frac{y_1}{1-\mu_2}
+</span></p>
+<p>13の隣は1だけ。だから13の値は1の値に近く、1〜4と同じ群に入る。線の少ない点は、隣に引き寄せられる。</p>
 </section></section>
 <section>
 <section id="第ii部-実データ解析" class="title-slide slide level1 part center">
@@ -1129,511 +985,242 @@ d_\chi^2(\boldsymbol a_i,\boldsymbol a_{i'})=\sum_{j=1}^{J}\frac{(a_{ij}-a_{i'j}
 <section id="第ii部実データで試す" class="slide level2" data-chapter="II-1">
 <h2>第II部：実データで試す</h2>
 <ul>
-<li>第I部の人工データは、現象がはっきり出るように作った</li>
-<li>実データは、理論どおりにいくとは限らない</li>
-<li>外れたら、その理由を第I部の道具で考える</li>
+<li>第I部の人工データは、塊がはっきり出るように作った</li>
+<li>実データは理論どおりにいくとは限らない。外れたら、理由を第I部の道具で考える</li>
+<li>うまくいったら最高</li>
 </ul>
-<p>うまくいったら最高。</p>
 </section>
-<section id="理論の予想" class="slide level2" data-chapter="II-1">
+<section id="理論の予想" class="slide level2 smaller" data-chapter="II-1">
 <h2>理論の予想</h2>
-<ul>
-<li>第I部：表をそのまま分解すると、1本目は量（独立の表）を拾う</li>
-<li>予想：国 × 容器の表でも、1本目は独立の表とほぼ同じになるはず</li>
-<li>予想：地図で同じ向きに遠い国と容器の組は、期待より多いはず</li>
-<li>予想：後から置く国（補助点）は、形の似た国の近くに出るはず</li>
-</ul>
+<ol type="1">
+<li>複合体どうしも相互作用でつながり、固有値0は1個（帰結②）</li>
+<li>正規化カットで8群に分けると、複合体ごとに分かれる（帰結⑦）</li>
+<li>レシオカットでは、線の少ないタンパク質が1点の群になりやすい（帰結⑦）</li>
+<li>小さい固有値が複合体の数（8）だけ並び、その後で跳ぶ（帰結③）</li>
+</ol>
 </section>
-<section id="データラーメンの一覧" class="slide level2 smaller" data-chapter="II-1">
-<h2>データ：ラーメンの一覧</h2>
+<section id="データ酵母のタンパク質" class="slide level2" data-chapter="II-1">
+<h2>データ：酵母のタンパク質</h2>
+<div id="7eaaeced" class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="913" height="338"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>出芽酵母の8つの複合体の 154 個のタンパク質。物理的に結合する組を線で結んだ（1,881 本、STRING）。色は複合体。</p>
+</section>
+<section id="データ8つの複合体" class="slide level2 smaller" data-chapter="II-1">
+<h2>データ：8つの複合体</h2>
 <table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
+<thead>
+<tr class="header">
+<th>複合体</th>
+<th>働き</th>
+<th style="text-align: center;">個数</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td>出典</td>
-<td>The Ramen Raterの評価一覧（TidyTuesday 2019-06-04に収録）</td>
+<td>プロテアソーム</td>
+<td>要らないタンパク質を分解する</td>
+<td style="text-align: center;">33</td>
 </tr>
 <tr class="even">
-<td>1件</td>
-<td>評者が食べて評価した即席麺1品。全 3,180 品</td>
+<td>核膜孔</td>
+<td>核の膜に開いた出入り口</td>
+<td style="text-align: center;">33</td>
 </tr>
 <tr class="odd">
-<td>行</td>
-<td>ブランドの国：品数の多い 10 か国</td>
+<td>APC（後期促進複合体）</td>
+<td>細胞分裂を先に進める</td>
+<td style="text-align: center;">13</td>
 </tr>
 <tr class="even">
-<td>列</td>
-<td>容器：袋・どんぶり・カップ・トレー（箱など少ない形は除く 37 品）</td>
+<td>RNAポリメラーゼII・III</td>
+<td>DNAからRNAを写す</td>
+<td style="text-align: center;">7・12</td>
 </tr>
 <tr class="odd">
-<td>表</td>
-<td>10 × 4、<span class="math inline">n</span> = 2,597 品</td>
+<td>メディエーター・TFIID・SAGA</td>
+<td>写し始めを調節する</td>
+<td style="text-align: center;">21・10・15</td>
+</tr>
+<tr class="even">
+<td>2つに属する（灰色）</td>
+<td>Pol IIとIII、TFIIDとSAGAで共有</td>
+<td style="text-align: center;">10</td>
 </tr>
 </tbody>
 </table>
-<p>評者が食べた品の一覧で、各国の売れ筋の代表ではない。</p>
-</section>
-<section id="データ10-4の表" class="slide level2" data-chapter="II-1">
-<h2>データ：10 × 4の表</h2>
-<div id="0146515b" class="cell" data-execution_count="49">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1104" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>国 × 容器で品数を数えた分割表。日本・米国・韓国の品が多い。</p>
-</section>
-<section id="データ国ごとの割合" class="slide level2" data-chapter="II-1">
-<h2>データ：国ごとの割合</h2>
-<div id="2b761342" class="cell" data-execution_count="50">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1104" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>行プロファイル。台湾・インドネシアは袋、日本はどんぶり、米国はトレーが多め。</p>
 </section>
 <section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
 <h2>手続き：何をどう計算したか</h2>
 <ol type="1">
-<li>数える：一覧から、国 × 容器の品数の表 <span class="math inline">\mathbf O</span>（10×4）を作る</li>
-<li>比べる：<span class="math inline">\mathbf O</span> をそのまま特異値分解し、1本目を独立の表と比べる</li>
-<li>分解する：I-6の手順で <span class="math inline">\mathbf S</span> を作り、1回特異値分解して <span class="math inline">\delta_m</span>・<span class="math inline">\mathbf F</span>・<span class="math inline">\mathbf G</span> を得る</li>
-<li>読む：地図の向きから出る倍率を、表の倍率と比べる</li>
-<li>置く：11・12番目の国（ベトナム・英国）を、遷移公式で補助点として置く</li>
-<li>揺らす：箱の列を足し、さらに箱の品を4品だけ動かして、地図を描き直す</li>
+<li>STRINGの物理的な相互作用から、信頼度0.7以上の線だけを残し、154 × 154 の隣接行列を作った（信頼度は使わず、線があるかだけ）</li>
+<li>どのタンパク質がどの複合体に属するかは、EBI Complex Portalで調べた。計算には使わず、答え合わせだけに使う</li>
+<li>I-6の手順で <span class="math inline">\mathbf L</span> と <span class="math inline">\mathbf L_{\mathrm{sym}}</span> を固有値分解した</li>
+<li>正規化カット・レシオカットで8群に分け、複合体と比べた</li>
+<li>図では、点を複合体ごとに円に並べた（並べ方は計算には使わない）</li>
 </ol>
 </section>
-<section id="結果①そのまま分解すると" class="slide level2" data-chapter="II-3">
-<h2>結果①：そのまま分解すると</h2>
-<div id="d43f5c9d" class="cell" data-execution_count="52">
+<section id="結果①固有値0は2個" class="slide level2" data-chapter="II-3">
+<h2>結果①：固有値0は2個</h2>
+<div id="460b1362" class="cell" data-execution_count="29">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="824" height="284"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>困りごと①のように表をそのまま特異値分解すると、1本目で 91.8%。</p>
+<p>固有値0が2個ある。全体は、線でたどれない2つの塊に分かれている。予想は外れた。</p>
 </section>
-<section id="結果①独立の表と比べる" class="slide level2" data-chapter="II-3">
-<h2>結果①：独立の表と比べる</h2>
-<div id="16fe5571" class="cell" data-execution_count="53">
+<section id="なぜ外れたかapcは離れている" class="slide level2" data-chapter="II-5">
+<h2>なぜ外れたか：APCは離れている</h2>
+<div id="943e0fec" class="cell" data-execution_count="30">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-54-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="913" height="338"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>(b) は (c) に近いが、差は最大 54.1 品。人工データでは 17.1 杯だった。</p>
+<p>APC（紫、赤い丸）の 13 個は、ほかの複合体と信頼度0.7以上の線を1本も持たない。帰結②のとおり、離れた塊は固有値0を1つ増やす。</p>
 </section>
-<section id="結果①袋のずれが混ざる" class="slide level2" data-chapter="II-3">
-<h2>結果①：袋のずれが混ざる</h2>
-<div id="93cc0978" class="cell" data-execution_count="54">
+<section id="結果②8群に分ける" class="slide level2" data-chapter="II-3">
+<h2>結果②：8群に分ける</h2>
+<div id="a86df9a1" class="cell" data-execution_count="31">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-55-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="870" height="330"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>台湾 × 袋は観測 265、(b) 227、(c) 182。予想は半分外れた。1本目は量に袋のずれが混ざる。</p>
+<p>正規化カットで8群。行は複合体、列は群、数はタンパク質の個数。</p>
 </section>
-<section id="なぜ混ざったか" class="slide level2 smaller" data-chapter="II-5">
-<h2>なぜ混ざったか</h2>
+<section id="結果②多くは複合体どおり" class="slide level2" data-chapter="II-3">
+<h2>結果②：多くは複合体どおり</h2>
+<div id="2589b297" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="870" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>プロテアソーム・APC・Pol III・SAGAは全部が、TFIIDも10個中8個が1つの群にまとまった。おおむね予想どおり。</p>
+</section>
+<section id="なぜ外れたか結合して働く2つ" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜ外れたか：結合して働く2つ</h2>
 <table class="caption-top">
-<colgroup>
-<col style="width: 23%">
-<col style="width: 38%">
-<col style="width: 38%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>分解した表</th>
-<th style="text-align: center;">1本目と独立の表の差（最大）</th>
-<th style="text-align: center;">ずれ <span class="math inline">\lvert\mathbf O-\mathbf E\rvert</span> のうち1本目が拾った分</th>
+<th>線の数</th>
+<th style="text-align: center;">本数</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>人工データの <span class="math inline">\mathbf O</span></td>
-<td style="text-align: center;">17.1 杯</td>
-<td style="text-align: center;">19%</td>
+<td>Pol IIの中</td>
+<td style="text-align: center;">21</td>
 </tr>
 <tr class="even">
-<td>国 × 容器の <span class="math inline">\mathbf O</span></td>
-<td style="text-align: center;">54.1 品</td>
-<td style="text-align: center;">45%</td>
+<td>メディエーターの中</td>
+<td style="text-align: center;">210</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\sqrt{r_ic_j}</span> で割った表（帰結④）</td>
-<td style="text-align: center;">9e-14 品</td>
-<td style="text-align: center;">0%</td>
+<td>Pol IIとメディエーターの間</td>
+<td style="text-align: center;">105</td>
+</tr>
+<tr class="even">
+<td>Pol IIとPol IIIの間</td>
+<td style="text-align: center;">6</td>
 </tr>
 </tbody>
 </table>
-<p>割らずに分解すると、品の多い袋の列が二乗和を支配する。袋のずれも1本目に乗る。割れば、独立の表は特異値 1.0000 の1本としてぴったり分かれる。</p>
+<p>Pol IIとメディエーターは1つの群になった。間の線がPol IIの中より多い。細胞の中でも、2つは結合して1つの大きな塊として働く。</p>
 </section>
-<section id="地図①軸ごとの慣性" class="slide level2" data-chapter="II-4">
-<h2>地図①：軸ごとの慣性</h2>
-<div id="007b3af5" class="cell" data-execution_count="56">
+<section id="なぜ外れたか核膜孔の膜の部分" class="slide level2" data-chapter="II-5">
+<h2>なぜ外れたか：核膜孔の膜の部分</h2>
+<div id="265d5a19" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="701" height="354"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="913" height="338"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>2本で 89.1%。3本目の 10.9%は地図に描かれない。</p>
+<p>核膜孔は30個と3個に分かれた。3個（POM34・NDC1・POM152）は膜に埋まった輪で、ほかの部分との線が少ない。</p>
 </section>
-<section id="地図②国の点" class="slide level2" data-chapter="II-4">
-<h2>地図②：国の点</h2>
-<div id="daab8d27" class="cell" data-execution_count="57">
+<section id="結果③共有するタンパク質" class="slide level2" data-chapter="II-3">
+<h2>結果③：共有するタンパク質</h2>
+<div id="16b4a757" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-58-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="620" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="913" height="338"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>右に台湾・マレーシア・インドネシア、左に日本・米国。形の似た国が近くに並ぶ。</p>
+<p>2つに属する 10 個（赤い丸）は、どちらか一方の群にしか入れない。TFIIDと共有するTAFはSAGAの群に、Pol IIIと共有する5個はPol IIの群に入った。</p>
 </section>
-<section id="地図③容器の点を重ねる" class="slide level2" data-chapter="II-4">
-<h2>地図③：容器の点を重ねる</h2>
-<div id="ba233dde" class="cell" data-execution_count="58">
+<section id="結果④レシオカットでは" class="slide level2" data-chapter="II-3">
+<h2>結果④：レシオカットでは</h2>
+<div id="a8b47f25" class="cell" data-execution_count="35">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="620" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="870" height="330"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>容器の点（赤の三角）を同じ平面に重ねる。右に袋、左にトレーとどんぶり、上にカップ。</p>
+<p>核膜孔から1個ずつの群が3つできた。Pol IIIはPol IIの群にのみ込まれた。帰結⑦のとおり。予想どおり。</p>
 </section>
-<section id="地図④軸1は袋か容器か" class="slide level2" data-chapter="II-4">
-<h2>地図④：軸1は袋か容器か</h2>
-<div id="c4a05c14" class="cell" data-execution_count="59">
+<section id="結果⑤跳びは4個の後" class="slide level2" data-chapter="II-4">
+<h2>結果⑤：跳びは4個の後</h2>
+<div id="49f952d1" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-60-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="620" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="824" height="284"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>軸1：右に袋、左にトレー・どんぶり。袋の多い国が右、容器入りの多い日本・米国が左。</p>
+<p>0に近い固有値は4個で、その後に跳ぶ。複合体の数の8個ではない。予想は外れた。</p>
 </section>
-<section id="地図⑤軸2はカップか" class="slide level2" data-chapter="II-4">
-<h2>地図⑤：軸2はカップか</h2>
-<div id="c157d34b" class="cell" data-execution_count="60">
+<section id="なぜ外れたか転写の5つは1つ" class="slide level2" data-chapter="II-5">
+<h2>なぜ外れたか：転写の5つは1つ</h2>
+<div id="88c551fe" class="cell" data-execution_count="37">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="620" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="870" height="330"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>軸2：上にカップ、下にどんぶり。シンガポール・香港・タイが上、中国・台湾が下。</p>
-</section>
-<section id="結果②台湾と袋" class="slide level2" data-chapter="II-4">
-<h2>結果②：台湾と袋</h2>
-<div id="285e0f75" class="cell" data-execution_count="61">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-62-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="620" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>台湾と袋は、原点から同じ向き（右）にある。台湾 × 袋は期待の 1.45 倍、地図の近似も 1.45 倍。予想どおり。</p>
-</section>
-<section id="結果②表と地図の倍率" class="slide level2 smaller" data-chapter="II-4">
-<h2>結果②：表と地図の倍率</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>マス</th>
-<th>観測</th>
-<th>期待度数</th>
-<th>何倍か</th>
-<th>2本の地図の近似</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>台湾 × 袋</td>
-<td>265</td>
-<td>182.2</td>
-<td>1.45</td>
-<td>1.45</td>
-</tr>
-<tr class="even">
-<td>台湾 × カップ</td>
-<td>2</td>
-<td>52.0</td>
-<td>0.04</td>
-<td>0.04</td>
-</tr>
-<tr class="odd">
-<td>日本 × どんぶり</td>
-<td>185</td>
-<td>114.2</td>
-<td>1.62</td>
-<td>1.51</td>
-</tr>
-</tbody>
-</table>
-<p>台湾・日本のマスでは、地図の倍率が表の倍率をよく写す。</p>
-</section>
-<section id="結果③トレーで外れる" class="slide level2 smaller" data-chapter="II-4">
-<h2>結果③：トレーで外れる</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>マス</th>
-<th>観測</th>
-<th>期待度数</th>
-<th>何倍か</th>
-<th>2本の地図の近似</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>台湾 × 袋</td>
-<td>265</td>
-<td>182.2</td>
-<td>1.45</td>
-<td>1.45</td>
-</tr>
-<tr class="even">
-<td>台湾 × カップ</td>
-<td>2</td>
-<td>52.0</td>
-<td>0.04</td>
-<td>0.04</td>
-</tr>
-<tr class="odd">
-<td>日本 × どんぶり</td>
-<td>185</td>
-<td>114.2</td>
-<td>1.62</td>
-<td>1.51</td>
-</tr>
-<tr class="even">
-<td>米国 × トレー</td>
-<td>53</td>
-<td>19.6</td>
-<td>2.70</td>
-<td>1.69</td>
-</tr>
-<tr class="odd">
-<td>タイ × トレー</td>
-<td>2</td>
-<td>10.7</td>
-<td>0.19</td>
-<td>0.90</td>
-</tr>
-<tr class="even">
-<td>マレーシア × トレー</td>
-<td>0</td>
-<td>9.1</td>
-<td>0.00</td>
-<td>-0.17</td>
-</tr>
-</tbody>
-</table>
-<p>米国 × トレーは 2.70 倍なのに、地図は 1.69 倍。マレーシア × トレーは負の倍率で、品数にすると -1.5 品。</p>
-</section>
-<section id="なぜ外れたか①3本目" class="slide level2 smaller" data-chapter="II-5">
-<h2>なぜ外れたか①：3本目</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>国</th>
-<th>タイ</th>
-<th>米国</th>
-<th>香港</th>
-<th>日本</th>
-<th>ほかの6か国</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2本で表す割合</td>
-<td>0.60</td>
-<td>0.64</td>
-<td>0.69</td>
-<td>0.94</td>
-<td>0.96以上</td>
-</tr>
-</tbody>
-</table>
-<p>低いのはタイ・米国・香港で、トレーの倍率が外れた国。3本目（10.9%）でいちばん端の容器はトレー（0.50）。</p>
-</section>
-<section id="なぜ外れたか②倍率の重み" class="slide level2" data-chapter="II-5">
-<h2>なぜ外れたか②：倍率の重み</h2>
-<p><span class="math display">
-\frac{(p_{ij}-\hat p_{ij})^2}{r_ic_j}=r_ic_j\,\bigl(b_{ij}-\hat b_{ij}\bigr)^2,\qquad b_{ij}=\frac{o_{ij}}{e_{ij}}-1
-</span></p>
-<p>倍率のずれには <span class="math inline">r_ic_j</span> が掛かる。トレーの列は合わせて <span class="math inline">c_4</span> = 0.052、袋は 0.568。トレーの倍率は軽く数えられ、0未満にもなる。</p>
-</section>
-<section id="予想④後から置く国" class="slide level2 smaller" data-chapter="II-4">
-<h2>予想④：後から置く国</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>国</th>
-<th>品数</th>
-<th>袋</th>
-<th>どんぶり</th>
-<th>カップ</th>
-<th>トレー</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>ベトナム</td>
-<td>112</td>
-<td>0.71</td>
-<td>0.18</td>
-<td>0.10</td>
-<td>0.02</td>
-</tr>
-<tr class="even">
-<td>英国</td>
-<td>69</td>
-<td>0.51</td>
-<td>0.03</td>
-<td>0.46</td>
-<td>0.00</td>
-</tr>
-</tbody>
-</table>
-<p>11・12番目の国を、表に入れずに補助点で置く。ベトナムは袋が多いので台湾の側、英国はカップが多いのでシンガポールや香港の近く、と予想する。</p>
-</section>
-<section id="結果④英国は外に出る" class="slide level2" data-chapter="II-4">
-<h2>結果④：英国は外に出る</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>ベトナムは予想どおり台湾の側に出た。</p>
-<p>英国は軸2で 0.88。どの国よりも、カップの点よりも上に出た。</p>
-</div><div class="column" style="width:55%;">
-<div id="f575e0c4" class="cell" data-execution_count="69">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png?v=07318f63" width="536" height="445"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="なぜ英国は外か" class="slide level2" data-chapter="II-5">
-<h2>なぜ英国は外か</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>英国のカップの割合 0.46 は、10か国の最大 0.26 を大きく超える。</p>
-<p>遷移公式で <span class="math inline">1/\delta_2</span> = 5.3 倍に広げるので、さらに外へ出る。</p>
-</div><div class="column" style="width:55%;">
-<div id="8e1ea983" class="cell" data-execution_count="70">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-71-output-1.png?v=07318f63" width="536" height="445"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="落とし穴①箱を足すと" class="slide level2" data-chapter="II-6">
-<h2>落とし穴①：箱を足すと</h2>
-<ul>
-<li>除いていた箱（30 品、全体の 1.1%）を5列目に足す</li>
-<li>同じ手順で地図を描き直す</li>
-<li>さらに、インドネシアの箱を1品ずつ4品まで足してみる</li>
-</ul>
-<p>問い：まれな列は、地図のどこに置かれるか？</p>
-</section>
-<section id="落とし穴①箱は端に出る" class="slide level2" data-chapter="II-6">
-<h2>落とし穴①：箱は端に出る</h2>
-<div id="a8d85d36" class="cell" data-execution_count="72">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-73-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="624" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>品数ではわずかな箱が、地図の端に出る。総慣性の 6.8%を箱の列が作る（帰結⑨）。</p>
-</section>
-<section id="落とし穴①4品で動く" class="slide level2" data-chapter="II-6">
-<h2>落とし穴①：4品で動く</h2>
-<div id="ca627fdf" class="cell" data-execution_count="73">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-74-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="624" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>インドネシアの箱に4品足すと、箱の点は 0.23 動く。同じ4品を袋に足しても、袋は 0.001。</p>
-</section>
-<section id="落とし穴②日本と米国" class="slide level2" data-chapter="II-6">
-<h2>落とし穴②：日本と米国</h2>
-<div id="80dab4cf" class="cell" data-execution_count="74">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-75-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="620" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>地図の上では、日本と米国は 0.163 しか離れていない。形が似ていると読んでよいか。</p>
-</section>
-<section id="落とし穴②3本目で離れる" class="slide level2" data-chapter="II-6">
-<h2>落とし穴②：3本目で離れる</h2>
-<div id="cc093db9" class="cell" data-execution_count="75">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-76-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="620" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>行の形のχ²距離は 0.410。日本はどんぶり、米国はトレーが多く、その違いは3本目に入っている。</p>
+<p>4群に分けると、プロテアソーム・核膜孔・APCと、転写に関わる5つにきれいに分かれる。転写の5つは互いに線が多く、粗く見ると1つの塊。</p>
 </section>
 <section id="このデータでわかったこと" class="slide level2 smaller" data-chapter="II-6">
 <h2>このデータでわかったこと</h2>
 <ul>
-<li>予想は半分外れた：そのまま分解した1本目には、量に袋のずれが混ざる</li>
-<li>だから独立の表を先に引く（割れば特異値1の1本で分かれる）</li>
-<li>予想どおり：袋・どんぶり・カップは、地図が表の倍率を写した</li>
-<li>外れた：トレーの倍率は地図に写らない（3本目と軽い重み）</li>
-<li>補助点：ベトナムは予想どおり。英国は偏った形で、外に出た</li>
+<li>外れた：固有値0は2個。APCはほかと線でつながらない</li>
+<li>おおむね予想どおり：正規化カットの8群で、4つの複合体は全部、TFIIDは8割が1つの群</li>
+<li>外れた2つにも理由：Pol IIとメディエーターは間の線が多く、核膜孔の膜の輪は線が少ない</li>
+<li>予想どおり：レシオカットでは1点の群ができる</li>
+<li>外れた：跳びは4個の後。転写の5つは、粗く見ると1つの塊</li>
 </ul>
 </section></section>
 <section>
@@ -1641,195 +1228,121 @@ d_\chi^2(\boldsymbol a_i,\boldsymbol a_{i'})=\sum_{j=1}^{J}\frac{(a_{ij}-a_{i'j}
 <h1>締め</h1>
 
 </section>
-<section id="まとめ①独立の表を引く" class="slide level2" data-chapter="締め">
-<h2>まとめ①：独立の表を引く</h2>
-<div id="fe599e8d" class="cell" data-execution_count="78">
+<section id="まとめ①まとまりはカット" class="slide level2" data-chapter="締め">
+<h2>まとめ①：まとまりはカット</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\boldsymbol x^\top\mathbf L\boldsymbol x=\tfrac12\textstyle\sum_{i,j}a_{ij}(x_i-x_j)^2\\
+&amp;\operatorname{RatioCut}(S)=\operatorname{cut}(S,\bar S)\bigl(1/|S|+1/|\bar S|\bigr)
+\end{aligned}
+</span></p>
+<p>群をまたぐ線の数を、群の大きさで割って測る。ラプラシアンの2次形式で書ける。</p>
+</section>
+<section id="まとめ②緩めて固有ベクトル" class="slide level2" data-chapter="締め">
+<h2>まとめ②：緩めて固有ベクトル</h2>
+<div id="a65ef85d" class="cell" data-execution_count="41">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-79-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1152" height="384"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>そのまま分解すると、1本目は量に取られる。独立のモデル <span class="math inline">\mathbf P\approx\boldsymbol r\boldsymbol c^\top</span>（ランク1）を先に引く。</p>
+<p>0/1を実数に緩めると、小さい方の固有ベクトルが答え。行をk-meansで分け、座標にして描く。</p>
 </section>
-<section id="まとめ②重みはχ²距離" class="slide level2" data-chapter="締め">
-<h2>まとめ②：重みはχ²距離</h2>
-<div id="f69a5705" class="cell" data-execution_count="79">
+<section id="まとめ③固有値0は塊の数" class="slide level2" data-chapter="締め">
+<h2>まとめ③：固有値0は塊の数</h2>
+<div id="674a1bfd" class="cell" data-execution_count="42">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-80-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="822" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="1063" height="294"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>重み付き最小二乗法：<span class="math inline">\sum(p-\hat p)^2/(rc)=\lVert\mathbf S-\mathbf Y\rVert_F^2</span>。重みは、行の形をχ²距離で比べること。</p>
+<p>固有値0の数は、つながった塊の数。小さい固有値の後の跳びが、群の数の目安。</p>
 </section>
-<section id="まとめ③特異値分解を1回" class="slide level2" data-chapter="締め">
-<h2>まとめ③：特異値分解を1回</h2>
-<div id="303f439e" class="cell" data-execution_count="80">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-81-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="484" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>総慣性 <span class="math inline">\chi^2/n=\sum\delta_m^2</span> を軸に分ける。行どうしは距離、行と列は向きで読む。</p>
+<section id="まとめ④次数で割ると" class="slide level2" data-chapter="締め">
+<h2>まとめ④：次数で割ると</h2>
+<p><span class="math display">
+\mathbf D^{-1/2}\mathbf A\mathbf D^{-1/2}=\mathbf I-\mathbf L_{\mathrm{sym}}
+</span></p>
+<p>正規化カットは、隣接行列を分割表とみた第12回の対応分析と、同じ向きの組を使う。点の値は隣の平均に寄る。</p>
 </section>
-<section id="次回予告①地図は全体の形" class="slide level2" data-chapter="締め">
-<h2>次回予告①：地図は全体の形</h2>
+<section id="次回予告①表が手元にあった" class="slide level2" data-chapter="締め">
+<h2>次回予告①：表が手元にあった</h2>
 <ul>
-<li>地図は、総慣性を軸に分けて、関連の形を見せた</li>
-<li>同じ総慣性はマスにも分かれる：<span class="math inline">\chi^2=\sum_{i,j}\bigl((o_{ij}-e_{ij})/\sqrt{e_{ij}}\bigr)^2</span>（帰結②）</li>
+<li>今回は、つながりの表 <span class="math inline">\mathbf A</span> が手元にあった</li>
+<li>多くのデータでは、手元にあるのは個体 × 変数のデータ行列 <span class="math inline">\mathbf X</span> だけ</li>
+<li>変数どうしのつながりの表は、どこにも書かれていない</li>
 </ul>
 </section>
-<section id="次回予告②1マスのずれ" class="slide level2" data-chapter="締め">
-<h2>次回予告②：1マスのずれ</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<ul>
-<li>台湾 × カップは -6.94、韓国 × カップは -1.69</li>
-<li>独立のモデルを推定した後に残ったずれを、何と比べればよいか</li>
-</ul>
-<p>問い：1セルのズレは大きいのか？</p>
-</div><div class="column" style="width:55%;">
-<div id="d118d401" class="cell" data-execution_count="81">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-82-output-1.png?v=07318f63" width="417" height="414"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
+<section id="次回予告②つながりを作る" class="slide level2" data-chapter="締め">
+<h2>次回予告②：つながりを作る</h2>
+<p><span class="math display">
+\mathbf X\ (n\times p)\quad\longrightarrow\quad \mathbf A\ (p\times p)\ ?
+</span></p>
+<p>問い：データ行列から、変数どうしのつながりの表を作れるか？</p>
 </section></section>
 <section>
 <section id="発展" class="title-slide slide level1 part center">
 <h1>発展</h1>
 
 </section>
-<section id="発展単語-文脈の表" class="slide level2" data-chapter="発展">
-<h2>発展：単語 × 文脈の表</h2>
-<div id="131a1919" class="cell" data-execution_count="82">
+<section id="発展線を確率で引く" class="slide level2" data-chapter="発展">
+<h2>発展：線を確率で引く</h2>
+<div id="dbbac5a3" class="cell" data-execution_count="44">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-83-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1056" height="348"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="616" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>文章を読み、ある単語の前後数語に出た単語を数える。メニュー × 時間帯と同じ形の分割表になる。</p>
+<p>2群のそれぞれ <span class="math inline">n/2</span> 点。同じ群の2点は確率 <span class="math inline">a/n</span>、違う群の2点は確率 <span class="math inline">b/n</span> で線を引く（確率ブロックモデル）。</p>
 </section>
-<section id="期待の何倍かの対数" class="slide level2" data-chapter="発展">
-<h2>期待の何倍かの対数</h2>
-<div id="8bbfbb6a" class="cell" data-execution_count="83">
+<section id="発展見つけられる境目" class="slide level2" data-chapter="発展">
+<h2>発展：見つけられる境目</h2>
+<p><span class="math display">
+s=\frac{(a-b)^2}{2(a+b)}&gt;1
+</span></p>
+<p><span class="math inline">s&lt;1</span> では、どんな方法でも当て推量より良く群を当てられない。<span class="math inline">s&gt;1</span> なら当てられる方法がある（Mossel ほか 2015、Massoulié 2014）。</p>
+</section>
+<section id="発展固有ベクトルで試す" class="slide level2" data-chapter="発展">
+<h2>発展：固有ベクトルで試す</h2>
+<div id="5c5a9bd6" class="cell" data-execution_count="45">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-84-output-1.png?v=07318f63" class="quarto-figure quarto-figure-center" width="1056" height="324"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="825" height="274"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">\log(p_{ij}/(r_ic_j))=\log(o_{ij}/e_{ij})</span> を自己相互情報量（PMI）と呼ぶ。対応分析の <span class="math inline">o/e-1</span> の対数の版で、1倍の近くではほぼ同じ。</p>
+<p><span class="math inline">n</span> = 2,000、平均の次数 6。<span class="math inline">s&lt;1</span> では当て推量の0.5のまま。<span class="math inline">s</span> が大きくなると正解率は1に近づく。</p>
 </section>
-<section id="文書-単語lsaと対応分析" class="slide level2" data-chapter="発展">
-<h2>文書 × 単語：LSAと対応分析</h2>
-
-<img data-src="papers/qi2024_fig1.png?v=07318f63" class="quarto-figure quarto-figure-center r-stretch" style="width:78.0%"><p><span class="credit">出典：Qi, Hessen &amp; van der Heijden (2024) J. Intell. Inf. Syst. 62: 209–230, Fig. 1（元は Qi ほか (2024) Nat. Lang. Eng. 30(4): 722–752、どちらも CC BY 4.0）</span></p>
-<p>左は表をそのまま特異値分解（潜在意味解析、LSA）。困りごと①と同じく軸1は量に取られる。右の対応分析では、猫と車の両方の意味を持つ jaguar が間に出る。</p>
+<section id="発展境目のすぐ上では" class="slide level2" data-chapter="発展">
+<h2>発展：境目のすぐ上では</h2>
+<div id="ce3d6659" class="cell" data-execution_count="46">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png?v=49241bde" class="quarto-figure quarto-figure-center" width="825" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">s</span> が1を少し超えても、伸びは遅い。線の少ないグラフでは、次数の大きい数点に固有ベクトルが引っぱられる。引き返す道を数えない行列なら、境目まで届く（Krzakala ほか 2013）。</p>
 </section>
-<section id="単語ベクトルは低ランク近似" class="slide level2 smaller" data-chapter="発展">
-<h2>単語ベクトルは低ランク近似</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>方法</th>
-<th>近似するもの</th>
-<th>解き方</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>対応分析</td>
-<td><span class="math inline">o/e-1</span>（重み <span class="math inline">r_ic_j</span>）</td>
-<td>特異値分解を1回</td>
-</tr>
-<tr class="even">
-<td>PPMI の特異値分解</td>
-<td><span class="math inline">\max(\log(o/e),0)</span></td>
-<td>特異値分解を1回</td>
-</tr>
-<tr class="odd">
-<td>word2vec（skip-gram）</td>
-<td><span class="math inline">\log(o/e)-\log k</span> を暗に</td>
-<td>文章を少しずつ読んで更新</td>
-</tr>
-</tbody>
-</table>
-<p>単語の行の点が「単語ベクトル」。word2vec も、期待の何倍かを低ランクで近似していた（Levy &amp; Goldberg 2014）。</p>
-</section>
-<section id="言葉の意味の移り変わり" class="slide level2" data-chapter="発展">
-<h2>言葉の意味の移り変わり</h2>
-
-<img data-src="papers/hamilton2016_fig1bc.png?v=07318f63" class="quarto-figure quarto-figure-center r-stretch" style="width:74.0%"><p><span class="credit">出典：Hamilton, Leskovec &amp; Jurafsky (2016) Proc. ACL 2016: 1489–1501, Fig. 1 の b・c を切り出し（CC BY 4.0）</span></p>
-<p>10年ごとの文章で単語ベクトルを作り、向きをそろえて重ねる。broadcast は「種をまく」から「放送」へ、awful は「畏れ多い」から「ひどい」へ動いた。</p>
-</section>
-<section id="広がる応用" class="slide level2 smaller" data-chapter="発展">
-<h2>広がる応用</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>分野</th>
-<th>行 × 列（一緒に出た回数）</th>
-<th>論文</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>文書の検索</td>
-<td>文書 × 単語</td>
-<td>Qi ほか (2024) J. Intell. Inf. Syst.</td>
-</tr>
-<tr class="even">
-<td>言葉の歴史</td>
-<td>単語 × 文脈（年代ごと）</td>
-<td>Hamilton ほか (2016) ACL</td>
-</tr>
-<tr class="odd">
-<td>材料科学</td>
-<td>論文の単語 × 文脈</td>
-<td>Tshitoyan ほか (2019) Nature</td>
-</tr>
-<tr class="even">
-<td>買い物</td>
-<td>商品 × 一緒に買った商品</td>
-<td>Barkan &amp; Koenigstein (2016) IEEE MLSP</td>
-</tr>
-<tr class="odd">
-<td>ネットワーク</td>
-<td>点 × 近くを歩いて出会う点</td>
-<td>Grover &amp; Leskovec (2016) KDD</td>
-</tr>
-</tbody>
-</table>
-<p>一緒に数えられるものなら、何でも同じ表になり、地図とベクトルが作れる。</p>
+<section id="発展のまとめ" class="slide level2" data-chapter="発展">
+<h2>発展のまとめ</h2>
+<ul>
+<li>群が本当にあっても、線が少なく差が小さいと、どんな方法でも見つけられない</li>
+<li>境目は <span class="math inline">(a-b)^2=2(a+b)</span>。固有ベクトルの方法は、境目の近くで工夫が要る</li>
+</ul>
 
 </section></section>
     </div>
