@@ -1,6 +1,6 @@
 # 多変量解析
 
-全15回の講義スライドと読み物（PDF）です。
+全14回の講義スライドと読み物（PDF）です。
 
 **スライドを見る → https://k0heiun0.github.io/multivariate-analysis/**
 
@@ -21,8 +21,7 @@
 | 11 | 主成分分析②（[読み物 PDF](11_dim_reduction_flow/reading.pdf)） |
 | 12 | 対応分析（[読み物 PDF](12_clustering/reading.pdf)） |
 | 13 | 残差と多重対応分析（[読み物 PDF](13_clustering_flow/reading.pdf)） |
-| 14 | ネットワーク分析①（[読み物 PDF](14_correspondence/reading.pdf)） |
-| 15 | ネットワーク分析②（[読み物 PDF](15_contingency_flow/reading.pdf)） |
+| 14 | ネットワーク分析（[読み物 PDF](14_correspondence/reading.pdf)） |
 
 各回は「第I部 理論 → 第II部 実データ解析 → 締め」の順に組んであります。回帰・分類・クラスタリング・次元縮小・分割表・ネットワークの順に進みます。
 
