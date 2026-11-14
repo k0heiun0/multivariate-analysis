@@ -252,11 +252,11 @@
 </section>
 <section id="場面②主成分分析をかけた" class="slide level2" data-chapter="I-1">
 <h2>場面②：主成分分析をかけた</h2>
-<div id="c79444ce" class="cell" data-execution_count="3">
+<div id="cc007c05" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
 </figure>
 </div>
 </div>
@@ -265,11 +265,11 @@
 </section>
 <section id="困りごと①軸は何を表すか" class="slide level2" data-chapter="I-1">
 <h2>困りごと①：軸は何を表すか</h2>
-<div id="f9d0311f" class="cell" data-execution_count="4">
+<div id="ea7e3f65" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
 </figure>
 </div>
 </div>
@@ -278,11 +278,11 @@
 </section>
 <section id="困りごと②単位で答えが変わる" class="slide level2" data-chapter="I-1">
 <h2>困りごと②：単位で答えが変わる</h2>
-<div id="f96ed604" class="cell" data-execution_count="5">
+<div id="16eab507" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
 </figure>
 </div>
 </div>
@@ -291,11 +291,11 @@
 </section>
 <section id="困りごと③列だけの揺れ" class="slide level2" data-chapter="I-1">
 <h2>困りごと③：列だけの揺れ</h2>
-<div id="11198175" class="cell" data-execution_count="6">
+<div id="de3f7e29" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="874" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="874" height="306"></p>
 </figure>
 </div>
 </div>
@@ -325,11 +325,11 @@
 <div class="column" style="width:45%;">
 <p>ここでは人工的なデータ。コーヒー40杯の濃さと苦み（列の平均を引いた値）。赤は第10回の答えの向き <span class="math inline">\boldsymbol l_1</span>。</p>
 </div><div class="column" style="width:55%;">
-<div id="8d51f0a3" class="cell" data-execution_count="9">
+<div id="f6e0c37a" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png?v=acf240a6" width="343" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png?v=a60d423e" width="343" height="342"></p>
 </figure>
 </div>
 </div>
@@ -339,44 +339,30 @@
 <section id="振り返りfxaを代入" class="slide level2" data-chapter="I-5">
 <h2>振り返り：F̂＝XAを代入</h2>
 <p><span class="math display">
-\begin{aligned}
-J(\mathbf A)
-&amp;=\lVert\mathbf X-\mathbf X\mathbf A\mathbf A^\top\rVert_F^2\\
-&amp;=\operatorname{tr}(\mathbf X^\top\mathbf X)-\operatorname{tr}(\mathbf A^\top\mathbf X^\top\mathbf X\mathbf A)
-\end{aligned}
+J(\mathbf A)=\underbrace{\lVert\mathbf X\rVert_F^2}_{\text{全体}}-\underbrace{\lVert\mathbf X\mathbf A\rVert_F^2}_{\text{得点の二乗和}}
 </span></p>
-<p>第10回の証明②。<span class="math inline">\mathbf A</span> を固定したときの <span class="math inline">\hat{\mathbf F}=\mathbf X\mathbf A</span> を代入し、トレースで展開して <span class="math inline">\mathbf A^\top\mathbf A=\mathbf I_Q</span> を使った。</p>
-</section>
-<section id="第2項は得点の二乗和" class="slide level2" data-chapter="I-5">
-<h2>第2項は得点の二乗和</h2>
-<p><span class="math display">
-\operatorname{tr}(\mathbf A^\top\mathbf X^\top\mathbf X\mathbf A)
-=\lVert\mathbf X\mathbf A\rVert_F^2
-=\lVert\hat{\mathbf F}\rVert_F^2
-=\sum_{i=1}^{n}\sum_{m=1}^{Q}\hat f_{im}^2
-</span></p>
-<p>第1項 <span class="math inline">\operatorname{tr}(\mathbf X^\top\mathbf X)</span> は <span class="math inline">\mathbf A</span> によらない。<span class="math inline">J</span> を小さくすることは、得点の二乗和を大きくすること。</p>
+<p>第10回で、<span class="math inline">\mathbf A</span> を固定したときの <span class="math inline">\hat{\mathbf F}=\mathbf X\mathbf A</span> を代入した形。全体は <span class="math inline">\mathbf A</span> によらないので、<span class="math inline">J</span> を小さくすることは、得点の二乗和を大きくすること。</p>
 </section>
 <section id="つの向きで確かめる" class="slide level2" data-chapter="I-7">
 <h2>2つの向きで確かめる</h2>
-<div id="c79e94cc" class="cell" data-execution_count="10">
+<div id="75156176" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="950" height="253"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="950" height="253"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>合計はどちらも <span class="math inline">\operatorname{tr}(\mathbf X^\top\mathbf X)</span> = 57.8。得点の取り分が大きい向きほど、<span class="math inline">J</span> は小さい。</p>
+<p>合計はどちらも <span class="math inline">\lVert\mathbf X\rVert_F^2</span> = 57.8。得点の取り分が大きい向きほど、<span class="math inline">J</span> は小さい。</p>
 </section>
 <section id="得点の広がりで見る" class="slide level2" data-chapter="I-7">
 <h2>得点の広がりで見る</h2>
-<div id="bbd9b249" class="cell" data-execution_count="11">
+<div id="5a40f6ba" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="949" height="252"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="949" height="252"></p>
 </figure>
 </div>
 </div>
@@ -385,11 +371,11 @@ J(\mathbf A)
 </section>
 <section id="たとえパンを写真に撮る" class="slide level2" data-chapter="I-7">
 <h2>たとえ：パンを写真に撮る</h2>
-<div id="7cd0a658" class="cell" data-execution_count="12">
+<div id="8339d224" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="836" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="836" height="284"></p>
 </figure>
 </div>
 </div>
@@ -412,8 +398,8 @@ s_{jk}=\frac1n\sum_{i=1}^{n}x_{ij}x_{ik}
 </span></p>
 <p>分散最大化の主役。<span class="math inline">\mathbf X</span> は中心化してあるので、対角は各列の分散、対角の外は2列の共分散。コーヒーなら分散は 0.81 と 0.64、共分散は 0.59。</p>
 </section>
-<section id="道具①固有ベクトル" class="slide level2" data-chapter="I-4">
-<h2>道具①：固有ベクトル</h2>
+<section id="固有ベクトル" class="slide level2" data-chapter="I-4">
+<h2>固有ベクトル</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <p><span class="math display">
@@ -421,19 +407,19 @@ s_{jk}=\frac1n\sum_{i=1}^{n}x_{ij}x_{ik}
 </span></p>
 <p><span class="math inline">\mathbf S</span> を掛けても向きが変わらず、長さだけが <span class="math inline">\lambda</span> 倍になる向き <span class="math inline">\boldsymbol l</span> を固有ベクトル、<span class="math inline">\lambda</span> を固有値と呼ぶ。</p>
 </div><div class="column" style="width:55%;">
-<div id="f2acef5c" class="cell" data-execution_count="13">
+<div id="afa69673" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png?v=acf240a6" width="359" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png?v=a60d423e" width="359" height="342"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="道具②固有値分解" class="slide level2" data-chapter="I-4">
-<h2>道具②：固有値分解</h2>
+<section id="固有値分解" class="slide level2" data-chapter="I-4">
+<h2>固有値分解</h2>
 <p><span class="math display">
 \begin{aligned}
 &amp;\mathbf S=\mathbf L\boldsymbol\Lambda\mathbf L^\top,\qquad
@@ -446,13 +432,9 @@ s_{jk}=\frac1n\sum_{i=1}^{n}x_{ij}x_{ik}
 <section id="特異値分解から出る" class="slide level2" data-chapter="I-5">
 <h2>特異値分解から出る</h2>
 <p><span class="math display">
-\begin{aligned}
-\mathbf X^\top\mathbf X&amp;=\mathbf L\boldsymbol\Delta\mathbf K^\top\mathbf K\boldsymbol\Delta\mathbf L^\top=\mathbf L\boldsymbol\Delta^2\mathbf L^\top\\
-\Longrightarrow\quad
-\mathbf S&amp;=\mathbf L\,\frac{\boldsymbol\Delta^2}{n}\,\mathbf L^\top
-\end{aligned}
+\mathbf S=\frac1n\mathbf X^\top\mathbf X=\mathbf L\,\frac{\boldsymbol\Delta^2}{n}\,\mathbf L^\top
 </span></p>
-<p>第10回の道具⑧。道具②と同じ形なので、固有ベクトルは <span class="math inline">\mathbf L</span> の列、固有値は <span class="math inline">\lambda_m=\delta_m^2/n</span>。</p>
+<p>第10回の特異値分解 <span class="math inline">\mathbf X=\mathbf K\boldsymbol\Delta\mathbf L^\top</span> を代入した（展開は読み物）。固有値分解と同じ形なので、固有ベクトルは <span class="math inline">\mathbf L</span> の列、固有値は <span class="math inline">\lambda_m=\delta_m^2/n</span>。</p>
 </section>
 <section id="固有値は得点の分散" class="slide level2" data-chapter="I-5">
 <h2>固有値は得点の分散</h2>
@@ -575,11 +557,11 @@ s_{jk}=\frac1n\sum_{i=1}^{n}x_{ij}x_{ik}
 </section>
 <section id="負荷量を棒で見る" class="slide level2" data-chapter="I-7">
 <h2>負荷量を棒で見る</h2>
-<div id="46fe5537" class="cell" data-execution_count="17">
+<div id="08c89f05" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="950" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="950" height="284"></p>
 </figure>
 </div>
 </div>
@@ -588,11 +570,11 @@ s_{jk}=\frac1n\sum_{i=1}^{n}x_{ij}x_{ik}
 </section>
 <section id="軸1量の軸" class="slide level2" data-chapter="I-7">
 <h2>軸1：量の軸</h2>
-<div id="6024609e" class="cell" data-execution_count="18">
+<div id="aed9cd7e" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="950" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="950" height="284"></p>
 </figure>
 </div>
 </div>
@@ -601,11 +583,11 @@ s_{jk}=\frac1n\sum_{i=1}^{n}x_{ij}x_{ik}
 </section>
 <section id="軸2野菜と塩分の対比" class="slide level2" data-chapter="I-7">
 <h2>軸2：野菜と塩分の対比</h2>
-<div id="773f0de8" class="cell" data-execution_count="19">
+<div id="ebe0cc63" class="cell" data-execution_count="19">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="950" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-20-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="950" height="284"></p>
 </figure>
 </div>
 </div>
@@ -620,24 +602,12 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </span></p>
 <p><span class="math inline">\mathbf Z</span> は各列を標準化した行列。その分散共分散行列は、元の列の相関係数を並べた相関行列。対角はすべて1。</p>
 </section>
-<section id="列と得点の相関①共分散" class="slide level2" data-chapter="I-5">
-<h2>列と得点の相関①：共分散</h2>
+<section id="列と得点の相関はaλ" class="slide level2" data-chapter="I-5">
+<h2>列と得点の相関はa√λ</h2>
 <p><span class="math display">
-\frac1n\boldsymbol z_j^\top\boldsymbol f_m
-=\frac1n\boldsymbol z_j^\top\mathbf Z\boldsymbol a_m
-=(\mathbf C\boldsymbol a_m)_j
-=\lambda_m a_{jm}
+\operatorname{corr}(\boldsymbol z_j,\boldsymbol f_m)=a_{jm}\sqrt{\lambda_m}
 </span></p>
-<p>得点は <span class="math inline">\boldsymbol f_m=\mathbf Z\boldsymbol a_m</span>。<span class="math inline">\boldsymbol a_m</span> は <span class="math inline">\mathbf C</span> の固有ベクトルなので <span class="math inline">\mathbf C\boldsymbol a_m=\lambda_m\boldsymbol a_m</span>（道具①）。</p>
-</section>
-<section id="列と得点の相関②割る" class="slide level2" data-chapter="I-5">
-<h2>列と得点の相関②：割る</h2>
-<p><span class="math display">
-\operatorname{corr}(\boldsymbol z_j,\boldsymbol f_m)
-=\frac{\lambda_m a_{jm}}{\sqrt{1}\cdot\sqrt{\lambda_m}}
-=a_{jm}\sqrt{\lambda_m}
-</span></p>
-<p>列 <span class="math inline">\boldsymbol z_j</span> の分散は1、得点の分散は <span class="math inline">\lambda_m</span>。同じ軸の中では、負荷量の大小がそのまま列と得点の相関の大小。</p>
+<p>得点 <span class="math inline">\boldsymbol f_m=\mathbf Z\boldsymbol a_m</span> と列 <span class="math inline">\boldsymbol z_j</span> の共分散は <span class="math inline">\lambda_ma_{jm}</span>。列の標準偏差1と得点の標準偏差 <span class="math inline">\sqrt{\lambda_m}</span> で割った（展開は読み物）。同じ軸の中では、負荷量の大小がそのまま相関の大小。</p>
 </section>
 <section id="クイズ①相関はいくつか" class="slide level2" data-chapter="I-5">
 <h2>クイズ①：相関はいくつか</h2>
@@ -681,11 +651,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 <div class="column" style="width:45%;">
 <p>弁当60個の得点1と得点2を散布図にした。1個が1点。6列は散布図に描けないが、得点2列なら1枚に描ける。</p>
 </div><div class="column" style="width:55%;">
-<div id="c266e76b" class="cell" data-execution_count="21">
+<div id="dbcdd8b8" class="cell" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png?v=acf240a6" width="391" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png?v=a60d423e" width="391" height="390"></p>
 </figure>
 </div>
 </div>
@@ -698,11 +668,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 <div class="column" style="width:45%;">
 <p>各列と得点の相関 <span class="math inline">(a_{j1}\sqrt{\lambda_1},\,a_{j2}\sqrt{\lambda_2})</span> を矢印で重ねた。矢印の向きにある点ほど、その列の値が大きい。</p>
 </div><div class="column" style="width:55%;">
-<div id="84cc337f" class="cell" data-execution_count="22">
+<div id="b87c40c3" class="cell" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png?v=acf240a6" width="391" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png?v=a60d423e" width="391" height="390"></p>
 </figure>
 </div>
 </div>
@@ -718,11 +688,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="困りごと①に戻る" class="slide level2" data-chapter="I-1">
 <h2>困りごと①に戻る</h2>
-<div id="0852dc6b" class="cell" data-execution_count="23">
+<div id="5bf2d6f6" class="cell" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
 </figure>
 </div>
 </div>
@@ -739,11 +709,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="元の単位のまま" class="slide level2" data-chapter="I-7">
 <h2>元の単位のまま</h2>
-<div id="fc74f572" class="cell" data-execution_count="26">
+<div id="c018747b" class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="984" height="324"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="984" height="324"></p>
 </figure>
 </div>
 </div>
@@ -752,11 +722,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="標準化すると" class="slide level2" data-chapter="I-7">
 <h2>標準化すると</h2>
-<div id="cbddacf5" class="cell" data-execution_count="27">
+<div id="56f60c31" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="984" height="324"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-28-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="984" height="324"></p>
 </figure>
 </div>
 </div>
@@ -781,11 +751,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="困りごと②に戻る" class="slide level2" data-chapter="I-1">
 <h2>困りごと②に戻る</h2>
-<div id="9f93a04c" class="cell" data-execution_count="28">
+<div id="c4902dc4" class="cell" data-execution_count="28">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
 </figure>
 </div>
 </div>
@@ -857,11 +827,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="主成分分析で読むと" class="slide level2" data-chapter="I-7">
 <h2>主成分分析で読むと</h2>
-<div id="c9c630a9" class="cell" data-execution_count="31">
+<div id="92a44528" class="cell" data-execution_count="31">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="945" height="285"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="945" height="285"></p>
 </figure>
 </div>
 </div>
@@ -870,11 +840,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="誤差の扱い①主成分分析" class="slide level2" data-chapter="I-7">
 <h2>誤差の扱い①：主成分分析</h2>
-<div id="affe86fa" class="cell" data-execution_count="32">
+<div id="8ffda930" class="cell" data-execution_count="32">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="903" height="274"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="903" height="274"></p>
 </figure>
 </div>
 </div>
@@ -883,11 +853,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="たとえマイクごとの雑音" class="slide level2" data-chapter="I-7">
 <h2>たとえ：マイクごとの雑音</h2>
-<div id="2945c35e" class="cell" data-execution_count="33">
+<div id="dfad4185" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="1063" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="1063" height="295"></p>
 </figure>
 </div>
 </div>
@@ -896,11 +866,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="たとえ雑音の大きさを分ける" class="slide level2" data-chapter="I-7">
 <h2>たとえ：雑音の大きさを分ける</h2>
-<div id="93ef4445" class="cell" data-execution_count="34">
+<div id="7d7dc7f7" class="cell" data-execution_count="34">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="1063" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="1063" height="295"></p>
 </figure>
 </div>
 </div>
@@ -932,27 +902,21 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </span></p>
 <p>独自因子どうしは無相関。大きさ <span class="math inline">\psi_j</span> は列ごとに違ってよい。マイクごとの雑音の大きさ。</p>
 </section>
-<section id="導出の道具①共分散と行列" class="slide level2" data-chapter="I-4">
-<h2>導出の道具①：共分散と行列</h2>
-<p><span class="math display">
-\operatorname{\mathbb{C}ov}(\mathbf M\boldsymbol z)
-=\mathbb E[\mathbf M\boldsymbol z\boldsymbol z^\top\mathbf M^\top]
-=\mathbf M\operatorname{\mathbb{C}ov}(\boldsymbol z)\mathbf M^\top
-</span></p>
-<p>平均 <span class="math inline">\mathbf 0</span> のベクトル <span class="math inline">\boldsymbol z</span> に、定数の行列 <span class="math inline">\mathbf M</span> を掛けた。期待値（第3回）の中から <span class="math inline">\mathbf M</span> を外に出せる。<span class="math inline">1\times1</span> なら <span class="math inline">\operatorname{\mathbb{V}ar}(mz)=m^2\operatorname{\mathbb{V}ar}(z)</span>。</p>
-</section>
 <section id="共分散の形" class="slide level2" data-chapter="I-3">
 <h2>共分散の形</h2>
 <p><span class="math display">
-\begin{aligned}
-\boldsymbol\Sigma=\operatorname{\mathbb{C}ov}(\tilde{\boldsymbol x}_i)
-&amp;=\begin{bmatrix}\mathbf A&amp;\mathbf I_p\end{bmatrix}
-\begin{bmatrix}\mathbf I_Q&amp;\mathbf O\\\mathbf O&amp;\boldsymbol\Psi\end{bmatrix}
-\begin{bmatrix}\mathbf A^\top\\\mathbf I_p\end{bmatrix}\\
-&amp;=\mathbf A\mathbf A^\top+\boldsymbol\Psi
-\end{aligned}
+\boldsymbol\Sigma=\operatorname{\mathbb{C}ov}(\tilde{\boldsymbol x}_i)=\mathbf A\mathbf A^\top+\boldsymbol\Psi
 </span></p>
-<p><span class="math inline">\tilde{\boldsymbol x}_i=[\mathbf A\ \mathbf I_p]\,[\tilde{\boldsymbol f}_i;\tilde{\boldsymbol\varepsilon}_i]</span> と書いて道具①。独立なので、間の行列の対角の外は <span class="math inline">\mathbf O</span>。</p>
+<div id="166f5caa" class="cell" data-execution_count="35">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="845" height="219"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>共通因子と独自因子は独立なので、2つの分散共分散行列の和になる（展開は読み物）。パン屋を作ったときの値で描いた。</p>
 </section>
 <section id="対角の外は共通因子だけ" class="slide level2" data-chapter="I-3">
 <h2>対角の外は共通因子だけ</h2>
@@ -1002,11 +966,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="共通性と独自性" class="slide level2" data-chapter="I-7">
 <h2>共通性と独自性</h2>
-<div id="d8d52c76" class="cell" data-execution_count="35">
+<div id="fe947e45" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="873" height="274"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="873" height="274"></p>
 </figure>
 </div>
 </div>
@@ -1015,11 +979,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="誤差の扱い②因子分析" class="slide level2" data-chapter="I-7">
 <h2>誤差の扱い②：因子分析</h2>
-<div id="77f7dfda" class="cell" data-execution_count="36">
+<div id="08e94a14" class="cell" data-execution_count="37">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="903" height="274"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-38-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="903" height="274"></p>
 </figure>
 </div>
 </div>
@@ -1034,34 +998,12 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </ul>
 <p>使いどころ：独自性 <span class="math inline">\psi_j</span> を、データから見積もる。</p>
 </section>
-<section id="対数尤度①1行" class="slide level2" data-chapter="I-3">
-<h2>対数尤度①：1行</h2>
+<section id="対数尤度n行を足す" class="slide level2" data-chapter="I-3">
+<h2>対数尤度：n行を足す</h2>
 <p><span class="math display">
-\begin{aligned}
-&amp;\log N(\tilde{\boldsymbol x}_i;\mathbf 0,\boldsymbol\Sigma)\\
-&amp;=-\frac12\Bigl[p\log2\pi+\log\lvert\boldsymbol\Sigma\rvert+\tilde{\boldsymbol x}_i^\top\boldsymbol\Sigma^{-1}\tilde{\boldsymbol x}_i\Bigr]
-\end{aligned}
+\ell(\mathbf A,\boldsymbol\Psi)=-\frac n2\Bigl[p\log2\pi+\log\lvert\boldsymbol\Sigma\rvert+\operatorname{tr}(\boldsymbol\Sigma^{-1}\mathbf S)\Bigr]
 </span></p>
-<p>第6回の多変量正規分布の密度の log。<span class="math inline">\mathbf X</span> は中心化してあるので平均は <span class="math inline">\mathbf 0</span>。<span class="math inline">\boldsymbol\Sigma=\mathbf A\mathbf A^\top+\boldsymbol\Psi</span>。</p>
-</section>
-<section id="導出の道具②トレースに直す" class="slide level2" data-chapter="I-4">
-<h2>導出の道具②：トレースに直す</h2>
-<p><span class="math display">
-\tilde{\boldsymbol x}^\top\mathbf M\tilde{\boldsymbol x}
-=\operatorname{tr}(\tilde{\boldsymbol x}^\top\mathbf M\tilde{\boldsymbol x})
-=\operatorname{tr}(\mathbf M\tilde{\boldsymbol x}\tilde{\boldsymbol x}^\top)
-</span></p>
-<p><span class="math inline">1\times1</span> の数はトレースをとっても同じ。第10回の道具②で順番を回した。</p>
-</section>
-<section id="対数尤度②足し上げる" class="slide level2" data-chapter="I-3">
-<h2>対数尤度②：足し上げる</h2>
-<p><span class="math display">
-\begin{aligned}
-\ell(\mathbf A,\boldsymbol\Psi)
-&amp;=-\frac n2\Bigl[p\log2\pi+\log\lvert\boldsymbol\Sigma\rvert+\operatorname{tr}(\boldsymbol\Sigma^{-1}\mathbf S)\Bigr]
-\end{aligned}
-</span></p>
-<p><span class="math inline">n</span> 行を足した。道具②で <span class="math inline">\sum_i\tilde{\boldsymbol x}_i^\top\boldsymbol\Sigma^{-1}\tilde{\boldsymbol x}_i=\operatorname{tr}(\boldsymbol\Sigma^{-1}\sum_i\tilde{\boldsymbol x}_i\tilde{\boldsymbol x}_i^\top)=n\operatorname{tr}(\boldsymbol\Sigma^{-1}\mathbf S)</span>。</p>
+<p>第6回の多変量正規分布の密度の log を、<span class="math inline">n</span> 行足した。<span class="math inline">\mathbf X</span> は中心化してあるので平均は <span class="math inline">\mathbf 0</span>。行ごとの項は、トレースで分散共分散行列 <span class="math inline">\mathbf S</span> にまとまる（展開は読み物）。</p>
 </section>
 <section id="データはsだけを通る" class="slide level2" data-chapter="I-3">
 <h2>データはSだけを通る</h2>
@@ -1096,121 +1038,56 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </span></p>
 <p><span class="math inline">\boldsymbol\Psi=\sigma^2\mathbf I_p</span> のときの最尤推定。<span class="math inline">\mathbf S=\mathbf L\boldsymbol\Lambda\mathbf L^\top</span> の上位 <span class="math inline">Q</span> 本 <span class="math inline">\mathbf L_1</span> は、主成分分析の軸の向き。</p>
 </section>
-<section id="証明の道筋" class="slide level2" data-chapter="I-1">
-<h2>証明の道筋</h2>
+<section id="道筋微分して固有ベクトル" class="slide level2" data-chapter="I-1">
+<h2>道筋：微分して固有ベクトル</h2>
 <ol type="1">
 <li><span class="math inline">\ell</span> を <span class="math inline">\mathbf A</span> で偏微分して <span class="math inline">\mathbf O</span> とおく</li>
-<li><span class="math inline">\boldsymbol\Sigma</span> を掛けて整理する</li>
-<li>逆行列を小さい側へ押し込む</li>
-<li><span class="math inline">\mathbf A</span> を特異値分解すると、固有ベクトルが出る</li>
+<li><span class="math inline">\mathbf A</span> の列が、<span class="math inline">\mathbf S</span> の固有ベクトルだとわかる</li>
 <li><span class="math inline">\sigma^2</span> を解く：捨てた固有値の平均</li>
 <li>どの <span class="math inline">Q</span> 本を残すかを比べる</li>
 </ol>
+<p>式を1段ずつたどる展開と、行列の微分などの道具は、読み物に書いた。</p>
 </section>
-<section id="導出の道具③logσの偏微分" class="slide level2" data-chapter="I-4">
-<h2>導出の道具③：log|Σ|の偏微分</h2>
+<section id="微分して0" class="slide level2" data-chapter="I-5">
+<h2>①微分して0</h2>
 <p><span class="math display">
-\frac{\partial\log\lvert\boldsymbol\Sigma\rvert}{\partial\mathbf A}=2\boldsymbol\Sigma^{-1}\mathbf A,
-\qquad\boldsymbol\Sigma=\mathbf A\mathbf A^\top+\boldsymbol\Psi
-</span></p>
-<p>各マスで偏微分し、<span class="math inline">\mathbf A</span> と同じ形に並べた（結果だけ）。<span class="math inline">1\times1</span> なら <span class="math inline">\frac{d}{da}\log(a^2+\psi)=\frac{2a}{a^2+\psi}</span>。</p>
-</section>
-<section id="導出の道具④trσ¹sの偏微分" class="slide level2" data-chapter="I-4">
-<h2>導出の道具④：tr(Σ⁻¹S)の偏微分</h2>
-<p><span class="math display">
-\frac{\partial\operatorname{tr}(\boldsymbol\Sigma^{-1}\mathbf S)}{\partial\mathbf A}=-2\boldsymbol\Sigma^{-1}\mathbf S\boldsymbol\Sigma^{-1}\mathbf A
-</span></p>
-<p>これも結果だけ。<span class="math inline">1\times1</span> なら <span class="math inline">\frac{d}{da}\frac{s}{a^2+\psi}=-\frac{2as}{(a^2+\psi)^2}</span>。</p>
-</section>
-<section id="導出の道具⑤逆行列の押し込み" class="slide level2" data-chapter="I-4">
-<h2>導出の道具⑤：逆行列の押し込み</h2>
-<p><span class="math display">
-\begin{aligned}
-&amp;\mathbf A(\sigma^2\mathbf I_Q+\mathbf A^\top\mathbf A)=(\sigma^2\mathbf I_p+\mathbf A\mathbf A^\top)\mathbf A\\
-&amp;\Longrightarrow\ (\sigma^2\mathbf I_p+\mathbf A\mathbf A^\top)^{-1}\mathbf A=\mathbf A(\sigma^2\mathbf I_Q+\mathbf A^\top\mathbf A)^{-1}
-\end{aligned}
-</span></p>
-<p>1行目は両辺とも <span class="math inline">\sigma^2\mathbf A+\mathbf A\mathbf A^\top\mathbf A</span>。左から <span class="math inline">p\times p</span> の、右から <span class="math inline">Q\times Q</span> の逆行列を掛けた。</p>
-</section>
-<section id="証明①微分して0" class="slide level2" data-chapter="I-5">
-<h2>証明①：微分して0</h2>
-<p><span class="math display">
-\frac{\partial\ell}{\partial\mathbf A}
-=-\frac n2\Bigl[2\boldsymbol\Sigma^{-1}\mathbf A-2\boldsymbol\Sigma^{-1}\mathbf S\boldsymbol\Sigma^{-1}\mathbf A\Bigr]=\mathbf O
-</span></p>
-<p><span class="crumb"><span class="now">①微分</span> ②整理 ③押し込み ④固有ベクトル ⑤σ² ⑥上位Q本</span></p>
-<p>対数尤度②の式に、道具③と道具④を使った。ここまでは <span class="math inline">\boldsymbol\Psi</span> が対角なら何でも成り立つ。</p>
-</section>
-<section id="証明②σを掛ける" class="slide level2" data-chapter="I-5">
-<h2>証明②：Σを掛ける</h2>
-<p><span class="math display">
-\boldsymbol\Sigma^{-1}\mathbf S\boldsymbol\Sigma^{-1}\mathbf A=\boldsymbol\Sigma^{-1}\mathbf A
-\quad\Longrightarrow\quad
 \mathbf S\boldsymbol\Sigma^{-1}\mathbf A=\mathbf A
 </span></p>
-<p><span class="crumb">①微分 <span class="now">②整理</span> ③押し込み ④固有ベクトル ⑤σ² ⑥上位Q本</span></p>
-<p>左から <span class="math inline">\boldsymbol\Sigma</span> を掛けた。ここから <span class="math inline">\boldsymbol\Psi=\sigma^2\mathbf I_p</span> とする。</p>
+<p><span class="crumb"><span class="now">①微分して0</span> ②固有ベクトル ③σ² ④上位Q本</span></p>
+<p><span class="math inline">\ell</span> を <span class="math inline">\mathbf A</span> で偏微分して <span class="math inline">\mathbf O</span> とおき、左から <span class="math inline">\boldsymbol\Sigma</span> を掛けた。ここまでは <span class="math inline">\boldsymbol\Psi</span> が対角なら何でも成り立つ。ここから <span class="math inline">\boldsymbol\Psi=\sigma^2\mathbf I_p</span> とする。</p>
 </section>
-<section id="証明③押し込む" class="slide level2" data-chapter="I-5">
-<h2>証明③：押し込む</h2>
+<section id="導出の道具逆行列の押し込み" class="slide level2" data-chapter="I-4">
+<h2>導出の道具：逆行列の押し込み</h2>
 <p><span class="math display">
-\begin{aligned}
-&amp;\mathbf S\mathbf A(\sigma^2\mathbf I_Q+\mathbf A^\top\mathbf A)^{-1}=\mathbf A\\
-&amp;\Longrightarrow\ \mathbf S\mathbf A=\mathbf A(\sigma^2\mathbf I_Q+\mathbf A^\top\mathbf A)
-\end{aligned}
+(\sigma^2\mathbf I_p+\mathbf A\mathbf A^\top)^{-1}\mathbf A=\mathbf A(\sigma^2\mathbf I_Q+\mathbf A^\top\mathbf A)^{-1}
 </span></p>
-<p><span class="crumb">①微分 ②整理 <span class="now">③押し込み</span> ④固有ベクトル ⑤σ² ⑥上位Q本</span></p>
-<p>道具⑤で <span class="math inline">\boldsymbol\Sigma^{-1}\mathbf A</span> を書き換え、右から <span class="math inline">\sigma^2\mathbf I_Q+\mathbf A^\top\mathbf A</span> を掛けた。</p>
-</section>
-<section id="証明④aを特異値分解する" class="slide level2" data-chapter="I-5">
-<h2>証明④：Aを特異値分解する</h2>
-<p><span class="math display">
-\begin{aligned}
-\mathbf S\mathbf U\mathbf D\mathbf R^\top&amp;=\mathbf U\mathbf D\mathbf R^\top\bigl(\sigma^2\mathbf I_Q+\mathbf R\mathbf D^2\mathbf R^\top\bigr)\\
-&amp;=\mathbf U(\sigma^2\mathbf I_Q+\mathbf D^2)\mathbf D\mathbf R^\top
-\end{aligned}
-</span></p>
-<p><span class="crumb">①微分 ②整理 ③押し込み <span class="now">④固有ベクトル</span> ⑤σ² ⑥上位Q本</span></p>
-<p><span class="math inline">\mathbf A=\mathbf U\mathbf D\mathbf R^\top</span> を代入した（第10回の特異値分解を <span class="math inline">p\times Q</span> の <span class="math inline">\mathbf A</span> に使った）。<span class="math inline">\mathbf U^\top\mathbf U=\mathbf I_Q</span>、<span class="math inline">\mathbf R</span> は回転、<span class="math inline">\mathbf D</span> は対角。<span class="math inline">\mathbf A^\top\mathbf A=\mathbf R\mathbf D^2\mathbf R^\top</span>。</p>
-</section>
-<section id="証明④固有ベクトルが出る" class="slide level2" data-chapter="I-5">
-<h2>証明④：固有ベクトルが出る</h2>
-<p><span class="math display">
-\begin{aligned}
-&amp;\mathbf S\mathbf U=\mathbf U(\sigma^2\mathbf I_Q+\mathbf D^2)\\
-&amp;\Longrightarrow\ \mathbf S\boldsymbol u_m=(\sigma^2+d_m^2)\,\boldsymbol u_m
-\end{aligned}
-</span></p>
-<p><span class="crumb">①微分 ②整理 ③押し込み <span class="now">④固有ベクトル</span> ⑤σ² ⑥上位Q本</span></p>
-<p>右から <span class="math inline">\mathbf R</span> と <span class="math inline">\mathbf D^{-1}</span> を掛けた。<span class="math inline">\mathbf U</span> の各列は <span class="math inline">\mathbf S</span> の固有ベクトル、固有値は <span class="math inline">\lambda=\sigma^2+d_m^2</span>。よって <span class="math inline">d_m^2=\lambda-\sigma^2</span>。</p>
-</section>
-<section id="導出の道具⑥固有値で書く" class="slide level2" data-chapter="I-4">
-<h2>導出の道具⑥：固有値で書く</h2>
-<p><span class="math display">
-\begin{aligned}
-&amp;\boldsymbol\Sigma=\mathbf L\operatorname{diag}(\nu_1,\dots,\nu_p)\mathbf L^\top,\ \ \mathbf S=\mathbf L\boldsymbol\Lambda\mathbf L^\top\\
-&amp;\Longrightarrow\ \log\lvert\boldsymbol\Sigma\rvert=\sum_{m}\log\nu_m,\ \
-\operatorname{tr}(\boldsymbol\Sigma^{-1}\mathbf S)=\sum_{m}\frac{\lambda_m}{\nu_m}
-\end{aligned}
-</span></p>
-<p>固有ベクトルが共通なら、行列式は固有値の積、トレースは固有値の比の和。<span class="math inline">\mathbf L^\top\mathbf L=\mathbf I_p</span> で間が消える。</p>
-</section>
-<section id="証明⑤σ²を解く" class="slide level2" data-chapter="I-5">
-<h2>証明⑤：σ²を解く</h2>
-<div style="font-size: 85%;">
-<p><span class="math display">
-\begin{aligned}
--\frac2n\ell&amp;=\text{定数}+\sum_{m\le Q}\log\lambda_m+Q\\
-&amp;\quad+(p-Q)\log\sigma^2+\frac{1}{\sigma^2}\sum_{m&gt;Q}\lambda_m\\
-\frac{\partial}{\partial\sigma^2}&amp;:\ \frac{p-Q}{\sigma^2}-\frac{1}{\sigma^4}\sum_{m&gt;Q}\lambda_m=0
-\end{aligned}
-</span></p>
+<div id="6a03d535" class="cell" data-execution_count="39">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="453" height="195"></p>
+</figure>
 </div>
-<p><span class="crumb">①微分 ②整理 ③押し込み ④固有ベクトル <span class="now">⑤σ²</span> ⑥上位Q本</span></p>
-<p><span class="math inline">\boldsymbol\Sigma=\mathbf U\mathbf D^2\mathbf U^\top+\sigma^2\mathbf I_p</span> の固有値は、残した向きで <span class="math inline">\lambda_m</span>、ほかで <span class="math inline">\sigma^2</span>。道具⑥。よって <span class="math inline">\hat\sigma^2</span> は捨てた固有値の平均。</p>
+</div>
+</div>
+<p>左は <span class="math inline">p\times p</span>、右は <span class="math inline">Q\times Q</span> の逆行列。大きい逆行列を、小さい側へ押し込める。両辺に括弧の中身を掛けると、どちらも <span class="math inline">\sigma^2\mathbf A+\mathbf A\mathbf A^\top\mathbf A</span> になる。</p>
 </section>
-<section id="証明⑥どのq本を残すか" class="slide level2 smaller" data-chapter="I-5">
-<h2>証明⑥：どのQ本を残すか</h2>
+<section id="固有ベクトルが出る" class="slide level2" data-chapter="I-5">
+<h2>②固有ベクトルが出る</h2>
+<p><span class="math display">
+\mathbf S\boldsymbol u_m=(\sigma^2+d_m^2)\,\boldsymbol u_m
+</span></p>
+<p><span class="crumb">①微分して0 <span class="now">②固有ベクトル</span> ③σ² ④上位Q本</span></p>
+<p>逆行列を押し込み、<span class="math inline">\mathbf A=\mathbf U\mathbf D\mathbf R^\top</span> と特異値分解した（第10回）。<span class="math inline">\mathbf U</span> の列は <span class="math inline">\mathbf S</span> の固有ベクトルで、固有値は <span class="math inline">\lambda=\sigma^2+d_m^2</span>。</p>
+</section>
+<section id="σ²を解く" class="slide level2" data-chapter="I-5">
+<h2>③σ²を解く</h2>
+<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png?v=a60d423e" width="872" height="295"></p>
+<p><span class="crumb">①微分して0 ②固有ベクトル <span class="now">③σ²</span> ④上位Q本</span></p>
+<p><span class="math inline">\ell</span> を <span class="math inline">\sigma^2</span> で微分すると、<span class="math inline">\hat\sigma^2</span> は捨てた固有値の平均（破線）。パン屋の相関行列で描いた。残した2本では、<span class="math inline">\hat\sigma^2</span> を差し引いた <span class="math inline">d_m^2</span> が共通因子の取り分。</p>
+</section>
+<section id="上位q本を残す" class="slide level2 smaller" data-chapter="I-5">
+<h2>④上位Q本を残す</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1232,28 +1109,8 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </tr>
 </tbody>
 </table>
-<p><span class="crumb">①微分 ②整理 ③押し込み ④固有ベクトル ⑤σ² <span class="now">⑥上位Q本</span></span></p>
-<p><span class="math inline">d_m^2=\lambda-\sigma^2\ge0</span> なので、残す固有値は <span class="math inline">\hat\sigma^2</span> より大きくなければならない。パン屋（<span class="math inline">Q=2</span>）で満たす組は2つで、上位2本の <span class="math inline">\ell</span> が大きい。一般に上位 <span class="math inline">Q</span> 本が最大（Tipping &amp; Bishop, 1999）。</p>
-</section>
-<section id="証明のまとめ" class="slide level2" data-chapter="I-5">
-<h2>証明のまとめ</h2>
-<p><span class="math display">
-\hat{\mathbf A}=\mathbf L_1\bigl(\boldsymbol\Lambda_1-\hat\sigma^2\mathbf I_Q\bigr)^{1/2}\mathbf R
-</span></p>
-<p><span class="math inline">\mathbf U=\mathbf L_1</span>、<span class="math inline">\mathbf D^2=\boldsymbol\Lambda_1-\hat\sigma^2\mathbf I_Q</span> を <span class="math inline">\mathbf A=\mathbf U\mathbf D\mathbf R^\top</span> に入れた（<span class="math inline">\mathbf R</span> は名前を付け直した）。向きは主成分分析の <span class="math inline">\mathbf L_1</span>、長さは <span class="math inline">\hat\sigma^2</span> の分だけ縮む。</p>
-</section>
-<section id="図で見る固有値を分ける" class="slide level2" data-chapter="I-7">
-<h2>図で見る：固有値を分ける</h2>
-<div id="27afdb67" class="cell" data-execution_count="39">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="869" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>パン屋の相関行列の固有値。捨てた4本の平均が <span class="math inline">\hat\sigma^2</span>。残した2本は、<span class="math inline">\hat\sigma^2</span> を差し引いた分 <span class="math inline">d_m^2</span> だけが共通因子の取り分。</p>
+<p><span class="crumb">①微分して0 ②固有ベクトル ③σ² <span class="now">④上位Q本</span></span></p>
+<p><span class="math inline">d_m^2=\lambda-\sigma^2\ge0</span> なので、残す固有値は <span class="math inline">\hat\sigma^2</span> より大きくなければならない。パン屋（<span class="math inline">Q=2</span>）で満たす組は2つで、上位2本の <span class="math inline">\ell</span> が大きい。一般に上位 <span class="math inline">Q</span> 本が最大（Tipping &amp; Bishop, 1999）。これで定理の <span class="math inline">\hat{\mathbf A}</span> が出る。</p>
 </section>
 <section id="クイズ③σ²はいくつか" class="slide level2" data-chapter="I-5">
 <h2>クイズ③：σ²はいくつか</h2>
@@ -1293,11 +1150,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="主成分分析の位置" class="slide level2" data-chapter="I-7">
 <h2>主成分分析の位置</h2>
-<div id="432615c0" class="cell" data-execution_count="40">
+<div id="f291cd6a" class="cell" data-execution_count="42">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="947" height="263"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="947" height="263"></p>
 </figure>
 </div>
 </div>
@@ -1322,25 +1179,14 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </span></p>
 <p><span class="math inline">\boldsymbol\Psi</span> を固定し、各列を独自因子の標準偏差 <span class="math inline">\sqrt{\psi_j}</span> で割った。測り直すと、独自性はどの列も1になる。</p>
 </section>
-<section id="導出の道具⑦行列式の積" class="slide level2" data-chapter="I-4">
-<h2>導出の道具⑦：行列式の積</h2>
-<p><span class="math display">
-\lvert\mathbf M\mathbf N\rvert=\lvert\mathbf M\rvert\,\lvert\mathbf N\rvert,\qquad
-\lvert\boldsymbol\Psi^{1/2}\rvert^2=\lvert\boldsymbol\Psi\rvert=\prod_{j}\psi_j
-</span></p>
-<p>正方行列の積の行列式は、行列式の積。対角行列の行列式は、対角の積。</p>
-</section>
 <section id="ℓを書き直す" class="slide level2" data-chapter="I-5">
 <h2>ℓを書き直す</h2>
 <div style="font-size: 85%;">
 <p><span class="math display">
-\begin{aligned}
-\log\lvert\boldsymbol\Sigma\rvert&amp;=\log\lvert\boldsymbol\Psi^{1/2}\boldsymbol\Sigma^*\boldsymbol\Psi^{1/2}\rvert=\log\lvert\boldsymbol\Psi\rvert+\log\lvert\boldsymbol\Sigma^*\rvert\\
-\operatorname{tr}(\boldsymbol\Sigma^{-1}\mathbf S)&amp;=\operatorname{tr}(\boldsymbol\Psi^{-1/2}\boldsymbol\Sigma^{*-1}\boldsymbol\Psi^{-1/2}\mathbf S)=\operatorname{tr}(\boldsymbol\Sigma^{*-1}\mathbf S^*)
-\end{aligned}
+\ell=-\frac n2\Bigl[p\log2\pi+\log\lvert\boldsymbol\Psi\rvert+\log\lvert\boldsymbol\Sigma^*\rvert+\operatorname{tr}(\boldsymbol\Sigma^{*-1}\mathbf S^*)\Bigr]
 </span></p>
 </div>
-<p>道具⑦と、第10回の道具②（順番を回す）。<span class="math inline">\ell</span> は、<span class="math inline">\log\lvert\boldsymbol\Psi\rvert</span> を除けば、<span class="math inline">\mathbf S^*</span> に <span class="math inline">\sigma^2=1</span> の因子分析を当てたときと同じ式。</p>
+<p><span class="math inline">\boldsymbol\Psi</span> を固定すると <span class="math inline">\log\lvert\boldsymbol\Psi\rvert</span> は定数。残りは、<span class="math inline">\mathbf S^*</span> に <span class="math inline">\sigma^2=1</span> の因子分析を当てたときと同じ式（展開は読み物）。</p>
 </section>
 <section id="ψを固定すると" class="slide level2" data-chapter="I-5">
 <h2>Ψを固定すると</h2>
@@ -1385,13 +1231,9 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 <section id="ℓはずれるだけ" class="slide level2" data-chapter="I-5">
 <h2>ℓはずれるだけ</h2>
 <p><span class="math display">
-\begin{aligned}
-\log\lvert\mathbf D\boldsymbol\Sigma\mathbf D\rvert&amp;=\log\lvert\boldsymbol\Sigma\rvert+2\log\lvert\mathbf D\rvert\\
-\operatorname{tr}\bigl((\mathbf D\boldsymbol\Sigma\mathbf D)^{-1}\mathbf D\mathbf S\mathbf D\bigr)&amp;=\operatorname{tr}(\mathbf D^{-1}\boldsymbol\Sigma^{-1}\mathbf S\mathbf D)\\
-&amp;=\operatorname{tr}(\boldsymbol\Sigma^{-1}\mathbf S)
-\end{aligned}
+\ell_{\mathbf D}(\mathbf D\mathbf A,\mathbf D\boldsymbol\Psi\mathbf D)=\ell(\mathbf A,\boldsymbol\Psi)-n\log\lvert\mathbf D\rvert
 </span></p>
-<p>道具⑦と、順番を回す道具。新しい単位の <span class="math inline">\ell</span> は、元の <span class="math inline">\ell</span> から定数 <span class="math inline">n\log\lvert\mathbf D\rvert</span> を引いたもの。</p>
+<p>新しい単位の対数尤度は、元の <span class="math inline">\ell</span> から定数を引いたもの。行列式は積に分かれ、トレースは順番を回せるから（展開は読み物）。</p>
 </section>
 <section id="最大の点も移るだけ" class="slide level2" data-chapter="I-5">
 <h2>最大の点も移るだけ</h2>
@@ -1404,11 +1246,11 @@ c_{jk}=\frac{s_{jk}}{\sqrt{s_{jj}s_{kk}}}=r_{jk}
 </section>
 <section id="図で見る弁当で比べる" class="slide level2" data-chapter="I-7">
 <h2>図で見る：弁当で比べる</h2>
-<div id="e89bc135" class="cell" data-execution_count="43">
+<div id="c186f6a3" class="cell" data-execution_count="45">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="1119" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="1119" height="295"></p>
 </figure>
 </div>
 </div>
@@ -1485,11 +1327,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 <div class="column" style="width:45%;">
 <p>6列の負荷量 <span class="math inline">(a_{j1},a_{j2})</span> を点にした。前の節の手順のままでは、どの列も2つの因子に少しずつ乗る。</p>
 </div><div class="column" style="width:55%;">
-<div id="05c34212" class="cell" data-execution_count="47">
+<div id="e9bc9337" class="cell" data-execution_count="49">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png?v=acf240a6" width="379" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png?v=a60d423e" width="379" height="378"></p>
 </figure>
 </div>
 </div>
@@ -1502,11 +1344,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 <div class="column" style="width:45%;">
 <p><span class="math inline">\mathbf A\mathbf R</span>（40度回した）。<span class="math inline">\boldsymbol\Sigma</span> も <span class="math inline">\ell</span> も同じ。点の並びが回っただけ。</p>
 </div><div class="column" style="width:55%;">
-<div id="86b727c1" class="cell" data-execution_count="48">
+<div id="c8abbf16" class="cell" data-execution_count="50">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-49-output-1.png?v=acf240a6" width="406" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=a60d423e" width="406" height="378"></p>
 </figure>
 </div>
 </div>
@@ -1519,11 +1361,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 <div class="column" style="width:45%;">
 <p>各列がなるべく1つの因子だけに乗る向きに回した。点が2本の軸のそばに集まる（単純構造）。</p>
 </div><div class="column" style="width:55%;">
-<div id="8243f447" class="cell" data-execution_count="49">
+<div id="4e2a38d7" class="cell" data-execution_count="51">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png?v=acf240a6" width="382" height="378"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png?v=a60d423e" width="382" height="378"></p>
 </figure>
 </div>
 </div>
@@ -1540,11 +1382,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="因子に名前を付ける" class="slide level2" data-chapter="I-7">
 <h2>因子に名前を付ける</h2>
-<div id="a37e871f" class="cell" data-execution_count="50">
+<div id="9d76f81c" class="cell" data-execution_count="52">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="945" height="284"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="945" height="284"></p>
 </figure>
 </div>
 </div>
@@ -1602,11 +1444,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="困りごと③に戻る" class="slide level2" data-chapter="I-1">
 <h2>困りごと③に戻る</h2>
-<div id="46f6c938" class="cell" data-execution_count="52">
+<div id="8833c0e1" class="cell" data-execution_count="54">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-53-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="874" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-55-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="874" height="306"></p>
 </figure>
 </div>
 </div>
@@ -1724,11 +1566,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="結果①元の単位のまま" class="slide level2" data-chapter="II-3">
 <h2>結果①：元の単位のまま</h2>
-<div id="92a7f3df" class="cell" data-execution_count="54">
+<div id="d98fb6d7" class="cell" data-execution_count="56">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-55-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
 </figure>
 </div>
 </div>
@@ -1787,11 +1629,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="結果③軸1を読む" class="slide level2" data-chapter="II-4">
 <h2>結果③：軸1を読む</h2>
-<div id="dd6c74ef" class="cell" data-execution_count="58">
+<div id="08997caf" class="cell" data-execution_count="60">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
 </figure>
 </div>
 </div>
@@ -1800,11 +1642,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="結果③軸2を読む" class="slide level2" data-chapter="II-4">
 <h2>結果③：軸2を読む</h2>
-<div id="9ceeeb80" class="cell" data-execution_count="59">
+<div id="7e21d91f" class="cell" data-execution_count="61">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-60-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-62-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="942" height="306"></p>
 </figure>
 </div>
 </div>
@@ -1817,11 +1659,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 <div class="column" style="width:45%;">
 <p>上に伸びるのは All-Branなどのブラン系。軸1の右端は、1カップに詰まった重い銘柄。予想どおり、軸に名前が付けられた。</p>
 </div><div class="column" style="width:55%;">
-<div id="25b30d17" class="cell" data-execution_count="60">
+<div id="8293c115" class="cell" data-execution_count="62">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png?v=acf240a6" width="467" height="393"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-63-output-1.png?v=a60d423e" width="467" height="393"></p>
 </figure>
 </div>
 </div>
@@ -1922,11 +1764,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="結果⑤因子分析の3因子" class="slide level2" data-chapter="II-4">
 <h2>結果⑤：因子分析の3因子</h2>
-<div id="17ba7443" class="cell" data-execution_count="66">
+<div id="d4551c3d" class="cell" data-execution_count="68">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-67-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="1062" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="1062" height="306"></p>
 </figure>
 </div>
 </div>
@@ -1935,11 +1777,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="結果⑤因子に名前を付ける" class="slide level2" data-chapter="II-4">
 <h2>結果⑤：因子に名前を付ける</h2>
-<div id="0c1a07fa" class="cell" data-execution_count="67">
+<div id="bddc648a" class="cell" data-execution_count="69">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-68-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="1062" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="1062" height="306"></p>
 </figure>
 </div>
 </div>
@@ -1948,11 +1790,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="結果⑤共通性と独自性" class="slide level2" data-chapter="II-4">
 <h2>結果⑤：共通性と独自性</h2>
-<div id="3f47c28f" class="cell" data-execution_count="68">
+<div id="2d706477" class="cell" data-execution_count="70">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="869" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-71-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="869" height="306"></p>
 </figure>
 </div>
 </div>
@@ -1961,11 +1803,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="結果⑤カロリーの独自性は0" class="slide level2" data-chapter="II-4">
 <h2>結果⑤：カロリーの独自性は0</h2>
-<div id="54ea68a2" class="cell" data-execution_count="69">
+<div id="ed9481d1" class="cell" data-execution_count="71">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="869" height="306"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="869" height="306"></p>
 </figure>
 </div>
 </div>
@@ -2027,11 +1869,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="まとめ①分散最大化と固有値" class="slide level2" data-chapter="締め">
 <h2>まとめ①：分散最大化と固有値</h2>
-<div id="04485619" class="cell" data-execution_count="74">
+<div id="bbf14d57" class="cell" data-execution_count="76">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-75-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="943" height="274"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-77-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="943" height="274"></p>
 </figure>
 </div>
 </div>
@@ -2044,11 +1886,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 <div class="column" style="width:45%;">
 <p>負荷量 <span class="math inline">\times\sqrt{\lambda_m}</span> は列と得点の相関。符号ではなく、列どうしの向きを読む。単位がまちまちなら標準化（相関行列）。</p>
 </div><div class="column" style="width:55%;">
-<div id="e0dc7872" class="cell" data-execution_count="75">
+<div id="a0c2ec94" class="cell" data-execution_count="77">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-76-output-1.png?v=acf240a6" width="467" height="393"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-78-output-1.png?v=a60d423e" width="467" height="393"></p>
 </figure>
 </div>
 </div>
@@ -2057,11 +1899,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="まとめ③誤差を列ごとに分ける" class="slide level2" data-chapter="締め">
 <h2>まとめ③：誤差を列ごとに分ける</h2>
-<div id="f161a469" class="cell" data-execution_count="76">
+<div id="7747a83e" class="cell" data-execution_count="78">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-77-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="945" height="285"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-79-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="945" height="285"></p>
 </figure>
 </div>
 </div>
@@ -2070,11 +1912,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="まとめ④回して読む" class="slide level2" data-chapter="締め">
 <h2>まとめ④：回して読む</h2>
-<div id="599fbf2e" class="cell" data-execution_count="77">
+<div id="d78a5227" class="cell" data-execution_count="79">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-78-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="1063" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-80-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="1063" height="295"></p>
 </figure>
 </div>
 </div>
@@ -2103,11 +1945,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="発展遺伝子の数だけ列がある" class="slide level2" data-chapter="発展">
 <h2>発展：遺伝子の数だけ列がある</h2>
-<div id="464ecf63" class="cell" data-execution_count="78">
+<div id="246e955b" class="cell" data-execution_count="80">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-79-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="943" height="295"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-81-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="943" height="295"></p>
 </figure>
 </div>
 </div>
@@ -2257,11 +2099,11 @@ d=\underbrace{p}_{\text{平均}}+\underbrace{pQ}_{\mathbf A}+\underbrace{p}_{\bo
 </section>
 <section id="発展のまとめ標準の流れ" class="slide level2" data-chapter="発展">
 <h2>発展のまとめ：標準の流れ</h2>
-<div id="eed70226" class="cell" data-execution_count="79">
+<div id="8dec6056" class="cell" data-execution_count="81">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-80-output-1.png?v=acf240a6" class="quarto-figure quarto-figure-center" width="1069" height="253"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-82-output-1.png?v=a60d423e" class="quarto-figure quarto-figure-center" width="1069" height="253"></p>
 </figure>
 </div>
 </div>
