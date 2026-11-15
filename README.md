@@ -14,7 +14,7 @@
 | 4 | 罰則付き最小二乗法（[読み物 PDF](04_regression_flow/reading.pdf)） |
 | 5 | 分類①：最小二乗法（[読み物 PDF](05_regression_limits/reading.pdf)） |
 | 6 | 分類②：最尤法（[読み物 PDF](06_regularization/reading.pdf)） |
-| 7 | k-means（[読み物 PDF](07_classification/reading.pdf)） |
+| 7 | k-means（[読み物 PDF](07_classification/reading.pdf)・[スライド PDF](07_classification/slides.pdf)） |
 | 8 | 混合正規分布と EM アルゴリズム（[読み物 PDF](08_classification_flow/reading.pdf)） |
 | 9 | 群の数の選び方（[読み物 PDF](09_supervised_unsupervised/reading.pdf)） |
 | 10 | 主成分分析①（[読み物 PDF](10_pca/reading.pdf)） |
