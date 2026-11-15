@@ -8,12 +8,12 @@
 
 | 回 | 題 |
 |---|---|
-| 1 | 多変量解析とは（[読み物 PDF](01_intro/reading.pdf)） |
-| 2 | 汎化誤差とデータリーク（[読み物 PDF](02_generalization/reading.pdf)） |
-| 3 | 係数の不安定性と最小二乗法の限界（[読み物 PDF](03_preprocessing/reading.pdf)） |
-| 4 | 罰則付き最小二乗法（[読み物 PDF](04_regression_flow/reading.pdf)） |
-| 5 | 分類①：最小二乗法（[読み物 PDF](05_regression_limits/reading.pdf)） |
-| 6 | 分類②：最尤法（[読み物 PDF](06_regularization/reading.pdf)） |
+| 1 | 多変量解析とは（[読み物 PDF](01_intro/reading.pdf)・[スライド PDF](01_intro/slides.pdf)） |
+| 2 | 汎化誤差とデータリーク（[読み物 PDF](02_generalization/reading.pdf)・[スライド PDF](02_generalization/slides.pdf)） |
+| 3 | 係数の不安定性と最小二乗法の限界（[読み物 PDF](03_preprocessing/reading.pdf)・[スライド PDF](03_preprocessing/slides.pdf)） |
+| 4 | 罰則付き最小二乗法（[読み物 PDF](04_regression_flow/reading.pdf)・[スライド PDF](04_regression_flow/slides.pdf)） |
+| 5 | 分類①：最小二乗法（[読み物 PDF](05_regression_limits/reading.pdf)・[スライド PDF](05_regression_limits/slides.pdf)） |
+| 6 | 分類②：最尤法（[読み物 PDF](06_regularization/reading.pdf)・[スライド PDF](06_regularization/slides.pdf)） |
 | 7 | k-means（[読み物 PDF](07_classification/reading.pdf)・[スライド PDF](07_classification/slides.pdf)） |
 | 8 | 混合正規分布と EM アルゴリズム（[読み物 PDF](08_classification_flow/reading.pdf)・[スライド PDF](08_classification_flow/slides.pdf)） |
 | 9 | 群の数の選び方（[読み物 PDF](09_supervised_unsupervised/reading.pdf)・[スライド PDF](09_supervised_unsupervised/slides.pdf)） |
