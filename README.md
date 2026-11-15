@@ -17,11 +17,11 @@
 | 7 | k-means（[読み物 PDF](07_classification/reading.pdf)・[スライド PDF](07_classification/slides.pdf)） |
 | 8 | 混合正規分布と EM アルゴリズム（[読み物 PDF](08_classification_flow/reading.pdf)・[スライド PDF](08_classification_flow/slides.pdf)） |
 | 9 | 群の数の選び方（[読み物 PDF](09_supervised_unsupervised/reading.pdf)・[スライド PDF](09_supervised_unsupervised/slides.pdf)） |
-| 10 | 主成分分析①（[読み物 PDF](10_pca/reading.pdf)） |
-| 11 | 主成分分析②（[読み物 PDF](11_dim_reduction_flow/reading.pdf)） |
-| 12 | 対応分析（[読み物 PDF](12_clustering/reading.pdf)） |
-| 13 | 残差と多重対応分析（[読み物 PDF](13_clustering_flow/reading.pdf)） |
-| 14 | ネットワーク分析（[読み物 PDF](14_correspondence/reading.pdf)） |
+| 10 | 主成分分析①（[読み物 PDF](10_pca/reading.pdf)・[スライド PDF](10_pca/slides.pdf)） |
+| 11 | 主成分分析②（[読み物 PDF](11_dim_reduction_flow/reading.pdf)・[スライド PDF](11_dim_reduction_flow/slides.pdf)） |
+| 12 | 対応分析（[読み物 PDF](12_clustering/reading.pdf)・[スライド PDF](12_clustering/slides.pdf)） |
+| 13 | 残差と多重対応分析（[読み物 PDF](13_clustering_flow/reading.pdf)・[スライド PDF](13_clustering_flow/slides.pdf)） |
+| 14 | ネットワーク分析（[読み物 PDF](14_correspondence/reading.pdf)・[スライド PDF](14_correspondence/slides.pdf)） |
 
 各回は「第I部 理論 → 第II部 実データ解析 → 締め」の順に組んであります。回帰・分類・クラスタリング・次元縮小・分割表・ネットワークの順に進みます。
 
