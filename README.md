@@ -8,20 +8,20 @@
 
 | 回 | 題 |
 |---|---|
-| 1 | 多変量解析とは（[読み物 PDF](01_intro/reading.pdf)・[スライド PDF](01_intro/slides.pdf)） |
+| 1 | 多変量解析とは（[読み物 PDF](01_least_squares/reading.pdf)・[スライド PDF](01_least_squares/slides.pdf)） |
 | 2 | 汎化誤差とデータリーク（[読み物 PDF](02_generalization/reading.pdf)・[スライド PDF](02_generalization/slides.pdf)） |
-| 3 | 係数の不安定性と最小二乗法の限界（[読み物 PDF](03_preprocessing/reading.pdf)・[スライド PDF](03_preprocessing/slides.pdf)） |
-| 4 | 罰則付き最小二乗法（[読み物 PDF](04_regression_flow/reading.pdf)・[スライド PDF](04_regression_flow/slides.pdf)） |
-| 5 | 分類①：最小二乗法（[読み物 PDF](05_regression_limits/reading.pdf)・[スライド PDF](05_regression_limits/slides.pdf)） |
-| 6 | 分類②：最尤法（[読み物 PDF](06_regularization/reading.pdf)・[スライド PDF](06_regularization/slides.pdf)） |
-| 7 | k-means（[読み物 PDF](07_classification/reading.pdf)・[スライド PDF](07_classification/slides.pdf)） |
-| 8 | 混合正規分布と EM アルゴリズム（[読み物 PDF](08_classification_flow/reading.pdf)・[スライド PDF](08_classification_flow/slides.pdf)） |
-| 9 | 群の数の選び方（[読み物 PDF](09_supervised_unsupervised/reading.pdf)・[スライド PDF](09_supervised_unsupervised/slides.pdf)） |
+| 3 | 係数の不安定性と最小二乗法の限界（[読み物 PDF](03_limits/reading.pdf)・[スライド PDF](03_limits/slides.pdf)） |
+| 4 | 罰則付き最小二乗法（[読み物 PDF](04_regularization/reading.pdf)・[スライド PDF](04_regularization/slides.pdf)） |
+| 5 | 分類①：最小二乗法（[読み物 PDF](05_classification_ls/reading.pdf)・[スライド PDF](05_classification_ls/slides.pdf)） |
+| 6 | 分類②：最尤法（[読み物 PDF](06_classification_ml/reading.pdf)・[スライド PDF](06_classification_ml/slides.pdf)） |
+| 7 | k-means（[読み物 PDF](07_kmeans/reading.pdf)・[スライド PDF](07_kmeans/slides.pdf)） |
+| 8 | 混合正規分布と EM アルゴリズム（[読み物 PDF](08_gmm_em/reading.pdf)・[スライド PDF](08_gmm_em/slides.pdf)） |
+| 9 | 群の数の選び方（[読み物 PDF](09_model_selection/reading.pdf)・[スライド PDF](09_model_selection/slides.pdf)） |
 | 10 | 主成分分析①（[読み物 PDF](10_pca/reading.pdf)・[スライド PDF](10_pca/slides.pdf)） |
-| 11 | 主成分分析②（[読み物 PDF](11_dim_reduction_flow/reading.pdf)・[スライド PDF](11_dim_reduction_flow/slides.pdf)） |
-| 12 | 対応分析（[読み物 PDF](12_clustering/reading.pdf)・[スライド PDF](12_clustering/slides.pdf)） |
-| 13 | 残差と多重対応分析（[読み物 PDF](13_clustering_flow/reading.pdf)・[スライド PDF](13_clustering_flow/slides.pdf)） |
-| 14 | ネットワーク分析（[読み物 PDF](14_correspondence/reading.pdf)・[スライド PDF](14_correspondence/slides.pdf)） |
+| 11 | 主成分分析②（[読み物 PDF](11_pca_fa/reading.pdf)・[スライド PDF](11_pca_fa/slides.pdf)） |
+| 12 | 対応分析（[読み物 PDF](12_correspondence/reading.pdf)・[スライド PDF](12_correspondence/slides.pdf)） |
+| 13 | 残差と多重対応分析（[読み物 PDF](13_residuals_mca/reading.pdf)・[スライド PDF](13_residuals_mca/slides.pdf)） |
+| 14 | ネットワーク分析（[読み物 PDF](14_network/reading.pdf)・[スライド PDF](14_network/slides.pdf)） |
 
 各回は「第I部 理論 → 第II部 実データ解析 → 締め」の順に組んであります。回帰・分類・クラスタリング・次元縮小・分割表・ネットワークの順に進みます。
 

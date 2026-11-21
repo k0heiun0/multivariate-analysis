@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="slide_files/libs/clipboard/clipboard.min.js"></script>
+<script src="slide_files/libs/quarto-html/tabby.min.js"></script>
+<script src="slide_files/libs/quarto-html/popper.min.js"></script>
+<script src="slide_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="slide_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="slide_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <title>第14回 ネットワーク分析</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="slide_files/libs/revealjs/dist/theme/quarto-8a767225a46d1c0e9037b85e1e5b22fd.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <link href="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="slide_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">第14回 ネットワーク分析</h1>
+  <p class="subtitle">つながりの表からまとまりを見つけ、表が無ければデータ行列から作る（最終回）</p>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section>
+<section id="第i部-理論" class="title-slide slide level1 part center">
+<h1>第I部　理論</h1>
+
+</section>
+<section id="前回の答え何で割った数字か" class="slide level2" data-chapter="I-1">
+<h2>前回の答え：何で割った数字か</h2>
+<p><span class="math display">
+d_{ij}=\frac{o_{ij}-e_{ij}}{\sqrt{e_{ij}\,(1-r_i)(1-c_j)}}
+</span></p>
+<p>残差は、推定に使われた分だけ縮む。縮んだ分で割り戻して、1マスのずれを ±2と比べた。</p>
+</section>
+<section id="前回の問い行も列も同じ" class="slide level2" data-chapter="I-1">
+<h2>前回の問い：行も列も同じ</h2>
+<ul>
+<li>ここまでの表は、行と列が別のもの：飲み物 × 季節、個体 × 変数</li>
+<li>行も列も同じものの表もある：駅 × 駅の乗り換えの人数、店 × 店の同じ日に寄った客の数</li>
+</ul>
+<p>問い：つながりの表から、何を読み、どう描くか？</p>
+</section>
+<section id="ノードとエッジ" class="slide level2" data-chapter="I-1">
+<h2>ノードとエッジ</h2>
+<div id="6192b951" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="336"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>点をノード、点を結ぶ線をエッジと呼ぶ。全体をネットワーク（グラフ）と呼ぶ。例：駅と路線、論文と引用、タンパク質と結合。</p>
+</section>
+<section id="向きと重み" class="slide level2" data-chapter="I-1">
+<h2>向きと重み</h2>
+<div id="724ecdcd" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1066" height="264"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>引用は向きがあり、乗り換えの人数は重みがある。今回は向きの無い線を扱う。重みは表の値に入れればよい。</p>
+</section>
+<section id="次数" class="slide level2" data-chapter="I-1">
+<h2>次数</h2>
+<div id="24421409" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="336"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\boldsymbol d=\mathbf A\mathbf 1_n</span>。ノードから出るエッジの数を次数と呼ぶ。隣接行列の行の和。1本のエッジは両端で数えるので、和は線の本数の2倍。</p>
+</section>
+<section id="ハブ" class="slide level2" data-chapter="I-1">
+<h2>ハブ</h2>
+<div id="22c9c5ab" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="336"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>どちらも60ノード。(b) には、次数がとびぬけて大きいノード（橙）がある。これをハブと呼ぶ。(a) にはハブが無い。</p>
+</section>
+<section id="次数の分布" class="slide level2" data-chapter="I-1">
+<h2>次数の分布</h2>
+<div id="3258fd07" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1061" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>3000ノード、平均の次数はどちらも4。(a) は平均のまわりに集まる。(b) は次数1〜3が多いが、137 の次数を持つノードもある。</p>
+</section>
+<section id="スケールフリー" class="slide level2" data-chapter="I-1">
+<h2>スケールフリー</h2>
+<div id="38c44368" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1063" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\Pr(d)\propto d^{-\gamma}</span>。両対数の目盛りで (b) は直線。次数を10倍すると割合は一定の倍率で減り、目安になる大きさが無い。これをスケールフリーと呼ぶ。</p>
+</section>
+<section id="なぜハブができるか" class="slide level2" data-chapter="I-1">
+<h2>なぜハブができるか</h2>
+<p><span class="math display">
+\Pr(\text{新しいノードが }i\text{ とつながる})=\frac{d_i}{\sum_jd_j}
+</span></p>
+<p>新しいノードは、すでに次数の大きいノードにつながりやすい（優先的選択）。よく引用された論文はさらに引用される。(b) はこの規則で作った。</p>
+</section>
+<section id="クイズ①どれを外すか" class="slide level2" data-chapter="I-1">
+<h2>クイズ①：どれを外すか</h2>
+<p>スケールフリーのネットワーク (b) から、ノードを15%外す。つながった最大の塊を最も小さくするのは？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>無作為に外す</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>次数の大きい順に外す</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>次数の小さい順に外す</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>どれも同じ</p>
+</div>
+</div>
+</section>
+<section id="クイズ①の答えb" class="slide level2" data-chapter="I-1">
+<h2>クイズ①の答え：B</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>無作為に外す</p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span>次数の大きい順に外す</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>次数の小さい順に外す</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>どれも同じ</p>
+</div>
+</div>
+<p>エッジの多くはハブに集まる。ハブを外すと、残りのノードをつなぐ道が切れる。</p>
+</section>
+<section id="ハブは強みで弱み" class="slide level2" data-chapter="I-1">
+<h2>ハブは強みで弱み</h2>
+<div id="aca2f824" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="872" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>無作為に15%外しても、84%がつながったまま。次数の大きい順に15%外すと、最大の塊は 7%になる。</p>
+</section>
+<section id="スモールワールド" class="slide level2" data-chapter="I-1">
+<h2>スモールワールド</h2>
+<div id="e4acbdd9" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="336"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>距離は、何本のエッジをたどれば着くか。近道が数本あるだけで、平均の距離は 10.4 から 5.1 に縮む。知り合いをたどれば、誰にでも数歩で着く。</p>
+</section>
+<section id="言葉がそろった" class="slide level2" data-chapter="I-1">
+<h2>言葉がそろった</h2>
+<ul>
+<li>ノードとエッジ、隣接行列 <span class="math inline">\mathbf A</span></li>
+<li>次数 <span class="math inline">\boldsymbol d=\mathbf A\mathbf 1_n</span>、ハブ、スケールフリー</li>
+<li>距離、スモールワールド</li>
+</ul>
+<p>次数も距離も、ノードごとの数。では、どのノードとどのノードが1つのまとまりか？</p>
+</section>
+<section id="データ13点のつながり" class="slide level2" data-chapter="I-1">
+<h2>データ：13点のつながり</h2>
+<div id="dd464535" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>13ノードと 24 本のエッジ（人工データ）。例：店と店、同じ日に両方に寄った客がいれば線を引く。</p>
+</section>
+<section id="隣接行列" class="slide level2" data-chapter="I-1">
+<h2>隣接行列</h2>
+<div id="cf69ba0f" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">a_{ij}=1</span>（<span class="math inline">i</span> と <span class="math inline">j</span> に線）、0（線が無い）。行も列も同じ13点。<span class="math inline">\mathbf A=\mathbf A^\top</span>、対角は0。</p>
+</section>
+<section id="困りごと①並べ方で見えない" class="slide level2" data-chapter="I-1">
+<h2>困りごと①：並べ方で見えない</h2>
+<div id="10f36e52" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>表を眺めても、図を描いても、まとまりがあるのかどうか分からない。</p>
+</section>
+<section id="困りごと②次数では" class="slide level2" data-chapter="I-1">
+<h2>困りごと②：次数では</h2>
+<div id="5489e9b8" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="945" height="285"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>次数を数えた。13以外はどれも3〜5本でハブは無い。次数からは、どの点とどの点が同じまとまりか分からない。</p>
+</section>
+<section id="困りごと③少なく切ると1点" class="slide level2" data-chapter="I-1">
+<h2>困りごと③：少なく切ると1点</h2>
+<div id="09f4c643" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="340" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>2つに分けるとき、切る線（赤）の数を最も少なくすると、13だけが1本で切り離される。</p>
+</section>
+<section id="今回の問い" class="slide level2" data-chapter="I-1">
+<h2>今回の問い</h2>
+<p>つながりの表から、まとまりをどう見つけて描くか？（困りごと①。②③にも答える）</p>
+<p>今回覚える言葉</p>
+<ul>
+<li>ノード・エッジ・次数・ハブ・スケールフリー・スモールワールド</li>
+<li>グラフラプラシアン・レシオカット・正規化カット・スペクトルクラスタリング</li>
+<li>精度行列・偏相関・Graphical Lasso</li>
+</ul>
+</section>
+<section id="今回の道筋" class="slide level2" data-chapter="I-1">
+<h2>今回の道筋</h2>
+<ol type="1">
+<li>群をまたぐ線の数を、群の大きさで割る</li>
+<li>それを、隣どうしの違いを測る行列で書く</li>
+<li>0/1をあきらめて、固有ベクトルで解く</li>
+<li>表が無いときは、データ行列から表を作る</li>
+<li>作った表を、固有ベクトルで切る（第II部）</li>
+</ol>
+</section>
+<section id="位置づけ固有値で分ける" class="slide level2 smaller" data-chapter="I-1">
+<h2>位置づけ：固有値で分ける</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>モデル</th>
+<th style="text-align: center;">手元の行列</th>
+<th style="text-align: center;">解き方</th>
+<th style="text-align: center;">回</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k-means</td>
+<td style="text-align: center;">データ行列 <span class="math inline">\mathbf X</span></td>
+<td style="text-align: center;">交互に解く</td>
+<td style="text-align: center;">第7回</td>
+</tr>
+<tr class="even">
+<td>主成分分析</td>
+<td style="text-align: center;">データ行列 <span class="math inline">\mathbf X</span></td>
+<td style="text-align: center;">特異値分解</td>
+<td style="text-align: center;">第10回</td>
+</tr>
+<tr class="odd">
+<td>対応分析</td>
+<td style="text-align: center;">分割表 <span class="math inline">\mathbf O</span></td>
+<td style="text-align: center;">特異値分解</td>
+<td style="text-align: center;">第12回</td>
+</tr>
+<tr class="even">
+<td>スペクトルクラスタリング</td>
+<td style="text-align: center;">隣接行列 <span class="math inline">\mathbf A</span></td>
+<td style="text-align: center;">固有値分解 ＋k-means</td>
+<td style="text-align: center;">今回</td>
+</tr>
+<tr class="odd">
+<td>Graphical Lasso</td>
+<td style="text-align: center;">データ行列 <span class="math inline">\mathbf X</span></td>
+<td style="text-align: center;">列ごとのLasso</td>
+<td style="text-align: center;">今回</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="モデル群を01で" class="slide level2" data-chapter="I-2">
+<h2>モデル：群を0/1で</h2>
+<p><span class="math display">
+\mathbf G\in\{0,1\}^{n\times k},\qquad \mathbf G\mathbf 1_k=\mathbf 1_n
+</span></p>
+<p>点 <span class="math inline">i</span> が群 <span class="math inline">q</span> なら <span class="math inline">g_{iq}=1</span>。第7回の所属行列と同じ形。違うのは、点の座標 <span class="math inline">\mathbf X</span> が無く、<span class="math inline">\mathbf A</span> しか無いこと。</p>
+</section>
+<section id="まとまりとはカット" class="slide level2" data-chapter="I-2">
+<h2>まとまりとは：カット</h2>
+<p><span class="math display">
+\operatorname{cut}(C_q,\bar C_q)=\boldsymbol g_q^\top\mathbf A(\mathbf 1_n-\boldsymbol g_q)
+</span></p>
+<p><span class="math inline">\boldsymbol g_q</span> は <span class="math inline">\mathbf G</span> の第 <span class="math inline">q</span> 列。群 <span class="math inline">C_q</span> の点から群の外へ出る線の数を、カットと呼ぶ。群の中に線が多く、群をまたぐ線が少ないのがまとまり。</p>
+</section>
+<section id="目的関数①大きさで割る" class="slide level2" data-chapter="I-3">
+<h2>目的関数①：大きさで割る</h2>
+<div id="4015b94d" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="804" height="330"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\operatorname{RatioCut}=\sum_{q=1}^{k}\operatorname{cut}(C_q,\bar C_q)/|C_q|</span>。1点だけの群は <span class="math inline">|C_q|=1</span> で重くなる。図は <span class="math inline">k=2</span>。</p>
+</section>
+<section id="目的関数②行列で書く" class="slide level2" data-chapter="I-3">
+<h2>目的関数②：行列で書く</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\operatorname{RatioCut}=\operatorname{tr}(\mathbf H^\top\mathbf L\mathbf H),\qquad \mathbf H=\mathbf G(\mathbf G^\top\mathbf G)^{-1/2}\\
+&amp;\mathbf L=\mathbf D-\mathbf A,\qquad \mathbf D=\operatorname{diag}(\mathbf A\mathbf 1_n)
+\end{aligned}
+</span></p>
+<p>所属行列の列を <span class="math inline">\sqrt{|C_q|}</span> で割ったので、<span class="math inline">\mathbf H^\top\mathbf H=\mathbf I_k</span>。<span class="math inline">\mathbf L</span> をグラフラプラシアンと呼ぶ。</p>
+</section>
+<section id="ラプラシアン隣どうしの違い" class="slide level2" data-chapter="I-3">
+<h2>ラプラシアン：隣どうしの違い</h2>
+<p><span class="math display">
+\boldsymbol x^\top\mathbf L\boldsymbol x=\tfrac12\textstyle\sum_{i,j}a_{ij}(x_i-x_j)^2
+</span></p>
+<p>どの <span class="math inline">\boldsymbol x</span> でも、線の両端で値が違うほど大きい。<span class="math inline">\mathbf H</span> の列は群の中で <span class="math inline">1/\sqrt{|C_q|}</span>、外で0なので、群をまたぐ線1本ごとに <span class="math inline">1/|C_q|</span> を数える。</p>
+</section>
+<section id="クイズ②違いの合計" class="slide level2" data-chapter="I-3">
+<h2>クイズ②：違いの合計</h2>
+<p>4点が1列につながる（1−2−3−4、線は3本）。<span class="math inline">\boldsymbol x=(2,1,1,-1)^\top</span> のとき、<span class="math inline">\boldsymbol x^\top\mathbf L\boldsymbol x</span> は？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span><span class="math inline">3</span></p>
+</div>
+<div class="c">
+<p><span class="k">B</span><span class="math inline">5</span></p>
+</div>
+<div class="c">
+<p><span class="k">C</span><span class="math inline">7</span></p>
+</div>
+<div class="c">
+<p><span class="k">D</span><span class="math inline">10</span></p>
+</div>
+</div>
+</section>
+<section id="クイズ②の答えb" class="slide level2" data-chapter="I-3">
+<h2>クイズ②の答え：B</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span><span class="math inline">3</span></p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span><span class="math inline">5</span></p>
+</div>
+<div class="c">
+<p><span class="k">C</span><span class="math inline">7</span></p>
+</div>
+<div class="c">
+<p><span class="k">D</span><span class="math inline">10</span></p>
+</div>
+</div>
+<p>線ごとに <span class="math inline">(x_i-x_j)^2</span>：1−2で1、2−3で0、3−4で4。足して5。両方の順で数えて <span class="math inline">\frac12</span> を忘れると10（D）。</p>
+</section>
+<section id="道筋固有ベクトルで解く" class="slide level2 smaller" data-chapter="I-5">
+<h2>道筋：固有ベクトルで解く</h2>
+<p><span class="math display">
+\hat{\mathbf H}=\mathbf U_k=[\boldsymbol u_1\ \cdots\ \boldsymbol u_k]
+</span></p>
+<p>終着駅は <span class="math inline">\mathbf L</span> の小さい方から <span class="math inline">k</span> 本の固有ベクトル。</p>
+<ol type="1">
+<li>分け方は <span class="math inline">k^n</span> 通り。<span class="math inline">\mathbf H</span> を <span class="math inline">\mathbf H^\top\mathbf H=\mathbf I_k</span> だけ残して緩める</li>
+<li>道具（固有値に重みを配る）で、小さい方から <span class="math inline">k</span> 本</li>
+<li>2群なら、2番目の固有ベクトルだけが分け方を決める</li>
+<li><span class="math inline">\mathbf U_k</span> の行をk-meansで分ける</li>
+</ol>
+<p>トレースの最小の証明は、読み物（pdf）に書いた。</p>
+</section>
+<section id="導出の道具固有値に重みを配る" class="slide level2" data-chapter="I-4">
+<h2>導出の道具：固有値に重みを配る</h2>
+<div id="906f405c" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-23-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1063" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\operatorname{tr}(\mathbf H^\top\mathbf L\mathbf H)=\sum_m\lambda_mw_m</span>。重み <span class="math inline">w_m</span> は0から1までで、合計は <span class="math inline">k</span>。和が最も小さいのは、小さい方から <span class="math inline">k</span> 本に1ずつ置くとき（第10回では大きい方に配った）。</p>
+</section>
+<section id="緩める" class="slide level2" data-chapter="I-5">
+<h2>①緩める</h2>
+<p><span class="crumb"><span class="now">①緩める</span> ②k本 ③2群なら ④k-means</span></p>
+<p><span class="math display">
+\min_{\mathbf H\in\mathbb R^{n\times k}}\operatorname{tr}(\mathbf H^\top\mathbf L\mathbf H)\quad
+\text{s.t.}\ \mathbf H^\top\mathbf H=\mathbf I_k
+</span></p>
+<p><span class="math inline">\mathbf H</span> を群の形 <span class="math inline">\mathbf G(\mathbf G^\top\mathbf G)^{-1/2}</span> に限るのをやめ、列の直交だけを残す。分け方を全部試す代わりに、なめらかな問題にする。</p>
+</section>
+<section id="小さい方からk本" class="slide level2" data-chapter="I-5">
+<h2>②小さい方からk本</h2>
+<p><span class="crumb">①緩める <span class="now">②k本</span> ③2群なら ④k-means</span></p>
+<p><span class="math display">
+\hat{\mathbf H}=\mathbf U_k,\qquad \mathbf L\mathbf 1_n=\boldsymbol 0
+</span></p>
+<p>道具より、答えは小さい方から <span class="math inline">k</span> 本の固有ベクトル。<span class="math inline">\mathbf L</span> の固有値は0以上で、<span class="math inline">\mathbf L\mathbf 1_n=\boldsymbol 0</span> なので、1本目 <span class="math inline">\boldsymbol u_1</span> はどの点も同じ値 <span class="math inline">1/\sqrt n</span>。</p>
+</section>
+<section id="群なら2番目" class="slide level2" data-chapter="I-5">
+<h2>③2群なら2番目</h2>
+<p><span class="crumb">①緩める ②k本 <span class="now">③2群なら</span> ④k-means</span></p>
+<div id="7b9d6d92" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-24-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="930" height="285"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">k=2</span> なら <span class="math inline">\boldsymbol u_1</span> は定数で、分け方に効かない。決めるのは <span class="math inline">\boldsymbol u_2</span>（フィードラーベクトル）。符号で切ると、1〜4と13が青。</p>
+</section>
+<section id="行をk-means" class="slide level2" data-chapter="I-5">
+<h2>④行をk-means</h2>
+<p><span class="crumb">①緩める ②k本 ③2群なら <span class="now">④k-means</span></span></p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>緩める前は、同じ群の行は同じ値だった。<span class="math inline">\mathbf U_k</span> の行を第7回のk-meansで分ける。図は <span class="math inline">k=4</span>。</p>
+</div><div class="column" style="width:55%;">
+<div id="d380639f" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png?v=e586bf84" width="415" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="アルゴリズム固有値分解1回" class="slide level2 smaller" data-chapter="I-6">
+<h2>アルゴリズム：固有値分解1回</h2>
+<ol type="1">
+<li>次数とラプラシアン：<span class="math inline">\boldsymbol d=\mathbf A\mathbf 1_n</span>、<span class="math inline">\mathbf D=\operatorname{diag}(\boldsymbol d)</span>、<span class="math inline">\mathbf L=\mathbf D-\mathbf A</span></li>
+<li>固有値分解を1回：<span class="math inline">\mathbf L=\mathbf U\boldsymbol\Lambda\mathbf U^\top</span>（小さい順）</li>
+<li>群の数を決める：小さい固有値の並びを見る</li>
+<li>分ける：<span class="math inline">\mathbf U_k</span> の行をk-meansで <span class="math inline">k</span> 群に（2群ならフィードラーベクトルの符号）</li>
+<li>描く：<span class="math inline">(\sqrt n\,u_{i2},\sqrt n\,u_{i3})</span> を点 <span class="math inline">i</span> の位置にする</li>
+</ol>
+<p>第7回は <span class="math inline">\mathbf X</span> の行をそのまま分けた。今回は <span class="math inline">\mathbf X</span> が無いので、固有ベクトルの行を座標の代わりにする。</p>
+</section>
+<section id="次の問い何が見えるか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：何が見えるか</h2>
+<ul>
+<li>固有ベクトルで、点に座標と群が付いた</li>
+<li>並べ方・線の数・1点を切る答え、の3つの困りごとに答えられるか</li>
+</ul>
+<p>使いどころ：つながりのデータ（タンパク質の相互作用、乗り換え、共著）を、まとまりごとに描いて報告する。</p>
+</section>
+<section id="帰結①並べ替えると塊" class="slide level2" data-chapter="I-7">
+<h2>帰結①：並べ替えると塊</h2>
+<div id="28ba3c52" class="cell" data-execution_count="28">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じ <span class="math inline">\mathbf A</span> を、<span class="math inline">\sqrt n\,u_{i2}</span> の小さい順に並べ替えた。対角に3つの塊が現れる。</p>
+</section>
+<section id="困りごと①に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと①に戻る</h2>
+<div id="f9380573" class="cell" data-execution_count="29">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>並べ方を <span class="math inline">13!</span> 通り試さなくても、固有値分解1回で、まとまりの見える順と置き方が決まる。</p>
+</section>
+<section id="帰結②固有値0は塊の数" class="slide level2" data-chapter="I-7">
+<h2>帰結②：固有値0は塊の数</h2>
+<div id="0b01ee74" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1063" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\boldsymbol x^\top\mathbf L\boldsymbol x=0</span> なら、どの線でも両端が等しく、<span class="math inline">\boldsymbol x</span> は塊ごとに一定。塊の間の5本を抜くと (a)、固有値0がちょうど3個。</p>
+</section>
+<section id="クイズ③塊はいくつ" class="slide level2" data-chapter="I-7">
+<h2>クイズ③：塊はいくつ</h2>
+<p>あるグラフのラプラシアンの固有値が、小さい順に <span class="math inline">0,\ 0,\ 0,\ 0.8,\ 2.1,\ \dots</span> だった。線でつながった塊はいくつか？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>1個</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>2個</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>3個</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>分からない</p>
+</div>
+</div>
+</section>
+<section id="クイズ③の答えc" class="slide level2" data-chapter="I-7">
+<h2>クイズ③の答え：C</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>1個</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>2個</p>
+</div>
+<div class="c ok">
+<p><span class="k">C</span>3個</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>分からない</p>
+</div>
+</div>
+<p>固有値0の数が、つながった塊の数。いちばん小さい0は、どのグラフにも必ずある（<span class="math inline">\mathbf L\mathbf 1=\boldsymbol 0</span>）。</p>
+</section>
+<section id="帰結③隙間でkを選ぶ" class="slide level2" data-chapter="I-7">
+<h2>帰結③：隙間でkを選ぶ</h2>
+<div id="240df339" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1063" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>線を戻すと (b)、0のうち2個が小さな値になる。小さな固有値が4個（1.71 以下）、その後 4.00 に跳ぶ。跳ぶ手前までの数を <span class="math inline">k</span> にする（<span class="math inline">k=4</span>）。</p>
+</section>
+<section id="困りごと②に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと②に戻る</h2>
+<div id="d4b24b55" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1063" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>次数は <span class="math inline">\mathbf L</span> の対角にしか入っていない。次数がほぼ同じでも、フィードラーベクトルは塊ごとにそろう。まとまりは、誰とつながるかで決まる。</p>
+</section>
+<section id="困りごと③に戻る" class="slide level2 smaller" data-chapter="I-7">
+<h2>困りごと③に戻る</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>分け方</th>
+<th style="text-align: center;">カット</th>
+<th style="text-align: center;">レシオカット</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>13だけ</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.08</td>
+</tr>
+<tr class="even">
+<td>1〜4と13（フィードラーベクトルの符号）</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0.65</td>
+</tr>
+<tr class="odd">
+<td>緩めた最小 <span class="math inline">\lambda_2</span></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">0.36</td>
+</tr>
+</tbody>
+</table>
+<p>カットに掛かる <span class="math inline">1/|S|+1/|\bar S|</span> は、1点の群でいちばん大きく、大きさがそろうほど小さい。線の数だけなら13を切る。大きさで割れば塊で切る。</p>
+</section>
+<section id="次の問い1点の群が残る" class="slide level2" data-chapter="I-1">
+<h2>次の問い：1点の群が残る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<ul>
+<li><span class="math inline">k=3</span> にすると、13だけで1群。残りは1〜5と6〜12に分かれ、塊がくずれた</li>
+<li>線1本でしかつながらない点を、1つの群として数えてよいか</li>
+</ul>
+<p>次数の小さい点を、軽く数えられないか。</p>
+</div><div class="column" style="width:55%;">
+<div id="b8fc7018" class="cell" data-execution_count="35">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-36-output-1.png?v=e586bf84" width="415" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="正規化カット" class="slide level2" data-chapter="I-7">
+<h2>正規化カット</h2>
+<p><span class="math display">
+\operatorname{Ncut}=\sum_{q=1}^{k}\frac{\operatorname{cut}(C_q,\bar C_q)}{\operatorname{vol}(C_q)},\qquad \operatorname{vol}(C_q)=\boldsymbol g_q^\top\boldsymbol d
+</span></p>
+<p>点の数 <span class="math inline">|C_q|</span> の代わりに、次数の和 <span class="math inline">\operatorname{vol}(C_q)</span> で割る。線の少ない点は、群の大きさに少ししか効かない。</p>
+</section>
+<section id="つの塊に戻る" class="slide level2" data-chapter="I-7">
+<h2>3つの塊に戻る</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p>同じく緩めて解くと、<span class="math inline">\mathbf L_{\mathrm{sym}}=\mathbf I-\mathbf D^{-1/2}\mathbf A\mathbf D^{-1/2}</span> の固有ベクトル <span class="math inline">\boldsymbol v_m</span> を <span class="math inline">\mathbf D^{-1/2}</span> 倍した <span class="math inline">\boldsymbol y_m</span> が答え。</p>
+<p><span class="math inline">k=3</span> でk-meansにかけると、13は1〜4と同じ群に入る。</p>
+</div><div class="column" style="width:55%;">
+<div id="68b1bbda" class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=e586bf84" width="415" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="隣の平均に寄る" class="slide level2" data-chapter="I-7">
+<h2>隣の平均に寄る</h2>
+<p><span class="math display">
+y_i=\frac{1}{1-\mu}\cdot\frac1{d_i}\sum_ja_{ij}y_j,\qquad y_{13}=\frac{y_1}{1-\mu_2}
+</span></p>
+<p>点の値は、隣の点の値の平均を <span class="math inline">1/(1-\mu)</span> 倍したもの。13の隣は1だけなので、13は1に引き寄せられる。</p>
+</section>
+<section id="aを分割表とみる" class="slide level2" data-chapter="I-7">
+<h2>Aを分割表とみる</h2>
+<p><span class="math display">
+\mathbf D^{-1/2}\mathbf A\mathbf D^{-1/2}=\mathbf I-\mathbf L_{\mathrm{sym}}
+</span></p>
+<p><span class="math inline">\mathbf A</span> を分割表とみると、行の周辺も列の周辺も次数の割合。第12回の対応分析の標準化残差は左辺から作られ、正規化カットと同じ向きの組を使う。隣の平均の式は、第12回の遷移公式と同じ形。</p>
+</section>
+<section id="次の問い表が無いなら" class="slide level2" data-chapter="I-1">
+<h2>次の問い：表が無いなら</h2>
+<p><span class="math display">
+\mathbf X\ (n\times p)\quad\longrightarrow\quad \mathbf A\ (p\times p)\ ?
+</span></p>
+<p>ここまでは、つながりの表 <span class="math inline">\mathbf A</span> が手元にあった。手元に個体 × 変数のデータ行列しか無いとき、変数どうしのつながりの表を作れるか？</p>
+</section>
+<section id="データ8列のデータ行列" class="slide level2" data-chapter="I-1">
+<h2>データ：8列のデータ行列</h2>
+<div id="54966d36" class="cell" data-execution_count="40">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-41-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1128" height="348"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">n</span> = 200 行、<span class="math inline">p</span> = 8 列（人工データ）。列どうしの相関を並べた。</p>
+</section>
+<section id="相関で線を引く" class="slide level2" data-chapter="I-1">
+<h2>相関で線を引く</h2>
+<div id="22bd0a54" class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1128" height="348"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>相関の絶対値が 0.2 を超える組に線を引いた。9 本の線ができる。</p>
+</section>
+<section id="困りごと④間をはさんだ組" class="slide level2" data-chapter="I-1">
+<h2>困りごと④：間をはさんだ組</h2>
+<div id="bb636fbc" class="cell" data-execution_count="42">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1128" height="348"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>本当のつながりは鎖2本（灰色の太線）。1と3は直接つながっていないのに、2をはさんで相関 0.30。どこで切るかの根拠も無い。</p>
+</section>
+<section id="モデル①精度行列" class="slide level2" data-chapter="I-2">
+<h2>モデル①：精度行列</h2>
+<p><span class="math display">
+\boldsymbol x\sim\mathrm N_p(\boldsymbol 0,\boldsymbol\Sigma),\qquad \boldsymbol\Theta=\boldsymbol\Sigma^{-1}
+</span></p>
+<p>行 <span class="math inline">\boldsymbol x</span> は <span class="math inline">p</span> 変量正規分布に従う。分散共分散行列の逆行列 <span class="math inline">\boldsymbol\Theta</span> を精度行列と呼ぶ。</p>
+</section>
+<section id="モデル②1列を残りで回帰" class="slide level2" data-chapter="I-2">
+<h2>モデル②：1列を残りで回帰</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\mathbb E[x_p\mid\boldsymbol x_{-p}]=\boldsymbol\beta^\top\boldsymbol x_{-p},\qquad
+\boldsymbol\beta=-\frac{\boldsymbol\theta_{12}}{\theta_{22}}\\
+&amp;\operatorname{\mathbb{V}ar}(x_p\mid\boldsymbol x_{-p})=\frac{1}{\theta_{22}}
+\end{aligned}
+</span></p>
+<p>精度行列の最後の列（<span class="math inline">\boldsymbol\theta_{12}</span>、<span class="math inline">\theta_{22}</span>）は、最後の列を残りで回帰したときの係数と、当たらなかった分を表す。導き方は読み物。</p>
+</section>
+<section id="クイズ④回帰の係数" class="slide level2" data-chapter="I-2">
+<h2>クイズ④：回帰の係数</h2>
+<p>精度行列の最後の列が <span class="math inline">\theta_{22}=2</span>、<span class="math inline">\boldsymbol\theta_{12}=(-0.6,\ 0,\ 0.4)^\top</span> だった。最後の列を残りで回帰したときの係数 <span class="math inline">\boldsymbol\beta</span> は？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span><span class="math inline">(-0.6,\ 0,\ 0.4)</span></p>
+</div>
+<div class="c">
+<p><span class="k">B</span><span class="math inline">(-0.3,\ 0,\ 0.2)</span></p>
+</div>
+<div class="c">
+<p><span class="k">C</span><span class="math inline">(0.3,\ 0,\ -0.2)</span></p>
+</div>
+<div class="c">
+<p><span class="k">D</span><span class="math inline">(1.2,\ 0,\ -0.8)</span></p>
+</div>
+</div>
+</section>
+<section id="クイズ④の答えc" class="slide level2" data-chapter="I-2">
+<h2>クイズ④の答え：C</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span><span class="math inline">(-0.6,\ 0,\ 0.4)</span></p>
+</div>
+<div class="c">
+<p><span class="k">B</span><span class="math inline">(-0.3,\ 0,\ 0.2)</span></p>
+</div>
+<div class="c ok">
+<p><span class="k">C</span><span class="math inline">(0.3,\ 0,\ -0.2)</span></p>
+</div>
+<div class="c">
+<p><span class="k">D</span><span class="math inline">(1.2,\ 0,\ -0.8)</span></p>
+</div>
+</div>
+<p><span class="math inline">\boldsymbol\beta=-\boldsymbol\theta_{12}/\theta_{22}</span>。符号が逆になり、<span class="math inline">\theta_{22}=2</span> で割る。真ん中の列の係数は0。</p>
+</section>
+<section id="モデル③0なら線が無い" class="slide level2" data-chapter="I-2">
+<h2>モデル③：0なら線が無い</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\theta_{jk}=0\iff\beta_{jk}=0\iff\text{条件付き独立}\\
+&amp;a_{jk}=\begin{cases}1&amp;(\theta_{jk}\ne0)\\0&amp;(\theta_{jk}=0)\end{cases}
+\end{aligned}
+</span></p>
+<p>ほかの列を固定すれば、<span class="math inline">x_k</span> は <span class="math inline">x_j</span> の予測に役立たない。精度行列の0の並びが、つながりの表になる。</p>
+</section>
+<section id="モデル④偏相関" class="slide level2" data-chapter="I-2">
+<h2>モデル④：偏相関</h2>
+<p><span class="math display">
+\rho_{jk\cdot\text{rest}}=-\frac{\theta_{jk}}{\sqrt{\theta_{jj}\theta_{kk}}}
+</span></p>
+<p>ほかの列を固定したときの <span class="math inline">x_j</span> と <span class="math inline">x_k</span> の相関（偏相関）。<span class="math inline">\theta_{jk}=0</span> なら0。線の太さに使う。</p>
+</section>
+<section id="たとえ傘と長靴" class="slide level2" data-chapter="I-2">
+<h2>たとえ：傘と長靴</h2>
+<div id="03a02a99" class="cell" data-execution_count="45">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1064" height="297"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>傘と長靴は一緒に売れる。雨の量を固定すれば、関係はほとんど消える。線を引くべきは「雨−傘」「雨−長靴」だけ。</p>
+</section>
+<section id="目的関数①最尤推定はs¹" class="slide level2" data-chapter="I-3">
+<h2>目的関数①：最尤推定はS⁻¹</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\ell(\boldsymbol\Theta)=\frac n2\Bigl(\log\det\boldsymbol\Theta-\operatorname{tr}(\mathbf S\boldsymbol\Theta)\Bigr)+\text{定数}\\
+&amp;\hat{\boldsymbol\Theta}=\mathbf S^{-1}
+\end{aligned}
+</span></p>
+<p>最尤法の答えは <span class="math inline">\mathbf S^{-1}</span>。行が少ないと <span class="math inline">\mathbf S</span> に逆行列が無い。あっても、0はちょうどには出ない。</p>
+</section>
+<section id="目的関数②罰則を足す" class="slide level2" data-chapter="I-3">
+<h2>目的関数②：罰則を足す</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;\max_{\boldsymbol\Theta}\ \log\det\boldsymbol\Theta-\operatorname{tr}(\mathbf S\boldsymbol\Theta)-\lambda\lVert\boldsymbol\Theta\rVert_1\\
+&amp;\lVert\boldsymbol\Theta\rVert_1=\textstyle\sum_{j,k}|\theta_{jk}|
+\end{aligned}
+</span></p>
+<p>第4回の <span class="math inline">\ell_1</span> 罰則（Lasso）を精度行列に足す。<span class="math inline">\lambda</span> が大きいほど0が増える。Graphical Lassoと呼ぶ。</p>
+</section>
+<section id="道筋列ごとのlasso" class="slide level2 smaller" data-chapter="I-5">
+<h2>道筋：列ごとのLasso</h2>
+<p><span class="math display">
+\min_{\boldsymbol\beta}\ \frac12\boldsymbol\beta^\top\mathbf W_{11}\boldsymbol\beta-\boldsymbol s_{12}^\top\boldsymbol\beta+\lambda\lVert\boldsymbol\beta\rVert_1
+</span></p>
+<p>終着駅は、列ごとに解くこのLasso（<span class="math inline">\mathbf W=\hat{\boldsymbol\Theta}^{-1}</span>）。</p>
+<ol type="1">
+<li>最後の列の条件を取り出すと、第4回のLassoと同じ形</li>
+<li>どの列も順に「最後の列」にして解き、<span class="math inline">\mathbf W</span> を書き換える</li>
+</ol>
+<p>微分して0とおく計算と、列を取り出す計算は、読み物（pdf）に書いた。</p>
+</section>
+<section id="列の条件はlasso" class="slide level2" data-chapter="I-5">
+<h2>①列の条件はLasso</h2>
+<p><span class="crumb"><span class="now">①Lasso</span> ②列を回す</span></p>
+<p><span class="math display">
+\begin{aligned}
+\text{第4回：}&amp;\quad\min_{\boldsymbol\beta}\ \tfrac12\boldsymbol\beta^\top\tfrac{\mathbf X^\top\mathbf X}{n}\boldsymbol\beta-\tfrac{\boldsymbol y^\top\mathbf X}{n}\boldsymbol\beta+\lambda\lVert\boldsymbol\beta\rVert_1\\
+\text{今回：}&amp;\quad\min_{\boldsymbol\beta}\ \tfrac12\boldsymbol\beta^\top\mathbf W_{11}\boldsymbol\beta-\boldsymbol s_{12}^\top\boldsymbol\beta+\lambda\lVert\boldsymbol\beta\rVert_1
+\end{aligned}
+</span></p>
+<p>最後の列を <span class="math inline">\boldsymbol y</span>、残りを <span class="math inline">\mathbf X</span> と見た回帰のLasso。<span class="math inline">\boldsymbol\beta</span> はモデル②の係数。第4回と同じく、軟しきい値で1成分ずつ解ける。</p>
+</section>
+<section id="列を回す" class="slide level2" data-chapter="I-5">
+<h2>②列を回す</h2>
+<p><span class="crumb">①Lasso <span class="now">②列を回す</span></span></p>
+<p><span class="math display">
+\begin{aligned}
+&amp;\boldsymbol w_{12}\leftarrow\mathbf W_{11}\hat{\boldsymbol\beta}\\
+&amp;\hat\theta_{22}=\frac{1}{w_{22}-\boldsymbol w_{12}^\top\hat{\boldsymbol\beta}},\qquad
+\hat{\boldsymbol\theta}_{12}=-\hat{\boldsymbol\beta}\,\hat\theta_{22}
+\end{aligned}
+</span></p>
+<p>どの列も順に「最後の列」になる。解くたびに <span class="math inline">\mathbf W</span> を書き換え、止まったら精度行列に戻す。<span class="math inline">\hat\beta_k=0</span> なら線は引かれない。</p>
+</section>
+<section id="アルゴリズム列ごとのlasso" class="slide level2 smaller" data-chapter="I-6">
+<h2>アルゴリズム：列ごとのLasso</h2>
+<ol type="1">
+<li>標準化して <span class="math inline">\mathbf S</span> を作る。<span class="math inline">\mathbf W\leftarrow\mathbf S+\lambda\mathbf I</span></li>
+<li>列 <span class="math inline">j=1,\dots,p</span> を順に「最後の列」にする：<span class="math inline">\mathbf W_{11}</span>、<span class="math inline">\boldsymbol s_{12}</span> を取り出す</li>
+<li>Lassoを座標降下で解く：<span class="math inline">\beta_k\leftarrow\operatorname{soft}\bigl(s_{12,k}-\sum_{l\ne k}[\mathbf W_{11}]_{kl}\beta_l,\lambda\bigr)/[\mathbf W_{11}]_{kk}</span></li>
+<li>書き換える：<span class="math inline">\boldsymbol w_{12}\leftarrow\mathbf W_{11}\hat{\boldsymbol\beta}</span>。<span class="math inline">\mathbf W</span> が変わらなくなるまで2〜4</li>
+<li>戻す：<span class="math inline">\hat\theta_{jj}=1/(w_{jj}-\boldsymbol w_{12}^\top\hat{\boldsymbol\beta})</span>、<span class="math inline">\hat{\boldsymbol\theta}_{12}=-\hat{\boldsymbol\beta}\hat\theta_{jj}</span>。0でない組に線を引く</li>
+</ol>
+<p>第4回は1本の <span class="math inline">\boldsymbol y</span> でLassoを1回解いた。今回は列の数だけ解き、それを何周か繰り返す。</p>
+</section>
+<section id="次の問いλで何が変わるか" class="slide level2" data-chapter="I-1">
+<h2>次の問い：λで何が変わるか</h2>
+<ul>
+<li>罰則を足すと、精度行列にちょうど0が出る</li>
+<li>間をはさんだ組は消えるか。どこで切るかを決められるか</li>
+</ul>
+<p>使いどころ：多くの指標（売上、検査値、株価）のどれとどれが直接つながるかを、1枚の図で示す。</p>
+</section>
+<section id="帰結①λを上げると線が減る" class="slide level2" data-chapter="I-7">
+<h2>帰結①：λを上げると線が減る</h2>
+<div id="46a66d88" class="cell" data-execution_count="47">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1110" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\lambda</span> を上げるほど、偏相関は0へ縮み、ちょうど0になった組から線が消える。本当でない線が先に消える。</p>
+</section>
+<section id="困りごと④に戻る" class="slide level2" data-chapter="I-7">
+<h2>困りごと④に戻る</h2>
+<div id="2dee912d" class="cell" data-execution_count="48">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-49-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="856" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>BICで選んだ <span class="math inline">\lambda</span> = 0.25 で、残った線は本当の鎖と一致した。1と3の線は消えた。</p>
+</section>
+<section id="帰結②λをbicで選ぶ" class="slide level2" data-chapter="I-7">
+<h2>帰結②：λをBICで選ぶ</h2>
+<div id="6bd4760c" class="cell" data-execution_count="49">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-50-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="873" height="292"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\lambda</span> ごとに線の並びを1つのモデルとみて、第9回のBICで比べる。どこで切るかを、相関の大きさではなくBICで決める。</p>
+</section>
+<section id="帰結③小さな相関は切り離す" class="slide level2" data-chapter="I-7">
+<h2>帰結③：小さな相関は切り離す</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;|s_{jk}|\le\lambda\quad(j\in C_1,\ k\in C_2\ \text{のすべて})\\
+&amp;\Longrightarrow\quad\hat\theta_{jk}=0\quad(\text{2つの塊の間})
+\end{aligned}
+</span></p>
+<p>塊をまたぐ相関がどれも <span class="math inline">\lambda</span> 以下なら、間の線はすべて消える。塊ごとに別々に解いて並べたものが答えになる（証明は読み物）。</p>
+</section>
+<section id="クイズ⑤塊はいくつ" class="slide level2" data-chapter="I-7">
+<h2>クイズ⑤：塊はいくつ</h2>
+<p>4列の相関が <span class="math inline">s_{12}=0.6</span>、<span class="math inline">s_{34}=0.5</span>、<span class="math inline">s_{13}=0.2</span>、<span class="math inline">s_{14}=0.1</span>、<span class="math inline">s_{23}=0.15</span>、<span class="math inline">s_{24}=0.25</span>。<span class="math inline">\lambda=0.3</span> なら、線でつながった塊はいくつか？</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>1つ</p>
+</div>
+<div class="c">
+<p><span class="k">B</span>2つ</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>3つ</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>4つ</p>
+</div>
+</div>
+</section>
+<section id="クイズ⑤の答えb" class="slide level2" data-chapter="I-7">
+<h2>クイズ⑤の答え：B</h2>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>1つ</p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span>2つ</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>3つ</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>4つ</p>
+</div>
+</div>
+<p>{1, 2} と {3, 4} をまたぐ相関は、どれも0.3以下（最大0.25）。帰結③で、間の線はすべて消える。</p>
+</section>
+<section id="帰結④作った表を切る" class="slide level2" data-chapter="I-7">
+<h2>帰結④：作った表を切る</h2>
+<div id="918124b3" class="cell" data-execution_count="50">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="949" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Graphical Lassoで作った表 <span class="math inline">\hat{\mathbf A}</span> にも、前半の道具が使える。固有値0は2個で、鎖2本の塊の数と一致する。</p>
+</section></section>
+<section>
+<section id="第ii部-実データ解析" class="title-slide slide level1 part center">
+<h1>第II部　実データ解析</h1>
+
+</section>
+<section id="第ii部実データで試す" class="slide level2" data-chapter="II-1">
+<h2>第II部：実データで試す</h2>
+<ul>
+<li>第I部の人工データは、塊や鎖がはっきり出るように作った</li>
+<li>実データは理論どおりにいくとは限らない。外れたら、理由を第I部の道具で考える</li>
+<li>うまくいったら最高</li>
+</ul>
+</section>
+<section id="理論の予想" class="slide level2 smaller" data-chapter="II-1">
+<h2>理論の予想</h2>
+<ol type="1">
+<li>相関で線を引くと、ほとんどすべての組がつながる（市場全体という共通の原因：傘と長靴）</li>
+<li>市場の動きを引いてGraphical Lassoをかけ、BICで <span class="math inline">\lambda</span> を選ぶと、同じ業種どうしの線が残る</li>
+<li>作った表は業種ごとの塊になり、ラプラシアンの固有値0は業種の数（5個）</li>
+<li>正規化カットで切ると、群は業種に分かれる</li>
+</ol>
+</section>
+<section id="データsp-500の株価" class="slide level2 smaller" data-chapter="II-1">
+<h2>データ：S&amp;P 500の株価</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>業種</th>
+<th>銘柄（8つずつ）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>エネルギー</td>
+<td>BHI・CHK・DO・EP・PXD・RDC・WMB・XOM</td>
+</tr>
+<tr class="even">
+<td>公益（電力・ガス）</td>
+<td>AEE・AEP・AES・CEG・CNP・DTE・ED・EIX</td>
+</tr>
+<tr class="odd">
+<td>金融</td>
+<td>ACE・AFL・AIG・AIV・ALL・AON・AVB・AXP</td>
+</tr>
+<tr class="even">
+<td>IT</td>
+<td>A・ADI・ADP・ALTR・AMAT・BMC・CA・CPWR</td>
+</tr>
+<tr class="odd">
+<td>ヘルスケア</td>
+<td>ABT・AMGN・BAX・BDX・BMY・CAH・CEPH・EW</td>
+</tr>
+</tbody>
+</table>
+<p>米国の大企業の株価（S&amp;P 500）。2007年の 251 営業日の、日々の値動き（対数収益率）。</p>
+</section>
+<section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
+<h2>手続き：何をどう計算したか</h2>
+<ol type="1">
+<li>1日に±30%を超えて値が飛ぶ銘柄を除き、5業種から8銘柄ずつ（記号のアルファベット順）選んだ</li>
+<li>各銘柄を市場の動き（残った 275 銘柄の平均）で回帰し（第1回）、残りを標準化した</li>
+<li>残りの相関行列（<span class="math inline">40\times40</span>）にGraphical Lassoをかけ、<span class="math inline">\lambda</span> = 0.1〜0.45 からBICで選んだ</li>
+<li>0でない組を1とした表 <span class="math inline">\hat{\mathbf A}</span> のラプラシアンの固有値を見た</li>
+<li>最大の塊を正規化カットで切った。<span class="math inline">k</span> は固有値の跳びで決めた</li>
+<li>業種は計算には使わず、答え合わせだけに使う</li>
+</ol>
+</section>
+<section id="結果①相関はどの組も正" class="slide level2" data-chapter="II-3">
+<h2>結果①：相関はどの組も正</h2>
+<div id="f8a0eea8" class="cell" data-execution_count="57">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-58-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="872" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>780 組の相関は、最小 0.05、平均 0.38。どの組も正で、相関で線を引くとほぼ全部つながる。予想どおり。</p>
+</section>
+<section id="結果②bicが選んだλ" class="slide level2" data-chapter="II-3">
+<h2>結果②：BICが選んだλ</h2>
+<div id="ff2dbe73" class="cell" data-execution_count="58">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-59-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="873" height="285"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>市場を引いた残りにGraphical Lasso。BICは <span class="math inline">\lambda</span> = 0.2 で最小。線は 74 本（780組のうち）。</p>
+</section>
+<section id="結果③業種の中の線" class="slide level2" data-chapter="II-3">
+<h2>結果③：業種の中の線</h2>
+<div id="01d34dd0" class="cell" data-execution_count="59">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-60-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="556" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>74 本のうち 82%が同じ業種どうし（でたらめに引けば 18%）。予想どおり。線の太さは偏相関。</p>
+</section>
+<section id="結果④固有値0の数" class="slide level2" data-chapter="II-4">
+<h2>結果④：固有値0の数</h2>
+<div id="7a4ebd4c" class="cell" data-execution_count="60">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1087" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>作った表の固有値0は 12 個（図の (a)）。業種の数の5個ではない。予想は外れた。</p>
+</section>
+<section id="なぜ外れたか線の無い銘柄" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜ外れたか：線の無い銘柄</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>つながった塊</th>
+<th>銘柄</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>最大の塊（27 銘柄）</td>
+<td>エネルギー 8・公益 8・金融 6・IT 3・ヘルスケア 2</td>
+</tr>
+<tr class="even">
+<td>小さな塊</td>
+<td>ADI・ALTR・AMAT（半導体）</td>
+</tr>
+<tr class="odd">
+<td>線が1本も無い（10 銘柄）</td>
+<td>ヘルスケア 6・金融 2・IT 2</td>
+</tr>
+</tbody>
+</table>
+<p>線の無い銘柄は1つで1つの塊と数える。ヘルスケアは製薬・医療機器・医薬品の卸が混ざり、同じ材料に反応しない。</p>
+</section>
+<section id="結果⑤大きな塊を切る" class="slide level2" data-chapter="II-4">
+<h2>結果⑤：大きな塊を切る</h2>
+<div id="c2861e75" class="cell" data-execution_count="61">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-62-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1087" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>最大の塊の <span class="math inline">\mathbf L_{\mathrm{sym}}</span>（図の (b)）は、小さい固有値 5 個の後、0.46 から 0.71 に跳ぶ。<span class="math inline">k</span> = 5 で切る。</p>
+</section>
+<section id="結果⑥群と業種" class="slide level2" data-chapter="II-3">
+<h2>結果⑥：群と業種</h2>
+<div id="21a73247" class="cell" data-execution_count="62">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-63-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="544" height="342"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>公益とエネルギーは、ほぼそのまま1つずつの群。金融は2つの群に分かれ、ITのBMC・CAは2社で1つの群になった。</p>
+</section>
+<section id="なぜ外れたか業種より細かい塊" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜ外れたか：業種より細かい塊</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>群</th>
+<th>銘柄</th>
+<th>共通の材料</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>群3</td>
+<td>ACE・AIG・ALL（保険）、AXP（カード）</td>
+<td>保険金の支払い、金利</td>
+</tr>
+<tr class="even">
+<td>群4</td>
+<td>BMC・CA（企業向けソフトウェア）</td>
+<td>企業のIT投資</td>
+</tr>
+<tr class="odd">
+<td>群5</td>
+<td>AIV・AVB（集合住宅の不動産投資信託）</td>
+<td>家賃と金利</td>
+</tr>
+</tbody>
+</table>
+<p>業種の分類は粗い。同じ「金融」でも、反応する材料が違えば、市場を引いた残りは一緒に動かない。</p>
+</section>
+<section id="なぜ外れたか細い線に引かれる" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜ外れたか：細い線に引かれる</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>銘柄</th>
+<th>業種</th>
+<th style="text-align: center;">次数</th>
+<th>つながる先</th>
+<th style="text-align: center;">偏相関の大きさ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ABT（群1）</td>
+<td>ヘルスケア</td>
+<td style="text-align: center;">2</td>
+<td>AEE・ED（公益）</td>
+<td style="text-align: center;">0.02 以下</td>
+</tr>
+<tr class="even">
+<td>AMGN（群3）</td>
+<td>ヘルスケア</td>
+<td style="text-align: center;">1</td>
+<td>ACE（金融）</td>
+<td style="text-align: center;">0.01 以下</td>
+</tr>
+<tr class="odd">
+<td>A（群5）</td>
+<td>IT</td>
+<td style="text-align: center;">2</td>
+<td>ACE・AVB（金融）</td>
+<td style="text-align: center;">0.03 以下</td>
+</tr>
+</tbody>
+</table>
+<p>次数1〜2で、偏相関はほぼ0の細い線。0/1の表では細い線も1本と数え、隣の平均に引き寄せられる（帰結：隣の平均に寄る）。</p>
+</section>
+<section id="なぜ外れたかガスと電力" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜ外れたか：ガスと電力</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>2社</th>
+<th style="text-align: center;">偏相関</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WMB（天然ガスのパイプライン）・AES（発電）</td>
+<td style="text-align: center;">+0.09</td>
+</tr>
+<tr class="even">
+<td>WMB・CEG</td>
+<td style="text-align: center;">+0.04</td>
+</tr>
+</tbody>
+</table>
+<p>エネルギーと公益は別の群に分かれたが、ガスと電力をつなぐ線があるので、同じ塊に入った。ガスは発電の燃料。</p>
+</section>
+<section id="このデータでわかったこと" class="slide level2 smaller" data-chapter="II-6">
+<h2>このデータでわかったこと</h2>
+<ul>
+<li>予想どおり：そのままの相関はどの組も正。市場全体が共通の原因</li>
+<li>予想どおり：市場を引いてGraphical Lasso、BICで選ぶと、線の大半は同じ業種どうし</li>
+<li>外れた：固有値0は 12 個。ヘルスケアの多くは線が無く、それぞれ1つの塊</li>
+<li>予想どおり：正規化カットで、公益とエネルギーは1つずつの群</li>
+<li>外れた：金融は保険とREITに分かれ、ソフトウェアは2社で1群。業種より細かい塊</li>
+<li>外れた：細い線1〜2本の銘柄は、隣の群に引かれた</li>
+</ul>
+</section></section>
+<section>
+<section id="締め" class="title-slide slide level1 part center">
+<h1>締め</h1>
+
+</section>
+<section id="まとめ①ネットワークの言葉" class="slide level2" data-chapter="締め">
+<h2>まとめ①：ネットワークの言葉</h2>
+<div id="afbefbb3" class="cell" data-execution_count="67">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-68-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1063" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>次数・ハブ・スケールフリー・スモールワールドは、ノードごとの数で見るネットワークの形。</p>
+</section>
+<section id="まとめ②緩めて固有ベクトル" class="slide level2" data-chapter="締め">
+<h2>まとめ②：緩めて固有ベクトル</h2>
+<div id="c90fc8ad" class="cell" data-execution_count="68">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1104" height="366"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>0/1を実数に緩めると、ラプラシアンの小さい方の固有ベクトルが答え。固有値0の数は塊の数。</p>
+</section>
+<section id="まとめ③線は精度行列の0" class="slide level2" data-chapter="締め">
+<h2>まとめ③：線は精度行列の0</h2>
+<div id="853d26c7" class="cell" data-execution_count="69">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="856" height="306"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>表が無ければ、ほかの列を固定したときの関係で線を引く。<span class="math inline">\ell_1</span> 罰則付きの最尤法で0を出し、<span class="math inline">\lambda</span> はBICで選ぶ。</p>
+</section>
+<section id="全14回の地図" class="slide level2 smaller" data-chapter="締め">
+<h2>全14回の地図</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>モデル ＼ 推定法</th>
+<th>最小二乗法</th>
+<th>最尤法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>線形回帰</td>
+<td>第1〜4回</td>
+<td>第6回</td>
+</tr>
+<tr class="even">
+<td>LDA ／ ロジスティック回帰</td>
+<td>第5回 ／ —</td>
+<td>第6回</td>
+</tr>
+<tr class="odd">
+<td>k-means ／ 混合正規分布</td>
+<td>第7回 ／ —</td>
+<td>— ／ 第8・9回</td>
+</tr>
+<tr class="even">
+<td>主成分分析 ／ 因子分析</td>
+<td>第10回 ／ —</td>
+<td>第11回</td>
+</tr>
+<tr class="odd">
+<td>対応分析・独立のモデル</td>
+<td>第12回</td>
+<td>第13回</td>
+</tr>
+<tr class="even">
+<td>グラフのまとまり ／ ガウシアングラフィカルモデル</td>
+<td>第14回 ／ —</td>
+<td>— ／ 第14回</td>
+</tr>
+</tbody>
+</table>
+<p>罰則を足したのは第4回と第14回。どちらも <span class="math inline">\ell_1</span> で、0をちょうど出した。</p>
+</section>
+<section id="どの回もデータ-モデル" class="slide level2 smaller" data-chapter="締め">
+<h2>どの回も「データ − モデル」</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 14%">
+<col style="width: 22%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>回</th>
+<th>データ</th>
+<th>モデル</th>
+<th>測り方</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1〜4</td>
+<td><span class="math inline">\boldsymbol y</span></td>
+<td><span class="math inline">\mathbf X\boldsymbol\beta</span></td>
+<td><span class="math inline">\lVert\boldsymbol y-\mathbf X\boldsymbol\beta\rVert_2^2</span>（＋罰則）</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td><span class="math inline">\mathbf X</span></td>
+<td><span class="math inline">\mathbf G\mathbf C</span></td>
+<td><span class="math inline">\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2</span></td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td><span class="math inline">\mathbf X</span></td>
+<td><span class="math inline">\mathbf F\mathbf A^\top</span></td>
+<td><span class="math inline">\lVert\mathbf X-\mathbf F\mathbf A^\top\rVert_F^2</span></td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td><span class="math inline">\mathbf S</span></td>
+<td><span class="math inline">\mathbf Y</span>（ランク <span class="math inline">Q</span>）</td>
+<td><span class="math inline">\lVert\mathbf S-\mathbf Y\rVert_F^2</span>（重み付き）</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>点の値 <span class="math inline">\boldsymbol x</span></td>
+<td>隣どうしは同じ</td>
+<td><span class="math inline">\boldsymbol x^\top\mathbf L\boldsymbol x</span></td>
+</tr>
+<tr class="even">
+<td>6・8・11・13・14</td>
+<td>データ</td>
+<td>確率のモデル</td>
+<td><span class="math inline">-2\ell</span>（＋罰則）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="結び何を固定した数字か" class="slide level2" data-chapter="締め">
+<h2>結び：何を固定した数字か</h2>
+<ul>
+<li>最小二乗法も最尤法も、データとモデルのずれを測って小さくする</li>
+<li>罰則を足すと、ずれと引きかえに、答えが簡単になる</li>
+<li>相関か偏相関か：数字を読む前に、何を固定した数字かを確かめる</li>
+</ul>
+<p>14回、お疲れさまでした。</p>
+</section></section>
+<section>
+<section id="発展" class="title-slide slide level1 part center">
+<h1>発展</h1>
+
+</section>
+<section id="発展年ごとに推定する" class="slide level2" data-chapter="発展">
+<h2>発展：年ごとに推定する</h2>
+<div id="dfd15db5" class="cell" data-execution_count="71">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png?v=e586bf84" class="quarto-figure quarto-figure-center" width="1112" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>同じ40銘柄・同じ <span class="math inline">\lambda</span> で、2003〜2007年の1年ずつ推定した。前の年の線が残るのは 60〜82%。</p>
+</section>
+<section id="発展変わったのか揺れか" class="slide level2" data-chapter="発展">
+<h2>発展：変わったのか、揺れか</h2>
+<ul>
+<li>1年ずつ別々に推定すると、線は年ごとに入れ替わる</li>
+<li>会社どうしの関係が本当に変わったのか、約250日のデータの揺れなのか、区別できない</li>
+<li>隣の年とは、たいてい似ているはず</li>
+</ul>
+</section>
+<section id="発展隣の年と似せる罰則" class="slide level2" data-chapter="発展">
+<h2>発展：隣の年と似せる罰則</h2>
+<p><span class="math display">
+\begin{aligned}
+\max_{\boldsymbol\Theta_1,\dots,\boldsymbol\Theta_T}\ &amp;\textstyle\sum_{t}\bigl(\log\det\boldsymbol\Theta_t-\operatorname{tr}(\mathbf S_t\boldsymbol\Theta_t)\bigr)\\
+&amp;-\lambda\textstyle\sum_t\lVert\boldsymbol\Theta_t\rVert_1-\lambda_2\sum_{t\ge2}\lVert\boldsymbol\Theta_t-\boldsymbol\Theta_{t-1}\rVert_1
+\end{aligned}
+</span></p>
+<p>2つ目の罰則で、隣どうしの差をちょうど0にしやすくする。変わった所だけが変わる（Time-Varying Graphical Lasso）。</p>
+</section>
+<section id="発展いくつもの群を一緒に" class="slide level2" data-chapter="発展">
+<h2>発展：いくつもの群を一緒に</h2>
+<p><span class="math display">
+\begin{aligned}
+&amp;-\lambda_2\textstyle\sum_{t&lt;t'}\lVert\boldsymbol\Theta_t-\boldsymbol\Theta_{t'}\rVert_1\\
+&amp;\text{または}\quad -\lambda_2\textstyle\sum_{j\ne k}\sqrt{\sum_t\theta_{t,jk}^2}
+\end{aligned}
+</span></p>
+<p>時間の順が無い群（病気の人と健康な人、国ごと）でも、群どうしを似せて一緒に推定できる（Joint Graphical Lasso）。</p>
+</section>
+<section id="発展使われている場所" class="slide level2 smaller" data-chapter="発展">
+<h2>発展：使われている場所</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>分野</th>
+<th>列（変数）</th>
+<th>群・時点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>金融</td>
+<td>銘柄の値動き</td>
+<td>年・景気の局面</td>
+</tr>
+<tr class="even">
+<td>脳科学</td>
+<td>脳の領域の活動</td>
+<td>課題の前後・患者と健常者</td>
+</tr>
+<tr class="odd">
+<td>遺伝子</td>
+<td>遺伝子の発現量</td>
+<td>がんの種類</td>
+</tr>
+<tr class="even">
+<td>マーケティング</td>
+<td>商品の売上</td>
+<td>店・季節</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="発展のまとめ" class="slide level2" data-chapter="発展">
+<h2>発展のまとめ</h2>
+<ul>
+<li>時点や群ごとに別々に推定すると、線は揺れる</li>
+<li>差に <span class="math inline">\ell_1</span> 罰則を足すと、似ている所は同じに、変わった所だけが変わる</li>
+<li>罰則で「何を簡単にしたいか」を書けば、目的関数になる</li>
+</ul>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="slide_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="slide_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="slide_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="slide_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
