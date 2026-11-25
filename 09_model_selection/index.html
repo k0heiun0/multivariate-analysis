@@ -9,7 +9,7 @@
 <link href="slide_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
-  <title>第9回 群の数の選び方</title>
+  <title>第9回 情報量規準で選ぶ</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -145,8 +145,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">第9回 群の数の選び方</h1>
-  <p class="subtitle">当てはまりは群とともに良くなる。新しい行で測るか、モデルの出やすさで比べるか</p>
+  <h1 class="title">第9回 情報量規準で選ぶ</h1>
+  <p class="subtitle">当てはまりは増え続ける。どこで止めるかを、手元のデータだけで決める</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -157,68 +157,363 @@
 <h1>第I部　理論</h1>
 
 </section>
+<section id="第1節-群の数はどう決めるか" class="slide level2 center" data-chapter="I-1" data-background-color="#eef2f7">
+<h2>第1節　群の数はどう決めるか</h2>
+</section>
 <section id="前回までℓを最大にした" class="slide level2" data-chapter="I-1">
 <h2>前回まで：ℓを最大にした</h2>
+<p><span class="crumb">第1節　群の数はどう決めるか</span></p>
 <ul>
-<li>第7回：k-meansで、<span class="math inline">J=\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2</span> を最小にした</li>
-<li>第8回：混合正規分布で、<span class="math inline">\ell=\mathbf 1_n^\top\log(\boldsymbol\Phi\mathbf 1_k)</span> をEMで最大にした</li>
+<li>第8回：混合正規分布の対数尤度 <span class="math inline">\ell</span> を、EMで最大にした</li>
+<li>第7回：k-meansで、ずれの合計 <span class="math inline">J</span> を最小にした</li>
+<li>どちらも、群の数 <span class="math inline">k</span> はあらかじめ決めてから推定した</li>
 </ul>
-<p>どちらも、群の数 <span class="math inline">k</span> は先に決めていた。</p>
 </section>
-<section id="データトースト120枚" class="slide level2" data-chapter="I-1">
-<h2>データ：トースト120枚</h2>
-<div id="06f320ca" class="cell" data-execution_count="2">
+<section id="今回の問い" class="slide level2" data-chapter="I-1">
+<h2>今回の問い</h2>
+<p><span class="crumb">第1節　群の数はどう決めるか</span></p>
+<p>群の数 <span class="math inline">k</span> を、データから決めたい。</p>
+<ul>
+<li>群を増やすと、<span class="math inline">\ell</span> は上がる。<span class="math inline">J</span> は下がる</li>
+<li>では、どこで止めるか</li>
+</ul>
+</section>
+<section id="台のトースター" class="slide level2" data-chapter="I-1">
+<h2>3台のトースター</h2>
+<p><span class="crumb">第1節　群の数はどう決めるか</span></p>
+<div id="bb83dd27" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1272" height="348"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-7-output-1.png?v=a7dbff58" width="868" height="318"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>3台のトースターで焼いたトースト 120 枚の、焼き時間と焼き色（人工データ）。どの1枚がどの台かは記録していない。</p>
 </section>
-<section id="困りごと①ℓは上がり続ける" class="slide level2" data-chapter="I-1">
-<h2>困りごと①：ℓは上がり続ける</h2>
-<div id="063d00b7" class="cell" data-execution_count="3">
+<section id="尤度は増える一方" class="slide level2" data-chapter="I-1">
+<h2>尤度は増える一方</h2>
+<p><span class="crumb">第1節　群の数はどう決めるか</span></p>
+<ul>
+<li>小さいモデルは、大きいモデルの特殊ケース（混合比を0にする）</li>
+<li>よって、最大対数尤度だけで比べると、いつも一番大きいモデルが選ばれる</li>
+<li>手元の行への当てはまりは、群の数の選び方の根拠にならない</li>
+</ul>
+</section>
+<section id="回帰でも同じ問い" class="slide level2" data-chapter="I-1">
+<h2>回帰でも同じ問い</h2>
+<p><span class="crumb">第1節　群の数はどう決めるか</span></p>
+<ul>
+<li>説明変数を1つ足すと、残差の二乗和は減るか変わらない</li>
+<li>変数を増やすほど良くなる。変数の数をどう決めるか、と同じ問い</li>
+<li>後の節で、同じ道具を使う</li>
+</ul>
+</section>
+<section id="第2節-手元の行は甘い" class="slide level2 center" data-chapter="I-3" data-background-color="#eef2f7">
+<h2>第2節　手元の行は甘い</h2>
+</section>
+<section id="手元の行は甘い" class="slide level2 smaller" data-chapter="I-3">
+<h2>手元の行は甘い</h2>
+<p><span class="crumb">第2節　手元の行は甘い</span></p>
+<ul>
+<li>手元の行への当てはまりは、同じ行で測るので甘くなる</li>
+<li>試験の問題を見てから勉強し、同じ問題で点数を測るのと同じ構造</li>
+</ul>
+<div id="2223772f" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-4-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1272" height="348"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png?v=a7dbff58" width="726" height="318"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>混合正規分布（群ごとの楕円）を当てはめる。作った群は3つなのに、<span class="math inline">\hat\ell</span> はその先も上がり続ける。</p>
 </section>
-<section id="困りごと②jも下がり続ける" class="slide level2" data-chapter="I-1">
-<h2>困りごと②：Jも下がり続ける</h2>
-<div id="a1bb14c8" class="cell" data-execution_count="4">
+<section id="訓練誤差と汎化誤差" class="slide level2" data-chapter="I-3">
+<h2>訓練誤差と汎化誤差</h2>
+<p><span class="crumb">第2節　手元の行は甘い</span></p>
+<ul>
+<li>訓練誤差：手元の行での誤差</li>
+<li>汎化誤差：新しい行での誤差</li>
+<li>過学習：訓練誤差は下がるのに、汎化誤差は上がる</li>
+</ul>
+</section>
+<section id="解決の方向推定の外側で罰則を足す" class="slide level2" data-chapter="I-3">
+<h2>解決の方向：推定の外側で罰則を足す</h2>
+<p><span class="crumb">第2節　手元の行は甘い</span></p>
+<p>汎化誤差を見積もる方法は二つある。</p>
+<ul>
+<li>交差検証：データを分けて、分けた先で測る</li>
+<li>情報量規準：理論から補正量（罰則）を導き、尤度に足す</li>
+</ul>
+<p><span class="math display">
+\mathrm{IC}=-2\hat\ell+(\text{罰則})
+</span></p>
+<p>値が小さいほど良い。罰則の中身が、AICとBICで違う。</p>
+</section>
+<section id="第3節-最尤法とモデル族" class="slide level2 center" data-chapter="I-2" data-background-color="#eef2f7">
+<h2>第3節　最尤法とモデル族</h2>
+</section>
+<section id="分布の族を仮定する" class="slide level2" data-chapter="I-2">
+<h2>分布の族を仮定する</h2>
+<p><span class="crumb">第3節　最尤法とモデル族</span></p>
+<ul>
+<li>データを生む分布の型を選ぶ：正規分布、t分布、ガンマ分布など</li>
+<li>型の中で、パラメータ（<span class="math inline">\mu</span>、<span class="math inline">\sigma</span> など）を決めると、1つの分布になる</li>
+<li>型とパラメータの組の集まりを、統計モデルと呼ぶ</li>
+</ul>
+</section>
+<section id="統計モデルの例正規分布とt分布" class="slide level2" data-chapter="I-2">
+<h2>統計モデルの例：正規分布とt分布</h2>
+<p><span class="crumb">第3節　最尤法とモデル族</span></p>
+<ul>
+<li>正規分布 <span class="math inline">N(\mu,\sigma^2)</span>：平均と分散の2つのパラメータ</li>
+<li>t分布：位置、尺度、自由度 <span class="math inline">\nu</span>。自由度が大きいと正規分布に近づく</li>
+<li>裾が重いデータには、t分布の型が向く</li>
+</ul>
+</section>
+<section id="最尤法尤度を最大にする" class="slide level2" data-chapter="I-2">
+<h2>最尤法：尤度を最大にする</h2>
+<p><span class="crumb">第3節　最尤法とモデル族</span></p>
+<ul>
+<li>尤度：パラメータを決めたとき、手元のデータが得られる密度の積</li>
+<li>対数をとると和になる：<span class="math inline">\ell(\boldsymbol\theta)=\sum_{i}\log f(x_i\mid\boldsymbol\theta)</span></li>
+<li>最尤推定量 <span class="math inline">\hat{\boldsymbol\theta}</span>：<span class="math inline">\ell</span> を最大にする <span class="math inline">\boldsymbol\theta</span></li>
+</ul>
+</section>
+<section id="最尤法の例平均を推定する" class="slide level2 smaller" data-chapter="I-2">
+<h2>最尤法の例：平均を推定する</h2>
+<p><span class="crumb">第3節　最尤法とモデル族</span></p>
+<ul>
+<li>正規分布 <span class="math inline">N(\mu,1)</span> を仮定し、<span class="math inline">n</span> 個の数 <span class="math inline">x_1,\dots,x_n</span> から <span class="math inline">\mu</span> を推定する</li>
+<li><span class="math inline">\ell(\mu)</span> の微分を0とおくと、<span class="math inline">\hat\mu=\bar x</span>（標本平均）</li>
+</ul>
+<p><span class="math display">
+\ell(\mu)=-\frac n2\log(2\pi)-\frac12\sum_{i=1}^{n}(x_i-\mu)^2,\qquad \frac{d\ell}{d\mu}=\sum_{i=1}^{n}(x_i-\mu)=0
+</span></p>
+</section>
+<section id="クイズ最尤推定量はどれか" class="slide level2" data-chapter="I-2">
+<h2>クイズ：最尤推定量はどれか</h2>
+<p><span class="crumb">第3節　最尤法とモデル族</span></p>
+<p>正規分布 <span class="math inline">N(\mu,1)</span> から、3個のデータ <span class="math inline">1,\ 2,\ 6</span> を得た。<span class="math inline">\mu</span> の最尤推定値は次のどれか。</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>1</p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span>3</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>2</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>6</p>
+</div>
+</div>
+</section>
+<section id="クイズの答えb" class="slide level2" data-chapter="I-2">
+<h2>クイズの答え：B</h2>
+<p><span class="crumb">第3節　最尤法とモデル族</span></p>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>1</p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span>3</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>2</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>6</p>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\hat\mu</span> は標本平均 <span class="math inline">(1+2+6)/3=3</span></li>
+<li>平均は外れ値 6 に引っ張られるが、最尤法の答えはこの平均である</li>
+</ul>
+</section>
+<section id="第4節-aicを導く" class="slide level2 center" data-chapter="I-5" data-background-color="#eef2f7">
+<h2>第4節　AICを導く</h2>
+</section>
+<section id="真の分布と統計モデル" class="slide level2 smaller" data-chapter="I-5">
+<h2>真の分布と統計モデル</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<p>真の分布 <span class="math inline">g</span> は未知。統計モデルは分布の曲面で、<span class="math inline">\theta</span> で曲面上の1点が決まる。</p>
+<div id="cabaf490" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-5-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1272" height="348"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=a7dbff58" width="551" height="414"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>同じ2列にk-means。<span class="math inline">J</span> も下がり続ける。しかもk-meansには確率のモデルが無く、尤度を使えない。</p>
 </section>
-<section id="困りごと③新しい行は無い" class="slide level2" data-chapter="I-1">
-<h2>困りごと③：新しい行は無い</h2>
-<div id="a92d2ab0" class="cell" data-execution_count="5">
+<section id="真の分布とのずれkl情報量" class="slide level2 smaller" data-chapter="I-5">
+<h2>真の分布とのずれ：KL情報量</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<p>真の分布 <span class="math inline">g</span>、モデル（分布）<span class="math inline">f(\cdot\mid\boldsymbol\theta)</span>。</p>
+<p><span class="math display">
+D_{\mathrm{KL}}(g\,\|\,f)=\mathbb{E}_{z\sim g}\!\left[\log\frac{g(z)}{f(z)}\right]
+</span></p>
+<p>「本当は <span class="math inline">g</span> から来るデータを <span class="math inline">f</span> で説明すると、平均でどれだけ損をするか」</p>
+<div id="390eeae7" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-6-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1272" height="348"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-12-output-1.png?v=a7dbff58" width="872" height="295"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>同じ作り方で新しいトーストを焼いて測ると、<span class="math inline">\ell</span> は <span class="math inline">k=</span> 3 で最大。でも実際のデータでは、新しい行は手元に無い。</p>
 </section>
-<section id="前にも見た" class="slide level2 smaller" data-chapter="I-1">
-<h2>前にも見た</h2>
+<section id="kl情報量の直感予測の損失の差" class="slide level2" data-chapter="I-5">
+<h2>KL情報量の直感：予測の損失の差</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<ul>
+<li>損失：分布 <span class="math inline">f</span> で値 <span class="math inline">x</span> を予測したときの損失は <span class="math inline">-\log f(x)</span>（確率が小さいほど大きい）</li>
+<li><span class="math inline">D_{\mathrm{KL}}(g\,\|\,f)=\mathbb{E}_g[\log g]-\mathbb{E}_g[\log f]</span></li>
+<li><span class="math inline">-\mathbb{E}_g[\log f]</span> は、<span class="math inline">f</span> の平均の損失である</li>
+<li><span class="math inline">f=g</span> なら差は0。ずれるほど、差は大きくなる</li>
+</ul>
+</section>
+<section id="kl情報量の性質" class="slide level2 smaller" data-chapter="I-5">
+<h2>KL情報量の性質</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<ol type="1">
+<li>0以上で、<span class="math inline">g=f</span> のときだけ0</li>
+<li>向きがある。逆向きの値は違う（数学的な距離ではない）</li>
+<li>データの対数尤度比の平均は、KL情報量に近づく</li>
+</ol>
+</section>
+<section id="対数尤度の期待値はklの裏返し" class="slide level2 smaller" data-chapter="I-5">
+<h2>対数尤度の期待値は、KLの裏返し</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<p><span class="math display">
+D_{\mathrm{KL}}(g\,\|\,f_{\boldsymbol\theta})=\mathbb{E}_g[\log g]-\eta(\boldsymbol\theta),\qquad \eta(\boldsymbol\theta)=\mathbb{E}_{z\sim g}[\log f(z\mid\boldsymbol\theta)]
+</span></p>
+<ul>
+<li>左の項は、モデルによらない</li>
+<li>よって、KL情報量を最小にする分布（<span class="math inline">\boldsymbol\theta</span>）を選ぶことは、平均対数尤度 <span class="math inline">\eta</span> を最大にする分布を選ぶことと同じ</li>
+<li>真の分布 <span class="math inline">g</span> を知らなくても、モデル同士は <span class="math inline">\eta</span> で比べられる</li>
+</ul>
+</section>
+<section id="aicは何を測るか" class="slide level2" data-chapter="I-5">
+<h2>AICは何を測るか</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<p>新しい <span class="math inline">n</span> 個のデータに対する平均対数尤度を、手元のデータで見積もりたい。</p>
+<p><span class="math display">
+T=n\,\eta(\hat{\boldsymbol\theta})=\mathbb{E}_{\text{新}}\!\left[\sum_{i=1}^{n}\log f(\boldsymbol z_i\mid\hat{\boldsymbol\theta})\right]
+</span></p>
+<ul>
+<li><span class="math inline">\hat\ell</span> は、<span class="math inline">T</span> を手元で見積もった量になっているか</li>
+<li>ずれ <span class="math inline">\hat\ell-T</span> の期待値を調べる</li>
+</ul>
+</section>
+<section id="aicの前提真の分布は候補の中にあるか" class="slide level2" data-chapter="I-5">
+<h2>AICの前提：真の分布は候補の中にあるか</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<ul>
+<li>前提1：真の分布 <span class="math inline">g</span> は統計モデルに含まれる（<span class="math inline">g=f(\cdot\mid\boldsymbol\theta_0)</span>）</li>
+<li>前提1のもとで、<span class="math inline">A</span> と <span class="math inline">C</span> の期待値は、ともに <span class="math inline">\frac d2</span></li>
+<li>前提1が崩れると、この <span class="math inline">\frac d2</span> は <span class="math inline">d</span> とは別の量になる</li>
+<li>例：ガンマ分布のデータを正規分布で当てはめる。<span class="math inline">d=2</span> に対して、<span class="math inline">3.5</span></li>
+</ul>
+</section>
+<section id="道筋aic" class="slide level2 smaller" data-chapter="I-5">
+<h2>道筋：AIC</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<ol type="1">
+<li><span class="math inline">\Delta=\hat\ell-n\eta(\hat{\boldsymbol\theta})</span> を三つの項に分ける</li>
+<li>真ん中の項の期待値は0</li>
+<li>両端の項は、それぞれ <span class="math inline">d/2</span> ずつ</li>
+<li>よって、<span class="math inline">\mathbb{E}[\Delta]\approx d</span></li>
+<li>両辺を <span class="math inline">-2</span> 倍して、<span class="math inline">\mathrm{AIC}=-2\hat\ell+2d</span></li>
+</ol>
+</section>
+<section id="導出①三つに分ける" class="slide level2 smaller" data-chapter="I-5">
+<h2>導出①：三つに分ける</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<p><span class="math display">
+\Delta = \underbrace{\ell(\hat{\boldsymbol\theta})-\ell(\boldsymbol\theta_0)}_{A}+\underbrace{\ell(\boldsymbol\theta_0)-n\eta(\boldsymbol\theta_0)}_{B}+\underbrace{n\eta(\boldsymbol\theta_0)-n\eta(\hat{\boldsymbol\theta})}_{C}
+</span></p>
+<ul>
+<li><span class="math inline">A</span>：手元の側。<span class="math inline">\hat{\boldsymbol\theta}</span> が手元の行に寄る分</li>
+<li><span class="math inline">C</span>：新しい側。新しい行では <span class="math inline">\hat{\boldsymbol\theta}</span> が <span class="math inline">\boldsymbol\theta_0</span> からずれて損する分</li>
+</ul>
+</section>
+<section id="導出②真ん中は平均0" class="slide level2" data-chapter="I-5">
+<h2>導出②：真ん中は平均0</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<p><span class="math display">
+B=\sum_{i=1}^{n}\bigl\{\log f(\boldsymbol x_i\mid\boldsymbol\theta_0)-\eta(\boldsymbol\theta_0)\bigr\}
+</span></p>
+<ul>
+<li>独立で、平均0の項の和</li>
+<li>よって <span class="math inline">\mathbb{E}[B]=0</span></li>
+</ul>
+</section>
+<section id="テイラー展開まず直線で近似する" class="slide level2" data-chapter="I-4">
+<h2>テイラー展開：まず直線で近似する</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<ul>
+<li>関数 <span class="math inline">f(x)</span> を、ある点 <span class="math inline">a</span> の近くで、多項式で近似したい</li>
+<li>1次の近似は、点 <span class="math inline">(a,f(a))</span> での接線</li>
+</ul>
+<p><span class="math display">
+f(x)\approx f(a)+f'(a)(x-a)
+</span></p>
+</section>
+<section id="例log1x-を直線で近似する" class="slide level2 smaller" data-chapter="I-4">
+<h2>例：<span class="math inline">\log(1+x)</span> を直線で近似する</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<ul>
+<li><span class="math inline">f(x)=\log(1+x)</span>、<span class="math inline">a=0</span> で展開する</li>
+<li><span class="math inline">f(0)=0</span>、<span class="math inline">f'(0)=1</span> なので、1次の近似は <span class="math inline">f(x)\approx x</span></li>
+<li><span class="math inline">x=0.5</span>：正しい値は <span class="math inline">0.4055</span>、近似は <span class="math inline">0.5</span>（誤差 <span class="math inline">0.0945</span>）</li>
+</ul>
+<div id="b08c2048" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=a7dbff58" width="738" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="次の近似曲がりを足す" class="slide level2" data-chapter="I-4">
+<h2>2次の近似：曲がりを足す</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<p><span class="math display">
+f(x)\approx f(a)+f'(a)(x-a)+\frac12 f''(a)(x-a)^2
+</span></p>
+<ul>
+<li>2次の項は、接線からの曲がりを表す</li>
+<li>同じ例で <span class="math inline">f''(0)=-1</span> なので、2次の近似は <span class="math inline">\log(1+x)\approx x-\tfrac12x^2</span></li>
+</ul>
+</section>
+<section id="誤差は距離で決まる" class="slide level2 smaller" data-chapter="I-4">
+<h2>誤差は距離で決まる</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<ul>
+<li>誤差の大きさは、距離の2乗（1次）と3乗（2次）に比例する</li>
+<li>両対数の目盛りでは、傾きが2と3の直線になる</li>
+</ul>
+<div id="7075f5e0" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-14-output-1.png?v=a7dbff58" width="749" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="次と2次でどれだけ違うか" class="slide level2" data-chapter="I-4">
+<h2>1次と2次で、どれだけ違うか</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 25%">
@@ -228,1145 +523,1052 @@
 </colgroup>
 <thead>
 <tr class="header">
-<th>回</th>
-<th>複雑さのつまみ</th>
-<th>手元の行で測ると</th>
-<th>選び方</th>
+<th><span class="math inline">x</span></th>
+<th>正しい値 <span class="math inline">\log(1+x)</span></th>
+<th>1次 <span class="math inline">x</span> の誤差</th>
+<th>2次 <span class="math inline">x-\frac12x^2</span> の誤差</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>第2回</td>
-<td>多項式の次数</td>
-<td>訓練誤差は下がる一方</td>
-<td>テストの行で測る</td>
+<td>0.5</td>
+<td>0.4055</td>
+<td>0.0945</td>
+<td>0.0305</td>
 </tr>
 <tr class="even">
-<td>第4回</td>
-<td>罰則の強さ <span class="math inline">\lambda</span></td>
-<td><span class="math inline">\lambda=0</span> が最小</td>
-<td>交差検証（クロスバリデーション、CV）</td>
-</tr>
-<tr class="odd">
-<td>第7回</td>
-<td>群の数 <span class="math inline">k</span></td>
-<td><span class="math inline">J</span> は下がる一方</td>
-<td>？</td>
-</tr>
-<tr class="even">
-<td>第8回</td>
-<td><span class="math inline">k</span> と共分散の型</td>
-<td><span class="math inline">\hat\ell</span> は上がる一方</td>
-<td>？</td>
+<td>0.2</td>
+<td>0.1823</td>
+<td>0.0177</td>
+<td>0.0023</td>
 </tr>
 </tbody>
 </table>
-<p>つまみを回すほど、手元の行での当てはまりは良くなる。群の数でも同じことが起きている。</p>
-</section>
-<section id="今回の問い" class="slide level2" data-chapter="I-1">
-<h2>今回の問い</h2>
-<p>第8回の最後に、次の問いを残した。</p>
-<p>群の数 <span class="math inline">k</span> を、どう選ぶ？（困りごと①。②③にも答える）</p>
-<p>今回覚える言葉</p>
 <ul>
-<li>パラメータの数 <span class="math inline">d</span></li>
-<li>AIC・BIC</li>
-<li>フィッシャー情報行列、周辺尤度</li>
-<li>シルエット係数</li>
+<li>2次の方が、どの <span class="math inline">x</span> でも誤差が小さい</li>
+<li>近づくほど、誤差は急に小さくなる</li>
 </ul>
 </section>
-<section id="進め方" class="slide level2" data-chapter="I-1">
-<h2>進め方</h2>
-<ol type="1">
-<li>候補を並べ、当てはまりが群とともに良くなる理由を示す</li>
-<li>新しい行での当てはまりを、手元の行から見積もる（AIC）</li>
-<li>モデルそのものの出やすさを近似する（BIC）</li>
-<li>尤度の無いk-meansには、距離で測る（シルエット係数）</li>
-</ol>
-</section>
-<section id="まず候補を並べる" class="slide level2" data-chapter="I-1">
-<h2>まず候補を並べる</h2>
+<section id="山頂では2次が最初に効く" class="slide level2" data-chapter="I-4">
+<h2>山頂では2次が最初に効く</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
 <ul>
-<li>選ぶには、まず候補を並べる</li>
-<li>第8回の混合正規分布は、群の数 <span class="math inline">k</span> のほかに、共分散行列 <span class="math inline">\boldsymbol\Sigma_q</span> の自由さでも大きさが変わる</li>
+<li>山頂では、勾配（1次の項）が0</li>
+<li>よって、山頂の周りの近似は、2次の項が最初に効く</li>
+<li>この性質を使って、対数尤度を二次で近似する</li>
 </ul>
-<p>候補の形を、トーストで見ておく。</p>
 </section>
-<section id="型①群ごとfull" class="slide level2" data-chapter="I-2">
-<h2>型①：群ごと（full）</h2>
-<div id="dd49b6e0" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-8-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">k=3</span> を当てはめる。楕円の傾きと大きさが群ごとに自由。斜めの帯に沿う細長い楕円も描ける。</p>
-</section>
-<section id="型②共通tied" class="slide level2" data-chapter="I-2">
-<h2>型②：共通（tied）</h2>
-<div id="b939c6a4" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-9-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>どの群も同じ形の楕円。第6回のLDAから、ラベルを隠したものにあたる。</p>
-</section>
-<section id="型③対角diag" class="slide level2" data-chapter="I-2">
-<h2>型③：対角（diag）</h2>
-<div id="0640ae16" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-10-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>楕円の軸が座標軸に沿うものに限る。斜めの帯に沿う楕円は描けない。</p>
-</section>
-<section id="型④球spherical" class="slide level2" data-chapter="I-2">
-<h2>型④：球（spherical）</h2>
-<div id="97495f52" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1212" height="354"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>群ごとに大きさだけが違う円。候補は、群の数 <span class="math inline">k</span> とこの4つの型の組。</p>
-</section>
-<section id="大きいは小さいを含む" class="slide level2" data-chapter="I-2">
-<h2>大きいは小さいを含む</h2>
-<p><span class="math display">
-\sum_{q=1}^{k+1}\pi_qN(\tilde{\boldsymbol x};\boldsymbol\mu_q,\boldsymbol\Sigma_q)\ \xrightarrow{\ \pi_{k+1}=0\ }\ \sum_{q=1}^{k}\pi_qN(\tilde{\boldsymbol x};\boldsymbol\mu_q,\boldsymbol\Sigma_q)
-</span></p>
-<p><span class="math inline">k+1</span> 群で最後の群の混合比率を0にすれば、<span class="math inline">k</span> 群のモデル。<span class="math inline">k</span> 群は <span class="math inline">k+1</span> 群の特別な場合。</p>
-</section>
-<section id="型も入れ子" class="slide level2" data-chapter="I-2">
-<h2>型も入れ子</h2>
-<p><span class="math display">
-\text{球}\ \subset\ \text{対角}\ \subset\ \text{群ごと},\qquad \text{共通}\ \subset\ \text{群ごと}
-</span></p>
-<p>対角の値をそろえれば球。群ごとの型で非対角を0にすれば対角、全群を同じにすれば共通。</p>
-</section>
-<section id="次の問い入れ子だと" class="slide level2" data-chapter="I-1">
-<h2>次の問い：入れ子だと？</h2>
+<section id="導出の道具山頂で二次に近似" class="slide level2" data-chapter="I-4">
+<h2>導出の道具：山頂で二次に近似</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
 <ul>
-<li>候補は入れ子になっている</li>
-<li>候補ごとに <span class="math inline">\ell</span> を最大にし、その値で比べたい</li>
+<li>山頂（勾配が0の点）の近くでは、二次の項だけが効く</li>
+<li>勾配が0なので、一次の項は消える</li>
 </ul>
-<p>入れ子の候補を当てはまりで比べると、何が起きるか。</p>
 </section>
-<section id="各候補の最大" class="slide level2" data-chapter="I-3">
-<h2>各候補の最大</h2>
+<section id="導出③手元の側-a" class="slide level2" data-chapter="I-5">
+<h2>導出③：手元の側 <span class="math inline">A</span></h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<p><span class="math inline">\hat{\boldsymbol\theta}</span> は <span class="math inline">\ell</span> の山頂なので、<span class="math inline">\hat{\boldsymbol\theta}</span> の周りで展開する。</p>
 <p><span class="math display">
-\hat\ell_k=\max_{\boldsymbol\theta\in\Theta_k}\ \mathbf 1_n^\top\log\bigl(\boldsymbol\Phi\mathbf 1_k\bigr)
+A\approx\tfrac12\,n(\hat{\boldsymbol\theta}-\boldsymbol\theta_0)^\top\boldsymbol I(\hat{\boldsymbol\theta}-\boldsymbol\theta_0)
 </span></p>
-<p><span class="math inline">\boldsymbol\theta</span> は混合比率・平均・共分散をまとめたもの、<span class="math inline">\Theta_k</span> は <span class="math inline">k</span> 群のときにとれる値の範囲。<span class="math inline">\boldsymbol\Phi</span> は <span class="math inline">\phi_{iq}=\pi_qN(\tilde{\boldsymbol x}_i;\boldsymbol\mu_q,\boldsymbol\Sigma_q)</span> の <span class="math inline">n\times k</span> 行列（第8回）。</p>
-</section>
-<section id="上がる一方" class="slide level2" data-chapter="I-3">
-<h2>上がる一方</h2>
-<div id="e2dbde10" class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-13-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="701" height="378"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>群ごとの型。作った群は3つなのに、<span class="math inline">\hat\ell_k</span> はその先も上がる。</p>
-</section>
-<section id="下がらない理由" class="slide level2" data-chapter="I-3">
-<h2>下がらない理由</h2>
-<p><span class="math display">
-\Theta_k\subset\Theta_{k+1}\quad\Longrightarrow\quad\hat\ell_{k+1}=\max_{\Theta_{k+1}}\ell\ \ge\ \max_{\Theta_k}\ell=\hat\ell_k
-</span></p>
-<p><span class="math inline">k</span> 群の最良の答えは、<span class="math inline">\pi_{k+1}=0</span> とすれば <span class="math inline">k+1</span> 群でも作れる。最大をとる範囲が広がるので、最大値は下がらない。</p>
-</section>
-<section id="jも同じ理由" class="slide level2" data-chapter="I-3">
-<h2>Jも同じ理由</h2>
-<p><span class="math display">
-J_{k+1}=\min_{\mathbf G,\,\mathbf C}\lVert\mathbf X-\mathbf G\mathbf C\rVert_F^2\ \le\ J_k
-</span></p>
-<p>第7回：1つの群を2つに分けると <span class="math inline">J</span> は下がった。<span class="math inline">k</span> 群の答えは、空でない群を1つ割れば <span class="math inline">k+1</span> 群の候補になる。</p>
-</section>
-<section id="悪さを-2ℓ-で測る" class="slide level2" data-chapter="I-3">
-<h2>悪さを −2ℓ で測る</h2>
-<p><span class="math display">
--2\hat\ell_k\quad\text{（小さいほど良い）}
-</span></p>
-<p><span class="math inline">-2</span> 倍すれば、第1回の残差平方和と同じ向きの「当てはまりの悪さ」になる（共通の球 <span class="math inline">\sigma^2\mathbf I</span> で所属が見えれば、<span class="math inline">J/\sigma^2</span> に定数を足したもの）。</p>
-</section>
-<section id="次の問い何を数えるか" class="slide level2" data-chapter="I-1">
-<h2>次の問い：何を数えるか</h2>
 <ul>
-<li>当てはまりの悪さ <span class="math inline">-2\hat\ell</span> は、<span class="math inline">k</span> とともに下がる一方</li>
-<li>大きいモデルほど、動かせるパラメータが多い</li>
+<li>山頂の曲がり具合は、データ数 <span class="math inline">n</span> に比例する</li>
 </ul>
-<p>その多さを1つの数で表したい。自由に動かせるパラメータの数 <span class="math inline">d</span> を数える。</p>
 </section>
-<section id="数える①p変数k群" class="slide level2" data-chapter="I-4">
-<h2>数える①：p変数・k群</h2>
+<section id="導出④新しい側-c" class="slide level2" data-chapter="I-5">
+<h2>導出④：新しい側 <span class="math inline">C</span></h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<p><span class="math inline">\boldsymbol\theta_0</span> は <span class="math inline">\eta</span> の山頂なので、<span class="math inline">\boldsymbol\theta_0</span> の周りで展開する。</p>
 <p><span class="math display">
-d=\underbrace{(k-1)}_{\pi}+\underbrace{kp}_{\boldsymbol\mu_q}+\underbrace{k\,\tfrac{p(p+1)}{2}}_{\boldsymbol\Sigma_q}
+C\approx\tfrac12\,n(\hat{\boldsymbol\theta}-\boldsymbol\theta_0)^\top\boldsymbol I(\hat{\boldsymbol\theta}-\boldsymbol\theta_0)
 </span></p>
-<p>群ごとの型。混合比率は合計1なので、<span class="math inline">\pi_k=1-\sum_{q&lt;k}\pi_q</span> は数えない。</p>
-</section>
-<section id="数える②σは対称" class="slide level2" data-chapter="I-4">
-<h2>数える②：Σは対称</h2>
-<p><span class="math display">
-\boldsymbol\Sigma_q=\begin{pmatrix}\sigma_{11}&amp;\sigma_{12}\\ \sigma_{12}&amp;\sigma_{22}\end{pmatrix}
-</span></p>
-<p>左下は右上と同じ値。数えるのは対角と上半分の <span class="math inline">p(p+1)/2</span> 個（<span class="math inline">p=2</span> なら3個）。</p>
-</section>
-<section id="数える③p1k2なら" class="slide level2" data-chapter="I-4">
-<h2>数える③：p=1・k=2なら</h2>
-<p><span class="math display">
-\underbrace{\pi_1}_{1}\quad\underbrace{\mu_1,\ \mu_2}_{2}\quad\underbrace{\sigma_1^2,\ \sigma_2^2}_{2}\qquad d=1+2+2=5
-</span></p>
-<p>1変数・2群。<span class="math inline">\pi_2=1-\pi_1</span> は、<span class="math inline">\pi_1</span> が決まれば決まる。</p>
-</section>
-<section id="数える④型ごとの数" class="slide level2 smaller" data-chapter="I-4">
-<h2>数える④：型ごとの数</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>型</th>
-<th>共分散の数</th>
-<th><span class="math inline">d</span>（<span class="math inline">p=2</span>）</th>
-<th><span class="math inline">d</span>（<span class="math inline">p=2</span>、<span class="math inline">k=3</span>）</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>群ごと（full）</td>
-<td><span class="math inline">k\,p(p+1)/2</span></td>
-<td><span class="math inline">6k-1</span></td>
-<td>17</td>
-</tr>
-<tr class="even">
-<td>共通（tied）</td>
-<td><span class="math inline">p(p+1)/2</span></td>
-<td><span class="math inline">3k+2</span></td>
-<td>11</td>
-</tr>
-<tr class="odd">
-<td>対角（diag）</td>
-<td><span class="math inline">kp</span></td>
-<td><span class="math inline">5k-1</span></td>
-<td>14</td>
-</tr>
-<tr class="even">
-<td>球（spherical）</td>
-<td><span class="math inline">k</span></td>
-<td><span class="math inline">4k-1</span></td>
-<td>11</td>
-</tr>
-</tbody>
-</table>
-<p>平均と混合比率の <span class="math inline">(k-1)+kp</span> はどの型も同じ。違いは共分散の分だけ。</p>
-</section>
-<section id="次の問い新しい行では" class="slide level2" data-chapter="I-1">
-<h2>次の問い：新しい行では？</h2>
 <ul>
-<li>困りごと③：新しい行で測れば、<span class="math inline">\ell</span> は <span class="math inline">k=</span> 3 で最大だった</li>
-<li>でも、新しい行は手元に無い</li>
+<li><span class="math inline">A</span> と同じ形になる</li>
+<li>手元の側と新しい側で、同じ量が <span class="math inline">\tfrac12</span> ずつ効く</li>
 </ul>
-<p>手元の行だけから、新しい行での当てはまりを見積もれないか。</p>
 </section>
-<section id="新しい行の対数尤度" class="slide level2" data-chapter="I-3">
-<h2>新しい行の対数尤度</h2>
+<section id="導出⑤χ²の期待値" class="slide level2" data-chapter="I-5">
+<h2>導出⑤：χ²の期待値</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
+<ul>
+<li><span class="math inline">\sqrt n(\hat{\boldsymbol\theta}-\boldsymbol\theta_0)</span> は、分散 <span class="math inline">\boldsymbol I^{-1}</span> の正規分布に近づく</li>
+<li>その二次形式は、自由度 <span class="math inline">d</span> の <span class="math inline">\chi^2</span> 分布に近づく</li>
+<li><span class="math inline">\chi^2_d</span> の期待値は <span class="math inline">d</span>。よって <span class="math inline">A</span> と <span class="math inline">C</span> の期待値は、それぞれ <span class="math inline">d/2</span></li>
+</ul>
+</section>
+<section id="導出⑥まとめ" class="slide level2" data-chapter="I-5">
+<h2>導出⑥：まとめ</h2>
+<p><span class="crumb">第4節　AICを導く</span></p>
 <p><span class="math display">
-\bar\ell(\boldsymbol\theta)=n\,\mathrm E\bigl[\log f(\tilde{\boldsymbol x}\mid\boldsymbol\theta)\bigr]
+\mathbb{E}[\Delta]\approx\frac d2+0+\frac d2=d
 </span></p>
-<p><span class="math inline">\tilde{\boldsymbol x}</span> は、データと同じ作り方で新しく出る1行。<span class="math inline">n</span> 行の新しいデータで測った <span class="math inline">\ell</span> の期待値。手元の <span class="math inline">\ell(\boldsymbol\theta)=\sum_i\log f(\tilde{\boldsymbol x}_i\mid\boldsymbol\theta)</span> と同じ目盛り。</p>
+<ul>
+<li><span class="math inline">\hat\ell-d</span> は、<span class="math inline">T</span> の漸近的に不偏な推定量</li>
+<li>両辺を <span class="math inline">-2</span> 倍して、<span class="math inline">\mathrm{AIC}=-2\hat\ell+2d</span></li>
+</ul>
 </section>
-<section id="手元の行は甘い" class="slide level2" data-chapter="I-3">
-<h2>手元の行は甘い</h2>
-<div id="05918f2c" class="cell" data-execution_count="16">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-17-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="868" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>トーストを100通り焼き直して平均した。手元の行で測ると、新しい行より良く見える。差は <span class="math inline">k</span> とともに開く。</p>
+<section id="第5節-罰則の理屈" class="slide level2 center" data-chapter="I-3" data-background-color="#eef2f7">
+<h2>第5節　罰則の理屈</h2>
 </section>
-<section id="たとえ過去問だけ覚える" class="slide level2" data-chapter="I-3">
-<h2>たとえ：過去問だけ覚える</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>過去問の答えを丸暗記した生徒は、過去問なら満点。本番の新しい問題では点が下がる。</p>
-<p>覚えた量が多いほど、過去問の点と本番の点の差は開く。</p>
-</div><div class="column" style="width:55%;">
-<div id="21c9c4c4" class="cell" data-execution_count="17">
+<section id="罰則の2はどこから来るか" class="slide level2 smaller" data-chapter="I-3">
+<h2>罰則の2は、どこから来るか</h2>
+<p><span class="crumb">第5節　罰則の理屈</span></p>
+<p>無関係な説明変数を1つ足す（4000回）。</p>
+<ul>
+<li>手元では、<span class="math inline">-2\hat\ell</span> が平均で 1.02 下がる</li>
+<li>新しい行では、平均で 1.17 上がる</li>
+<li>変化の差は 2.20。ほぼ2</li>
+</ul>
+<div id="96caeeb9" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-18-output-1.png?v=30555811" width="437" height="366"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-15-output-1.png?v=a7dbff58" width="872" height="294"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
 </section>
-<section id="クイズ①差はいくつか" class="slide level2" data-chapter="I-3">
-<h2>クイズ①：差はいくつか</h2>
-<p><span class="math inline">k</span> 群のモデルに、推定するパラメータが <span class="math inline">d</span> 個ある。<span class="math inline">\ell</span> の目盛りで、手元の行の <span class="math inline">\hat\ell</span> は新しい行の <span class="math inline">\bar\ell(\hat{\boldsymbol\theta})</span> より平均でどれだけ大きい？（<span class="math inline">n</span> は大きく、モデルはデータの作り方を含むとする）</p>
-<div class="quiz">
-<div class="c">
-<p><span class="k">A</span>0（平均すれば同じ）</p>
+<section id="d-の意味" class="slide level2" data-chapter="I-3">
+<h2>2d の意味</h2>
+<p><span class="crumb">第5節　罰則の理屈</span></p>
+<ul>
+<li>入れ子で1パラメータ増やす。AICが改善するのは、<span class="math inline">-2\hat\ell</span> の改善が2を超えるとき</li>
+<li>自由度1の <span class="math inline">\chi^2</span> で見ると、有意水準は <span class="math inline">P(\chi^2_1&gt;2)=</span> 0.157</li>
+<li>AICは、有意水準を約0.157に固定した検定と同じ判定をする</li>
+</ul>
+</section>
+<section id="楽観バイアス" class="slide level2" data-chapter="I-3">
+<h2>楽観バイアス</h2>
+<p><span class="crumb">第5節　罰則の理屈</span></p>
+<p>手元の <span class="math inline">-2\hat\ell</span> と、新しい行での期待値の差。真の次数 <span class="math inline">d=2</span> で、<span class="math inline">2d=8</span> に近いか。</p>
+<div id="e37ce348" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-16-output-1.png?v=a7dbff58" width="724" height="318"></p>
+</figure>
 </div>
-<div class="c">
-<p><span class="k">B</span>およそ <span class="math inline">d</span></p>
-</div>
-<div class="c">
-<p><span class="k">C</span>およそ <span class="math inline">n</span></p>
-</div>
-<div class="c">
-<p><span class="k">D</span>およそ <span class="math inline">d\log n</span></p>
 </div>
 </div>
 </section>
-<section id="クイズ①の答えb" class="slide level2" data-chapter="I-3">
-<h2>クイズ①の答え：B</h2>
-<div class="quiz answer">
-<div class="c">
-<p><span class="k">A</span>0（平均すれば同じ）</p>
-</div>
-<div class="c ok">
-<p><span class="k">B</span>およそ <span class="math inline">d</span></p>
-</div>
-<div class="c">
-<p><span class="k">C</span>およそ <span class="math inline">n</span></p>
-</div>
-<div class="c">
-<p><span class="k">D</span>およそ <span class="math inline">d\log n</span></p>
-</div>
-</div>
-<p>パラメータ1つにつき、手元の行に合わせた分だけ甘くなる。これから導く。</p>
+<section id="第6節-bicを導く" class="slide level2 center" data-chapter="I-5" data-background-color="#eef2f7">
+<h2>第6節　BICを導く</h2>
 </section>
-<section id="変数で読むなぜ1か" class="slide level2" data-chapter="I-5">
-<h2>1変数で読む：なぜ1か</h2>
-<p><span class="crumb">①分ける ②両端 ③ずれ <span class="now">④合わせる</span></span></p>
+<section id="bicの直感山の幅" class="slide level2" data-chapter="I-5">
+<h2>BICの直感：山の幅</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<ul>
+<li>尤度の山は、データが増えるほど細くなる（幅は <span class="math inline">n^{-1/2}</span> 程度）</li>
+<li>事前分布は広く、山が乗る部分はその一部だけ</li>
+<li>「山の幅が狭いほど、事前の広さから見て損をする」。その損が、<span class="math inline">\log n</span> として現れる</li>
+</ul>
+</section>
+<section id="bic-は何を測るか" class="slide level2" data-chapter="I-5">
+<h2>BIC は何を測るか</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<p>事前分布 <span class="math inline">\pi(\boldsymbol\theta)</span> の下で、データ全体の確率（周辺尤度）を見る。</p>
 <p><span class="math display">
-b\approx nH\cdot\mathrm E[u^2],\quad \mathrm E[u^2]\approx\frac{1}{nH}\quad\Rightarrow\quad b\approx1
+p(D\mid M)=\int \exp\{\ell(\boldsymbol\theta)\}\,\pi(\boldsymbol\theta)\,d\boldsymbol\theta
 </span></p>
 <ul>
-<li>山が鋭い（<span class="math inline">nH</span> が大きい）：<span class="math inline">\hat\theta</span> はあまりずれないが、少しずれただけで大きく下がる</li>
-<li>山がなだらか：<span class="math inline">\hat\theta</span> は大きくずれるが、あまり下がらない</li>
+<li>事前に等しく確からしいモデルなら、事後確率は周辺尤度に比例する</li>
+<li>BICは、その対数を近似する</li>
 </ul>
-<p>2つが打ち消し合い、どんな山でも1になる。パラメータが <span class="math inline">d</span> 個なら、1ずつ足して <span class="math inline">d</span>。</p>
 </section>
-<section id="aicは何を測るか" class="slide level2" data-chapter="I-5">
-<h2>AICは何を測るか</h2>
-<p>手元の行に当てはめた対数尤度 <span class="math inline">\ell</span> は、手元の行に合わせすぎると、新しい行への当てはまりを過大に見積もる。その過大な分を、パラメータの数の分だけ差し引く。AIC は、この差し引きを式にしたものである。式の導出は読み物に任せ、ここでは意味だけを押さえる。</p>
+<section id="導出の道具ガウス積分" class="slide level2" data-chapter="I-4">
+<h2>導出の道具：ガウス積分</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<ul>
+<li>正定値の行列 <span class="math inline">\boldsymbol A</span> について、<span class="math inline">\int\exp\{-\tfrac12\boldsymbol x^\top\boldsymbol A\boldsymbol x\}\,d\boldsymbol x=(2\pi)^{d/2}|\boldsymbol A|^{-1/2}</span></li>
+<li>行列式 <span class="math inline">|\boldsymbol A|</span> が、積分の幅を決める</li>
+</ul>
 </section>
-<section id="図で見るaicは当たるか" class="slide level2" data-chapter="I-7">
-<h2>図で見る：AICは当たるか</h2>
-<div id="9ca7129f" class="cell" data-execution_count="18">
+<section id="道筋bic" class="slide level2 smaller" data-chapter="I-5">
+<h2>道筋：BIC</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<ol type="1">
+<li>対数尤度を <span class="math inline">\hat{\boldsymbol\theta}</span> の周りで二次に近似する</li>
+<li>事前分布は、その近くで一定とみなす</li>
+<li>ガウス積分で、<span class="math inline">\tfrac d2\log 2\pi</span> と <span class="math inline">\tfrac12\log|\boldsymbol H_n|</span> が出る</li>
+<li><span class="math inline">\boldsymbol H_n\approx n\boldsymbol I</span> より、<span class="math inline">\tfrac12\log|\boldsymbol H_n|\approx\tfrac d2\log n</span></li>
+<li><span class="math inline">O(1)</span> の項を捨てて、<span class="math inline">\mathrm{BIC}=-2\hat\ell+d\log n</span></li>
+</ol>
+</section>
+<section id="bic①山頂で展開する" class="slide level2" data-chapter="I-5">
+<h2>BIC①：山頂で展開する</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<p><span class="math display">
+\ell(\boldsymbol\theta)\approx\hat\ell-\tfrac12(\boldsymbol\theta-\hat{\boldsymbol\theta})^\top\boldsymbol H_n(\boldsymbol\theta-\hat{\boldsymbol\theta})
+</span></p>
+<ul>
+<li>山頂の周りでは、二次の項だけ</li>
+<li>曲がり具合 <span class="math inline">\boldsymbol H_n</span> は、データ数に比例する</li>
+</ul>
+</section>
+<section id="bic②事前分布は一定" class="slide level2" data-chapter="I-5">
+<h2>BIC②：事前分布は一定</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<p><span class="math display">
+\pi(\boldsymbol\theta)\approx\pi(\hat{\boldsymbol\theta})
+</span></p>
+<ul>
+<li><span class="math inline">\boldsymbol H_n</span> が大きいと、被積分関数は <span class="math inline">\hat{\boldsymbol\theta}</span> の近くにしか効かない</li>
+<li>事前分布は、その近くで一定とみなせる</li>
+</ul>
+</section>
+<section id="bic③山を積分する" class="slide level2 smaller" data-chapter="I-5">
+<h2>BIC③：山を積分する</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<p><span class="math display">
+p(D\mid M)\approx\pi(\hat{\boldsymbol\theta})\,e^{\hat\ell}\int\exp\Bigl\{-\tfrac12(\boldsymbol\theta-\hat{\boldsymbol\theta})^\top\boldsymbol H_n(\boldsymbol\theta-\hat{\boldsymbol\theta})\Bigr\}\,d\boldsymbol\theta
+</span></p>
+<ul>
+<li>ガウス積分の道具を使う</li>
+<li>結果は <span class="math inline">(2\pi)^{d/2}|\boldsymbol H_n|^{-1/2}</span></li>
+</ul>
+</section>
+<section id="bic④対数をとる" class="slide level2 smaller" data-chapter="I-5">
+<h2>BIC④：対数をとる</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<p><span class="math display">
+\log p(D\mid M)\approx\hat\ell+\log\pi(\hat{\boldsymbol\theta})+\frac d2\log(2\pi)-\frac12\log|\boldsymbol H_n|
+</span></p>
+<ul>
+<li><span class="math inline">\log</span> をとると、積は和になる</li>
+<li><span class="math inline">\log|\boldsymbol H_n|</span> が、<span class="math inline">n</span> の大きさを運ぶ</li>
+</ul>
+</section>
+<section id="bic⑤増えない項を捨てる" class="slide level2" data-chapter="I-5">
+<h2>BIC⑤：増えない項を捨てる</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<p><span class="math inline">\boldsymbol H_n/n\to\boldsymbol I</span>（大数の法則）より、<span class="math inline">\log|\boldsymbol H_n|\approx d\log n+\log|\boldsymbol I|</span> である。ここでの <span class="math inline">\boldsymbol I</span> は、行列式を分解するための定数として現れるだけである。</p>
+<p><span class="math display">
+\log p(D\mid M)\approx\hat\ell-\frac d2\log n
+</span></p>
+<ul>
+<li><span class="math inline">\log\pi(\hat{\boldsymbol\theta})</span>、<span class="math inline">\tfrac d2\log 2\pi</span>、<span class="math inline">\tfrac12\log|\boldsymbol I|</span> は <span class="math inline">n</span> によらない定数</li>
+<li>これを <span class="math inline">O(1)</span> として捨てる</li>
+</ul>
+</section>
+<section id="捨てた項は定数" class="slide level2" data-chapter="I-5">
+<h2>捨てた項は定数</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<ul>
+<li>硬貨の例（一様な事前分布、表が70％）で、厳密な周辺尤度と比べる</li>
+<li>差は <span class="math inline">n</span> が増えても0にならず、定数に近づく</li>
+</ul>
+<div id="a55ea782" class="cell" data-execution_count="18">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="868" height="375"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-19-output-1.png?v=a7dbff58" width="728" height="286"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">k\le3</span> では、AIC（赤）は新しい行の悪さ（緑）とほぼ重なる。<span class="math inline">k&gt;3</span> では、AICが小さく出る。</p>
 </section>
-<section id="前提が崩れる所" class="slide level2" data-chapter="I-7">
-<h2>前提が崩れる所</h2>
+<section id="log-n-は山の幅から" class="slide level2" data-chapter="I-3">
+<h2>log n は山の幅から</h2>
+<p><span class="crumb">第6節　BICを導く</span></p>
+<ul>
+<li>事前分布は、データを見る前に広く散らばる</li>
+<li>データと合うのは、<span class="math inline">\hat{\boldsymbol\theta}</span> の周りで幅 <span class="math inline">n^{-1/2}</span> 程度の範囲</li>
+<li>パラメータ1つごとに、対数で <span class="math inline">\tfrac12\log n</span> の損失</li>
+</ul>
+</section>
+<section id="第7節-aicとbicの違い" class="slide level2 center" data-chapter="I-7" data-background-color="#eef2f7">
+<h2>第7節　AICとBICの違い</h2>
+</section>
+<section id="二つの罰則を並べる" class="slide level2" data-chapter="I-7">
+<h2>二つの罰則を並べる</h2>
+<p><span class="crumb">第7節　AICとBICの違い</span></p>
+<div id="b89630f8" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png?v=a7dbff58" width="727" height="294"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>AIC：1パラメータあたり2で一定</li>
+<li>BIC：1パラメータあたり <span class="math inline">\log n</span>。<span class="math inline">n</span> とともに増える</li>
+<li>交わるのは <span class="math inline">n\approx7.4</span></li>
+</ul>
+</section>
+<section id="aicとbicの比較" class="slide level2" data-chapter="I-7">
+<h2>AICとBICの比較</h2>
+<p><span class="crumb">第7節　AICとBICの違い</span></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>観点</th>
+<th>AIC</th>
+<th>BIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>式</td>
+<td><span class="math inline">-2\hat\ell+2d</span></td>
+<td><span class="math inline">-2\hat\ell+d\log n</span></td>
+</tr>
+<tr class="even">
+<td>理論的根拠</td>
+<td>KL情報量の推定</td>
+<td>周辺尤度の近似</td>
+</tr>
+<tr class="odd">
+<td>目的</td>
+<td>予測の良さ</td>
+<td>真のモデルらしさ</td>
+</tr>
+<tr class="even">
+<td>一致性</td>
+<td>なし</td>
+<td>あり</td>
+</tr>
+<tr class="odd">
+<td>効率性</td>
+<td>あり</td>
+<td>なし</td>
+</tr>
+<tr class="even">
+<td>選ばれやすいもの</td>
+<td>大きめ</td>
+<td>小さめ（<span class="math inline">n\ge8</span>）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="一致性と効率性" class="slide level2" data-chapter="I-7">
+<h2>一致性と効率性</h2>
+<p><span class="crumb">第7節　AICとBICの違い</span></p>
+<ul>
+<li>一致性：真のモデルが候補にあるとき、データを増やすと真のモデルを選ぶ確率が1に近づく（BIC）</li>
+<li>効率性：真のモデルが候補にないとき、予測誤差が候補の中の最善に近づく（AIC）</li>
+<li>両方を同時に満たす規準は作れないという議論がある（Yang, 2005）</li>
+</ul>
+</section>
+<section id="よくある誤解" class="slide level2 smaller" data-chapter="I-7">
+<h2>よくある誤解</h2>
+<p><span class="crumb">第7節　AICとBICの違い</span></p>
+<ul>
+<li>「AICは真のモデルを見つける道具」：誤り。候補に真のモデルがあっても、一定の割合で余分な項を含むモデルを選ぶ</li>
+<li>「BICはベイズ法なので事前分布を指定する」：誤り。計算に使うのは最尤推定量だけ</li>
+<li>「AICの値そのものに意味がある」：誤り。意味があるのは、同じデータでのモデル間の差だけ</li>
+</ul>
+</section>
+<section id="使い分けと差の読み方" class="slide level2 smaller" data-chapter="I-7">
+<h2>使い分けと差の読み方</h2>
+<p><span class="crumb">第7節　AICとBICの違い</span></p>
+<ul>
+<li>予測が目的なら、AIC（小標本ならAICc）</li>
+<li>真の仮説のどれがデータを生んだかなら、BIC</li>
+<li>比べるのは値ではなく差 <span class="math inline">\Delta_i=\mathrm{IC}_i-\min_j\mathrm{IC}_j</span></li>
+</ul>
+</section>
+<section id="クイズaicとbicはどちらを選ぶか" class="slide level2" data-chapter="I-7">
+<h2>クイズ：AICとBICはどちらを選ぶか</h2>
+<p><span class="crumb">第7節　AICとBICの違い</span></p>
+<p>データ数 <span class="math inline">n=50</span>。モデル A は <span class="math inline">d=3</span>、<span class="math inline">\hat\ell=-100</span>。モデル B は <span class="math inline">d=5</span>、<span class="math inline">\hat\ell=-97</span>。</p>
+<div class="quiz">
+<div class="c">
+<p><span class="k">A</span>AICもBICもAを選ぶ</p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span>AICはB、BICはAを選ぶ</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>AICはA、BICはBを選ぶ</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>AICもBICもBを選ぶ</p>
+</div>
+</div>
+</section>
+<section id="クイズの答えb-1" class="slide level2 smaller" data-chapter="I-7">
+<h2>クイズの答え：B</h2>
+<p><span class="crumb">第7節　AICとBICの違い</span></p>
+<div class="quiz answer">
+<div class="c">
+<p><span class="k">A</span>AICもBICもAを選ぶ</p>
+</div>
+<div class="c ok">
+<p><span class="k">B</span>AICはB、BICはAを選ぶ</p>
+</div>
+<div class="c">
+<p><span class="k">C</span>AICはA、BICはBを選ぶ</p>
+</div>
+<div class="c">
+<p><span class="k">D</span>AICもBICもBを選ぶ</p>
+</div>
+</div>
+<ul>
+<li>AIC：A は <span class="math inline">200+6=206</span>、B は <span class="math inline">194+10=204</span>。AICはBを選ぶ</li>
+<li>BIC：A は <span class="math inline">200+3\times3.91\approx211.7</span>、B は <span class="math inline">194+5\times3.91\approx213.6</span>。BICはAを選ぶ</li>
+</ul>
+<p>同じデータで、AICとBICが違うモデルを選んだ。B は対数尤度が高いが、パラメータを2個多く使っている。罰則の重さの違いが、答えを分けた。</p>
+</section>
+<section id="第8節-多項式の次数" class="slide level2 center" data-chapter="I-7" data-background-color="#eef2f7">
+<h2>第8節　多項式の次数</h2>
+</section>
+<section id="数値例次数を選ぶ" class="slide level2 smaller" data-chapter="I-7">
+<h2>数値例：次数を選ぶ</h2>
+<p><span class="crumb">第8節　多項式の次数</span></p>
+<p>真の次数は2、<span class="math inline">n=40</span>。0次から8次を当てはめる。</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>次数</th>
+<th>AIC</th>
+<th>BIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>193.0</td>
+<td>196.4</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>162.4</td>
+<td>167.5</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>92.2</td>
+<td>98.9</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>94.1</td>
+<td>102.6</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>95.9</td>
+<td>106.1</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>97.9</td>
+<td>109.7</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>98.7</td>
+<td>112.2</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>100.7</td>
+<td>115.9</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>102.6</td>
+<td>119.5</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="次数の選ばれ方" class="slide level2" data-chapter="I-7">
+<h2>次数の選ばれ方</h2>
+<p><span class="crumb">第8節　多項式の次数</span></p>
+<div id="36acc6fb" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-25-output-1.png?v=a7dbff58" width="872" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="繰り返すと" class="slide level2" data-chapter="I-7">
+<h2>繰り返すと</h2>
+<p><span class="crumb">第8節　多項式の次数</span></p>
+<p>真の2次を選んだ割合（2000回）。</p>
+<div id="90244752" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-26-output-1.png?v=a7dbff58" width="726" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="akaike-の重み" class="slide level2" data-chapter="I-7">
+<h2>Akaike の重み</h2>
+<p><span class="crumb">第8節　多項式の次数</span></p>
+<ul>
+<li>候補の中での相対的な良さを、重みで表す</li>
+<li><span class="math inline">w_i=\exp(-\Delta_i/2)/\sum_j\exp(-\Delta_j/2)</span></li>
+<li>2次の重み：AICで 0.61、BICで 0.84</li>
+</ul>
+<div id="bc954332" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=a7dbff58" width="729" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="第9節-群の数を選ぶトースト" class="slide level2 center" data-chapter="I-2" data-background-color="#eef2f7">
+<h2>第9節　群の数を選ぶ：トースト</h2>
+</section>
+<section id="候補共分散の型" class="slide level2 smaller" data-chapter="I-2">
+<h2>候補：共分散の型</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
+<ul>
+<li>混合正規分布の群 <span class="math inline">q</span> は、混合比 <span class="math inline">\pi_q</span>、平均 <span class="math inline">\boldsymbol\mu_q</span>、共分散 <span class="math inline">\boldsymbol\Sigma_q</span> をもつ</li>
+<li>共分散の形を、4つの型から選ぶ：群ごと、共通、対角、球</li>
+</ul>
+<div id="5291d557" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=a7dbff58" width="871" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="パラメータの数" class="slide level2" data-chapter="I-4">
+<h2>パラメータの数</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
+<p>変数が <span class="math inline">p</span> 個のとき、パラメータの数 <span class="math inline">d</span> は次のとおり。</p>
+<p><span class="math display">
+d=(k-1)+kp+c_{\text{型}}
+</span></p>
+<ul>
+<li>混合比は <span class="math inline">k-1</span> 個、平均は <span class="math inline">kp</span> 個</li>
+<li><span class="math inline">c_{\text{型}}</span> は、群ごとは <span class="math inline">kp(p+1)/2</span>、共通は <span class="math inline">p(p+1)/2</span>、対角は <span class="math inline">kp</span>、球は <span class="math inline">k</span></li>
+</ul>
+</section>
+<section id="群の数の候補を比べる" class="slide level2" data-chapter="I-7">
+<h2>群の数の候補を比べる</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
+<div id="1cb5e848" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png?v=a7dbff58" width="868" height="318"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>BICは、群ごとの型・<span class="math inline">k=3</span> を最小にする</li>
+<li>AICは、群ごとの型・<span class="math inline">k=6</span> を最小にする</li>
+</ul>
+</section>
+<section id="最小になった候補" class="slide level2" data-chapter="I-7">
+<h2>最小になった候補</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>規準</th>
+<th>型</th>
+<th><span class="math inline">k</span></th>
+<th>最小値</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AIC</td>
+<td>群ごと</td>
+<td>6</td>
+<td>754.8</td>
+</tr>
+<tr class="even">
+<td>BIC</td>
+<td>群ごと</td>
+<td>3</td>
+<td>823.1</td>
+</tr>
+<tr class="odd">
+<td>新しい行で最良</td>
+<td>群ごと</td>
+<td>3</td>
+<td>750.6</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="新しい行で測る" class="slide level2" data-chapter="I-7">
+<h2>新しい行で測る</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
+<div id="0817cb30" class="cell" data-execution_count="34">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=a7dbff58" width="873" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>同じ作り方の新しいトースト12万枚で、<span class="math inline">-2\hat\ell</span> を測る</li>
+<li>新しい行で最良なのも、群ごとの型・<span class="math inline">k=3</span></li>
+</ul>
+</section>
+<section id="aicの見積もりと実際" class="slide level2" data-chapter="I-7">
+<h2>AICの見積もりと実際</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th><span class="math inline">k</span></th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
+<th><span class="math inline">d</span></th>
+<th>AIC</th>
+<th>新しい行</th>
+<th>AIC − 新しい行</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">2d</span></td>
-<td>10</td>
-<td>22</td>
-<td>34</td>
-<td>46</td>
-<td>58</td>
-<td>70</td>
+<td>1</td>
+<td>5</td>
+<td>1068.4</td>
+<td>1043.5</td>
+<td>25.0</td>
 </tr>
 <tr class="even">
-<td>実際の差（100通りの平均）</td>
-<td>8.3</td>
-<td>25.3</td>
-<td>36.6</td>
-<td>59.6</td>
-<td>89.1</td>
-<td>123.5</td>
+<td>2</td>
+<td>11</td>
+<td>855.8</td>
+<td>825.0</td>
+<td>30.8</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>17</td>
+<td>775.7</td>
+<td>750.6</td>
+<td>25.1</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>23</td>
+<td>778.4</td>
+<td>762.3</td>
+<td>16.1</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>29</td>
+<td>775.3</td>
+<td>782.8</td>
+<td>-7.4</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>35</td>
+<td>754.8</td>
+<td>808.1</td>
+<td>-53.3</td>
 </tr>
 </tbody>
 </table>
-<p>作った群は3つ。<span class="math inline">k&gt;3</span> の余分な群は、<span class="math inline">\pi=0</span> ならどこに置いても同じ分布になる。<span class="math inline">\boldsymbol\theta^*</span> が1点に決まらず、<span class="math inline">\mathbf H</span> に逆行列が無い。</p>
 </section>
-<section id="困りごと③に戻る" class="slide level2" data-chapter="I-7">
-<h2>困りごと③に戻る</h2>
-<div id="20744cde" class="cell" data-execution_count="21">
+<section id="回作り直す" class="slide level2" data-chapter="I-7">
+<h2>100回作り直す</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
+<div id="e03fbc62" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="872" height="338"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-37-output-1.png?v=a7dbff58" width="729" height="274"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>新しい行が無くても、手元の行の <span class="math inline">\hat\ell</span> から <span class="math inline">d</span> を引けば、新しい行での当てはまりを見積もれる。ただし群が多すぎる所では甘くなる。</p>
-</section>
-<section id="次の問いどのモデルから" class="slide level2" data-chapter="I-1">
-<h2>次の問い：どのモデルから？</h2>
 <ul>
-<li>AICは、新しい行をよく出すモデルを選ぶ</li>
-<li>別の問い方もある：このデータは、どの <span class="math inline">k</span> のモデルから出たのか</li>
+<li>新しい行で最良：100回すべて、群ごとの型・<span class="math inline">k=3</span></li>
+<li>BIC：99 回で <span class="math inline">k=3</span></li>
+<li>AIC：<span class="math inline">k=6</span> が 44 回、<span class="math inline">k=5</span> が 25 回</li>
 </ul>
-<p>モデルごとに「このデータの出やすさ」を比べたい。</p>
 </section>
-<section id="事前分布と周辺尤度" class="slide level2" data-chapter="I-3">
-<h2>事前分布と周辺尤度</h2>
+<section id="小標本の補正aicc" class="slide level2" data-chapter="I-7">
+<h2>小標本の補正：AICc</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
 <p><span class="math display">
-p(\mathbf X\mid M_k)=\int\exp\bigl(\ell(\boldsymbol\theta)\bigr)\,p(\boldsymbol\theta)\,d\boldsymbol\theta
+\mathrm{AICc}=\mathrm{AIC}+\frac{2d(d+1)}{n-d-1}
 </span></p>
-<p><span class="math inline">p(\boldsymbol\theta)</span> はデータを見る前のパラメータの散らばり（事前分布）。<span class="math inline">\exp(\ell)</span> はデータの出やすさ。それを <span class="math inline">\boldsymbol\theta</span> について平均したものを、モデル <span class="math inline">M_k</span> の周辺尤度と呼ぶ。</p>
+<ul>
+<li><span class="math inline">n\to\infty</span> で、AICに一致する</li>
+<li><span class="math inline">k=6</span> では <span class="math inline">d=35</span>、補正は <span class="math inline">2\cdot35\cdot36/84=30</span></li>
+<li>補正を入れると、AICcは <span class="math inline">k=3</span> を選ぶ</li>
+</ul>
 </section>
-<section id="モデルの事後確率" class="slide level2" data-chapter="I-3">
-<h2>モデルの事後確率</h2>
-<p><span class="math display">
-\Pr(M_k\mid\mathbf X)=\frac{p(\mathbf X\mid M_k)\Pr(M_k)}{\sum_{k'}p(\mathbf X\mid M_{k'})\Pr(M_{k'})}
-</span></p>
-<p>ベイズの定理（第6回・第8回）を、群の代わりにモデルに使う。どのモデルも同じ <span class="math inline">\Pr(M_k)</span> なら、周辺尤度の最大を選べばよい。</p>
-</section>
-<section id="平均すると割り引かれる" class="slide level2" data-chapter="I-3">
-<h2>平均すると割り引かれる</h2>
-<div id="2c0b2099" class="cell" data-execution_count="26">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-27-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="894" height="318"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>当てはまりの山は、<span class="math inline">n</span> が増えると幅 <span class="math inline">1/\sqrt n</span> で細くなる。事前分布で平均すると、山の幅の分だけ割り引かれる。パラメータが <span class="math inline">d</span> 個なら、山は <span class="math inline">d</span> 方向に細い。</p>
-</section>
-<section id="bicは何を測るか" class="slide level2" data-chapter="I-5">
-<h2>BICは何を測るか</h2>
-<p>BIC も、対数尤度から罰則を引く。違うのは罰則で、行の数 <span class="math inline">n</span> が大きいほど、パラメータ1つあたりの罰則が重くなる。行が増えるほど、余分な群を厳しく退ける。</p>
-</section>
-<section id="たとえ荷物の超過料金" class="slide level2" data-chapter="I-5">
-<h2>たとえ：荷物の超過料金</h2>
-<div id="913fbf67" class="cell" data-execution_count="28">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-29-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="846" height="342"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>荷物を増やすほど旅先では困らないが、1個ごとに料金がかかる。BICの罰則は、パラメータ1つごとの料金 <span class="math inline">\log n</span>。</p>
-</section>
-<section id="つの罰則" class="slide level2" data-chapter="I-7">
-<h2>2つの罰則</h2>
-<p><span class="math display">
-\mathrm{AIC}=-2\hat\ell+2d,\qquad\mathrm{BIC}=-2\hat\ell+d\log n
-</span></p>
-<p>式の形は同じで、罰則の重みだけが違う。<span class="math inline">n\ge8</span> なら <span class="math inline">\log n&gt;2</span>。BICの方が罰則が重く、小さいモデルを選びやすい。</p>
-</section>
-<section id="クイズ②nを増やすと" class="slide level2" data-chapter="I-7">
-<h2>クイズ②：nを増やすと</h2>
-<p>作った群は3つ。同じ作り方で行の数 <span class="math inline">n</span> を増やしていく。<span class="math inline">n</span> をいくら増やしても、データを作った数より多い <span class="math inline">k</span> を選ぶ割合が0に近づかないのはどれ？</p>
-<div class="quiz">
-<div class="c">
-<p><span class="k">A</span>BICだけ</p>
-</div>
-<div class="c">
-<p><span class="k">B</span>AICだけ</p>
-</div>
-<div class="c">
-<p><span class="k">C</span>両方</p>
-</div>
-<div class="c">
-<p><span class="k">D</span>どちらでもない</p>
-</div>
-</div>
-</section>
-<section id="クイズ②の答えb" class="slide level2" data-chapter="I-7">
-<h2>クイズ②の答え：B</h2>
-<div class="quiz answer">
-<div class="c">
-<p><span class="k">A</span>BICだけ</p>
-</div>
-<div class="c ok">
-<p><span class="k">B</span>AICだけ</p>
-</div>
-<div class="c">
-<p><span class="k">C</span>両方</p>
-</div>
-<div class="c">
-<p><span class="k">D</span>どちらでもない</p>
-</div>
-</div>
-<p>余分な群で下がる <span class="math inline">-2\hat\ell</span> は、<span class="math inline">n</span> が増えても大きくならない。AICの罰則 <span class="math inline">2d</span> も一定なので、ときどき負ける。BICの罰則は <span class="math inline">\log n</span> で育つ。</p>
-</section>
-<section id="なぜ下がり幅の育ち方" class="slide level2 smaller" data-chapter="I-7">
-<h2>なぜ：下がり幅の育ち方</h2>
+<section id="群ごとの型の-aicc" class="slide level2" data-chapter="I-7">
+<h2>群ごとの型の AICc</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
 <table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>群を1つ増やす</th>
-<th><span class="math inline">-2\hat\ell</span> の下がり幅</th>
-<th>AICの罰則の増分</th>
-<th>BICの罰則の増分</th>
+<th><span class="math inline">k</span></th>
+<th>AICc</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>足りない（<span class="math inline">2\to3</span>）</td>
-<td><span class="math inline">n</span> に比例して育つ</td>
-<td>一定</td>
-<td><span class="math inline">\log n</span> で育つ</td>
+<td>1</td>
+<td>1068.9</td>
 </tr>
 <tr class="even">
-<td>余分（<span class="math inline">3\to4</span>）</td>
-<td><span class="math inline">n</span> が増えても育たない</td>
-<td>一定</td>
-<td><span class="math inline">\log n</span> で育つ</td>
+<td>2</td>
+<td>858.3</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>781.7</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>789.9</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>794.7</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>784.8</td>
 </tr>
 </tbody>
 </table>
-<p>足りない群を足す得は、どちらの罰則にも勝つ。余分な群の得は、一定の罰則にはときどき勝ち、育つ罰則にはやがて勝てない。</p>
 </section>
-<section id="nを増やすとbic" class="slide level2" data-chapter="I-7">
-<h2>nを増やすとBIC</h2>
-<div id="5330e5e7" class="cell" data-execution_count="29">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-30-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1152" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>行の数を変えて60通りずつ作り直した。BICは <span class="math inline">n</span> = 120 で 100%が3を選び、<span class="math inline">n</span> を増やすとほぼいつも3。</p>
-</section>
-<section id="aicは多めに残る" class="slide level2" data-chapter="I-7">
-<h2>AICは多めに残る</h2>
-<div id="727e9dca" class="cell" data-execution_count="30">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-31-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1152" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>AICは、<span class="math inline">n</span> = 1920 でも 13%が多め。罰則の重みの差 <span class="math inline">\log n-2</span> は <span class="math inline">n</span> とともに広がる。</p>
-</section>
-<section id="谷の位置" class="slide level2" data-chapter="I-7">
-<h2>谷の位置</h2>
-<div id="4a2a7370" class="cell" data-execution_count="31">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-32-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="868" height="324"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>トースト120枚。BICは <span class="math inline">k=</span> 3 で最小。2→3群は <span class="math inline">-2\hat\ell</span> が 92.1 下がり、罰則の増分 <span class="math inline">6\log n</span> = 28.7 を上回る。3→4群は 9.3 で届かない。</p>
-</section>
-<section id="aicの谷" class="slide level2" data-chapter="I-7">
-<h2>AICの谷</h2>
-<div id="bc67e866" class="cell" data-execution_count="32">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-33-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="868" height="336"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>同じ120枚で、AIC（灰）は <span class="math inline">k=</span> 6 を選ぶ。罰則の増分は1群あたり <span class="math inline">2\times6=12</span> しかない。</p>
-</section>
-<section id="型も同じ表で" class="slide level2" data-chapter="I-7">
-<h2>型も同じ表で</h2>
-<div id="e5471f50" class="cell" data-execution_count="33">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-34-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="868" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>4つの型のBIC。最小は群ごとの型・<span class="math inline">k=</span> 3。斜めの帯を描けない型は、帯を何個もの群でつなぐ。</p>
-</section>
-<section id="困りごと①に戻る" class="slide level2" data-chapter="I-7">
-<h2>困りごと①に戻る</h2>
-<div id="c60651d4" class="cell" data-execution_count="34">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-35-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="868" height="366"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\hat\ell</span> は上がり続けても、罰則を足せば谷ができる。<span class="math inline">k</span> と型を同じ表に並べ、谷の底を選べばよい。</p>
-</section>
-<section id="次の問い尤度が無いと" class="slide level2" data-chapter="I-1">
-<h2>次の問い：尤度が無いと？</h2>
+<section id="尤度を使わない規準j-とシルエット" class="slide level2 smaller" data-chapter="I-3">
+<h2>尤度を使わない規準：J とシルエット</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
 <ul>
 <li>k-meansの <span class="math inline">J</span> は尤度ではない。AICにもBICにもならない</li>
-<li>では、新しい行で <span class="math inline">J</span> を測ったら？</li>
+<li>シルエット係数：<span class="math inline">s_i=(b_i-a_i)/\max(a_i,b_i)</span>。<span class="math inline">a_i</span> は同じ群までの平均距離、<span class="math inline">b_i</span> は最も近い他の群までの平均距離</li>
 </ul>
-<div id="86627347" class="cell" data-execution_count="38">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="872" height="271"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="jは新しい行でも下がる" class="slide level2" data-chapter="I-7">
-<h2>Jは新しい行でも下がる</h2>
-<div id="c02ddf5f" class="cell" data-execution_count="39">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-40-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="873" height="292"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>新しい行で測っても、<span class="math inline">J</span> は下がり続ける。困りごと③の <span class="math inline">\ell</span> のような山が無い。</p>
-</section>
-<section id="なぜ距離と密度の違い" class="slide level2" data-chapter="I-7">
-<h2>なぜ：距離と密度の違い</h2>
-<p><span class="math display">
-\begin{gathered}
-\min_{q\le k+1}\lVert\tilde{\boldsymbol x}-\boldsymbol c_q\rVert_2^2\ \le\ \min_{q\le k}\lVert\tilde{\boldsymbol x}-\boldsymbol c_q\rVert_2^2\\
-\int f(\tilde{\boldsymbol x})\,d\tilde{\boldsymbol x}=1
-\end{gathered}
-</span></p>
-<p>代表点を足しても、どの点の「最も近い代表点まで」も伸びない。密度は合計が1なので、手元の行に寄せた分、ほかの場所の出やすさが減る。</p>
-</section>
-<section id="シルエット①自分の群" class="slide level2" data-chapter="I-3">
-<h2>シルエット①：自分の群</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math display">
-a_i=\frac{1}{n_q-1}\sum_{i'\in q,\,i'\ne i}d_{ii'}
-</span></p>
-<p><span class="math inline">d_{ii'}=\lVert\boldsymbol x_i-\boldsymbol x_{i'}\rVert_2</span> は行どうしの距離。<span class="math inline">a_i</span> は、同じ群 <span class="math inline">q</span> のほかの行までの距離の平均。小さいほど、自分の群にまとまっている。</p>
-</div><div class="column" style="width:55%;">
-<div id="684c7be1" class="cell" data-execution_count="41">
+<div id="0d5d44f4" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-42-output-1.png?v=30555811" width="390" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-39-output-1.png?v=a7dbff58" width="729" height="274"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
 </section>
-<section id="シルエット②隣の群" class="slide level2" data-chapter="I-3">
-<h2>シルエット②：隣の群</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math display">
-b_i=\min_{q'\ne q}\ \frac{1}{n_{q'}}\sum_{i'\in q'}d_{ii'}
-</span></p>
-<p>ほかの群の行までの距離の平均を、群ごとに出す。そのうち、いちばん近い群の値。</p>
-</div><div class="column" style="width:55%;">
-<div id="4e70b085" class="cell" data-execution_count="42">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-43-output-1.png?v=30555811" width="390" height="390"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="シルエット③比べる" class="slide level2" data-chapter="I-3">
-<h2>シルエット③：比べる</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math display">
-s_i=\frac{b_i-a_i}{\max(a_i,\ b_i)}
-</span></p>
-<p>1に近いほど、自分の群に近く隣から遠い。0なら境目、負なら隣の群の方が近い。</p>
-</div><div class="column" style="width:55%;">
-<div id="ed961771" class="cell" data-execution_count="43">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-44-output-1.png?v=30555811" width="390" height="390"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-<section id="シルエット④行列で" class="slide level2" data-chapter="I-3">
-<h2>シルエット④：行列で</h2>
-<p><span class="math display">
-\mathbf M=\mathbf D\,\mathbf G\,(\mathbf G^\top\mathbf G)^{-1}
-</span></p>
-<p><span class="math inline">\mathbf D</span> は行どうしの距離を並べた <span class="math inline">n\times n</span> 行列。<span class="math inline">\mathbf D\mathbf G</span> が群ごとの距離の和、<span class="math inline">(\mathbf G^\top\mathbf G)^{-1}</span> が群の大きさで割る（第7回）。<span class="math inline">m_{iq}</span> は行 <span class="math inline">i</span> から群 <span class="math inline">q</span> までの距離の平均。</p>
-</section>
-<section id="シルエット⑤全行の平均" class="slide level2" data-chapter="I-3">
-<h2>シルエット⑤：全行の平均</h2>
-<div id="6a288e9d" class="cell" data-execution_count="44">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-45-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="894" height="330"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math inline">\bar s=\frac1n\sum_i s_i</span> をシルエット係数と呼ぶ。<span class="math inline">k</span> を変えて比べ、最大の <span class="math inline">k</span> を選ぶ。</p>
-</section>
-<section id="クイズ③s-はいくつか" class="slide level2" data-chapter="I-3">
-<h2>クイズ③：s はいくつか</h2>
-<p>ある行で、自分の群のほかの行までの距離の平均が <span class="math inline">a_i=1</span>、いちばん近い隣の群までの平均が <span class="math inline">b_i=4</span> だった。<span class="math inline">s_i</span> はいくつ？</p>
-<div class="quiz">
-<div class="c">
-<p><span class="k">A</span><span class="math inline">-0.75</span></p>
-</div>
-<div class="c">
-<p><span class="k">B</span><span class="math inline">0.25</span></p>
-</div>
-<div class="c">
-<p><span class="k">C</span><span class="math inline">0.75</span></p>
-</div>
-<div class="c">
-<p><span class="k">D</span><span class="math inline">3</span></p>
-</div>
-</div>
-</section>
-<section id="クイズ③の答えc" class="slide level2" data-chapter="I-3">
-<h2>クイズ③の答え：C</h2>
-<div class="quiz answer">
-<div class="c">
-<p><span class="k">A</span><span class="math inline">-0.75</span></p>
-</div>
-<div class="c">
-<p><span class="k">B</span><span class="math inline">0.25</span></p>
-</div>
-<div class="c ok">
-<p><span class="k">C</span><span class="math inline">0.75</span></p>
-</div>
-<div class="c">
-<p><span class="k">D</span><span class="math inline">3</span></p>
-</div>
-</div>
-<p><span class="math inline">s_i=(4-1)/\max(1,4)=3/4</span>。<span class="math inline">a_i&lt;b_i</span> なら <span class="math inline">s_i=1-a_i/b_i</span> と書ける。</p>
-</section>
-<section id="性質①1から1" class="slide level2" data-chapter="I-7">
-<h2>性質①：−1から1</h2>
-<p><span class="math display">
-s_i=\begin{cases}1-a_i/b_i&amp;(a_i\le b_i)\\[2pt] b_i/a_i-1&amp;(a_i&gt;b_i)\end{cases}
-</span></p>
-<p>距離は0以上なので、<span class="math inline">a_i/b_i</span> も <span class="math inline">b_i/a_i</span> も0以上1以下。よって <span class="math inline">-1\le s_i\le1</span>。<span class="math inline">s_i=1</span> は <span class="math inline">a_i=0</span>（群が1点にまとまる）とき。</p>
-</section>
-<section id="性質②目盛りによらない" class="slide level2" data-chapter="I-7">
-<h2>性質②：目盛りによらない</h2>
-<p><span class="math display">
-\begin{gathered}
-\mathbf X\to c\mathbf X\quad\Longrightarrow\quad\mathbf D\to c\mathbf D\\
-s_i\to\frac{cb_i-ca_i}{\max(ca_i,cb_i)}=s_i
-\end{gathered}
-</span></p>
-<p>すべての列を <span class="math inline">c</span> 倍しても <span class="math inline">s_i</span> は変わらない（<span class="math inline">c&gt;0</span>）。<span class="math inline">J</span> は <span class="math inline">c^2</span> 倍になる。<span class="math inline">s_i</span> は距離の比だけを見る。</p>
-</section>
-<section id="性質③割りすぎると下がる" class="slide level2" data-chapter="I-7">
-<h2>性質③：割りすぎると下がる</h2>
-<p><span class="math display">
-k=n\ \Longrightarrow\ \bar s=0
-</span></p>
-<p>どの行も1行だけの群になれば、<span class="math inline">s_i=0</span> と約束する（<span class="math inline">a_i</span> が定まらない）。<span class="math inline">J</span> は <span class="math inline">k=n</span> で0になり最良だが、<span class="math inline">\bar s</span> は最悪に近い。1つの塊を2つに割ると、隣の群がすぐそばになり <span class="math inline">b_i</span> が縮む。</p>
-</section>
-<section id="たとえ花見のシート" class="slide level2" data-chapter="I-7">
-<h2>たとえ：花見のシート</h2>
-<div id="d8b76782" class="cell" data-execution_count="45">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-46-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="653" height="306"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>花見で、自分のシートの仲間までの平均の距離が <span class="math inline">a</span>、隣のシートまでが <span class="math inline">b</span>。1つのシートを無理に2つに分けると、隣のシートがすぐそばになる。</p>
-</section>
-<section id="シルエットは山を持つ" class="slide level2" data-chapter="I-7">
-<h2>シルエットは山を持つ</h2>
-<div id="07e56f50" class="cell" data-execution_count="46">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-47-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="869" height="318"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>トーストのk-meansの答えで <span class="math inline">\bar s</span> を求めた。<span class="math inline">k=</span> 3 で最大。</p>
-</section>
-<section id="困りごと②に戻る" class="slide level2" data-chapter="I-7">
-<h2>困りごと②に戻る</h2>
-<div id="526fa285" class="cell" data-execution_count="47">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="869" height="318"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>k-meansには尤度が無くても、行どうしの距離から <span class="math inline">\bar s</span> は求まる。<span class="math inline">J</span> と違って <span class="math inline">\bar s</span> は群とともに上がり続けない。山の <span class="math inline">k</span> を選べばよい。</p>
-</section>
-<section id="道具がそろった" class="slide level2" data-chapter="I-1">
-<h2>道具がそろった</h2>
+<section id="群の数のまとめ" class="slide level2" data-chapter="I-7">
+<h2>群の数のまとめ</h2>
+<p><span class="crumb">第9節　群の数を選ぶ：トースト</span></p>
 <ul>
-<li>候補：群の数 <span class="math inline">k</span> と、4つの共分散の型。<span class="math inline">d</span> を数える</li>
-<li>新しい行での当てはまり：<span class="math inline">\mathrm{AIC}=-2\hat\ell+2d</span></li>
-<li>モデルの出やすさ：<span class="math inline">\mathrm{BIC}=-2\hat\ell+d\log n</span></li>
-<li>k-meansなら：シルエット係数 <span class="math inline">\bar s</span></li>
+<li>尤度、新しい行での値、シルエットは、いずれも <span class="math inline">k=3</span> を指す</li>
+<li>BICは群ごとの型で <span class="math inline">k=3</span> を選んだ</li>
+<li>AICは <span class="math inline">n=120</span> では群の数を増やしすぎた。原因は、<span class="math inline">d</span> に対して <span class="math inline">n</span> が小さいこと</li>
+<li>AICcは、この補正を入れた規準</li>
 </ul>
-<p>これを、計算する順に並べる。</p>
 </section>
-<section id="アルゴリズムkと型を選ぶ" class="slide level2 smaller" data-chapter="I-6">
-<h2>アルゴリズム：kと型を選ぶ</h2>
+<section id="第10節-回帰で変数を選ぶ" class="slide level2 center" data-chapter="I-3" data-background-color="#eef2f7">
+<h2>第10節　回帰で変数を選ぶ</h2>
+</section>
+<section id="回帰でもaicとbicで変数を選ぶ" class="slide level2 smaller" data-chapter="I-3">
+<h2>回帰でも、AICとBICで変数を選ぶ</h2>
+<p><span class="crumb">第10節　回帰で変数を選ぶ</span></p>
+<ul>
+<li>説明変数を足すと、残差の二乗和 <span class="math inline">\mathrm{RSS}</span> は必ず下がる</li>
+<li>次の二式で、罰則を足す</li>
+</ul>
+<p><span class="math display">
+\mathrm{AIC}=n\log\frac{\mathrm{RSS}}{n}+2d,\qquad \mathrm{BIC}=n\log\frac{\mathrm{RSS}}{n}+d\log n
+</span></p>
+</section>
+<section id="前向き選択" class="slide level2" data-chapter="I-7">
+<h2>前向き選択</h2>
+<p><span class="crumb">第10節　回帰で変数を選ぶ</span></p>
+<ul>
+<li>候補の説明変数は8個。本当に効くのは1番目と2番目</li>
+<li>各段階で、RSSが最も下がる変数を1つ足す</li>
+</ul>
+<div id="81a75c76" class="cell" data-execution_count="47">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-48-output-1.png?v=a7dbff58" width="872" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="変数目の悪化" class="slide level2" data-chapter="I-7">
+<h2>3変数目の悪化</h2>
+<p><span class="crumb">第10節　回帰で変数を選ぶ</span></p>
+<ul>
+<li>AICは 0.78 悪化する</li>
+<li>BICは 3.38 悪化する</li>
+<li>無関係な変数の改善は、罰則に届かない</li>
+</ul>
+</section>
+<section id="第11節-実務上の注意" class="slide level2 center" data-chapter="I-7" data-background-color="#eef2f7">
+<h2>第11節　実務上の注意</h2>
+</section>
+<section id="比べてよい条件" class="slide level2 smaller" data-chapter="I-7">
+<h2>比べてよい条件</h2>
+<p><span class="crumb">第11節　実務上の注意</span></p>
+<ul>
+<li>同じデータである（欠測のせいで行が違えば比べられない）</li>
+<li>同じ目的変数である（<span class="math inline">y</span> と <span class="math inline">\log y</span> は比べられない）</li>
+<li>尤度の定義が同じである（ソフトによって定数項が違うことがある）</li>
+<li><span class="math inline">d</span> を正しく数える（誤差の分散も数える）</li>
+</ul>
+</section>
+<section id="候補が多いと選択バイアス" class="slide level2 smaller" data-chapter="I-7">
+<h2>候補が多いと：選択バイアス</h2>
+<p><span class="crumb">第11節　実務上の注意</span></p>
+<ul>
+<li>無関係な説明変数の中から、AICで前向きに選ぶ（<span class="math inline">n=100</span>、300回）</li>
+<li>候補が多いほど、無関係な変数が選ばれる</li>
+</ul>
+<div id="38d39f5c" class="cell" data-execution_count="50">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-51-output-1.png?v=a7dbff58" width="873" height="391"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="候補が多いときの対策" class="slide level2" data-chapter="I-7">
+<h2>候補が多いときの対策</h2>
+<p><span class="crumb">第11節　実務上の注意</span></p>
 <ol type="1">
-<li>候補を並べる：<span class="math inline">k=1,\dots,k_{\max}</span> と、4つの型</li>
-<li>当てはめる：候補ごとに全 <span class="math inline">n</span> 行でEM（第8回、ランダムスタート）→ <span class="math inline">\hat{\boldsymbol\Phi}</span>、<span class="math inline">\hat\ell=\mathbf 1_n^\top\log(\hat{\boldsymbol\Phi}\mathbf 1_k)</span></li>
-<li>数える：<span class="math inline">d(k,\text{型})</span> → <span class="math inline">\mathrm{AIC}=-2\hat\ell+2d</span>、<span class="math inline">\mathrm{BIC}=-2\hat\ell+d\log n</span> を <span class="math inline">k\times</span>型 の表 <span class="math inline">\mathbf A</span>、<span class="math inline">\mathbf B</span> に入れる</li>
-<li>選ぶ：目的に合わせて、<span class="math inline">\mathbf A</span> か <span class="math inline">\mathbf B</span> の最小</li>
-<li>k-meansなら：<span class="math inline">k=2,\dots</span> ごとに <span class="math inline">\mathbf G</span> を求め、<span class="math inline">\mathbf M=\mathbf D\mathbf G(\mathbf G^\top\mathbf G)^{-1}</span> から <span class="math inline">\bar s</span> を求め、最大を選ぶ</li>
+<li>候補を事前に絞る（理論や先行研究に基づく少数の仮説だけ）</li>
+<li>選択の手順ごと交差検証する</li>
+<li>選んだ後の検定を、そのまま信じない</li>
+<li>一つに選ばない（モデル平均、正則化）</li>
 </ol>
 </section>
-<section id="つを並べる" class="slide level2 smaller" data-chapter="I-7">
-<h2>3つを並べる</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>AIC</th>
-<th>BIC</th>
-<th>シルエット係数</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>測るもの</td>
-<td>新しい行での当てはまり</td>
-<td>モデルそのものの出やすさ</td>
-<td>自分の群への近さ、隣からの遠さ</td>
-</tr>
-<tr class="even">
-<td>導き方</td>
-<td>手元の甘さ <span class="math inline">d</span> を足し戻す</td>
-<td>周辺尤度を山で近似</td>
-<td>距離の比</td>
-</tr>
-<tr class="odd">
-<td>要るもの</td>
-<td>尤度と <span class="math inline">d</span></td>
-<td>尤度と <span class="math inline">d</span>、<span class="math inline">n</span></td>
-<td>行どうしの距離</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">n</span> を増やすと</td>
-<td>多めの <span class="math inline">k</span> が残る</td>
-<td>作った <span class="math inline">k</span> に近づく</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td>k-meansに</td>
-<td>使えない</td>
-<td>使えない</td>
-<td>使える</td>
-</tr>
-</tbody>
-</table>
+<section id="入れ子でないモデル" class="slide level2 smaller" data-chapter="I-7">
+<h2>入れ子でないモデル</h2>
+<p><span class="crumb">第11節　実務上の注意</span></p>
+<ul>
+<li>裾の長いデータ（<span class="math inline">n=100</span>）に、正規・対数正規・ガンマを当てはめる</li>
+<li>三つとも、他の特殊ケースではない</li>
+<li>情報量規準は、これらを直接比べられる</li>
+</ul>
+<div id="da52fa20" class="cell" data-execution_count="51">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png?v=a7dbff58" width="728" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="位置づけ推定の外側" class="slide level2 smaller" data-chapter="I-1">
-<h2>位置づけ：推定の外側</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>最小二乗法</th>
-<th>最尤法</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">y</span> を近似する</td>
-<td>第1回・第5回</td>
-<td>第6回</td>
-</tr>
-<tr class="even">
-<td>行を群に分ける</td>
-<td>第7回（k-means）</td>
-<td>第8回（混合正規分布）</td>
-</tr>
-</tbody>
-</table>
-<p>第1〜8回：マスの中でパラメータを推定した。今回：そのモデルをどの大きさにするか（推定の一段外側）。</p>
+<section id="第i部のまとめ" class="slide level2" data-chapter="I-7">
+<h2>第I部のまとめ</h2>
+<p><span class="crumb">第11節　実務上の注意</span></p>
+<ul>
+<li>最大対数尤度は、複雑にすると必ず増える</li>
+<li>AIC <span class="math inline">=-2\hat\ell+2d</span>：新しいデータの平均対数尤度を推定する</li>
+<li>BIC <span class="math inline">=-2\hat\ell+d\log n</span>：周辺尤度の近似</li>
+<li>小標本ではAICc。比べるのは同じデータ・同じ目的変数の差</li>
+<li>候補は事前に絞る</li>
+</ul>
 </section></section>
 <section>
 <section id="第ii部-実データ解析" class="title-slide slide level1 part center">
 <h1>第II部　実データ解析</h1>
 
 </section>
+<section id="第12節-間欠泉のデータ" class="slide level2 center" data-chapter="II-1" data-background-color="#eef2f7">
+<h2>第12節　間欠泉のデータ</h2>
+</section>
 <section id="第ii部実データで試す" class="slide level2" data-chapter="II-1">
 <h2>第II部：実データで試す</h2>
+<p><span class="crumb">第12節　間欠泉のデータ</span></p>
 <ul>
-<li>第I部の人工データは、現象がはっきり出るように作った</li>
+<li>第I部の理論を、実データで試す</li>
 <li>実データは、理論どおりにいくとは限らない</li>
-<li>外れたら、その理由を第I部の道具で考える</li>
+<li>外れたら、理由を第I部の道具で考える。うまくいけば、それでよい</li>
 </ul>
-<p>うまくいったら最高。</p>
-</section>
-<section id="データ272回の噴出" class="slide level2" data-chapter="II-1">
-<h2>データ：272回の噴出</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p>オールドフェイスフル間欠泉の 272 回の噴出。</p>
-<p>列は噴出時間と、次までの待ち時間。</p>
-<p>塊は2つに見える。正解は無い。</p>
-</div><div class="column" style="width:55%;">
-<div id="938a1733" class="cell" data-execution_count="51">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-52-output-1.png?v=30555811" width="413" height="318"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
 </section>
 <section id="理論の予想" class="slide level2" data-chapter="II-1">
 <h2>理論の予想</h2>
+<p><span class="crumb">第12節　間欠泉のデータ</span></p>
 <ul>
-<li>予想①：どの型でも、<span class="math inline">\hat\ell</span> は <span class="math inline">k</span> とともに上がり続けるはず</li>
-<li>予想②：BICは、目で見た2つの塊（斜めの楕円2つ）を選ぶはず</li>
-<li>予想③：AICは、BICと同じか、より多い群を選ぶはず</li>
-<li>予想④：k-meansのシルエット係数も、2つの塊を選ぶはず</li>
+<li>予想①：AICとBICは、違う群の数を選ぶ</li>
+<li>予想②：AICは、BICより多くの群を選ぶ</li>
+<li>理由：<span class="math inline">n=272</span> では <span class="math inline">\log 272\approx5.6</span> で、BICの1パラメータあたりの罰則は、AICの2より重い</li>
 </ul>
 </section>
-<section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
-<h2>手続き：何をどう計算したか</h2>
-<ol type="1">
-<li>そろえる：2列をそれぞれ平均0・標準偏差1にする</li>
-<li>当てはめる：<span class="math inline">k=1,\dots,6</span> × 4つの型 ＝ 24 通りの候補ごとに、ライブラリのGaussianMixtureでEM（初期値20通り、共分散の対角に <span class="math inline">10^{-6}</span>）</li>
-<li>数える：<span class="math inline">d(k,\text{型})</span> を自分で数え、AICとBICを計算する</li>
-<li>シルエット：k-means（初期値20通り）で <span class="math inline">k=2,\dots,6</span> に分け、<span class="math inline">\bar s</span> を求める</li>
-<li>読む：選んだ群を、分の単位に戻して並べる</li>
-</ol>
-</section>
-<section id="結果①ℓは上がる一方" class="slide level2 smaller" data-chapter="II-3">
-<h2>結果①：ℓは上がる一方</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>型</th>
-<th><span class="math inline">k=1</span></th>
-<th><span class="math inline">k=2</span></th>
-<th><span class="math inline">k=3</span></th>
-<th><span class="math inline">k=4</span></th>
-<th><span class="math inline">k=5</span></th>
-<th><span class="math inline">k=6</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>群ごと</td>
-<td>-545.0</td>
-<td>-385.5</td>
-<td>-369.6</td>
-<td>-361.3</td>
-<td>-357.4</td>
-<td>-350.2</td>
-</tr>
-<tr class="even">
-<td>共通</td>
-<td>-545.0</td>
-<td>-395.4</td>
-<td>-381.5</td>
-<td>-376.0</td>
-<td>-371.4</td>
-<td>-371.3</td>
-</tr>
-<tr class="odd">
-<td>対角</td>
-<td>-771.9</td>
-<td>-403.0</td>
-<td>-382.2</td>
-<td>-368.1</td>
-<td>-361.0</td>
-<td>-357.1</td>
-</tr>
-<tr class="even">
-<td>球</td>
-<td>-771.9</td>
-<td>-423.3</td>
-<td>-401.2</td>
-<td>-385.5</td>
-<td>-376.9</td>
-<td>-369.0</td>
-</tr>
-</tbody>
-</table>
-<p>24通りの <span class="math inline">\hat\ell</span>。どの型でも、<span class="math inline">k</span> とともに下がらない。予想どおり。</p>
-</section>
-<section id="結果②bicの表" class="slide level2 smaller" data-chapter="II-3">
-<h2>結果②：BICの表</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>型</th>
-<th><span class="math inline">k=1</span></th>
-<th><span class="math inline">k=2</span></th>
-<th><span class="math inline">k=3</span></th>
-<th><span class="math inline">k=4</span></th>
-<th><span class="math inline">k=5</span></th>
-<th><span class="math inline">k=6</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>群ごと</td>
-<td>1,118.0</td>
-<td>832.6</td>
-<td>834.6</td>
-<td>851.5</td>
-<td>877.4</td>
-<td>896.5</td>
-</tr>
-<tr class="even">
-<td>共通</td>
-<td>1,118.0</td>
-<td>835.6</td>
-<td>824.7 ★</td>
-<td>830.5</td>
-<td>838.0</td>
-<td>854.8</td>
-</tr>
-<tr class="odd">
-<td>対角</td>
-<td>1,566.2</td>
-<td>856.5</td>
-<td>842.9</td>
-<td>842.7</td>
-<td>856.5</td>
-<td>876.7</td>
-</tr>
-<tr class="even">
-<td>球</td>
-<td>1,560.6</td>
-<td>885.9</td>
-<td>864.0</td>
-<td>855.2</td>
-<td>860.4</td>
-<td>866.9</td>
-</tr>
-</tbody>
-</table>
-<p>最小（★）は共通の型・<span class="math inline">k=</span> 3。目で見た塊は2つ。予想は外れた。</p>
-</section>
-<section id="結果②bicの答え" class="slide level2" data-chapter="II-3">
-<h2>結果②：BICの答え</h2>
-<div id="635ec747" class="cell" data-execution_count="55">
+<section id="データ間欠泉" class="slide level2 smaller" data-chapter="II-1">
+<h2>データ：間欠泉</h2>
+<p><span class="crumb">第12節　間欠泉のデータ</span></p>
+<ul>
+<li>オールドフェイスフル間欠泉の噴出 272回</li>
+<li>変数は、噴出の続いた時間と、次の噴出までの待ち時間（分）</li>
+<li>相関は 0.90。点は、短い噴出と長い噴出の二つの塊に分かれて見える</li>
+</ul>
+<div id="80566e68" class="cell" data-execution_count="56">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-56-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1032" height="390"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-57-output-1.png?v=a7dbff58" width="870" height="318"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>BICの答え。短い噴出の塊を1つの群で、長い噴出の塊を2つの群で描いた。</p>
 </section>
-<section id="なぜ3群か①群ごとの型" class="slide level2 smaller" data-chapter="II-5">
-<h2>なぜ3群か①：群ごとの型</h2>
+<section id="第13節-手続き" class="slide level2 center" data-chapter="II-2" data-background-color="#eef2f7">
+<h2>第13節　手続き</h2>
+</section>
+<section id="手続き何をどう計算したか" class="slide level2 smaller" data-chapter="II-2">
+<h2>手続き：何をどう計算したか</h2>
+<p><span class="crumb">第13節　手続き</span></p>
+<ol type="1">
+<li>二つの変数を、平均0、標準偏差1に揃える</li>
+<li>四つの型と <span class="math inline">k=1</span>〜<span class="math inline">6</span> の、合計24個の候補を当てはめる（初期値20通り）</li>
+<li>各候補の <span class="math inline">\hat\ell</span>、<span class="math inline">d</span>、AIC、BICを求める</li>
+<li>k-meansを <span class="math inline">k=1</span>〜<span class="math inline">6</span> で当てはめ、<span class="math inline">J</span> とシルエットの平均を求める</li>
+</ol>
+</section>
+<section id="第14節-結果" class="slide level2 center" data-chapter="II-3" data-background-color="#eef2f7">
+<h2>第14節　結果</h2>
+</section>
+<section id="結果①bicの最小" class="slide level2 smaller" data-chapter="II-3">
+<h2>結果①：BICの最小</h2>
+<p><span class="crumb">第14節　結果</span></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>群ごとの型</th>
-<th><span class="math inline">1\to2</span></th>
-<th><span class="math inline">2\to3</span></th>
-<th><span class="math inline">3\to4</span></th>
+<th>型</th>
+<th><span class="math inline">k</span></th>
+<th><span class="math inline">d</span></th>
+<th><span class="math inline">\hat\ell</span></th>
+<th>AIC</th>
+<th>BIC</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">-2\hat\ell</span> の下がり幅</td>
-<td>319.1</td>
-<td>31.6</td>
-<td>16.7</td>
+<td>共通</td>
+<td>3</td>
+<td>11</td>
+<td>-381.5</td>
+<td>785.0</td>
+<td>824.7</td>
 </tr>
 <tr class="even">
-<td>罰則の増分 <span class="math inline">6\log n</span></td>
-<td>33.6</td>
-<td>33.6</td>
-<td>33.6</td>
+<td>共通</td>
+<td>4</td>
+<td>14</td>
+<td>-376.0</td>
+<td>780.1</td>
+<td>830.5</td>
+</tr>
+<tr class="odd">
+<td>群ごと</td>
+<td>2</td>
+<td>11</td>
+<td>-385.5</td>
+<td>792.9</td>
+<td>832.6</td>
+</tr>
+<tr class="even">
+<td>群ごと</td>
+<td>3</td>
+<td>17</td>
+<td>-369.6</td>
+<td>773.3</td>
+<td>834.6</td>
+</tr>
+<tr class="odd">
+<td>共通</td>
+<td>2</td>
+<td>8</td>
+<td>-395.4</td>
+<td>806.8</td>
+<td>835.6</td>
 </tr>
 </tbody>
 </table>
-<p>第I部の「谷の位置」と同じ読み方。<span class="math inline">2\to3</span> では下がり幅が罰則の増分に届かない。群ごとの型の中では、予想どおり <span class="math inline">k=</span> 2。</p>
+<ul>
+<li>BICの最小は、共通の型・<span class="math inline">k=3</span>（824.7）</li>
+<li>2位は、共通の型・<span class="math inline">k=4</span>。差は 5.83</li>
+</ul>
 </section>
-<section id="なぜ3群か②同じ罰則で" class="slide level2 smaller" data-chapter="II-5">
-<h2>なぜ3群か②：同じ罰則で</h2>
+<section id="結果②aicの最小" class="slide level2" data-chapter="II-3">
+<h2>結果②：AICの最小</h2>
+<p><span class="crumb">第14節　結果</span></p>
+<ul>
+<li>AICの最小は、群ごとの型・<span class="math inline">k=4</span>（768.6）</li>
+<li>BICの選んだ <span class="math inline">k=3</span>（共通の型）より多い</li>
+</ul>
+<div id="101894db" class="cell" data-execution_count="59">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-60-output-1.png?v=a7dbff58" width="873" height="295"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="結果③シルエット" class="slide level2" data-chapter="II-3">
+<h2>結果③：シルエット</h2>
+<p><span class="crumb">第14節　結果</span></p>
+<div id="324172d7" class="cell" data-execution_count="60">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-61-output-1.png?v=a7dbff58" width="729" height="274"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>シルエットの平均が最大になるのは、<span class="math inline">k=2</span>（0.745）</li>
+<li>尤度を使わない規準は、2群を支持する</li>
+</ul>
+</section>
+<section id="第15節-予想との照合" class="slide level2 center" data-chapter="II-4" data-background-color="#eef2f7">
+<h2>第15節　予想との照合</h2>
+</section>
+<section id="予想との照合" class="slide level2" data-chapter="II-4">
+<h2>予想との照合</h2>
+<p><span class="crumb">第15節　予想との照合</span></p>
+<ul>
+<li>予想①（違う群の数）：当たり。BICは <span class="math inline">k=3</span>、AICは <span class="math inline">k=4</span></li>
+<li>予想②（AICの方が多い）：当たり。ただし型も違う</li>
+<li>外れたこと：シルエットは <span class="math inline">k=2</span> を指した</li>
+</ul>
+</section>
+<section id="第16節-ずれの理由" class="slide level2 center" data-chapter="II-5" data-background-color="#eef2f7">
+<h2>第16節　ずれの理由</h2>
+</section>
+<section id="なぜ3群か同じ数のパラメータで比べる" class="slide level2 smaller" data-chapter="II-5">
+<h2>なぜ3群か：同じ数のパラメータで比べる</h2>
+<p><span class="crumb">第16節　ずれの理由</span></p>
+<ul>
+<li>共通の型・<span class="math inline">k=3</span> と、群ごとの型・<span class="math inline">k=2</span> は、どちらも <span class="math inline">d=11</span></li>
+<li>同じ数のパラメータなので、罰則は同じ。尤度の差だけで順位が決まる</li>
+</ul>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>候補</th>
+<th>型</th>
+<th><span class="math inline">k</span></th>
 <th><span class="math inline">d</span></th>
 <th><span class="math inline">\hat\ell</span></th>
 <th>BIC</th>
@@ -1374,219 +1576,62 @@ k=n\ \Longrightarrow\ \bar s=0
 </thead>
 <tbody>
 <tr class="odd">
-<td>群ごと・<span class="math inline">k=2</span></td>
-<td>11</td>
-<td>-385.5</td>
-<td>832.6</td>
-</tr>
-<tr class="even">
-<td>共通・<span class="math inline">k=3</span></td>
+<td>共通の型</td>
+<td>3</td>
 <td>11</td>
 <td>-381.5</td>
 <td>824.7</td>
 </tr>
-</tbody>
-</table>
-<p>型をまたぐと答えが変わる。2つの候補は <span class="math inline">d</span> が同じなので罰則も同じ。<span class="math inline">\hat\ell</span> の差 3.9 で、共通の型・<span class="math inline">k=</span> 3 が勝った。</p>
-</section>
-<section id="なぜ3群か③群を分で読む" class="slide level2 smaller" data-chapter="II-5">
-<h2>なぜ3群か③：群を分で読む</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>BIC の群</th>
-<th>行数</th>
-<th>噴出時間の平均</th>
-<th>待ち時間の平均</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>97</td>
-<td>2.04 分</td>
-<td>54.5 分</td>
-</tr>
 <tr class="even">
+<td>群ごとの型</td>
 <td>2</td>
-<td>42</td>
-<td>3.81 分</td>
-<td>77.6 分</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>133</td>
-<td>4.47 分</td>
-<td>80.9 分</td>
+<td>11</td>
+<td>-385.5</td>
+<td>832.6</td>
 </tr>
 </tbody>
 </table>
-<p>長い噴出の塊は、楕円1つでは描けない。BICはそこに群を1つ足した。「正規分布の楕円の混合」という前提が、少しずれている。</p>
 </section>
-<section id="読み方3種類の噴出か" class="slide level2" data-chapter="II-5">
-<h2>読み方：3種類の噴出か</h2>
+<section id="なぜaicは群が多いか" class="slide level2" data-chapter="II-5">
+<h2>なぜAICは群が多いか</h2>
+<p><span class="crumb">第16節　ずれの理由</span></p>
 <ul>
-<li>群の数3は、噴出の仕組みが3種類あるという意味ではない</li>
-<li>BICの導出は、データを作ったモデルが候補の中にあるとした</li>
-<li>塊が楕円でなければ、その形を描くために群が足される</li>
+<li>群ごとの型で <span class="math inline">k=3</span> から <span class="math inline">4</span> へ：パラメータが6個増える</li>
+<li>AICの罰則の増分は <span class="math inline">2\times 6=12</span>、BICの増分は <span class="math inline">6\log 272\approx 33.6</span></li>
+<li>尤度の改善が12と33.6の間にあれば、AICは増やし、BICは増やさない</li>
 </ul>
 </section>
-<section id="結果③aicの表" class="slide level2 smaller" data-chapter="II-3">
-<h2>結果③：AICの表</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>型</th>
-<th><span class="math inline">k=1</span></th>
-<th><span class="math inline">k=2</span></th>
-<th><span class="math inline">k=3</span></th>
-<th><span class="math inline">k=4</span></th>
-<th><span class="math inline">k=5</span></th>
-<th><span class="math inline">k=6</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>群ごと</td>
-<td>1,100.0</td>
-<td>792.9</td>
-<td>773.3</td>
-<td>768.6 ★</td>
-<td>772.9</td>
-<td>770.3</td>
-</tr>
-<tr class="even">
-<td>共通</td>
-<td>1,100.0</td>
-<td>806.8</td>
-<td>785.0</td>
-<td>780.1</td>
-<td>776.7</td>
-<td>782.7</td>
-</tr>
-<tr class="odd">
-<td>対角</td>
-<td>1,551.8</td>
-<td>824.0</td>
-<td>792.4</td>
-<td>774.2</td>
-<td>770.0</td>
-<td>772.2</td>
-</tr>
-<tr class="even">
-<td>球</td>
-<td>1,549.8</td>
-<td>860.7</td>
-<td>824.3</td>
-<td>801.1</td>
-<td>791.9</td>
-<td>784.0</td>
-</tr>
-</tbody>
-</table>
-<p>最小（★）は群ごとの型・<span class="math inline">k=</span> 4。BICより多い群。予想どおり。</p>
+<section id="なぜシルエットは2群か" class="slide level2" data-chapter="II-5">
+<h2>なぜシルエットは2群か</h2>
+<p><span class="crumb">第16節　ずれの理由</span></p>
+<ul>
+<li>シルエットは、距離だけで群を測る</li>
+<li>群の形や大きさの違いは、尤度ほど反映されない</li>
+<li>長い噴出の塊は、二つに割ると距離が近くなる</li>
+</ul>
 </section>
-<section id="結果③aicの答え" class="slide level2" data-chapter="II-3">
-<h2>結果③：AICの答え</h2>
-<div id="f5e0afa6" class="cell" data-execution_count="63">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-64-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1032" height="390"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>AICの答え。長い噴出の塊を、さらに細かい楕円でつないだ。</p>
+<section id="第17節-落とし穴" class="slide level2 center" data-chapter="II-6" data-background-color="#eef2f7">
+<h2>第17節　落とし穴</h2>
 </section>
-<section id="なぜaicは多いか" class="slide level2 smaller" data-chapter="II-5">
-<h2>なぜAICは多いか</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>AIC</th>
-<th>BIC</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>パラメータ1つの罰則</td>
-<td>2</td>
-<td><span class="math inline">\log n</span> = 5.61</td>
-</tr>
-<tr class="even">
-<td>目指すもの</td>
-<td>新しい行をよく出すモデル</td>
-<td>データを作ったモデル</td>
-</tr>
-<tr class="odd">
-<td>選んだもの</td>
-<td>群ごと・<span class="math inline">k=</span> 4</td>
-<td>共通・<span class="math inline">k=</span> 3</td>
-</tr>
-</tbody>
-</table>
-<p>塊が楕円でないなら、新しい行の出やすさを細かく言うには、楕円を足して形をなぞった方が得。罰則の軽いAICは、その得を取りにいく。</p>
+<section id="落とし穴24個の候補から選ぶ" class="slide level2" data-chapter="II-6">
+<h2>落とし穴：24個の候補から選ぶ</h2>
+<p><span class="crumb">第17節　落とし穴</span></p>
+<ul>
+<li>24個の候補から最小を選ぶと、選ぶこと自体が楽観バイアスを生む</li>
+<li>第I部の選択バイアスの話と同じ</li>
+<li>候補が理論に基づくなら、その範囲で選ぶ</li>
+</ul>
 </section>
-<section id="結果④シルエット" class="slide level2" data-chapter="II-3">
-<h2>結果④：シルエット</h2>
-<div id="69196dde" class="cell" data-execution_count="66">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-67-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1056" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>k-meansのシルエット係数。<span class="math inline">k=</span> 2 で最大（0.75）。<span class="math inline">k=3</span> では 0.49 に下がる。</p>
-</section>
-<section id="結果④k-meansの答え" class="slide level2" data-chapter="II-3">
-<h2>結果④：k-meansの答え</h2>
-<div id="592da6d2" class="cell" data-execution_count="67">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-68-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1056" height="384"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>短い噴出と長い噴出の2つの塊を、そのまま2つの群にした。予想どおり。</p>
-</section>
-<section id="なぜシルエットは2か" class="slide level2 smaller" data-chapter="II-5">
-<h2>なぜシルエットは2か</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>長い噴出の行の平均</th>
-<th><span class="math inline">k=2</span></th>
-<th><span class="math inline">k=3</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">a_i</span>（自分の群まで）</td>
-<td>0.70</td>
-<td>0.54</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">b_i</span>（隣の群まで）</td>
-<td>2.75</td>
-<td>0.86</td>
-</tr>
-</tbody>
-</table>
-<p>長い噴出の塊を2つに割ると、<span class="math inline">a_i</span> は縮むが、<span class="math inline">b_i</span> はもっと縮む（性質③）。シルエットは塊の形を楕円でなぞらず、塊どうしの離れ方だけを見る。</p>
+<section id="第18節-このデータでわかったこと" class="slide level2 center" data-chapter="II-6" data-background-color="#eef2f7">
+<h2>第18節　このデータでわかったこと</h2>
 </section>
 <section id="このデータでわかったこと" class="slide level2" data-chapter="II-6">
 <h2>このデータでわかったこと</h2>
+<p><span class="crumb">第18節　このデータでわかったこと</span></p>
 <ul>
-<li>予想どおり：どの型でも、<span class="math inline">\hat\ell</span> は <span class="math inline">k</span> とともに上がり続けた</li>
-<li>半分外れた：BICは群ごとの型では <span class="math inline">k=</span> 2、型をまたぐと共通の型・<span class="math inline">k=</span> 3。長い噴出の塊が楕円1つに収まらない</li>
-<li>予想どおり：AICは群ごとの型・<span class="math inline">k=</span> 4。BICより多い</li>
-<li>予想どおり：k-meansのシルエット係数は <span class="math inline">k=</span> 2</li>
+<li>理論の二つの予想は、当たった</li>
+<li>規準によって群の数が違う。どの答えも、そのモデルの前提の下での答え</li>
+<li>尤度を使わない規準は、距離の見方で別の答えを出した</li>
 </ul>
 </section></section>
 <section>
@@ -1594,150 +1639,135 @@ k=n\ \Longrightarrow\ \bar s=0
 <h1>締め</h1>
 
 </section>
-<section id="まとめ①良くなる一方" class="slide level2" data-chapter="締め">
-<h2>まとめ①：良くなる一方</h2>
-<div id="2c09f40f" class="cell" data-execution_count="70">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-71-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1272" height="348"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>大きいモデルは小さいモデルを含む。<span class="math inline">\hat\ell</span> は上がり、<span class="math inline">J</span> は下がる一方。推定法では <span class="math inline">k</span> を選べない。</p>
+<section id="第19節-まとめと次回の問い" class="slide level2 center" data-chapter="締め" data-background-color="#eef2f7">
+<h2>第19節　まとめと次回の問い</h2>
 </section>
-<section id="まとめ②aicとbic" class="slide level2" data-chapter="締め">
-<h2>まとめ②：AICとBIC</h2>
-<div id="e8edc680" class="cell" data-execution_count="71">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-72-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="868" height="336"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>AICは手元の甘さ <span class="math inline">d</span> を足し戻し、新しい行での当てはまりを見積もる。BICは周辺尤度を近似し、データを作ったモデルを目指す。</p>
-</section>
-<section id="まとめ③距離で測る" class="slide level2" data-chapter="締め">
-<h2>まとめ③：距離で測る</h2>
-<div id="3cc503f0" class="cell" data-execution_count="72">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-73-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="869" height="318"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>尤度の無いk-meansには、距離の比で測るシルエット係数。物差しが違えば答えも違う。</p>
-</section>
-<section id="次回予告①代表点で近似" class="slide level2" data-chapter="締め">
-<h2>次回予告①：代表点で近似</h2>
-<p><span class="math display">
-\mathbf X\approx\mathbf G\mathbf C
-</span></p>
-<p>第7回・第8回：<span class="math inline">\mathbf X</span> の各行を、<span class="math inline">k</span> 個の代表点のどれかで近似した。今回、その <span class="math inline">k</span> を選んだ。</p>
-</section>
-<section id="次回予告②少数の軸で" class="slide level2" data-chapter="締め">
-<h2>次回予告②：少数の軸で</h2>
+<section id="まとめ増えるのは尤度" class="slide level2" data-chapter="締め">
+<h2>まとめ：増えるのは尤度</h2>
+<p><span class="crumb">第19節　まとめと次回の問い</span></p>
 <ul>
-<li>行を点に置き換えるのではなく、少数の軸の組み合わせで近似したら？</li>
-<li>列が多いデータを、少ない数でどこまで表せるか</li>
+<li>尤度は、群を増やすと必ず増える</li>
+<li>推定の中の量では、群の数は選べない</li>
+<li>推定の外側に、罰則を足す</li>
 </ul>
-<p>問い：<span class="math inline">\mathbf X</span> 自身を少数の軸で近似するとどうなる？</p>
+</section>
+<section id="まとめaicとbic" class="slide level2" data-chapter="締め">
+<h2>まとめ：AICとBIC</h2>
+<p><span class="crumb">第19節　まとめと次回の問い</span></p>
+<ul>
+<li>AIC：新しいデータでの当てはまりを見積もる。罰則は <span class="math inline">2d</span></li>
+<li>BIC：周辺尤度を近似する。罰則は <span class="math inline">d\log n</span></li>
+<li>小標本ではAICc。比べるのは、同じデータでの差</li>
+</ul>
+</section>
+<section id="次回予告少数の軸で" class="slide level2" data-chapter="締め">
+<h2>次回予告：少数の軸で</h2>
+<p><span class="crumb">第19節　まとめと次回の問い</span></p>
+<ul>
+<li>群の数が決まったら、次は、変数の数が多いときの問い</li>
+<li>たくさんの変数を、少数の軸にまとめられるか</li>
+</ul>
 </section></section>
 <section>
 <section id="発展" class="title-slide slide level1 part center">
 <h1>発展</h1>
 
 </section>
+<section id="第20節-発展特異モデル" class="slide level2 center" data-chapter="発展" data-background-color="#eef2f7">
+<h2>第20節　発展：特異モデル</h2>
+</section>
 <section id="発展前提が崩れるとき" class="slide level2" data-chapter="発展">
 <h2>発展：前提が崩れるとき</h2>
+<p><span class="crumb">第20節　発展：特異モデル</span></p>
 <ul>
-<li>AICもBICも、<span class="math inline">\boldsymbol\theta^*</span> が1点に決まり、<span class="math inline">\mathbf H</span> に逆行列があるとした</li>
-<li>群が多すぎる混合正規分布では、この前提が崩れた</li>
-<li>崩れても使える物差しが、WAICとWBIC（渡辺澄夫、2010年・2013年）</li>
+<li>AICとBICは、真のモデルが候補の内部にあり、尤度の山が二次で近似でき、パラメータが一意に決まる（正則）ことを前提にしている</li>
+<li>混合モデルでは、ある成分の重みが0になると、その成分の位置は意味を失う（特異）</li>
+<li>そのとき、パラメータの数 <span class="math inline">d</span> は、効いている自由度と一致しない</li>
 </ul>
 </section>
-<section id="群で1群を見る" class="slide level2" data-chapter="発展">
-<h2>2群で1群を見る</h2>
-<p><span class="math display">
-f(x\mid a,b)=(1-a)\,N(x;0,1)+a\,N(x;b,1)
-</span></p>
-<p>1変数・2群のモデル（<span class="math inline">d=2</span>）を、1群の <span class="math inline">N(0,1)</span> から出たデータに当てはめる。<span class="math inline">a=0</span> でも <span class="math inline">b=0</span> でも、真の分布になる。</p>
+<section id="例1群のデータを2群で当てはめる" class="slide level2" data-chapter="発展">
+<h2>例：1群のデータを2群で当てはめる</h2>
+<p><span class="crumb">第20節　発展：特異モデル</span></p>
+<ul>
+<li>真の分布は <span class="math inline">N(0,1)</span>（1群）</li>
+<li>候補は <span class="math inline">(1-a)N(0,1)+aN(b,1)</span>（2群）。<span class="math inline">a=0</span> なら1群と同じ</li>
+<li>事前分布は <span class="math inline">a</span> が一様 <span class="math inline">[0,1]</span>、<span class="math inline">b</span> が一様 <span class="math inline">[-4,4]</span>。事後分布は格子で求める</li>
+</ul>
 </section>
-<section id="事後分布は十字" class="slide level2" data-chapter="発展">
-<h2>事後分布は十字</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<p><span class="math inline">n=200</span> の事後分布 <span class="math inline">p(a,b\mid\mathbf X)\propto\exp(\ell(a,b))\,p(a,b)</span>。</p>
-<p>山頂は1点ではなく、2本の線に沿って広がる。2次の展開で1つの山とは見なせない。</p>
-</div><div class="column" style="width:55%;">
-<div id="bcc7cc2b" class="cell" data-execution_count="74">
+<section id="第21節-発展waicとwbic" class="slide level2 center" data-chapter="発展" data-background-color="#eef2f7">
+<h2>第21節　発展：WAICとWBIC</h2>
+</section>
+<section id="waic事後分布で平均する" class="slide level2 smaller" data-chapter="発展">
+<h2>WAIC：事後分布で平均する</h2>
+<p><span class="crumb">第21節　発展：WAICとWBIC</span></p>
+<p><span class="math display">
+\mathrm{WAIC}=-2\bigl(\mathrm{lppd}-p_{\mathrm{WAIC}}\bigr)
+</span></p>
+<p><span class="math display">
+\mathrm{lppd}=\sum_{i=1}^{n}\log\!\int f(x_i\mid\boldsymbol\theta)\,\pi(\boldsymbol\theta\mid D)\,d\boldsymbol\theta
+</span></p>
+<ul>
+<li><span class="math inline">\mathrm{lppd}</span>：事後分布で平均した予測密度の対数（手元の当てはまり）</li>
+<li><span class="math inline">p_{\mathrm{WAIC}}=\sum_i\mathrm{Var}_{\text{事後}}[\log f(x_i\mid\boldsymbol\theta)]</span>：事後分布のばらつき</li>
+</ul>
+</section>
+<section id="wbic温度を下げて平均する" class="slide level2" data-chapter="発展">
+<h2>WBIC：温度を下げて平均する</h2>
+<p><span class="crumb">第21節　発展：WAICとWBIC</span></p>
+<p><span class="math display">
+\pi_\beta(\boldsymbol\theta\mid D)\propto f(D\mid\boldsymbol\theta)^{\beta}\,\pi(\boldsymbol\theta),\qquad \beta=\frac1{\log n}
+</span></p>
+<p><span class="math display">
+\mathrm{WBIC}=-2\,\mathbb{E}_{\pi_\beta}\bigl[\log f(D\mid\boldsymbol\theta)\bigr]
+</span></p>
+<ul>
+<li><span class="math inline">\beta</span> を <span class="math inline">1</span> より小さくして（温度を上げて）、事後分布を広げる</li>
+<li>広げた事後分布で、対数尤度の平均を求める</li>
+</ul>
+</section>
+<section id="結果罰則はいくつか" class="slide level2 smaller" data-chapter="発展">
+<h2>結果：罰則はいくつか</h2>
+<p><span class="crumb">第21節　発展：WAICとWBIC</span></p>
+<ul>
+<li>真の分布は1群。2群のモデルを、データを作り直して300回当てはめた</li>
+<li>一般化の差（実測）は、WAICの罰則 <span class="math inline">2p_{\mathrm{WAIC}}</span> に近い</li>
+<li><span class="math inline">p_{\mathrm{WAIC}}</span> は約0.9。パラメータ数 <span class="math inline">2</span> より小さい</li>
+</ul>
+<div id="58d1c55e" class="cell" data-execution_count="68">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-75-output-1.png?v=30555811" width="509" height="402"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-69-output-1.png?v=a7dbff58" width="749" height="318"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
 </section>
-<section id="waic事後分布で平均" class="slide level2 smaller" data-chapter="発展">
-<h2>WAIC：事後分布で平均</h2>
-<p><span class="math display">
-\mathrm{WAIC}=-2\sum_{i=1}^{n}\log\mathrm E_{\boldsymbol\theta\mid\mathbf X}\bigl[f(\tilde{\boldsymbol x}_i\mid\boldsymbol\theta)\bigr]+2\sum_{i=1}^{n}\mathrm V_{\boldsymbol\theta\mid\mathbf X}\bigl[\log f(\tilde{\boldsymbol x}_i\mid\boldsymbol\theta)\bigr]
-</span></p>
-<p><span class="math inline">\mathrm E_{\boldsymbol\theta\mid\mathbf X}</span>・<span class="math inline">\mathrm V_{\boldsymbol\theta\mid\mathbf X}</span> は事後分布での平均と分散。AICの <span class="math inline">d</span> の代わりに、行ごとの <span class="math inline">\log f</span> の事後分布での揺れを足す。<span class="math inline">d</span> を数えなくてよい。</p>
-</section>
-<section id="waicは差を当てる" class="slide level2" data-chapter="発展">
-<h2>WAICは差を当てる</h2>
-<div id="c3e1ad5d" class="cell" data-execution_count="75">
+<section id="結果周辺尤度をどれだけ当てるか" class="slide level2 smaller" data-chapter="発展">
+<h2>結果：周辺尤度をどれだけ当てるか</h2>
+<p><span class="crumb">第21節　発展：WAICとWBIC</span></p>
+<ul>
+<li>正確な周辺尤度からのずれ：BIC（<span class="math inline">d=2</span>）は <span class="math inline">\log n</span> ほど大きい</li>
+<li>WBICは、正確な値にほぼ一致する</li>
+</ul>
+<div id="1ed815ba" class="cell" data-execution_count="69">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="slide_files/figure-revealjs/cell-76-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="1013" height="342"></p>
+<p><img data-src="slide_files/figure-revealjs/cell-70-output-1.png?v=a7dbff58" width="749" height="330"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">n=100</span> で600通り。1群のモデルではどれも約1。2群のモデルでは最尤法の差は 1.50 で、AICの2とずれる。WAICの補正 0.92 は実際の差 0.97 に近い。</p>
 </section>
-<section id="wbic温度を下げて平均" class="slide level2" data-chapter="発展">
-<h2>WBIC：温度を下げて平均</h2>
-<p><span class="math display">
-\begin{gathered}
-\mathrm{WBIC}=\mathrm E^{(\beta)}_{\boldsymbol\theta\mid\mathbf X}\bigl[-2\ell(\boldsymbol\theta)\bigr]\\
-p^{(\beta)}(\boldsymbol\theta\mid\mathbf X)\propto\exp\bigl(\beta\,\ell(\boldsymbol\theta)\bigr)p(\boldsymbol\theta),\qquad\beta=\frac{1}{\log n}
-\end{gathered}
-</span></p>
-<p>当てはまりを <span class="math inline">\beta</span> 乗に弱めた事後分布で、<span class="math inline">-2\ell</span> を平均する。周辺尤度の積分をせずに、<span class="math inline">-2\log p(\mathbf X)</span> を近似する。</p>
-</section>
-<section id="wbicは周辺尤度を当てる" class="slide level2" data-chapter="発展">
-<h2>WBICは周辺尤度を当てる</h2>
-<div id="5eed69b1" class="cell" data-execution_count="76">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="slide_files/figure-revealjs/cell-77-output-1.png?v=30555811" class="quarto-figure quarto-figure-center" width="909" height="318"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>周辺尤度は格子で数値積分した（各 <span class="math inline">n</span> で20通りの平均）。2群のBICのずれは <span class="math inline">n</span> とともに広がり、WBICはほぼ0のまま。</p>
-</section>
-<section id="罰則の傾き" class="slide level2" data-chapter="発展">
-<h2>罰則の傾き</h2>
-<p><span class="math display">
-\begin{gathered}
--\log p(\mathbf X)\approx-\ell(\boldsymbol\theta^*)+\lambda\log n\\
-\lambda=\begin{cases}d/2&amp;(\text{前提が成り立つ})\\ 1/2&amp;(\text{この2群のモデル、}d=2)\end{cases}
-\end{gathered}
-</span></p>
-<p><span class="math inline">\lambda</span> を実対数閾値と呼ぶ。前提が崩れると <span class="math inline">\lambda&lt;d/2</span> になり、BICの罰則は重すぎる。WBICは <span class="math inline">\lambda</span> を知らなくても使える。</p>
+<section id="まとめ正則なら-aicとbic-に一致する" class="slide level2" data-chapter="発展">
+<h2>まとめ：正則なら AICとBIC に一致する</h2>
+<p><span class="crumb">第21節　発展：WAICとWBIC</span></p>
+<ul>
+<li>WAIC：<span class="math inline">-2(\mathrm{lppd}-p_{\mathrm{WAIC}})</span>。正則なら AIC に近い</li>
+<li>WBIC：温度 <span class="math inline">1/\log n</span> の事後分布で平均。正則なら BIC に近い</li>
+<li>特異モデルでは、<span class="math inline">d</span> を数える代わりに、事後分布から罰則を測る</li>
+</ul>
 
 </section></section>
     </div>

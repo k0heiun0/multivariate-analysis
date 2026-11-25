@@ -16,7 +16,7 @@
 | 6 | 分類②：最尤法（[読み物 PDF](06_classification_ml/reading.pdf)・[スライド PDF](06_classification_ml/slides.pdf)） |
 | 7 | k-means（[読み物 PDF](07_kmeans/reading.pdf)・[スライド PDF](07_kmeans/slides.pdf)） |
 | 8 | 混合正規分布と EM アルゴリズム（[読み物 PDF](08_gmm_em/reading.pdf)・[スライド PDF](08_gmm_em/slides.pdf)） |
-| 9 | 群の数の選び方（[読み物 PDF](09_model_selection/reading.pdf)・[スライド PDF](09_model_selection/slides.pdf)） |
+| 9 | 情報量規準で選ぶ（[読み物 PDF](09_model_selection/reading.pdf)・[スライド PDF](09_model_selection/slides.pdf)） |
 | 10 | 主成分分析①（[読み物 PDF](10_pca/reading.pdf)・[スライド PDF](10_pca/slides.pdf)） |
 | 11 | 主成分分析②（[読み物 PDF](11_pca_fa/reading.pdf)・[スライド PDF](11_pca_fa/slides.pdf)） |
 | 12 | 対応分析（[読み物 PDF](12_correspondence/reading.pdf)・[スライド PDF](12_correspondence/slides.pdf)） |
